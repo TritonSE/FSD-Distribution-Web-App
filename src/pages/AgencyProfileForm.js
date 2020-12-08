@@ -1,11 +1,14 @@
-import "./styles.css";
+import "./FormComponents/styles.css";
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import "typeface-roboto";
 import Form from "react-bootstrap/Form";
-import InputText from "./InputText";
-import FormButton from "./FormButton";
+import InputText from "./FormComponents/InputText";
+import FormButton from "./FormComponents/FormButton";
 import "bootstrap/dist/css/bootstrap.min.css";
+
+
+//For pulling: git pull (once you are in proper branch)
+// For pushing: git add -A .; git commit -m '<COMMENT>'; git push
 
 // Page name
 // Section headers
@@ -46,7 +49,7 @@ class FormSectionHeader extends Component {
   }
 }
 
-class NewAgencyFormPage extends Component {
+class AgencyProfileForm extends Component {
   render() {
     return (
       <div>
@@ -167,3 +170,5 @@ class NewAgencyFormPage extends Component {
     );
   }
 }
+
+export default AgencyProfileForm;

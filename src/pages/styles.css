@@ -1,0 +1,66 @@
+
+
+.page-header {
+  position: absolute;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 35px;
+  line-height: 41px;
+}
+
+.form-section-header {
+  position: absolute;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
+}
+
+.form-section-header-underline {
+    position: absolute;
+
+    background: #54682F;
+    border-radius: 1px;
+}
+
+.checkbox-label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+}
+
+.input-field-header {
+  position: absolute;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.btn-create-profile-button {
+  background: #54682F;
+
+  position: absolute;
+  width: 376px;
+  height: 67px;
+  left: calc(50% - 376px/2 - 216.5px);
+  top: 4030px;
+
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+  letter-spacing: -0.01em;
+
+  border-color: #54682F;
+  border-radius: 10px;
+}

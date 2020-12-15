@@ -1,40 +1,26 @@
-import "./formstyle.css";
 import React, { Component } from "react";
-import "typeface-roboto";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
+import RequiredAsterisk from "./RequiredAsterisk";
+import "./formstyle.css";
 
 class InputDropdown extends Component {
-  state = {};
   render() {
-    const { width, height, left, top, header } = this.props;
+    let groupClass = null;
+    if (!this.props.leftmost) {
+      groupClass = "form-col-gutter";
+    }
+    
     return (
-      <Form.Group controlId="exampleForm.ControlSelect1">
-        <Form.Label
-          className="input-field-header"
-          style={{
-            position: "absolute",
-            left: left + "px",
-            top: top + "px",
-          }}
-        >
-          {header}
+      <Form.Group bsPrefix="form-input" className={groupClass}>
+        <Form.Label className="form-input-label">
+          {this.props.label}
+          <RequiredAsterisk required={this.props.required} />
         </Form.Label>
-        <Form.Control
-          as="select"
-          style={{
-            position: "absolute",
-            width: width + "px",
-            height: height + "px",
-            left: left + 7 + "px",
-            top: top + 30 + "px",
-          }}
-        >
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
+        <Form.Control as="select" custom>
+          <option value=""></option>
+          {this.props.options.map((optionText, index) => {
+            return <option value={index}>{optionText}</option>
+          })}
         </Form.Control>
       </Form.Group>
     );

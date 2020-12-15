@@ -35,63 +35,155 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Quick Information" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Agency Number" required={true} leftmost={true} />
+                <InputText label="Agency Number" leftmost required />
               </Col>
               <Col xs="auto">
-                <InputText label="Agency Name" required={true} wide={true} />
+                <InputText label="Agency Name" required wide />
               </Col>
             </Row>
+
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Primary Contact" required={true} leftmost={true} />
+                <InputText label="Primary Contact" leftmost required />
               </Col>
               <Col xs="auto">
-                <InputText label="Main Site Address" required={true} wide={true} />
+                <InputText label="Main Site Address" required wide />
               </Col>
             </Row>
-            <Row>
-              <Col>
-                <InputDropdown label="Agency Status" options={["Onboarding", "Active", "Inactive", "On Hold"]} />
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputDropdown
+                  label="Agency Status"
+                  options={["Onboarding", "Active", "Inactive", "On Hold"]}
+                  leftmost required />
               </Col>
             </Row>
           </div>
 
-          {/*SELECT DROPDOWN*/}
-          <Form.Group controlId="exampleForm.ControlSelect1">
-            <Form.Label>Example select</Form.Label>
-            <Form.Control as="select">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </Form.Control>
-          </Form.Group>
+          <div className="form-section">
+            <FormSectionHeader title="Location and Addresses" />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Region" leftmost required />
+              </Col>
+            </Row>
 
-          <FormSectionHeader
-            width={271}
-            height={29}
-            left={130}
-            top={791}
-            header={"Location and Addresses"}
-          />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="San Diego District" leftmost required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="County District" required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="State Assembly District" required />
+              </Col>
+            </Row>
 
-          <FormSectionHeader
-            width={101}
-            height={29}
-            left={130}
-            top={1540}
-            header={"Contacts"}
-          />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="State Senate District" leftmost required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Federal Congressional District" required />
+              </Col>
+            </Row>
 
-          {/*CHECKBOX*/}
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check
-              type="checkbox"
-              label="Check me out"
-              className="checkbox-label"
-            />
-          </Form.Group>
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Main Site Address" leftmost required wide />
+              </Col>
+            </Row>
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Additional Address" leftmost wide />
+              </Col>
+            </Row>
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Billing Address" leftmost required wide />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Billing Zipcode" required />
+              </Col>
+            </Row>
+          </div>
+
+          <div className="form-section">
+            <FormSectionHeader title="Contacts" />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Contact" leftmost required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Position" required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Phone #" />
+              </Col>
+            </Row>
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Email" leftmost required wide />
+              </Col>
+            </Row>
+          </div>
+
+          <div className="form-section">
+            <FormSectionHeader title="Compliance" />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Scheduled Next Visit" leftmost required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Date of Most Recent Agreement" required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Date of Initial Partnership" required />
+              </Col>
+            </Row>
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="File Audit" leftmost />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Monitored" required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Food Safety Certification" required />
+              </Col>
+            </Row>
+          </div>
+
+          <div className="form-section">
+            <FormSectionHeader title="Distribution" />
+            <Row noGutter={true}>
+              <Col xs="auto">
+                <InputText label="Main Site Phone #" leftmost />
+              </Col>
+              <Col xs="auto">
+                <InputDropdown
+                  label="Distribution Day(s)"
+                  options={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+                  required
+                />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Distribution Frequency" required />
+              </Col>
+            </Row>
+
+            <Row noGutter={true}>
+              <Col xs="auto">
+                <InputText label="Distribution Hours" leftmost />
+              </Col>
+            </Row>
+          </div>
 
           {/*BUTTON*/}
           <FormButton

@@ -5,22 +5,26 @@ import "./formstyle.css";
 
 class InputText extends Component {
   render() {
-    let groupClass = "form-input";
+    let groupClass = null;
     if (!this.props.leftmost) {
-      groupClass += " form-col-gutter";
+      groupClass = "form-col-gutter";
     }
-    let boxClass = null;
+    let boxClass = "normal-text";
     if (this.props.wide) {
-      boxClass = "form-input-box-wide";
+      boxClass = " form-input-box-wide";
     }
     
     return (
-      <Form.Group className={groupClass}>
+      <Form.Group bsPrefix="form-input" className={groupClass}>
         <Form.Label className="form-input-label">
           {this.props.label}
           <RequiredAsterisk required={this.props.required} />
         </Form.Label>
-        <Form.Control type="text" bsPrefix="form-input-box" className={boxClass} />
+        <Form.Control
+          type="text"
+          bsPrefix="form-input-box"
+          className={boxClass}
+        />
       </Form.Group>
     );
   }

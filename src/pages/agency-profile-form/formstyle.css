@@ -34,6 +34,11 @@
 
 .form-input {
   margin-top: 23px;
+  padding-left: 7px;
+}
+
+.form-col-gutter {
+  margin-left: 142px;
 }
 
 .form-input-label {
@@ -43,6 +48,7 @@
   font-size: 18px;
   line-height: 21px;
   color: #000000;
+  margin-left: -7px;
   margin-bottom: 8px;
 }
 
@@ -79,17 +85,9 @@ p {
 }
 
 .asterisk {
+  margin-left: 0px;
+  display: inline;
   color: #FC0808;
-}
-
-.input-field-header {
-  position: absolute;
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 21px;
 }
 
 .btn-create-profile-button {

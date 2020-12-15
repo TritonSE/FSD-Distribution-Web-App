@@ -22,8 +22,6 @@ import "./formstyle.css";
 // Number field / counter - EF/WW
 // Button - EF/WW
 
-// TODO 12-14-20: look into using SASS to modify default Bootstrap styling, so we don't have to always do className="..."
-
 class AgencyProfileForm extends Component {
   render() {
     return (
@@ -35,20 +33,20 @@ class AgencyProfileForm extends Component {
         <Form>
           <div className="form-section">
             <FormSectionHeader title="Quick Information" />
-            <Row>
+            <Row noGutters={true}>
               <Col>
-                <InputText label="Agency Number" />
+                <InputText label="Agency Number" required={true} leftmost={true} />
               </Col>
-              <Col xs={2}>
-                <InputText label="Agency Name" />
+              <Col xs={8}>
+                <InputText label="Agency Name" required={true} />
               </Col>
             </Row>
-            <Row>
+            <Row noGutters={true}>
               <Col>
-                <InputText label="Primary Contact" />
+                <InputText label="Primary Contact" required={true} leftmost={true} />
               </Col>
-              <Col xs={2}>
-                <InputText label="Main Site Address" />
+              <Col xs={8}>
+                <InputText label="Main Site Address" required={true} />
               </Col>
             </Row>
             <Row>

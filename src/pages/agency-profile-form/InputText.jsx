@@ -1,19 +1,21 @@
-import "./formstyle.css";
 import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
+import RequiredAsterisk from "./RequiredAsterisk";
+import "./formstyle.css";
 
 class InputText extends Component {
-  state = {};
-
-  
   render() {
+    let groupClass = "form-input";
+    if (!this.props.leftmost) {
+      groupClass += " form-col-gutter";
+    }
     return (
-      <Form.Group className="form-input">
+      <Form.Group className={groupClass}>
         <Form.Label className="form-input-label">
           {this.props.label}
+          <RequiredAsterisk required={this.props.required} />
         </Form.Label>
-        <Form.Control type="text" className="form-input-textbox" />
+        <Form.Control type="text" />
       </Form.Group>
     );
   }

@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./formstyle.css";
 import React, { Component } from "react";
 import "typeface-roboto";
 import "bootstrap/dist/css/bootstrap.min.css";

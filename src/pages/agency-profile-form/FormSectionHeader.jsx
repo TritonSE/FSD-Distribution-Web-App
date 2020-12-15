@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./styles.css";
+import "./formstyle.css";
 
 class FormSectionHeader extends Component {
   render() {

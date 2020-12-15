@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./formstyle.css";
 import React, { Component } from "react";
 import "typeface-roboto";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,8 +24,8 @@ class InputDropdown extends Component {
           as="select"
           style={{
             position: "absolute",
-            width: fieldWidth + "px",
-            height: fieldHeight + "px",
+            width: width + "px",
+            height: height + "px",
             left: left + 7 + "px",
             top: top + 30 + "px",
           }}

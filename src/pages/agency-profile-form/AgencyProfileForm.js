@@ -1,9 +1,11 @@
-import "./FormComponents/styles.css";
+import "./formstyle.css";
 import React, { Component } from "react";
-import "typeface-roboto";
+//import "./agency-profile-form/node_modules/typeface-roboto";
 import Form from "react-bootstrap/Form";
-import InputText from "./FormComponents/InputText";
-import FormButton from "./FormComponents/FormButton";
+import FormSectionHeader from "./FormSectionHeader";
+import InputText from "./InputText";
+import InputDropdown from "./InputDropdown";
+import FormButton from "./FormButton";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 
@@ -19,7 +21,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Number field / counter - EF/WW
 // Button - EF/WW
 
-class FormSectionHeader extends Component {
+/*class FormSectionHeader extends Component {
   render() {
     const { width, height, left, top, header } = this.props;
     return (
@@ -47,7 +49,7 @@ class FormSectionHeader extends Component {
       </div>
     );
   }
-}
+}*/
 
 class AgencyProfileForm extends Component {
   render() {

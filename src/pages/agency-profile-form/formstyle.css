@@ -27,7 +27,8 @@
 
 .form-section-title-underline {
   background: #54682F;
-  height: 3px;
+  height: 4px;
+  border-radius: 1px;
   margin-top: 3px;
   margin-bottom: 8px;
 }
@@ -52,7 +53,7 @@
   margin-bottom: 8px;
 }
 
-.form-checkbox-group-label {
+.form-checkbox-list-header {
   font-family: Roboto;
   font-style: italic;
   font-weight: medium;
@@ -61,7 +62,7 @@
   color: #000000;
 }
 
-.form-input-group-label {
+.form-input-list-header {
   font-family: Roboto;
   font-style: normal;
   font-weight: 400;
@@ -70,9 +71,10 @@
   color: #000000;
 }
 
-.form-input-group-sublabel {
+.form-input-list-subheader {
   font-style: italic;
   font-weight: 300;
+  display: inline;
 }
 
 p {
@@ -88,6 +90,20 @@ p {
   margin-left: 0px;
   display: inline;
   color: #FC0808;
+}
+
+.form-input-box {
+  width: 289px;
+  height: 43px;
+  display: block;
+  background: #FFFFFF;
+  border: 2px solid #CDCBD4;
+  box-sizing: border-box;
+  border-radius: 7px;
+}
+
+.form-input-box-wide {
+  width: 698px;
 }
 
 .btn-create-profile-button {

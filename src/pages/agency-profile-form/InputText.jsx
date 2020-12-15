@@ -9,13 +9,18 @@ class InputText extends Component {
     if (!this.props.leftmost) {
       groupClass += " form-col-gutter";
     }
+    let boxClass = null;
+    if (this.props.wide) {
+      boxClass = "form-input-box-wide";
+    }
+    
     return (
       <Form.Group className={groupClass}>
         <Form.Label className="form-input-label">
           {this.props.label}
           <RequiredAsterisk required={this.props.required} />
         </Form.Label>
-        <Form.Control type="text" />
+        <Form.Control type="text" bsPrefix="form-input-box" className={boxClass} />
       </Form.Group>
     );
   }

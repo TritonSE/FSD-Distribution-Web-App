@@ -6,7 +6,7 @@ import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
 import InputDropdown from "./InputDropdown";
 import FormButton from "./FormButton";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 import "./formstyle.css";
 
 
@@ -34,19 +34,19 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <FormSectionHeader title="Quick Information" />
             <Row noGutters={true}>
-              <Col>
+              <Col xs="auto">
                 <InputText label="Agency Number" required={true} leftmost={true} />
               </Col>
-              <Col xs={8}>
-                <InputText label="Agency Name" required={true} />
+              <Col xs="auto">
+                <InputText label="Agency Name" required={true} wide={true} />
               </Col>
             </Row>
             <Row noGutters={true}>
-              <Col>
+              <Col xs="auto">
                 <InputText label="Primary Contact" required={true} leftmost={true} />
               </Col>
-              <Col xs={8}>
-                <InputText label="Main Site Address" required={true} />
+              <Col xs="auto">
+                <InputText label="Main Site Address" required={true} wide={true} />
               </Col>
             </Row>
             <Row>

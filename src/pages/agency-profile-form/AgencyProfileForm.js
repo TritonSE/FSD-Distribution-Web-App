@@ -1,12 +1,13 @@
-import "./formstyle.css";
 import React, { Component } from "react";
-//import "./agency-profile-form/node_modules/typeface-roboto";
 import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
 import InputDropdown from "./InputDropdown";
 import FormButton from "./FormButton";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./formstyle.css";
 
 
 //For pulling: git pull (once you are in proper branch)
@@ -21,95 +22,40 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Number field / counter - EF/WW
 // Button - EF/WW
 
-/*class FormSectionHeader extends Component {
-  render() {
-    const { width, height, left, top, header } = this.props;
-    return (
-      <div>
-        <label
-          className="form-section-header"
-          style={{
-            width: width + "px",
-            height: height + "px",
-            left: left + "px",
-            top: top + "px",
-          }}
-        >
-          {header}
-        </label>
-        <div
-          className="form-section-header-underline"
-          style={{
-            width: width + "px",
-            height: "4px",
-            left: left + "px",
-            top: top + 32 + "px",
-          }}
-        />
-      </div>
-    );
-  }
-}*/
+// TODO 12-14-20: look into using SASS to modify default Bootstrap styling, so we don't have to always do className="..."
 
 class AgencyProfileForm extends Component {
   render() {
     return (
-      <div>
-        <p
-          className="page-header"
-          style={{
-            position: "absolute",
-            width: "419px",
-            height: "41px",
-            left: "130px",
-            top: "273px",
-          }}
-        >
-          Add a New Agency Profile.{" "}
-        </p>
+      <div className="form-body">
+        <h1 className="form-title">
+          Add a New Agency Profile.
+        </h1>
 
-        {/* TEXT INPUT FIELD */}
         <Form>
-          <div>
-            <FormSectionHeader
-              width={203}
-              height={29}
-              left={130}
-              top={384}
-              header={"Quick Information"}
-            />
-
-            <InputText
-              fieldWidth={289}
-              fieldHeight={43}
-              left={137}
-              top={451}
-              header={"Agency Number"}
-            />
-
-            <InputText
-              fieldWidth={698}
-              fieldHeight={43}
-              left={559}
-              top={451}
-              header={"Agency Name"}
-            />
-
-            <InputText
-              fieldWidth={289}
-              fieldHeight={43}
-              left={137}
-              top={546}
-              header={"Primary Contact"}
-            />
-
-            <InputText
-              fieldWidth={698}
-              fieldHeight={43}
-              left={559}
-              top={546}
-              header={"Main Site Address"}
-            />
+          <div className="form-section">
+            <FormSectionHeader title="Quick Information" />
+            <Row>
+              <Col>
+                <InputText label="Agency Number" />
+              </Col>
+              <Col xs={2}>
+                <InputText label="Agency Name" />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <InputText label="Primary Contact" />
+              </Col>
+              <Col xs={2}>
+                <InputText label="Main Site Address" />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <InputDropdown label="Agency Status" options={["Onboarding", "Active", "Inactive", "On Hold"]} />
+              </Col>
+            </Row>
           </div>
 
           {/*SELECT DROPDOWN*/}

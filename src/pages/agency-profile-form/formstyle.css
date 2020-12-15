@@ -1,35 +1,85 @@
-.page-header {
-  position: absolute;
+.form-body {
+  margin: 62px 318px 64px 130px;
+}
 
+.form-title {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 35px;
   line-height: 41px;
+  color: #000000;
 }
 
-.form-section-header {
-  position: absolute;
+.form-section {
+  margin-top: 74px;
+}
 
+.form-section-title {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 25px;
   line-height: 29px;
+  color: #000000;
+  display: inline-block;
 }
 
-.form-section-header-underline {
-    position: absolute;
-
-    background: #54682F;
-    border-radius: 1px;
+.form-section-title-underline {
+  background: #54682F;
+  height: 3px;
+  margin-top: 3px;
+  margin-bottom: 8px;
 }
 
-.checkbox-label {
+.form-input {
+  margin-top: 23px;
+}
+
+.form-input-label {
   font-family: Roboto;
   font-style: normal;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.form-checkbox-group-label {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: medium;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.form-input-group-label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.form-input-group-sublabel {
+  font-style: italic;
+  font-weight: 300;
+}
+
+p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.asterisk {
+  color: #FC0808;
 }
 
 .input-field-header {

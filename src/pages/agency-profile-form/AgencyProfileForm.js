@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
 import InputDropdown from "./InputDropdown";
+import InputCheckboxList from "./InputCheckboxList";
 import FormButton from "./FormButton";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import "./formstyle.css";
@@ -162,7 +163,7 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <FormSectionHeader title="Distribution" />
-            <Row noGutter={true}>
+            <Row noGutters={true}>
               <Col xs="auto">
                 <InputText label="Main Site Phone #" leftmost />
               </Col>
@@ -178,14 +179,52 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
 
-            <Row noGutter={true}>
+            <Row noGutters={true}>
               <Col xs="auto">
                 <InputText label="Distribution Hours" leftmost />
               </Col>
             </Row>
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputCheckboxList
+                  label="Check Boxes if Available/Correct."
+                  options={["Pantry", "Meal Program", "Homebound Delivery Partner", "Large Scale Distribution Site", "Residential Facility or Group Home"]}
+                />
+              </Col>
+            </Row>
           </div>
 
-          {/*BUTTON*/}
+          <div className="form-section">
+            <FormSectionHeader title="Capacity" />
+          </div>
+
+          <div className="form-section">
+            <FormSectionHeader title="Retail Rescue" />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputCheckboxList
+                  label="Check Boxes if Available."
+                  options={["Retail Rescue", "Prepared Food Capacity", "Capacity with RR with Delivery"]}
+                />
+              </Col>
+            </Row>
+          </div>
+
+          <div className="form-section">
+            <FormSectionHeader title="Demographics" />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputCheckboxList
+                  label="Check Boxes if Applicable."
+                  options={["Youth", "Senior", "Homeless", "Veteran/Military", "Healthcare", "College/University", "Disability Specific (Physical or Mental)", "Residential", "Immigrant"]}
+                  twoColumns
+                />
+              </Col>
+            </Row>
+          </div>
+
+          {/*BUTTON
           <FormButton
             left={"calc(50% - 376px/2 - 216.5px)"}
             top={"4030px"}
@@ -202,7 +241,7 @@ class AgencyProfileForm extends Component {
             labelColor={"#000000"}
             borderColor={"#000000"}
             backgroundColor={"#FFFFFF"}
-          />
+          />*/}
         </Form>
       </div>
     );

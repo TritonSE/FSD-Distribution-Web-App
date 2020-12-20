@@ -9,7 +9,7 @@ class InputDropdown extends Component {
     if (!this.props.leftmost) {
       groupClass = "form-col-gutter";
     }
-    
+
     return (
       <Form.Group bsPrefix="form-input" className={groupClass}>
         <Form.Label className="form-input-label">
@@ -19,7 +19,7 @@ class InputDropdown extends Component {
         <Form.Control as="select" custom>
           <option value=""></option>
           {this.props.options.map((optionText, index) => {
-            return <option value={index}>{optionText}</option>
+            return <option key={index} value={index}>{optionText}</option>
           })}
         </Form.Control>
       </Form.Group>

@@ -9,11 +9,11 @@ class InputText extends Component {
     if (!this.props.leftmost) {
       groupClass = "form-col-gutter";
     }
-    let boxClass = "normal-text";
+    let boxClass = "selection-choice";
     if (this.props.wide) {
       boxClass = " form-input-box-wide";
     }
-    
+
     return (
       <Form.Group bsPrefix="form-input" className={groupClass}>
         <Form.Label className="form-input-label">

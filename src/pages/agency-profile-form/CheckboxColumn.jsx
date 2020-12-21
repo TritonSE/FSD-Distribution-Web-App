@@ -1,5 +1,4 @@
 import React from "react";
-import Form from "react-bootstrap/Form";
 import Checkbox from "./Checkbox";
 import "./formstyle.css";
 

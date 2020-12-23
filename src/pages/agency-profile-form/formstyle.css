@@ -26,7 +26,7 @@
 }
 
 .form-section-title-underline {
-  background: #54682F;
+  background: #54682f;
   height: 4px;
   border-radius: 1px;
   margin-top: 3px;
@@ -95,15 +95,15 @@
 .asterisk {
   margin-left: 0px;
   display: inline;
-  color: #FC0808;
+  color: #fc0808;
 }
 
 .form-input-box {
   width: 289px;
   height: 43px;
   display: block;
-  background: #FFFFFF;
-  border: 2px solid #CDCBD4;
+  background: #ffffff;
+  border: 2px solid #cdcbd4;
   box-sizing: border-box;
   border-radius: 7px;
   padding: 12px;
@@ -117,11 +117,11 @@ select.custom-select {
   width: 289px;
   height: 43px;
   display: block;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'%3e%3cpath fill='%23545252' d='M0 0H12L6 10Z'/%3e%3c/svg%3e");
   background-position: right 10px center;
   background-size: auto;
-  border: 2px solid #CDCBD4;
+  border: 2px solid #cdcbd4;
   box-sizing: border-box;
   border-radius: 7px;
   font-family: Roboto;
@@ -161,11 +161,55 @@ select.custom-select {
 }
 
 .custom-checkbox input[type="checkbox"]:checked + svg .custom-checkbox-bg {
-  fill: #54682F;
+  fill: #54682f;
 }
 
-.custom-checkbox input[type="checkbox"]:checked + svg .custom-checkbox-checkmark {
-  stroke: #FFFFFF;
+.custom-checkbox
+  input[type="checkbox"]:checked
+  + svg
+  .custom-checkbox-checkmark {
+  stroke: #ffffff;
+}
+
+/* * Incrementer Box * */
+
+.incrementer-box-container {
+  text-align: center;
+  border: 1px solid #000000;
+}
+
+.incrementer-box-input {
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 20px;
+  text-align: center;
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 15px;
+  border: transparent;
+  outline: none;
+}
+
+.triangle-up {
+  margin-top: 5px;
+  width: 8px;
+  height:8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid rgb(0, 0, 0);
+  cursor: pointer;
+}
+
+.triangle-down {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  /* TOP RIGHT BOTTOM LEFT */
+  width: 8px;
+  height:8px;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-top: 12px solid rgb(0, 0, 0);
+  cursor: pointer;
 }
 
 /*
@@ -192,14 +236,13 @@ div.custom-checkbox .custom-control-label::before {
 }
 */
 .btn-create-profile-button {
-  background: #54682F;
+  background: #54682f;
 
   position: absolute;
   width: 376px;
   height: 67px;
-  left: calc(50% - 376px/2 - 216.5px);
+  left: calc(50% - 376px / 2 - 216.5px);
   top: 4030px;
-
 
   font-family: Roboto;
   font-style: normal;
@@ -208,6 +251,6 @@ div.custom-checkbox .custom-control-label::before {
   line-height: 35px;
   letter-spacing: -0.01em;
 
-  border-color: #54682F;
+  border-color: #54682f;
   border-radius: 10px;
 }

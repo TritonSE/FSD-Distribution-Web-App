@@ -6,10 +6,10 @@ import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
 import InputDropdown from "./InputDropdown";
 import InputCheckboxList from "./InputCheckboxList";
+import IncrementerBox from "./IncrementerBox";
 import FormButton from "./FormButton";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import "./formstyle.css";
-
 
 //For pulling: git pull (once you are in proper branch)
 // For pushing: git add -A .; git commit -m '<COMMENT>'; git push
@@ -27,9 +27,7 @@ class AgencyProfileForm extends Component {
   render() {
     return (
       <div className="form-body">
-        <h1 className="form-title">
-          Add a New Agency Profile.
-        </h1>
+        <h1 className="form-title">Add a New Agency Profile.</h1>
 
         <Form>
           <div className="form-section">
@@ -57,7 +55,9 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
-                  leftmost required />
+                  leftmost
+                  required
+                />
               </Col>
             </Row>
           </div>
@@ -170,7 +170,15 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <InputDropdown
                   label="Distribution Day(s)"
-                  options={["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]}
+                  options={[
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                    "Saturday",
+                    "Sunday",
+                  ]}
                   required
                 />
               </Col>
@@ -189,7 +197,13 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <InputCheckboxList
                   label="Check Boxes if Available/Correct."
-                  options={["Pantry", "Meal Program", "Homebound Delivery Partner", "Large Scale Distribution Site", "Residential Facility or Group Home"]}
+                  options={[
+                    "Pantry",
+                    "Meal Program",
+                    "Homebound Delivery Partner",
+                    "Large Scale Distribution Site",
+                    "Residential Facility or Group Home",
+                  ]}
                 />
               </Col>
             </Row>
@@ -205,7 +219,11 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <InputCheckboxList
                   label="Check Boxes if Available."
-                  options={["Retail Rescue", "Prepared Food Capacity", "Capacity with RR with Delivery"]}
+                  options={[
+                    "Retail Rescue",
+                    "Prepared Food Capacity",
+                    "Capacity with RR with Delivery",
+                  ]}
                 />
               </Col>
             </Row>
@@ -217,13 +235,28 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <InputCheckboxList
                   label="Check Boxes if Applicable."
-                  options={["Youth", "Senior", "Homeless", "Veteran/Military", "Healthcare", "College/University", "Disability Specific (Physical or Mental)", "Residential", "Immigrant"]}
+                  options={[
+                    "Youth",
+                    "Senior",
+                    "Homeless",
+                    "Veteran/Military",
+                    "Healthcare",
+                    "College/University",
+                    "Disability Specific (Physical or Mental)",
+                    "Residential",
+                    "Immigrant",
+                  ]}
                   twoColumns
                 />
               </Col>
             </Row>
           </div>
 
+          <Row noGutters={true}>
+            <Col xs="auto">
+              <IncrementerBox />
+            </Col>
+          </Row>
           {/*BUTTON
           <FormButton
             left={"calc(50% - 376px/2 - 216.5px)"}

@@ -253,8 +253,8 @@ class AgencyProfileForm extends Component {
           </div>
 
           <Row noGutters={true}>
-            <Col xs="auto">
-              <IncrementerBox />
+            <Col>
+              <IncrementerBox label={"TEST LABEL"} />
             </Col>
           </Row>
           {/*BUTTON

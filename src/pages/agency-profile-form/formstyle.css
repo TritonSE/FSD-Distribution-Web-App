@@ -173,45 +173,59 @@ select.custom-select {
 
 /* * Incrementer Box * */
 
+.center-col-contents {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.incrementer-box-label {
+  margin: 5px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+}
+
 .incrementer-box-container {
+  height: 25px;
+  width: 35px;
   padding: 0px;
   margin: 0px;
-  border-radius: 10px ;
+  border-radius: 3px;
   border: 1px solid #000000;
 }
 
-.remove-all-margin-padding{
-  margin:0 ! important;
-  padding:0 ! important;
-  }
+.remove-all-margin-padding {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 .incrementer-box-input {
-  margin-top: 8px;
   width: 45px;
   text-align: center;
   font-family: Roboto;
   font-style: normal;
-  font-size: 15px;
+  font-size: 12px;
   border: transparent;
-  outline: none;
+  outline: transparent;
 }
 
-.triangle-up {
-  margin-top: 5px;
-  margin-right: 5px;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-bottom: 12px solid rgb(0, 0, 0);
+.btn-triangle-up {
+  margin-top: 3px;
+  margin-right: 3px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 6px solid rgb(0, 0, 0);
   cursor: pointer;
 }
 
-.triangle-down {
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-right: 5px;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 12px solid rgb(0, 0, 0);
+.btn-triangle-down {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  margin-right: 3px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 6px solid rgb(0, 0, 0);
   cursor: pointer;
 }
 

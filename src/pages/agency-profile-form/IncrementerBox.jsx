@@ -46,33 +46,40 @@ class IncrementerBox extends Component {
   };
   render() {
     return (
-      <Container className="incrementer-box-container remove-all-margin-padding">
-        <Row className="no-gutters">
-          <Col className="no-gutters">
-            <input
-              className="incrementer-box-input"
-              value={this.state.count}
-              onChange={this.handleInputChange}
-            />
-          </Col>
-          <Col className="no-gutters">
-            <div
-              className="triangle-up"
-              style={{ "border-bottom-color": this.state.topBtnColor }}
-              onMouseEnter={this.toggleTopBtnHover}
-              onMouseLeave={this.toggleTopBtnHover}
-              onClick={this.handleIncrement}
-            />
-            <div
-              className="triangle-down"
-              style={{ "border-top-color": this.state.btmBtnColor }}
-              onMouseEnter={this.toggleBtmBtnHover}
-              onMouseLeave={this.toggleBtmBtnHover}
-              onClick={this.handleDecrement}
-            />
-          </Col>
-        </Row>
-      </Container>
+      <Row className="m-4">
+        <Col className="remove-all-margin-padding center-col-contents" xs="auto">
+          <Container className="incrementer-box-container remove-all-margin-padding">
+            <Row className="no-gutters">
+              <Col className="no-gutters center-col-contents" xs="auto">
+                <input
+                  className="incrementer-box-input"
+                  value={this.state.count}
+                  onChange={this.handleInputChange}
+                />
+              </Col>
+              <Col className="no-gutters" xs="auto">
+                <div
+                  className="btn-triangle-up"
+                  style={{ "border-bottom-color": this.state.topBtnColor }}
+                  onMouseEnter={this.toggleTopBtnHover}
+                  onMouseLeave={this.toggleTopBtnHover}
+                  onClick={this.handleIncrement}
+                />
+                <div
+                  className="btn-triangle-down"
+                  style={{ "border-top-color": this.state.btmBtnColor }}
+                  onMouseEnter={this.toggleBtmBtnHover}
+                  onMouseLeave={this.toggleBtmBtnHover}
+                  onClick={this.handleDecrement}
+                />
+              </Col>
+            </Row>
+          </Container>
+        </Col>
+        <Col className="remove-all-margin-padding center-col-contents  ">
+          <label className="incrementer-box-label">{this.props.label}</label>
+        </Col>
+      </Row>
     );
   }
 }

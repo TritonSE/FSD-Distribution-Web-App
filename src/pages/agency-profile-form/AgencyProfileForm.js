@@ -191,6 +191,12 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <InputText label="Distribution Hours" leftmost />
               </Col>
+              <Col xs="auto">
+                <InputText label="Monitored" required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Food Safety Certification" required />
+              </Col>
             </Row>
 
             <Row noGutters={true}>

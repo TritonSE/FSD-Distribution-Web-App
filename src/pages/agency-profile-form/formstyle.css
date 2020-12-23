@@ -138,7 +138,7 @@ select.custom-select {
   position: relative;
   margin-top: 9px;
   margin-bottom: 0px;
-  display: block;
+  display: table;
 }
 
 .custom-checkbox input[type="checkbox"] {

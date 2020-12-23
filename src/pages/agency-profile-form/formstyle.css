@@ -174,14 +174,20 @@ select.custom-select {
 /* * Incrementer Box * */
 
 .incrementer-box-container {
-  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  border-radius: 10px ;
   border: 1px solid #000000;
 }
 
+.remove-all-margin-padding{
+  margin:0 ! important;
+  padding:0 ! important;
+  }
+
 .incrementer-box-input {
-  margin-top: auto;
-  margin-bottom: auto;
-  width: 20px;
+  margin-top: 8px;
+  width: 45px;
   text-align: center;
   font-family: Roboto;
   font-style: normal;
@@ -192,8 +198,7 @@ select.custom-select {
 
 .triangle-up {
   margin-top: 5px;
-  width: 8px;
-  height:8px;
+  margin-right: 5px;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-bottom: 12px solid rgb(0, 0, 0);
@@ -203,9 +208,7 @@ select.custom-select {
 .triangle-down {
   margin-top: 5px;
   margin-bottom: 5px;
-  /* TOP RIGHT BOTTOM LEFT */
-  width: 8px;
-  height:8px;
+  margin-right: 5px;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
   border-top: 12px solid rgb(0, 0, 0);

@@ -83,7 +83,7 @@ class IncrementerBox extends Component {
           </Container>
         </Col>
         <Col className="remove-all-margin-padding center-col-contents  ">
-          <label className="incrementer-box-label">{this.props.label}</label>
+          <label className="incrementer-box-label m-2">{this.props.label}</label>
         </Col>
       </Row>
     );

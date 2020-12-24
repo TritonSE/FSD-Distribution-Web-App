@@ -65,7 +65,7 @@
 }
 
 .checkbox-list-column {
-  width: 647px;
+  width: 624px;
 }
 
 .form-input-list-header {
@@ -227,6 +227,31 @@ select.custom-select {
   border-right: 4px solid transparent;
   border-top: 6px solid rgb(0, 0, 0);
   cursor: pointer;
+}
+
+.incrementer-box-list-column {
+  width: 630px;
+}
+
+.form-incrementer-box-list-header {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: -7px;
+  margin-bottom: 0px;
+}
+.form-incrementer-box-list-sub-header {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: 5px;
+  margin-bottom: 0px;
 }
 
 /*

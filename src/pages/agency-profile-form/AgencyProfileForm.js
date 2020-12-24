@@ -6,7 +6,7 @@ import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
 import InputDropdown from "./InputDropdown";
 import InputCheckboxList from "./InputCheckboxList";
-import IncrementerBoxColumn from "./IncrementerBoxColumn";
+import InputIncrementerBoxList from "./InputIncrementerBoxList";
 import FormButton from "./FormButton";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import "./formstyle.css";
@@ -61,7 +61,6 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
-
           <div className="form-section">
             <FormSectionHeader title="Location and Addresses" />
             <Row noGutters={true}>
@@ -112,7 +111,6 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
-
           <div className="form-section">
             <FormSectionHeader title="Contacts" />
             <Row noGutters={true}>
@@ -133,7 +131,6 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
-
           <div className="form-section">
             <FormSectionHeader title="Compliance" />
             <Row noGutters={true}>
@@ -160,7 +157,6 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
-
           <div className="form-section">
             <FormSectionHeader title="Distribution" />
             <Row noGutters={true}>
@@ -208,11 +204,45 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
-
           <div className="form-section">
             <FormSectionHeader title="Capacity" />
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputIncrementerBoxList
+                  label="Storage and Type:"
+                  subLabel="Select Quantity if Storage Type is Available"
+                  options={[
+                    "Stand Alone Freezer",
+                    "Freezer Fridge",
+                    "Chest Freezer",
+                    "Single-Door Stand Alone Freezer",
+                    "Freezer-Refrigerator Combo",
+                    "Walk-in Freezer",
+                    "Double-Door Stand Alone Fridge",
+                    "Side By Side Fridge",
+                    "Single-Door Stand ALone Fridge",
+                    "Walk-in Fridge",
+                    " Dry Storage (Climate Controlled",
+                    "Dry Storage (Non-Climate Controlled)",
+                  ]}
+                  twoColumns
+                />
+              </Col>
+            </Row>
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputIncrementerBoxList
+                  label="Transport and Type:"
+                  subLabel="Select Quantity if Transport Type is Available"
+                  options={[
+                    "Retail Rescue",
+                    "Prepared Food Capacity",
+                    "Capacity with RR with Delivery",
+                  ]}
+                />
+              </Col>
+            </Row>
           </div>
-
           <div className="form-section">
             <FormSectionHeader title="Retail Rescue" />
             <Row noGutters={true}>
@@ -228,7 +258,6 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
-
           <div className="form-section">
             <FormSectionHeader title="Demographics" />
             <Row noGutters={true}>
@@ -252,9 +281,6 @@ class AgencyProfileForm extends Component {
             </Row>
           </div>
 
-          <Row noGutters={true}>
-              <IncrementerBoxColumn options={["TEST 1", "TEST 2"]} />
-          </Row>
           {/*BUTTON
           <FormButton
             left={"calc(50% - 376px/2 - 216.5px)"}

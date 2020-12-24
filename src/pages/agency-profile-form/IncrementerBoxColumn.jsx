@@ -6,14 +6,14 @@ class IncrementerBoxColumn extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   render() {
     return (
-      <Col className="no-gutters  m-4" xs="auto">
+      <div className="incrementer-box-list-column">
         {this.props.options.map((optionsText, index) => {
           return <IncrementerBox key={index} label={optionsText} />;
         })}
-      </Col>
+      </div>
     );
   }
 }

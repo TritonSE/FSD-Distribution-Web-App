@@ -25,6 +25,100 @@ import "./formstyle.css";
 // Button - EF/WW
 
 class AgencyProfileForm extends Component {
+  constructor(props) {
+    super(props);
+    let data = props.agencyData;
+    if (!data) {
+      data = {
+        agencyNumber: null,
+        agencyName: null,
+        primaryContact: null,
+        mainSiteAddress1: null,
+        agencyStatus: null,
+        region: null,
+        sanDiegoDistrict: null,
+        countyDistrict: null,
+        stateAssemblyDistrict: null,
+        stateSenateDistrict: null,
+        federalCongressionalDistrict: null,
+        mainSiteAddress2: null,
+        additionalAddresses: [],
+        contacts: [
+          {
+            contact: null,
+            position: null,
+            phoneNumber: null,
+            email: null,
+          }
+        ],
+        scheduledNextVisit: null,
+        dateOfMostRecentAgreement: null,
+        dateOfInitialPartnership: null,
+        fileAudit: null,
+        monitored1: null,
+        foodSafetyCertification1: null,
+        mainSitePhoneNumber: null,
+        distributionDays: {
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+          saturday: false,
+          sunday: false
+        },
+        distributionFrequency: null,
+        distributionHours: null,
+        monitored2: null,
+        foodSafetyCertification2: null,
+        distributionTypes: {
+          pantry: false,
+          mealProgram: false,
+          homeboundDeliveryPartner: false,
+          largeScaleDistributionSite: false,
+          residentialFacilityOrGroupHome: false
+        },
+        storageTypesAndCapacities: {
+          standAloneFreezer: 0,
+          freezerFridge: 0,
+          chestFreezer: 0,
+          singleDoorStandAloneFreezer: 0,
+          freezerRefrigeratorCombo: 0,
+          walkInFreezer: 0,
+          doubleDoorStandAloneFridge: 0,
+          sideBySideFridge: 0,
+          singleDoorStandAloneFridge: 0,
+          walkInFridge: 0,
+          dryStorageClimageControlled: 0,
+          dryStorageNonClimateControlled: 0
+        },
+        transportationTypesAndCapacities: {
+          pickUpTruck: 0,
+          van: 0,
+          car: 0
+        },
+        retailRescueTypes: {
+          retailRescue: false,
+          preparedFoodCapacity: false,
+          capacityWithRRWithDelivery: false
+        },
+        demographicTypes: {
+          youth: false,
+          senior: false,
+          homeless: false,
+          veteran: false,
+          healthcare: false,
+          college: false,
+          disability: false,
+          residential: false,
+          immigrant: false
+        },
+        assignedStaff: null // single or multi select?
+      };
+    }
+    this.state = data;
+  }
+
   render() {
     return (
       <div className="form-body">
@@ -193,12 +287,6 @@ class AgencyProfileForm extends Component {
               </Col>
               <Col xs="auto">
                 <InputDate label="Food Safety Certification" required />
-              </Col>
-              <Col xs="auto">
-                <InputText label="Monitored" required />
-              </Col>
-              <Col xs="auto">
-                <InputText label="Food Safety Certification" required />
               </Col>
             </Row>
 

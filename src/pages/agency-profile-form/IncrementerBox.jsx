@@ -46,9 +46,15 @@ class IncrementerBox extends Component {
   };
   render() {
     return (
-      <Row className="m-4">
-        <Col className="remove-all-margin-padding center-col-contents" xs="auto">
-          <Container className="incrementer-box-container remove-all-margin-padding">
+      <Row>
+        <Col
+          className="remove-all-margin-padding center-col-contents"
+          xs="auto"
+        >
+          <Container
+            className="incrementer-box-container remove-all-margin-padding"
+            xs="auto"
+          >
             <Row className="no-gutters">
               <Col className="no-gutters center-col-contents" xs="auto">
                 <input
@@ -77,7 +83,7 @@ class IncrementerBox extends Component {
           </Container>
         </Col>
         <Col className="remove-all-margin-padding center-col-contents  ">
-          <label className="incrementer-box-label">{this.props.label}</label>
+          <label className="incrementer-box-label m-2">{this.props.label}</label>
         </Col>
       </Row>
     );

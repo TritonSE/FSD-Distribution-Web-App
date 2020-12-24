@@ -65,7 +65,7 @@
 }
 
 .checkbox-list-column {
-  width: 647px;
+  width: 624px;
 }
 
 .form-input-list-header {
@@ -201,7 +201,7 @@ select.custom-select {
 }
 
 .incrementer-box-input {
-  width: 45px;
+  width: 25px;
   text-align: center;
   font-family: Roboto;
   font-style: normal;
@@ -227,6 +227,47 @@ select.custom-select {
   border-right: 4px solid transparent;
   border-top: 6px solid rgb(0, 0, 0);
   cursor: pointer;
+}
+
+.incrementer-box-list-column {
+  width: 630px;
+}
+
+.form-incrementer-box-list-header {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: -7px;
+  margin-bottom: 0px;
+}
+.form-incrementer-box-list-sub-header {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: 5px;
+  margin-bottom: 0px;
+}
+
+/* * Date Input* */
+.form-input-box-date {
+  width: 289px;
+  height: 43px;
+  display: block;
+  background: #ffffff;
+  border: 2px solid #cdcbd4;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 12px;
+  font-family: Roboto;
+  font-style: italic;
+  color: gray;
+  text-transform: uppercase;
 }
 
 /*

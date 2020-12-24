@@ -3,15 +3,11 @@ import Form from "react-bootstrap/Form";
 import RequiredAsterisk from "./RequiredAsterisk";
 import "./formstyle.css";
 
-class InputText extends Component {
+class InputDate extends Component {
   render() {
     let groupClass = null;
     if (!this.props.leftmost) {
       groupClass = "form-col-gutter";
-    }
-    let boxClass = "selection-choice";
-    if (this.props.wide) {
-      boxClass = "form-input-box-wide";
     }
 
     return (
@@ -20,14 +16,10 @@ class InputText extends Component {
           {this.props.label}
           <RequiredAsterisk required={this.props.required} />
         </Form.Label>
-        <Form.Control
-          type="text"
-          bsPrefix="form-input-box"
-          className={boxClass}
-        />
+        <Form.Control type="date" bsPrefix="form-input-box-date" />
       </Form.Group>
     );
   }
 }
 
-export default InputText;
+export default InputDate;

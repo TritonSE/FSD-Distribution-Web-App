@@ -202,6 +202,7 @@ select.custom-select {
 
 .incrementer-box-input {
   width: 25px;
+  margin-left: 5px;
   text-align: center;
   font-family: Roboto;
   font-style: normal;

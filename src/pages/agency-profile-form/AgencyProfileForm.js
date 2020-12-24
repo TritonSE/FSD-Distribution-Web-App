@@ -6,7 +6,7 @@ import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
 import InputDropdown from "./InputDropdown";
 import InputCheckboxList from "./InputCheckboxList";
-import IncrementerBox from "./IncrementerBox";
+import IncrementerBoxColumn from "./IncrementerBoxColumn";
 import FormButton from "./FormButton";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import "./formstyle.css";
@@ -253,9 +253,7 @@ class AgencyProfileForm extends Component {
           </div>
 
           <Row noGutters={true}>
-            <Col>
-              <IncrementerBox label={"TEST LABEL"} />
-            </Col>
+              <IncrementerBoxColumn options={["TEST 1", "TEST 2"]} />
           </Row>
           {/*BUTTON
           <FormButton

@@ -58,7 +58,14 @@ class AgencyProfileForm extends Component {
         monitored1: null,
         foodSafetyCertification1: null,
         mainSitePhoneNumber: null,
-        distributionDays: {
+        "distributionDay.monday": false,
+        "distributionDay.tuesday": false,
+        "distributionDay.wednesday": false,
+        "distributionDay.thursday": false,
+        "distributionDay.friday": false,
+        "distributionDay.saturday": false,
+        "distributionDay.sunday": false,
+        /*distributionDays: {
           monday: false,
           tuesday: false,
           wednesday: false,
@@ -66,19 +73,36 @@ class AgencyProfileForm extends Component {
           friday: false,
           saturday: false,
           sunday: false
-        },
+        },*/
         distributionFrequency: null,
         distributionHours: null,
         monitored2: null,
         foodSafetyCertification2: null,
-        distributionTypes: {
+        "distributionType.pantry": false,
+        "distributionType.mealProgram": false,
+        "distributionType.homeboundDeliveryPartner": false,
+        "distributionType.largeScaleDistributionSite": false,
+        "distributionType.residentialFacilityOrGroupHome": false,
+        /*distributionTypes: {
           pantry: false,
           mealProgram: false,
           homeboundDeliveryPartner: false,
           largeScaleDistributionSite: false,
           residentialFacilityOrGroupHome: false
-        },
-        storageTypesAndCapacities: {
+        },*/
+        "storageCapacity.standAloneFreezer": 0,
+        "storageCapacity.freezerFridge": 0,
+        "storageCapacity.chestFreezer": 0,
+        "storageCapacity.singleDoorStandAloneFreezer": 0,
+        "storageCapacity.freezerRefrigeratorCombo": 0,
+        "storageCapacity.walkInFreezer": 0,
+        "storageCapacity.doubleDoorStandAloneFridge": 0,
+        "storageCapacity.sideBySideFridge": 0,
+        "storageCapacity.singleDoorStandAloneFridge": 0,
+        "storageCapacity.walkInFridge": 0,
+        "storageCapacity.dryStorageClimateControlled": 0,
+        "storageCapacity.dryStorageNonClimateControlled": 0,
+        /*storageTypesAndCapacities: {
           standAloneFreezer: 0,
           freezerFridge: 0,
           chestFreezer: 0,
@@ -89,34 +113,55 @@ class AgencyProfileForm extends Component {
           sideBySideFridge: 0,
           singleDoorStandAloneFridge: 0,
           walkInFridge: 0,
-          dryStorageClimageControlled: 0,
+          dryStorageClimateControlled: 0,
           dryStorageNonClimateControlled: 0
-        },
-        transportationTypesAndCapacities: {
-          pickUpTruck: 0,
+        },*/
+        "transportationCapacity.pickupTruck": 0,
+        "transportationCapacity.van": 0,
+        "transportationCapacity.car": 0,
+        /*transportationTypesAndCapacities: {
+          pickupTruck: 0,
           van: 0,
           car: 0
-        },
-        retailRescueTypes: {
+        },*/
+        "retailRescueType.retailRescue": false,
+        "retailRescueType.preparedFoodCapacity": false,
+        "retailRescueType.capacityWithRRWithDelivery": false,
+        /*retailRescueTypes: {
           retailRescue: false,
           preparedFoodCapacity: false,
           capacityWithRRWithDelivery: false
-        },
-        demographicTypes: {
+        },*/
+        "demographicType.youth": false,
+        "demographicType.senior": false,
+        "demographicType.homeless": false,
+        "demographicType.veteranMilitary": false,
+        "demographicType.healthcare": false,
+        "demographicType.collegeUniversity": false,
+        "demographicType.disability": false,
+        "demographicType.residential": false,
+        "demographicType.immigrant": false,
+        /*demographicTypes: {
           youth: false,
           senior: false,
           homeless: false,
-          veteran: false,
+          veteranMilitary: false,
           healthcare: false,
-          college: false,
+          collegeUniversity: false,
           disability: false,
           residential: false,
           immigrant: false
-        },
+        },*/
         assignedStaff: null // single or multi select?
       };
     }
     this.state = data;
+  }
+
+  handleInputChange(key, newValue) {
+    this.setState({
+      [key]: newValue
+    });
   }
 
   render() {

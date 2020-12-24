@@ -271,6 +271,11 @@ select.custom-select {
   text-transform: uppercase;
 }
 
+/* Assigned Staff Dropdown */
+.form-staff-dropdown {
+  margin-left: 24px;
+}
+
 /*
 div.custom-control {
   margin-top: 9px;

@@ -16,7 +16,7 @@ class InputIncrementerBoxList extends Component {
       let firstColumnOptions = this.props.options.slice(0, midIndex);
       let secondColumnOptions = this.props.options.slice(midIndex); // to end
       listColumns = (
-        <Row className="no-gutters m-2">
+        <Row className="no-gutters m-2" xs="auto">
           <Col xs="auto">
             <IncrementerBoxColumn options={firstColumnOptions} />
           </Col>
@@ -27,7 +27,7 @@ class InputIncrementerBoxList extends Component {
       );
     } else {
       listColumns = (
-        <Row className="no-gutters m-2">
+        <Row className="no-gutters m-2" xs="auto">
           <IncrementerBoxColumn options={this.props.options} />
         </Row>
       );

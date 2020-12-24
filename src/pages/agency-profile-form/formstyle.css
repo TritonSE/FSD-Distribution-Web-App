@@ -254,6 +254,22 @@ select.custom-select {
   margin-bottom: 0px;
 }
 
+/* * Date Input* */
+.form-input-box-date {
+  width: 289px;
+  height: 43px;
+  display: block;
+  background: #ffffff;
+  border: 2px solid #cdcbd4;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding: 12px;
+  font-family: Roboto;
+  font-style: italic;
+  color: gray;
+  text-transform: uppercase;
+}
+
 /*
 div.custom-control {
   margin-top: 9px;

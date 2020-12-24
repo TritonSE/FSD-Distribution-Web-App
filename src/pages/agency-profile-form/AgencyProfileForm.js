@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
+import InputDate from "./InputDate";
 import InputDropdown from "./InputDropdown";
 import InputCheckboxList from "./InputCheckboxList";
 import InputIncrementerBoxList from "./InputIncrementerBoxList";
@@ -135,25 +136,25 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Compliance" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Scheduled Next Visit" leftmost required />
+                <InputDate label="Scheduled Next Visit" leftmost required />
               </Col>
               <Col xs="auto">
-                <InputText label="Date of Most Recent Agreement" required />
+                <InputDate label="Date of Most Recent Agreement" required />
               </Col>
               <Col xs="auto">
-                <InputText label="Date of Initial Partnership" required />
+                <InputDate label="Date of Initial Partnership" required />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="File Audit" leftmost />
+                <InputDate label="File Audit" leftmost />
               </Col>
               <Col xs="auto">
-                <InputText label="Monitored" required />
+                <InputDate label="Monitored" required />
               </Col>
               <Col xs="auto">
-                <InputText label="Food Safety Certification" required />
+                <InputDate label="Food Safety Certification" required />
               </Col>
             </Row>
           </div>
@@ -185,7 +186,13 @@ class AgencyProfileForm extends Component {
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Distribution Hours" leftmost />
+                <InputDate label="Distribution" leftmost />
+              </Col>
+              <Col xs="auto">
+                <InputDate label="Monitored" required />
+              </Col>
+              <Col xs="auto">
+                <InputDate label="Food Safety Certification" required />
               </Col>
             </Row>
 

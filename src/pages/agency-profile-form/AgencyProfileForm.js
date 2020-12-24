@@ -294,6 +294,24 @@ class AgencyProfileForm extends Component {
             </Row>
           </div>
 
+          <div className="form-section">
+            <Row noGutters={true}>
+              <Col className="center-col-contents" xs="auto">
+                <FormSectionHeader title="Assigned Staff" noUnderline />
+              </Col>
+              <Col className="center-col-contents" xs="auto">
+                <Form.Control
+                  className="form-staff-dropdown"
+                  as="select"
+                  custom
+                >
+                  <option value=""></option>
+                  <option value="NONE">NONE</option>
+                </Form.Control>
+              </Col>
+            </Row>
+          </div>
+
           {/*BUTTON
           <FormButton
             left={"calc(50% - 376px/2 - 216.5px)"}

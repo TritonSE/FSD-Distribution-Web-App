@@ -8,6 +8,7 @@ import InputDate from "./InputDate";
 import InputDropdown from "./InputDropdown";
 import InputCheckboxList from "./InputCheckboxList";
 import InputIncrementerBoxList from "./InputIncrementerBoxList";
+import InlineDropdown from "./InlineDropdown";
 import FormButton from "./FormButton";
 //import "bootstrap/dist/css/bootstrap.min.css";
 import "./formstyle.css";
@@ -204,6 +205,7 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
+
           <div className="form-section">
             <FormSectionHeader title="Location and Addresses" />
             <Row noGutters={true}>
@@ -254,6 +256,7 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
+
           <div className="form-section">
             <FormSectionHeader title="Contacts" />
             <Row noGutters={true}>
@@ -274,6 +277,7 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
+
           <div className="form-section">
             <FormSectionHeader title="Compliance" />
             <Row noGutters={true}>
@@ -300,6 +304,7 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
+
           <div className="form-section">
             <FormSectionHeader title="Distribution" />
             <Row noGutters={true}>
@@ -384,6 +389,7 @@ class AgencyProfileForm extends Component {
               </Col>
             </Row>
           </div>
+
           <div className="form-section">
             <FormSectionHeader title="Capacity" />
             <Row noGutters={true}>
@@ -402,79 +408,78 @@ class AgencyProfileForm extends Component {
                     "Side By Side Fridge",
                     "Single-Door Stand ALone Fridge",
                     "Walk-in Fridge",
-                    " Dry Storage (Climate Controlled",
+                    "Dry Storage (Climate Controlled)",
                     "Dry Storage (Non-Climate Controlled)",
                   ]}
                   twoColumns
                 />
               </Col>
             </Row>
+
             <Row noGutters={true}>
               <Col xs="auto">
                 <InputIncrementerBoxList
                   label="Transport and Type:"
                   subLabel="Select Quantity if Transport Type is Available"
                   options={[
-                    "Retail Rescue",
-                    "Prepared Food Capacity",
-                    "Capacity with RR with Delivery",
+                    "Pickup Truck",
+                    "Van",
+                    "Car",
                   ]}
-                />
-              </Col>
-            </Row>
-          </div>
-          <div className="form-section">
-            <FormSectionHeader title="Retail Rescue" />
-            <Row noGutters={true}>
-              <Col xs="auto">
-                <InputCheckboxList
-                  label="Check Boxes if Available."
-                  options={[
-                    "Retail Rescue",
-                    "Prepared Food Capacity",
-                    "Capacity with RR with Delivery",
-                  ]}
-                />
-              </Col>
-            </Row>
-          </div>
-          <div className="form-section">
-            <FormSectionHeader title="Demographics" />
-            <Row noGutters={true}>
-              <Col xs="auto">
-                <InputCheckboxList
-                  label="Check Boxes if Applicable."
-                  options={[
-                    "Youth",
-                    "Senior",
-                    "Homeless",
-                    "Veteran/Military",
-                    "Healthcare",
-                    "College/University",
-                    "Disability Specific (Physical or Mental)",
-                    "Residential",
-                    "Immigrant",
-                  ]}
-                  twoColumns
                 />
               </Col>
             </Row>
           </div>
 
           <div className="form-section">
+            <FormSectionHeader title="Retail Rescue" />
+            <InputCheckboxList
+              label="Check Boxes if Available."
+              options={[
+                "Retail Rescue",
+                "Prepared Food Capacity",
+                "Capacity with RR with Delivery",
+              ]}
+            />
+          </div>
+
+          <div className="form-section">
+            <FormSectionHeader title="Demographics" />
+            <InputCheckboxList
+              label="Check Boxes if Applicable."
+              options={[
+                "Youth",
+                "Senior",
+                "Homeless",
+                "Veteran/Military",
+                "Healthcare",
+                "College/University",
+                "Disability Specific (Physical or Mental)",
+                "Residential",
+                "Immigrant",
+              ]}
+              twoColumns
+            />
+          </div>
+
+          <div className="form-section">
             <Row noGutters={true}>
-              <Col className="center-col-contents" xs="auto">
-                <FormSectionHeader title="Assigned Staff" noUnderline />
-              </Col>
-              <Col className="center-col-contents" xs="auto">
-                <Form.Control
-                  className="form-staff-dropdown"
-                  as="select"
-                  custom
+              <Col xs="auto">
+                <h2
+                  className="form-section-title"
+                  style={{marginTop: 7, marginRight: 24}}
                 >
-                  <option value=""></option>
-                  <option value="NONE">NONE</option>
-                </Form.Control>
+                  Assigned Staff
+                </h2>
+              </Col>
+              <Col xs="auto">
+                <InlineDropdown
+                  label={null}
+                  options={["None"]}
+                  initial={this.state.assignedStaff}
+                  dataKey="assignedStaff"
+                  onChange={this.handleInputChange}
+                />
               </Col>
             </Row>
           </div>

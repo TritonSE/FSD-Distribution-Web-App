@@ -16,11 +16,15 @@ class InputDropdown extends Component {
     }
   }
 
-  render() {
+  groupClass() {
     let groupClass = "form-input";
     if (!this.props.leftmost) {
       groupClass += " form-col-gutter";
     }
+    return groupClass;
+  }
+
+  render() {
     let dropdown = null;
     if (this.props.multiple) {
       dropdown = (
@@ -55,11 +59,13 @@ class InputDropdown extends Component {
     }
 
     return (
-      <div className={groupClass}>
-        <label className="form-input-label">
-          {this.props.label}
-          <RequiredAsterisk required={this.props.required} />
-        </label>
+      <div className={this.groupClass()}>
+        {this.props.label && (
+          <label className="form-input-label">
+            {this.props.label}
+            <RequiredAsterisk required={this.props.required} />
+          </label>
+        )}
         {dropdown}
       </div>
     );

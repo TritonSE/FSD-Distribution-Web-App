@@ -136,8 +136,8 @@
 .dropdown-list {
   position: absolute;
   width: 289px;
-  background: #f0f0f0;
-  border: 2px solid #cdcbd4;
+  background: #f4f4f4;
+  border: 1px solid #cdcbd4;
   border-radius: 7px;
   z-index: 10;
 }

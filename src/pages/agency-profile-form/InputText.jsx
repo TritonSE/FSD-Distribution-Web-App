@@ -1,31 +1,36 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
 import RequiredAsterisk from "./RequiredAsterisk";
 import "./formstyle.css";
 
 class InputText extends Component {
+  onBlur = (event) => {
+    const { stateKey, onChange } = this.props;
+    onChange(stateKey, event.target.value);
+  }
+
   render() {
-    let groupClass = null;
+    let groupClass = "form-input";
     if (!this.props.leftmost) {
-      groupClass = "form-col-gutter";
+      groupClass += " form-col-gutter";
     }
-    let boxClass = "selection-choice";
+    let boxClass = "form-input-box selection-choice";
     if (this.props.wide) {
       boxClass += " form-input-box-wide";
     }
 
     return (
-      <Form.Group bsPrefix="form-input" className={groupClass}>
-        <Form.Label className="form-input-label">
+      <div className={groupClass}>
+        <label className="form-input-label">
           {this.props.label}
           <RequiredAsterisk required={this.props.required} />
-        </Form.Label>
-        <Form.Control
+        </label>
+        <input
           type="text"
-          bsPrefix="form-input-box"
           className={boxClass}
+          value={this.props.value}
+          onBlur={this.onBlur}
         />
-      </Form.Group>
+      </div>
     );
   }
 }

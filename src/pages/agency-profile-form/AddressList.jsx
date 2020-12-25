@@ -18,7 +18,7 @@ class AddressList extends Component {
             <InputText
               label="Additional Address"
               value={address}
-              onChange={(text) => this.setAddress(index, text)}
+              onChange={(key, text) => this.setAddress(index, text)}
               key={index}
               leftmost
               wide

@@ -46,6 +46,8 @@ class AgencyProfileForm extends Component {
         federalCongressionalDistrict: null,
         mainSiteAddress2: null,
         additionalAddresses: [null],
+        billingAddress: null,
+        billingZipcode: null,
         contacts: [
           {
             contact: null,
@@ -162,6 +164,7 @@ class AgencyProfileForm extends Component {
   }
 
   handleInputChange = (key, newValue) => {
+    alert(key + " -> " + newValue); // TEMP
     this.setState({
       [key]: newValue
     });
@@ -177,6 +180,7 @@ class AgencyProfileForm extends Component {
   }
 
   render() {
+    const data = this.state;
     return (
       <div className="form-body">
         <h1 className="form-title">Add a New Agency Profile.</h1>
@@ -186,19 +190,27 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Quick Information" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Agency Number" leftmost required />
+                <InputText label="Agency Number" value={data.agencyNumber}
+                  stateKey="agencyNumber" onChange={this.handleInputChange}
+                  leftmost required />
               </Col>
               <Col xs="auto">
-                <InputText label="Agency Name" required wide />
+                <InputText label="Agency Name" value={data.agencyName}
+                  stateKey="agencyName" onChange={this.handleInputChange}
+                  required wide />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Primary Contact" leftmost required />
+                <InputText label="Primary Contact" value={data.primaryContact}
+                  stateKey="primaryContact" onChange={this.handleInputChange}
+                  leftmost required />
               </Col>
               <Col xs="auto">
-                <InputText label="Main Site Address" required wide />
+                <InputText label="Main Site Address"
+                  value={data.mainSiteAddress1} stateKey="mainSiteAddress1"
+                  onChange={this.handleInputChange} required wide />
               </Col>
             </Row>
 
@@ -207,7 +219,7 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
-                  initial={this.state.agencyStatus}
+                  initial={data.agencyStatus}
                   stateKey="agencyStatus"
                   onChange={this.handleInputChange}
                   leftmost
@@ -221,41 +233,57 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Location and Addresses" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Region" leftmost required />
+                <InputText label="Region" value={data.region} stateKey="region"
+                  onChange={this.handleInputChange} leftmost required />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="San Diego District" leftmost required />
+                <InputText label="San Diego District"
+                  value={data.sanDiegoDistrict} stateKey="sanDiegoDistrict"
+                  onChange={this.handleInputChange} leftmost required />
               </Col>
               <Col xs="auto">
-                <InputText label="County District" required />
+                <InputText label="County District" value={data.countyDistrict}
+                  stateKey="countyDistrict" onChange={this.handleInputChange}
+                  required />
               </Col>
               <Col xs="auto">
-                <InputText label="State Assembly District" required />
-              </Col>
-            </Row>
-
-            <Row noGutters={true}>
-              <Col xs="auto">
-                <InputText label="State Senate District" leftmost required />
-              </Col>
-              <Col xs="auto">
-                <InputText label="Federal Congressional District" required />
+                <InputText label="State Assembly District"
+                  value={data.stateAssemblyDistrict}
+                  stateKey="stateAssemblyDistrict"
+                  onChange={this.handleInputChange} required />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Main Site Address" leftmost required wide />
+                <InputText label="State Senate District"
+                  value={data.stateSenateDistrict}
+                  stateKey="stateSenateDistrict"
+                  onChange={this.handleInputChange} leftmost required />
+              </Col>
+              <Col xs="auto">
+                <InputText label="Federal Congressional District"
+                  value={data.federalCongressionalDistrict}
+                  stateKey="federalCongressionalDistrict"
+                  onChange={this.handleInputChange} required />
+              </Col>
+            </Row>
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <InputText label="Main Site Address"
+                  value={data.mainSiteAddress2} stateKey="mainSiteAddress2"
+                  onChange={this.handleInputChange} leftmost required wide />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
                 <AddressList
-                  addresses={this.state.additionalAddresses}
+                  addresses={data.additionalAddresses}
                   stateKey="additionalAddresses"
                   onChange={this.handleInputChange}
                 />
@@ -264,10 +292,14 @@ class AgencyProfileForm extends Component {
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Billing Address" leftmost required wide />
+                <InputText label="Billing Address" value={data.billingAddress}
+                  stateKey="billingAddress" onChange={this.handleInputChange}
+                  leftmost required wide />
               </Col>
               <Col xs="auto">
-                <InputText label="Billing Zipcode" required />
+                <InputText label="Billing Zipcode" value={data.billingZipcode}
+                  stateKey="billingZipcode" onChange={this.handleInputChange}
+                  required />
               </Col>
             </Row>
 
@@ -330,7 +362,10 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Distribution" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Main Site Phone #" leftmost />
+                <InputText label="Main Site Phone #"
+                  value={data.mainSitePhoneNumber}
+                  stateKey="mainSitePhoneNumber"
+                  onChange={this.handleInputChange} leftmost />
               </Col>
               <Col xs="auto">
                 <InputDropdown
@@ -338,37 +373,37 @@ class AgencyProfileForm extends Component {
                   options={[
                     {
                       title: "Monday",
-                      selected: this.state["distributionDay.monday"],
+                      selected: data["distributionDay.monday"],
                       subkey: "monday"
                     },
                     {
                       title: "Tuesday",
-                      selected: this.state["distributionDay.tuesday"],
+                      selected: data["distributionDay.tuesday"],
                       subkey: "tuesday"
                     },
                     {
                       title: "Wednesday",
-                      selected: this.state["distributionDay.wednesday"],
+                      selected: data["distributionDay.wednesday"],
                       subkey: "wednesday"
                     },
                     {
                       title: "Thursday",
-                      selected: this.state["distributionDay.thursday"],
+                      selected: data["distributionDay.thursday"],
                       subkey: "thursday"
                     },
                     {
                       title: "Friday",
-                      selected: this.state["distributionDay.friday"],
+                      selected: data["distributionDay.friday"],
                       subkey: "friday"
                     },
                     {
                       title: "Saturday",
-                      selected: this.state["distributionDay.saturday"],
+                      selected: data["distributionDay.saturday"],
                       subkey: "saturday"
                     },
                     {
                       title: "Sunday",
-                      selected: this.state["distributionDay.sunday"],
+                      selected: data["distributionDay.sunday"],
                       subkey: "sunday"
                     }
                   ]}
@@ -379,7 +414,10 @@ class AgencyProfileForm extends Component {
                 />
               </Col>
               <Col xs="auto">
-                <InputText label="Distribution Frequency" required />
+                <InputText label="Distribution Frequency"
+                  value={data.distributionFrequency}
+                  stateKey="distributionFrequency"
+                  onChange={this.handleInputChange} required />
               </Col>
             </Row>
 

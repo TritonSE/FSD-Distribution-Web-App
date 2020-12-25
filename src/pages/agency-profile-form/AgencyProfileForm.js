@@ -158,7 +158,7 @@ class AgencyProfileForm extends Component {
     this.state = data;
   }
 
-  handleInputChange(key, newValue) {
+  handleInputChange = (key, newValue) => {
     this.setState({
       [key]: newValue
     });
@@ -195,6 +195,9 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
+                  initial={this.state.agencyStatus}
+                  dataKey="agencyStatus"
+                  onChange={this.handleInputChange}
                   leftmost
                   required
                 />
@@ -307,14 +310,45 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Distribution Day(s)"
                   options={[
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                    "Sunday",
+                    {
+                      title: "Monday",
+                      selected: this.state["distributionDay.monday"],
+                      subkey: "monday"
+                    },
+                    {
+                      title: "Tuesday",
+                      selected: this.state["distributionDay.tuesday"],
+                      subkey: "tuesday"
+                    },
+                    {
+                      title: "Wednesday",
+                      selected: this.state["distributionDay.wednesday"],
+                      subkey: "wednesday"
+                    },
+                    {
+                      title: "Thursday",
+                      selected: this.state["distributionDay.thursday"],
+                      subkey: "thursday"
+                    },
+                    {
+                      title: "Friday",
+                      selected: this.state["distributionDay.friday"],
+                      subkey: "friday"
+                    },
+                    {
+                      title: "Saturday",
+                      selected: this.state["distributionDay.saturday"],
+                      subkey: "saturday"
+                    },
+                    {
+                      title: "Sunday",
+                      selected: this.state["distributionDay.sunday"],
+                      subkey: "sunday"
+                    }
                   ]}
+                  dataKey="distributionDay"
+                  onChange={this.handleInputChange}
+                  multiple
                   required
                 />
               </Col>

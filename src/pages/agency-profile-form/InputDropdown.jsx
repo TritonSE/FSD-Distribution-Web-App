@@ -1,28 +1,67 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
+import Dropdown from "./Dropdown";
 import RequiredAsterisk from "./RequiredAsterisk";
 import "./formstyle.css";
 
 class InputDropdown extends Component {
+  onSelect = (index) => {
+    const { options, dataKey, onChange } = this.props;
+    if (this.props.multiple) {
+      const subkey = options[index].subkey;
+      const fullKey = dataKey + "." + subkey;
+      onChange(fullKey, !options[index].selected)
+    }
+    else {
+      onChange(dataKey, options[index]);
+    }
+  }
+
   render() {
-    let groupClass = null;
+    let groupClass = "form-input";
     if (!this.props.leftmost) {
-      groupClass = "form-col-gutter";
+      groupClass += " form-col-gutter";
+    }
+    let dropdown = null;
+    if (this.props.multiple) {
+      dropdown = (
+        <Dropdown
+          options={
+            this.props.options.map((item) => {
+              return {
+                title: item.title,
+                selected: item.selected
+              };
+            })
+          }
+          multiple
+          onSelect={this.onSelect}
+        />
+      );
+    }
+    else {
+      dropdown = (
+        <Dropdown
+          options={
+            this.props.options.map((optionName) => {
+              return {
+                title: optionName,
+                selected: (optionName === this.props.initial)
+              };
+            })
+          }
+          onSelect={this.onSelect}
+        />
+      )
     }
 
     return (
-      <Form.Group bsPrefix="form-input" className={groupClass}>
-        <Form.Label className="form-input-label">
+      <div className={groupClass}>
+        <label className="form-input-label">
           {this.props.label}
           <RequiredAsterisk required={this.props.required} />
-        </Form.Label>
-        <Form.Control as="select" custom>
-          <option value=""></option>
-          {this.props.options.map((optionText, index) => {
-            return <option key={index} value={index}>{optionText}</option>
-          })}
-        </Form.Control>
-      </Form.Group>
+        </label>
+        {dropdown}
+      </div>
     );
   }
 }

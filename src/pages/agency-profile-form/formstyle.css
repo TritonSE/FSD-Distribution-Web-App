@@ -1,6 +1,23 @@
+/* * * * Form layout * * * */
+
 .form-body {
   margin: 62px 0px 64px 130px;
 }
+
+.form-section {
+  margin-top: 74px;
+}
+
+.form-input {
+  margin-top: 23px;
+  padding-left: 7px;
+}
+
+.form-col-gutter {
+  margin-left: 142px;
+}
+
+/* * * * Text styles * * * */
 
 .form-title {
   font-family: Roboto;
@@ -9,10 +26,6 @@
   font-size: 35px;
   line-height: 41px;
   color: #000000;
-}
-
-.form-section {
-  margin-top: 74px;
 }
 
 .form-section-title {
@@ -31,15 +44,6 @@
   border-radius: 1px;
   margin-top: 3px;
   margin-bottom: 8px;
-}
-
-.form-input {
-  margin-top: 23px;
-  padding-left: 7px;
-}
-
-.form-col-gutter {
-  margin-left: 142px;
 }
 
 .form-input-label {
@@ -62,10 +66,6 @@
   color: #000000;
   margin-left: -7px;
   margin-bottom: 0px;
-}
-
-.checkbox-list-column {
-  width: 624px;
 }
 
 .form-input-list-header {
@@ -98,6 +98,8 @@
   color: #fc0808;
 }
 
+/* * * * General input boxes * * * */
+
 .form-input-box {
   width: 289px;
   height: 43px;
@@ -106,33 +108,65 @@
   border: 2px solid #cdcbd4;
   box-sizing: border-box;
   border-radius: 7px;
-  padding: 12px;
+  padding-left: 10px;
+  text-align: left;
 }
 
 .form-input-box-wide {
   width: 698px;
 }
 
-select.custom-select {
+/* * * * Custom dropdowns * * * */
+
+.dropdown-wrapper {
+  position: relative;
+}
+
+.icon-triangle {
+  position: absolute;
+  right: 15px;
+  top: 17px;
+}
+
+.icon-checkmark {
+  margin-left: 10px;
+  stroke: #54682f;
+}
+
+.dropdown-list {
+  position: absolute;
   width: 289px;
+  background: #f0f0f0;
+  border: 2px solid #cdcbd4;
+  border-radius: 7px;
+  z-index: 10;
+}
+
+.dropdown-list-item {
+  width: 100%;
   height: 43px;
   display: block;
-  background-color: #ffffff;
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='10' viewBox='0 0 12 10'%3e%3cpath fill='%23545252' d='M0 0H12L6 10Z'/%3e%3c/svg%3e");
-  background-position: right 10px center;
-  background-size: auto;
-  border: 2px solid #cdcbd4;
-  box-sizing: border-box;
-  border-radius: 7px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  color: #000000;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.dropdown-list-item:hover {
+  background: #54682f;
+  color: #ffffff;
+}
+
+.dropdown-list-item:hover > .icon-checkmark {
+  stroke: #ffffff;
 }
 
 /* * * * Custom checkboxes * * * */
+
+.checkbox-list-column {
+  width: 624px;
+}
 
 .custom-checkbox {
   position: relative;

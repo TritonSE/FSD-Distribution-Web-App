@@ -5,14 +5,14 @@ import "./formstyle.css";
 
 class InputDropdown extends Component {
   onSelect = (index) => {
-    const { options, dataKey, onChange } = this.props;
+    const { options, stateKey, onChange } = this.props;
     if (this.props.multiple) {
       const subkey = options[index].subkey;
-      const fullKey = dataKey + "." + subkey;
-      onChange(fullKey, !options[index].selected)
+      const fullKey = stateKey + "." + subkey;
+      onChange(fullKey, !options[index].selected);
     }
     else {
-      onChange(dataKey, options[index]);
+      onChange(stateKey, options[index]);
     }
   }
 

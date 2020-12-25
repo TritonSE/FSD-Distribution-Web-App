@@ -11,7 +11,7 @@ class InputText extends Component {
     }
     let boxClass = "selection-choice";
     if (this.props.wide) {
-      boxClass = "form-input-box-wide";
+      boxClass += " form-input-box-wide";
     }
 
     return (

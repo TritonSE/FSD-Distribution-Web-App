@@ -8,6 +8,8 @@ import InputDate from "./InputDate";
 import InputDropdown from "./InputDropdown";
 import InputCheckboxList from "./InputCheckboxList";
 import InputIncrementerBoxList from "./InputIncrementerBoxList";
+import SmallButton from "./SmallButton";
+import AddressList from "./AddressList";
 import InlineDropdown from "./InlineDropdown";
 import FormButton from "./FormButton";
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -43,7 +45,7 @@ class AgencyProfileForm extends Component {
         stateSenateDistrict: null,
         federalCongressionalDistrict: null,
         mainSiteAddress2: null,
-        additionalAddresses: [],
+        additionalAddresses: [null],
         contacts: [
           {
             contact: null,
@@ -165,6 +167,15 @@ class AgencyProfileForm extends Component {
     });
   }
 
+  addAddress = () => {
+    const addresses = this.state.additionalAddresses;
+    let updatedAddresses = addresses.slice();
+    updatedAddresses.push(null);
+    this.setState({
+      additionalAddresses: updatedAddresses
+    });
+  }
+
   render() {
     return (
       <div className="form-body">
@@ -197,7 +208,7 @@ class AgencyProfileForm extends Component {
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
                   initial={this.state.agencyStatus}
-                  dataKey="agencyStatus"
+                  stateKey="agencyStatus"
                   onChange={this.handleInputChange}
                   leftmost
                   required
@@ -243,7 +254,11 @@ class AgencyProfileForm extends Component {
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Additional Address" leftmost wide />
+                <AddressList
+                  addresses={this.state.additionalAddresses}
+                  stateKey="additionalAddresses"
+                  onChange={this.handleInputChange}
+                />
               </Col>
             </Row>
 
@@ -253,6 +268,12 @@ class AgencyProfileForm extends Component {
               </Col>
               <Col xs="auto">
                 <InputText label="Billing Zipcode" required />
+              </Col>
+            </Row>
+
+            <Row noGutters={true}>
+              <Col xs="auto">
+                <SmallButton text="Add Address" onClick={this.addAddress} />
               </Col>
             </Row>
           </div>
@@ -351,7 +372,7 @@ class AgencyProfileForm extends Component {
                       subkey: "sunday"
                     }
                   ]}
-                  dataKey="distributionDay"
+                  stateKey="distributionDay"
                   onChange={this.handleInputChange}
                   multiple
                   required
@@ -477,7 +498,7 @@ class AgencyProfileForm extends Component {
                   label={null}
                   options={["None"]}
                   initial={this.state.assignedStaff}
-                  dataKey="assignedStaff"
+                  stateKey="assignedStaff"
                   onChange={this.handleInputChange}
                 />
               </Col>

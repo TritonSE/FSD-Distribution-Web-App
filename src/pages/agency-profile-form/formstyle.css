@@ -305,34 +305,29 @@
   text-transform: uppercase;
 }
 
-/* Assigned Staff Dropdown */
-.form-staff-dropdown {
-  margin-left: 24px;
+/* * * * Small button * * * */
+
+.small-button {
+  background: none;
+  border: none;
+  padding: 0px;
+  margin-left: 7px;
+  margin-top: 23px;
 }
 
-/*
-div.custom-control {
-  margin-top: 9px;
-  padding-left: 34px;
+.small-button-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
 }
 
-input.custom-control-input[type=checkbox] {
-  width: 23px;
-  height: 23px;
+.underline {
+  text-decoration: underline;
 }
 
-div.custom-checkbox .custom-control-label::before {
-  width: 23px;
-  height: 23px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  box-sizing: border-box;
-  border-radius: 2px;
-  margin-right: 11px;
-  left: -34px;
-  top: 0px;
-}
-*/
 .btn-create-profile-button {
   background: #54682f;
 

@@ -3,7 +3,7 @@ import RequiredAsterisk from "./RequiredAsterisk";
 import "./formstyle.css";
 
 class InputText extends Component {
-  onBlur = (event) => {
+  onChange = (event) => {
     const { stateKey, onChange } = this.props;
     onChange(stateKey, event.target.value);
   };
@@ -33,7 +33,7 @@ class InputText extends Component {
           className={boxClass}
           placeholder={this.getPlaceholder()}
           value={this.props.value}
-          onBlur={this.onBlur}
+          onChange={this.onChange}
         />
       </div>
     );

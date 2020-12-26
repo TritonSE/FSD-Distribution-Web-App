@@ -7,10 +7,21 @@ class Checkbox extends Component {
     this.state = { isChecked: props.isChecked };
   }
 
+  onChange = () => {
+    const { index, onChange } = this.props;
+    this.setState((prevState) => ({
+      isChecked: !prevState.isChecked,
+    }));
+    onChange(index);
+  };
   render() {
     return (
       <label className="custom-checkbox">
-        <input type="checkbox" />
+        <input
+          type="checkbox"
+          onChange={this.onChange}
+          checked={this.props.isChecked}
+        />
         <svg
           width="23"
           height="23"

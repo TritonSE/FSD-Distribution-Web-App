@@ -558,12 +558,37 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <InputCheckboxList
                   label="Check Boxes if Available/Correct."
+                  stateKey="distributionType"
+                  onChange={this.handleInputChange}
                   options={[
-                    "Pantry",
-                    "Meal Program",
-                    "Homebound Delivery Partner",
-                    "Large Scale Distribution Site",
-                    "Residential Facility or Group Home",
+                    {
+                      title: "Pantry",
+                      selected: data["distributionType.pantry"],
+                      subkey: "pantry",
+                    },
+                    {
+                      title: "Meal Program",
+                      selected: data["distributionType.mealProgram"],
+                      subkey: "mealProgram",
+                    },
+                    {
+                      title: "Homebound Delivery Partner",
+                      selected:
+                        data["distributionType.homeboundDeliveryPartner"],
+                      subkey: "homeboundDeliveryPartner",
+                    },
+                    {
+                      title: "Large Scale Distribution Site",
+                      selected:
+                        data["distributionType.largeScaleDistributionSite"],
+                      subkey: "largeScaleDistributionSite",
+                    },
+                    {
+                      title: "Residential Facility or Group Home",
+                      selected:
+                        data["distributionType.residentialFacilityOrGroupHome"],
+                      subkey: "residentialFacilityOrGroupHome",
+                    },
                   ]}
                 />
               </Col>
@@ -578,19 +603,72 @@ class AgencyProfileForm extends Component {
                   label="Storage and Type:"
                   subLabel="Select Quantity if Storage Type is Available"
                   options={[
-                    "Stand Alone Freezer",
-                    "Freezer Fridge",
-                    "Chest Freezer",
-                    "Single-Door Stand Alone Freezer",
-                    "Freezer-Refrigerator Combo",
-                    "Walk-in Freezer",
-                    "Double-Door Stand Alone Fridge",
-                    "Side By Side Fridge",
-                    "Single-Door Stand Alone Fridge",
-                    "Walk-in Fridge",
-                    "Dry Storage (Climate Controlled)",
-                    "Dry Storage (Non-Climate Controlled)",
+                    {
+                      title: "Stand Alone Freezer",
+                      value: data["storageCapacity.standAloneFreezer"],
+                      subkey: "standAloneFreezer",
+                    },
+                    {
+                      title: "Freezer Fridge",
+                      value: data["storageCapacity.freezerFridge"],
+                      subkey: "freezerFridge",
+                    },
+                    {
+                      title: "Chest Freezer",
+                      value: data["storageCapacity.chestFreezer"],
+                      subkey: "chestFreezer",
+                    },
+                    {
+                      title: "Single-Door Stand Alone Freezer",
+                      value:
+                        data["storageCapacity.singleDoorStandAloneFreezer"],
+                      subkey: "singleDoorStandAloneFreezer",
+                    },
+                    {
+                      title: "Freezer-Refrigerator Combo",
+                      value: data["storageCapacity.freezerRefrigeratorCombo"],
+                      subkey: "freezerRefrigeratorCombo",
+                    },
+                    {
+                      title: "Walk-in Freezer",
+                      value: data["storageCapacity.walkInFreezer"],
+                      subkey: "walkInFreezer",
+                    },
+                    {
+                      title: "Double-Door Stand Alone Fridge",
+                      value: data["storageCapacity.doubleDoorStandAloneFridge"],
+                      subkey: "doubleDoorStandAloneFridge",
+                    },
+                    {
+                      title: "Side By Side Fridge",
+                      value: data["storageCapacity.sideBySideFridge"],
+                      subkey: "sideBySideFridge",
+                    },
+                    {
+                      title: "Single-Door Stand Alone Fridge",
+                      value: data["storageCapacity.singleDoorStandAloneFridge"],
+                      subkey: "singleDoorStandAloneFridge",
+                    },
+                    {
+                      title: "Walk-in Fridge",
+                      value: data["storageCapacity.walkInFridge"],
+                      subkey: "walkInFridge",
+                    },
+                    {
+                      title: "Dry Storage (Climate Controlled)",
+                      value:
+                        data["storageCapacity.dryStorageClimateControlled"],
+                      subkey: "dryStorageClimateControlled",
+                    },
+                    {
+                      title: "Dry Storage (Non-Climate Controlled)",
+                      value:
+                        data["storageCapacity.dryStorageNonClimateControlled"],
+                      subkey: "dryStorageNonClimateControlled",
+                    },
                   ]}
+                  stateKey="storageCapacity"
+                  onChange={this.handleInputChange}
                   twoColumns
                 />
               </Col>
@@ -601,7 +679,25 @@ class AgencyProfileForm extends Component {
                 <InputIncrementerBoxList
                   label="Transport and Type:"
                   subLabel="Select Quantity if Transport Type is Available"
-                  options={["Pickup Truck", "Van", "Car"]}
+                  options={[
+                    {
+                      title: "Pickup Truck",
+                      value: data["transportationCapacity.pickupTruck"],
+                      subkey: "pickupTruck",
+                    },
+                    {
+                      title: "Van",
+                      value: data["transportationCapacity.van"],
+                      subkey: "van",
+                    },
+                    {
+                      title: "Car",
+                      value: data["transportationCapacity.car"],
+                      subkey: "car",
+                    },
+                  ]}
+                  stateKey="transportCapacity"
+                  onChange={this.handleInputChange}
                 />
               </Col>
             </Row>
@@ -611,11 +707,25 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Retail Rescue" />
             <InputCheckboxList
               label="Check Boxes if Available."
+              stateKey="retailRescueType"
               options={[
-                "Retail Rescue",
-                "Prepared Food Capacity",
-                "Capacity with RR with Delivery",
+                {
+                  title: "Retail Rescue",
+                  selected: data["retailRescueType.retailRescue"],
+                  subkey: "retailRescue",
+                },
+                {
+                  title: "Prepared Food Capacity",
+                  selected: data["retailRescueType.preparedFoodCapacity"],
+                  subkey: "preparedFoodCapacity",
+                },
+                {
+                  title: "Capacity with RR with Delivery",
+                  selected: data["retailRescueType.capacityWithRRWithDelivery"],
+                  subkey: "capacityWithRRWithDelivery",
+                },
               ]}
+              onChange={this.handleInputChange}
             />
           </div>
 
@@ -624,16 +734,54 @@ class AgencyProfileForm extends Component {
             <InputCheckboxList
               label="Check Boxes if Applicable."
               options={[
-                "Youth",
-                "Senior",
-                "Homeless",
-                "Veteran/Military",
-                "Healthcare",
-                "College/University",
-                "Disability Specific (Physical or Mental)",
-                "Residential",
-                "Immigrant",
+                {
+                  title: "Youth",
+                  selected: data["demographicType.youth"],
+                  subkey: "youth",
+                },
+                {
+                  title: "Senior",
+                  selected: data["demographicType.senior"],
+                  subkey: "senior",
+                },
+                {
+                  title: "Homeless",
+                  selected: data["demographicType.homeless"],
+                  subkey: "homeless",
+                },
+                {
+                  title: "Veteran/Military",
+                  selected: data["demographicType.veteranMilitary"],
+                  subkey: "veteranMilitary",
+                },
+                {
+                  title: "Healthcare",
+                  selected: data["demographicType.healthcare"],
+                  subkey: "healthcare",
+                },
+                {
+                  title: "College/University",
+                  selected: data["demographicType.collegeUniversity"],
+                  subkey: "collegeUniversity",
+                },
+                {
+                  title: "Disability Specific (Physical or Mental)",
+                  selected: data["demographicType.disability"],
+                  subkey: "disability",
+                },
+                {
+                  title: "Residential",
+                  selected: data["demographicType.residential"],
+                  subkey: "residential",
+                },
+                {
+                  title: "Immigrant",
+                  selected: data["demographicType.immigrant"],
+                  subkey: "immigrant",
+                },
               ]}
+              stateKey="demographicType"
+              onChange={this.handleInputChange}
               twoColumns
             />
           </div>

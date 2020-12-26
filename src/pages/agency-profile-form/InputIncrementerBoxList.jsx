@@ -5,6 +5,13 @@ import IncrementerBoxColumn from "./IncrementerBoxColumn";
 import "./formstyle.css";
 
 class InputIncrementerBoxList extends Component {
+  onChange = (index, newNumber) => {
+    const { options, stateKey, onChange } = this.props;
+    const subkey = options[index].subkey;
+    const fullKey = stateKey + "." + subkey;
+    onChange(fullKey, newNumber);
+  };
+
   render() {
     let listColumns = null;
     if (this.props.twoColumns) {
@@ -17,15 +24,29 @@ class InputIncrementerBoxList extends Component {
       listColumns = (
         <Row noGutters={true}>
           <Col xs="auto">
-            <IncrementerBoxColumn options={firstColumnOptions} />
+            <IncrementerBoxColumn
+              options={firstColumnOptions}
+              indexBuffer={0}
+              onChange={this.onChange}
+            />
           </Col>
           <Col xs="auto">
-            <IncrementerBoxColumn options={secondColumnOptions} />
+            <IncrementerBoxColumn
+              options={secondColumnOptions}
+              indexBuffer={firstColumnOptions.length}
+              onChange={this.onChange}
+            />
           </Col>
         </Row>
       );
     } else {
-      listColumns = <IncrementerBoxColumn options={this.props.options} />;
+      listColumns = (
+        <IncrementerBoxColumn
+          options={this.props.options}
+          indexBuffer={0}
+          onChange={this.onChange}
+        />
+      );
     }
 
     return (

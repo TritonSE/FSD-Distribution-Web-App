@@ -5,6 +5,13 @@ import CheckboxColumn from "./CheckboxColumn";
 import "./formstyle.css";
 
 class InputCheckboxList extends Component {
+  onSelect = (index) => {
+    const { options, stateKey, onChange } = this.props;
+    const subkey = options[index].subkey;
+    const fullKey = stateKey + "." + subkey;
+    onChange(fullKey, !options[index].selected);
+  };
+
   render() {
     let listColumns = null;
     if (this.props.twoColumns) {
@@ -17,15 +24,29 @@ class InputCheckboxList extends Component {
       listColumns = (
         <Row noGutters={true}>
           <Col xs="auto">
-            <CheckboxColumn options={firstColumnOptions} />
+            <CheckboxColumn
+              indexBuffer={0}
+              options={firstColumnOptions}
+              onChange={this.onSelect}
+            />
           </Col>
           <Col xs="auto">
-            <CheckboxColumn options={secondColumnOptions} />
+            <CheckboxColumn
+              indexBuffer={firstColumnOptions.length}
+              options={secondColumnOptions}
+              onChange={this.onSelect}
+            />
           </Col>
         </Row>
       );
     } else {
-      listColumns = <CheckboxColumn options={this.props.options} />;
+      listColumns = (
+        <CheckboxColumn
+          indexBuffer={0}
+          options={this.props.options}
+          onChange={this.onSelect}
+        />
+      );
     }
 
     return (

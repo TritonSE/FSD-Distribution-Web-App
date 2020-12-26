@@ -4,54 +4,39 @@ import { Col } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 
 class IncrementerBox extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0,
-      /*topBtnColor: "black",
-      btmBtnColor: "black",
-      topBtnHover: false,
-      btmBtnHover: false,*/
-    };
-  }
-
-  /*toggleTopBtnHover = () => {
-    if (!this.state.topBtnHover) {
-      this.setState({ topBtnColor: "gray", topBtnHover: true });
-    } else {
-      this.setState({ topBtnColor: "black", topBtnHover: false });
-    }
-  };
-
-  toggleBtmBtnHover = () => {
-    if (!this.state.btmBtnHover) {
-      this.setState({ btmBtnColor: "gray", btmBtnHover: true });
-    } else {
-      this.setState({ btmBtnColor: "black", btmBtnHover: false });
-    }
-  };*/
-
   handleIncrement = () => {
-    this.setState({ count: ++this.state.count });
+    const { onChange, index, value } = this.props;
+    if (value < 99) {
+      onChange(index, value + 1);
+    }
   };
 
   handleDecrement = () => {
-    if (this.state.count != 0) {
-      this.setState({ count: --this.state.count });
+    const { onChange, index, value } = this.props;
+    if (value > 0) {
+      onChange(index, value - 1);
     }
   };
 
   handleInputChange = (event) => {
-    this.setState({ count: event.target.value });
+    const { onChange, index } = this.props;
+    const newNumber = parseInt(event.target.value);
+    if (!isNaN(newNumber) && isFinite(newNumber)) {
+      if (newNumber >= 0 && newNumber <= 99) {
+        onChange(index, newNumber);
+      }
+    }
   };
+
   render() {
+    const { value, label } = this.props;
     return (
       <label className="incrementer-box">
         <div className="incrementer-box-container">
           <input
             type="text"
             className="incrementer-box-input"
-            value={this.state.count}
+            value={value}
             onChange={this.handleInputChange}
           />
           <svg
@@ -76,7 +61,7 @@ class IncrementerBox extends Component {
             />
           </svg>
         </div>
-        <span>{this.props.label}</span>
+        <span>{label}</span>
       </label>
     );
   }

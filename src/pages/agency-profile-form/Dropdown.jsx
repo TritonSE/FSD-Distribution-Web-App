@@ -47,7 +47,8 @@ class Dropdown extends Component {
 
   triangleIcon() {
     return (
-      <svg className="icon-triangle" width="12" height="10" viewBox="0 0 12 10" aria-hidden="true" focusable="false">
+      <svg className="icon-triangle" width="12" height="10" viewBox="0 0 12 10"
+        aria-hidden="true" focusable="false">
         <polyline points="0,0 12,0 6,10" stroke="none" fill="#545252" />
       </svg>
     );
@@ -55,7 +56,8 @@ class Dropdown extends Component {
 
   checkmarkIcon() {
     return (
-      <svg className="icon-checkmark" width="23" height="23" viewBox="0 0 23 23" aria-hidden="true" focusable="false">
+      <svg className="icon-checkmark" width="23" height="23" viewBox="0 0 23 23"
+        aria-hidden="true" focusable="false">
         <polyline points="4,12 10,17 20,5" strokeWidth="4" fill="none" />
       </svg>
     );

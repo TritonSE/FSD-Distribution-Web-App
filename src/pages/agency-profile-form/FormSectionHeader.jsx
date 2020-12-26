@@ -1,26 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 import "./formstyle.css";
 
-class FormSectionHeader extends Component {
-  constructor(props) {
-    super(props);
-  }
-  renderUnderline = () => {
-    if (!this.props.noUnderline) {
-      return <div className="form-section-title-underline" />;
-    }
-  };
-
-  render() {
-    return (
-      <div>
-        <h2 className="form-section-title">
-          {this.props.title}
-          {this.renderUnderline()}
-        </h2>
-      </div>
-    );
-  }
+export default function FormSectionHeader(props) {
+  return (
+    <h2 className="form-section-title">
+      {props.title}
+      <div className="form-section-title-underline" />
+    </h2>
+  );
 }
-
-export default FormSectionHeader;

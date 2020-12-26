@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import IncrementerBoxColumn from "./IncrementerBoxColumn";
@@ -16,7 +15,7 @@ class InputIncrementerBoxList extends Component {
       let firstColumnOptions = this.props.options.slice(0, midIndex);
       let secondColumnOptions = this.props.options.slice(midIndex); // to end
       listColumns = (
-        <Row className="no-gutters m-2" xs="auto">
+        <Row noGutters={true}>
           <Col xs="auto">
             <IncrementerBoxColumn options={firstColumnOptions} />
           </Col>
@@ -26,23 +25,19 @@ class InputIncrementerBoxList extends Component {
         </Row>
       );
     } else {
-      listColumns = (
-        <Row className="no-gutters m-2" xs="auto">
-          <IncrementerBoxColumn options={this.props.options} />
-        </Row>
-      );
+      listColumns = <IncrementerBoxColumn options={this.props.options} />
     }
 
     return (
-      <Form.Group bsPrefix="form-input">
-        <Form.Label className="form-checkbox-list-header">
-          {this.props.label}
-        </Form.Label>
-        <Form.Label className="form-incrementer-box-list-sub-header">
-          {this.props.subLabel}
-        </Form.Label>
+      <div className="form-input">
+        <label className="form-input-list-header">
+          <span>{this.props.label + " "}</span>
+          <span className="form-input-list-subheader">
+            {this.props.subLabel}
+          </span>
+        </label>
         {listColumns}
-      </Form.Group>
+      </div>
     );
   }
 }

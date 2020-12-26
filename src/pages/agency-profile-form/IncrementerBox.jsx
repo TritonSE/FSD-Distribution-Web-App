@@ -8,14 +8,14 @@ class IncrementerBox extends Component {
     super(props);
     this.state = {
       count: 0,
-      topBtnColor: "black",
+      /*topBtnColor: "black",
       btmBtnColor: "black",
       topBtnHover: false,
-      btmBtnHover: false,
+      btmBtnHover: false,*/
     };
   }
 
-  toggleTopBtnHover = () => {
+  /*toggleTopBtnHover = () => {
     if (!this.state.topBtnHover) {
       this.setState({ topBtnColor: "gray", topBtnHover: true });
     } else {
@@ -29,7 +29,7 @@ class IncrementerBox extends Component {
     } else {
       this.setState({ btmBtnColor: "black", btmBtnHover: false });
     }
-  };
+  };*/
 
   handleIncrement = () => {
     this.setState({ count: ++this.state.count });
@@ -46,46 +46,24 @@ class IncrementerBox extends Component {
   };
   render() {
     return (
-      <Row>
-        <Col
-          className="remove-all-margin-padding center-col-contents"
-          xs="auto"
-        >
-          <Container
-            className="incrementer-box-container remove-all-margin-padding"
-            xs="auto"
-          >
-            <Row className="no-gutters">
-              <Col className="no-gutters center-col-contents" xs="auto">
-                <input
-                  className="incrementer-box-input"
-                  value={this.state.count}
-                  onChange={this.handleInputChange}
-                />
-              </Col>
-              <Col className="no-gutters" xs="auto">
-                <div
-                  className="btn-triangle-up"
-                  style={{ "border-bottom-color": this.state.topBtnColor }}
-                  onMouseEnter={this.toggleTopBtnHover}
-                  onMouseLeave={this.toggleTopBtnHover}
-                  onClick={this.handleIncrement}
-                />
-                <div
-                  className="btn-triangle-down"
-                  style={{ "border-top-color": this.state.btmBtnColor }}
-                  onMouseEnter={this.toggleBtmBtnHover}
-                  onMouseLeave={this.toggleBtmBtnHover}
-                  onClick={this.handleDecrement}
-                />
-              </Col>
-            </Row>
-          </Container>
-        </Col>
-        <Col className="remove-all-margin-padding center-col-contents  ">
-          <label className="incrementer-box-label m-2">{this.props.label}</label>
-        </Col>
-      </Row>
+      <label className="incrementer-box">
+        <div className="incrementer-box-container">
+          <input
+            type="text"
+            className="incrementer-box-input"
+            value={this.state.count}
+            onChange={this.handleInputChange}
+          />
+          <svg className="incrementer-buttons" width="7" height="16"
+            viewBox="0 0 8 16" aria-hidden="true" focusable="false">
+            <polyline className="up-button" points="0,6 3.5,0 7,6"
+              stroke="none" onClick={this.handleIncrement} />
+            <polyline className="down-button" points="0,10 3.5,16 7,10"
+              stroke="none" onClick={this.handleDecrement} />
+          </svg>
+        </div>
+        <span>{this.props.label}</span>
+      </label>
     );
   }
 }

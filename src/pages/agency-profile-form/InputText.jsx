@@ -6,7 +6,7 @@ class InputText extends Component {
   onBlur = (event) => {
     const { stateKey, onChange } = this.props;
     onChange(stateKey, event.target.value);
-  }
+  };
 
   getPlaceholder() {
     return null;

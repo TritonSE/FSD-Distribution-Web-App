@@ -6,9 +6,7 @@ export default function CheckboxColumn(props) {
   return (
     <div className="checkbox-list-column selection-choice">
       {props.options.map((optionText, index) => {
-        return (
-          <Checkbox key={index} label={optionText} />
-        );
+        return <Checkbox key={index} label={optionText} />;
       })}
     </div>
   );

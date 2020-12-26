@@ -55,7 +55,7 @@ class AgencyProfileForm extends Component {
             position: null,
             phoneNumber: null,
             email: null,
-          }
+          },
         ],
         scheduledNextVisit: null,
         dateOfMostRecentAgreement: null,
@@ -158,7 +158,7 @@ class AgencyProfileForm extends Component {
           residential: false,
           immigrant: false
         },*/
-        assignedStaff: null // single or multi select?
+        assignedStaff: null, // single or multi select?
       };
     }
     this.state = data;
@@ -167,18 +167,18 @@ class AgencyProfileForm extends Component {
   handleInputChange = (key, newValue) => {
     alert(key + " -> " + newValue); // TEMP
     this.setState({
-      [key]: newValue
+      [key]: newValue,
     });
-  }
+  };
 
   addAddress = () => {
     const addresses = this.state.additionalAddresses;
     let updatedAddresses = addresses.slice();
     updatedAddresses.push(null);
     this.setState({
-      additionalAddresses: updatedAddresses
+      additionalAddresses: updatedAddresses,
     });
-  }
+  };
 
   addContact = () => {
     const contacts = this.state.contacts;
@@ -187,12 +187,12 @@ class AgencyProfileForm extends Component {
       contact: null,
       position: null,
       phoneNumber: null,
-      email: null
+      email: null,
     });
     this.setState({
-      contacts: updatedContacts
+      contacts: updatedContacts,
     });
-  }
+  };
 
   render() {
     const data = this.state;
@@ -205,27 +205,47 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Quick Information" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Agency Number" value={data.agencyNumber}
-                  stateKey="agencyNumber" onChange={this.handleInputChange}
-                  leftmost required />
+                <InputText
+                  label="Agency Number"
+                  value={data.agencyNumber}
+                  stateKey="agencyNumber"
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputText label="Agency Name" value={data.agencyName}
-                  stateKey="agencyName" onChange={this.handleInputChange}
-                  required wide />
+                <InputText
+                  label="Agency Name"
+                  value={data.agencyName}
+                  stateKey="agencyName"
+                  onChange={this.handleInputChange}
+                  required
+                  wide
+                />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Primary Contact" value={data.primaryContact}
-                  stateKey="primaryContact" onChange={this.handleInputChange}
-                  leftmost required />
+                <InputText
+                  label="Primary Contact"
+                  value={data.primaryContact}
+                  stateKey="primaryContact"
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputText label="Main Site Address"
-                  value={data.mainSiteAddress1} stateKey="mainSiteAddress1"
-                  onChange={this.handleInputChange} required wide />
+                <InputText
+                  label="Main Site Address"
+                  value={data.mainSiteAddress1}
+                  stateKey="mainSiteAddress1"
+                  onChange={this.handleInputChange}
+                  required
+                  wide
+                />
               </Col>
             </Row>
 
@@ -248,50 +268,81 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Location and Addresses" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Region" value={data.region} stateKey="region"
-                  onChange={this.handleInputChange} leftmost required />
+                <InputText
+                  label="Region"
+                  value={data.region}
+                  stateKey="region"
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="San Diego District"
-                  value={data.sanDiegoDistrict} stateKey="sanDiegoDistrict"
-                  onChange={this.handleInputChange} leftmost required />
+                <InputText
+                  label="San Diego District"
+                  value={data.sanDiegoDistrict}
+                  stateKey="sanDiegoDistrict"
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputText label="County District" value={data.countyDistrict}
-                  stateKey="countyDistrict" onChange={this.handleInputChange}
-                  required />
+                <InputText
+                  label="County District"
+                  value={data.countyDistrict}
+                  stateKey="countyDistrict"
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputText label="State Assembly District"
+                <InputText
+                  label="State Assembly District"
                   value={data.stateAssemblyDistrict}
                   stateKey="stateAssemblyDistrict"
-                  onChange={this.handleInputChange} required />
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="State Senate District"
+                <InputText
+                  label="State Senate District"
                   value={data.stateSenateDistrict}
                   stateKey="stateSenateDistrict"
-                  onChange={this.handleInputChange} leftmost required />
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputText label="Federal Congressional District"
+                <InputText
+                  label="Federal Congressional District"
                   value={data.federalCongressionalDistrict}
                   stateKey="federalCongressionalDistrict"
-                  onChange={this.handleInputChange} required />
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Main Site Address"
-                  value={data.mainSiteAddress2} stateKey="mainSiteAddress2"
-                  onChange={this.handleInputChange} leftmost required wide />
+                <InputText
+                  label="Main Site Address"
+                  value={data.mainSiteAddress2}
+                  stateKey="mainSiteAddress2"
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                  wide
+                />
               </Col>
             </Row>
 
@@ -307,14 +358,24 @@ class AgencyProfileForm extends Component {
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Billing Address" value={data.billingAddress}
-                  stateKey="billingAddress" onChange={this.handleInputChange}
-                  leftmost required wide />
+                <InputText
+                  label="Billing Address"
+                  value={data.billingAddress}
+                  stateKey="billingAddress"
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                  wide
+                />
               </Col>
               <Col xs="auto">
-                <InputText label="Billing Zipcode" value={data.billingZipcode}
-                  stateKey="billingZipcode" onChange={this.handleInputChange}
-                  required />
+                <InputText
+                  label="Billing Zipcode"
+                  value={data.billingZipcode}
+                  stateKey="billingZipcode"
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
             </Row>
             <SmallButton text="Add Address" onClick={this.addAddress} />
@@ -334,41 +395,62 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Compliance" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputDate label="Scheduled Next Visit"
+                <InputDate
+                  label="Scheduled Next Visit"
                   value={data.scheduledNextVisit}
                   stateKey="scheduledNextVisit"
-                  onChange={this.handleInputChange} leftmost required />
+                  onChange={this.handleInputChange}
+                  leftmost
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputDate label="Date of Most Recent Agreement"
+                <InputDate
+                  label="Date of Most Recent Agreement"
                   value={data.dateOfMostRecentAgreement}
                   stateKey="dateOfMostRecentAgreement"
-                  onChange={this.handleInputChange} required />
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputDate label="Date of Initial Partnership"
+                <InputDate
+                  label="Date of Initial Partnership"
                   value={data.dateOfInitialPartnership}
                   stateKey="dateOfInitialPartnership"
-                  onChange={this.handleInputChange} required />
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputDate label="File Audit" value={data.fileAudit}
-                  stateKey="fileAudit" onChange={this.handleInputChange}
-                  leftmost />
+                <InputDate
+                  label="File Audit"
+                  value={data.fileAudit}
+                  stateKey="fileAudit"
+                  onChange={this.handleInputChange}
+                  leftmost
+                />
               </Col>
               <Col xs="auto">
-                <InputDate label="Monitored" value={data.monitored1}
-                  stateKey="monitored1" onChange={this.handleInputChange}
-                  required />
+                <InputDate
+                  label="Monitored"
+                  value={data.monitored1}
+                  stateKey="monitored1"
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputDate label="Food Safety Certification"
+                <InputDate
+                  label="Food Safety Certification"
                   value={data.foodSafetyCertification1}
                   stateKey="foodSafetyCertification1"
-                  onChange={this.handleInputChange} required />
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
             </Row>
           </div>
@@ -377,10 +459,13 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Distribution" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Main Site Phone #"
+                <InputText
+                  label="Main Site Phone #"
                   value={data.mainSitePhoneNumber}
                   stateKey="mainSitePhoneNumber"
-                  onChange={this.handleInputChange} leftmost />
+                  onChange={this.handleInputChange}
+                  leftmost
+                />
               </Col>
               <Col xs="auto">
                 <InputDropdown
@@ -389,38 +474,38 @@ class AgencyProfileForm extends Component {
                     {
                       title: "Monday",
                       selected: data["distributionDay.monday"],
-                      subkey: "monday"
+                      subkey: "monday",
                     },
                     {
                       title: "Tuesday",
                       selected: data["distributionDay.tuesday"],
-                      subkey: "tuesday"
+                      subkey: "tuesday",
                     },
                     {
                       title: "Wednesday",
                       selected: data["distributionDay.wednesday"],
-                      subkey: "wednesday"
+                      subkey: "wednesday",
                     },
                     {
                       title: "Thursday",
                       selected: data["distributionDay.thursday"],
-                      subkey: "thursday"
+                      subkey: "thursday",
                     },
                     {
                       title: "Friday",
                       selected: data["distributionDay.friday"],
-                      subkey: "friday"
+                      subkey: "friday",
                     },
                     {
                       title: "Saturday",
                       selected: data["distributionDay.saturday"],
-                      subkey: "saturday"
+                      subkey: "saturday",
                     },
                     {
                       title: "Sunday",
                       selected: data["distributionDay.sunday"],
-                      subkey: "sunday"
-                    }
+                      subkey: "sunday",
+                    },
                   ]}
                   stateKey="distributionDay"
                   onChange={this.handleInputChange}
@@ -429,29 +514,43 @@ class AgencyProfileForm extends Component {
                 />
               </Col>
               <Col xs="auto">
-                <InputText label="Distribution Frequency"
+                <InputText
+                  label="Distribution Frequency"
                   value={data.distributionFrequency}
                   stateKey="distributionFrequency"
-                  onChange={this.handleInputChange} required />
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputText label="Distribution Hours"
-                  value={data.distributionHours} stateKey="distributionHours"
-                  onChange={this.handleInputChange} leftmost />
+                <InputText
+                  label="Distribution Hours"
+                  value={data.distributionHours}
+                  stateKey="distributionHours"
+                  onChange={this.handleInputChange}
+                  leftmost
+                />
               </Col>
               <Col xs="auto">
-                <InputDate label="Monitored" value={data.monitored2}
-                  stateKey="monitored2" onChange={this.handleInputChange}
-                  required />
+                <InputDate
+                  label="Monitored"
+                  value={data.monitored2}
+                  stateKey="monitored2"
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
               <Col xs="auto">
-                <InputDate label="Food Safety Certification"
+                <InputDate
+                  label="Food Safety Certification"
                   value={data.foodSafetyCertification2}
                   stateKey="foodSafetyCertification2"
-                  onChange={this.handleInputChange} required />
+                  onChange={this.handleInputChange}
+                  required
+                />
               </Col>
             </Row>
 
@@ -502,11 +601,7 @@ class AgencyProfileForm extends Component {
                 <InputIncrementerBoxList
                   label="Transport and Type:"
                   subLabel="Select Quantity if Transport Type is Available"
-                  options={[
-                    "Pickup Truck",
-                    "Van",
-                    "Car",
-                  ]}
+                  options={["Pickup Truck", "Van", "Car"]}
                 />
               </Col>
             </Row>
@@ -548,7 +643,7 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <h2
                   className="form-section-title"
-                  style={{marginTop: 7, marginRight: 24}}
+                  style={{ marginTop: 7, marginRight: 24 }}
                 >
                   Assigned Staff
                 </h2>

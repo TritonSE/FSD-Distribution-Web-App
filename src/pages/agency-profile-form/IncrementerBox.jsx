@@ -54,12 +54,26 @@ class IncrementerBox extends Component {
             value={this.state.count}
             onChange={this.handleInputChange}
           />
-          <svg className="incrementer-buttons" width="7" height="16"
-            viewBox="0 0 8 16" aria-hidden="true" focusable="false">
-            <polyline className="up-button" points="0,6 3.5,0 7,6"
-              stroke="none" onClick={this.handleIncrement} />
-            <polyline className="down-button" points="0,10 3.5,16 7,10"
-              stroke="none" onClick={this.handleDecrement} />
+          <svg
+            className="incrementer-buttons"
+            width="7"
+            height="16"
+            viewBox="0 0 8 16"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <polyline
+              className="up-button"
+              points="0,6 3.5,0 7,6"
+              stroke="none"
+              onClick={this.handleIncrement}
+            />
+            <polyline
+              className="down-button"
+              points="0,10 3.5,16 7,10"
+              stroke="none"
+              onClick={this.handleDecrement}
+            />
           </svg>
         </div>
         <span>{this.props.label}</span>

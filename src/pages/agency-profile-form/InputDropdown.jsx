@@ -10,11 +10,10 @@ class InputDropdown extends Component {
       const subkey = options[index].subkey;
       const fullKey = stateKey + "." + subkey;
       onChange(fullKey, !options[index].selected);
-    }
-    else {
+    } else {
       onChange(stateKey, options[index]);
     }
-  }
+  };
 
   groupClass() {
     let groupClass = "form-input";
@@ -29,33 +28,28 @@ class InputDropdown extends Component {
     if (this.props.multiple) {
       dropdown = (
         <Dropdown
-          options={
-            this.props.options.map((item) => {
-              return {
-                title: item.title,
-                selected: item.selected
-              };
-            })
-          }
+          options={this.props.options.map((item) => {
+            return {
+              title: item.title,
+              selected: item.selected,
+            };
+          })}
           multiple
           onSelect={this.onSelect}
         />
       );
-    }
-    else {
+    } else {
       dropdown = (
         <Dropdown
-          options={
-            this.props.options.map((optionName) => {
-              return {
-                title: optionName,
-                selected: (optionName === this.props.initial)
-              };
-            })
-          }
+          options={this.props.options.map((optionName) => {
+            return {
+              title: optionName,
+              selected: optionName === this.props.initial,
+            };
+          })}
           onSelect={this.onSelect}
         />
-      )
+      );
     }
 
     return (

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import InputText from "./InputText";
-import "./formstyle.css"
+import "./formstyle.css";
 
 class AddressList extends Component {
   setAddress(index, newAddress) {

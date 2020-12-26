@@ -25,7 +25,7 @@ class InputIncrementerBoxList extends Component {
         </Row>
       );
     } else {
-      listColumns = <IncrementerBoxColumn options={this.props.options} />
+      listColumns = <IncrementerBoxColumn options={this.props.options} />;
     }
 
     return (

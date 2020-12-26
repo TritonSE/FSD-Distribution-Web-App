@@ -30,9 +30,7 @@ class InputCheckboxList extends Component {
 
     return (
       <div className="form-input">
-        <label className="form-input-list-header">
-          {this.props.label}
-        </label>
+        <label className="form-input-list-header">{this.props.label}</label>
         {listColumns}
       </div>
     );

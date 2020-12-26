@@ -4,21 +4,39 @@ import "./formstyle.css";
 class Checkbox extends Component {
   constructor(props) {
     super(props);
-    this.state = {isChecked: props.isChecked};
+    this.state = { isChecked: props.isChecked };
   }
 
   render() {
     return (
       <label className="custom-checkbox">
         <input type="checkbox" />
-        <svg width="23" height="23" viewBox="0 0 23 23" aria-hidden="true"
-          focusable="false">
-          <rect className="custom-checkbox-bg"
-            x="0" y="0" width="23" height="23" stroke="#000000" strokeWidth="1"
-            fill="none" rx="2" ry="2"></rect>
-          <polyline className="custom-checkbox-checkmark"
-            points="4,12 10,17 20,5" stroke="transparent" strokeWidth="4"
-            fill="none"></polyline>
+        <svg
+          width="23"
+          height="23"
+          viewBox="0 0 23 23"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <rect
+            className="custom-checkbox-bg"
+            x="0"
+            y="0"
+            width="23"
+            height="23"
+            stroke="#000000"
+            strokeWidth="1"
+            fill="none"
+            rx="2"
+            ry="2"
+          ></rect>
+          <polyline
+            className="custom-checkbox-checkmark"
+            points="4,12 10,17 20,5"
+            stroke="transparent"
+            strokeWidth="4"
+            fill="none"
+          ></polyline>
         </svg>
         <span>{this.props.label}</span>
       </label>

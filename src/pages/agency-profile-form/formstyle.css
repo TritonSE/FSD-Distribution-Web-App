@@ -116,6 +116,11 @@
   width: 698px;
 }
 
+.form-input-box::placeholder {
+  font-style: italic;
+  color: #cdcbd4;
+}
+
 /* * * * Custom dropdowns * * * */
 
 .dropdown-wrapper {
@@ -219,7 +224,7 @@
   display: inline-block;
   padding: 0px;
   margin: 0px 15px 0px 0px;
-  border-radius: 3px;
+  border-radius: 2px;
   border: 1px solid #000000;
 }
 
@@ -254,22 +259,6 @@
 
 .incrementer-box-list-column {
   width: 630px;
-}
-
-/* * Date Input* */
-.form-input-box-date {
-  width: 289px;
-  height: 43px;
-  display: block;
-  background: #ffffff;
-  border: 2px solid #cdcbd4;
-  box-sizing: border-box;
-  border-radius: 7px;
-  padding: 12px;
-  font-family: Roboto;
-  font-style: italic;
-  color: gray;
-  text-transform: uppercase;
 }
 
 /* * * * Small button * * * */

@@ -8,6 +8,10 @@ class InputText extends Component {
     onChange(stateKey, event.target.value);
   }
 
+  getPlaceholder() {
+    return null;
+  }
+
   render() {
     let groupClass = "form-input";
     if (!this.props.leftmost) {
@@ -27,6 +31,7 @@ class InputText extends Component {
         <input
           type="text"
           className={boxClass}
+          placeholder={this.getPlaceholder()}
           value={this.props.value}
           onBlur={this.onBlur}
         />

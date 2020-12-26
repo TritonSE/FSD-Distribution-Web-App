@@ -334,25 +334,41 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Compliance" />
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputDate label="Scheduled Next Visit" leftmost required />
+                <InputDate label="Scheduled Next Visit"
+                  value={data.scheduledNextVisit}
+                  stateKey="scheduledNextVisit"
+                  onChange={this.handleInputChange} leftmost required />
               </Col>
               <Col xs="auto">
-                <InputDate label="Date of Most Recent Agreement" required />
+                <InputDate label="Date of Most Recent Agreement"
+                  value={data.dateOfMostRecentAgreement}
+                  stateKey="dateOfMostRecentAgreement"
+                  onChange={this.handleInputChange} required />
               </Col>
               <Col xs="auto">
-                <InputDate label="Date of Initial Partnership" required />
+                <InputDate label="Date of Initial Partnership"
+                  value={data.dateOfInitialPartnership}
+                  stateKey="dateOfInitialPartnership"
+                  onChange={this.handleInputChange} required />
               </Col>
             </Row>
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputDate label="File Audit" leftmost />
+                <InputDate label="File Audit" value={data.fileAudit}
+                  stateKey="fileAudit" onChange={this.handleInputChange}
+                  leftmost />
               </Col>
               <Col xs="auto">
-                <InputDate label="Monitored" required />
+                <InputDate label="Monitored" value={data.monitored1}
+                  stateKey="monitored1" onChange={this.handleInputChange}
+                  required />
               </Col>
               <Col xs="auto">
-                <InputDate label="Food Safety Certification" required />
+                <InputDate label="Food Safety Certification"
+                  value={data.foodSafetyCertification1}
+                  stateKey="foodSafetyCertification1"
+                  onChange={this.handleInputChange} required />
               </Col>
             </Row>
           </div>
@@ -422,13 +438,20 @@ class AgencyProfileForm extends Component {
 
             <Row noGutters={true}>
               <Col xs="auto">
-                <InputDate label="Distribution" leftmost />
+                <InputText label="Distribution Hours"
+                  value={data.distributionHours} stateKey="distributionHours"
+                  onChange={this.handleInputChange} leftmost />
               </Col>
               <Col xs="auto">
-                <InputDate label="Monitored" required />
+                <InputDate label="Monitored" value={data.monitored2}
+                  stateKey="monitored2" onChange={this.handleInputChange}
+                  required />
               </Col>
               <Col xs="auto">
-                <InputDate label="Food Safety Certification" required />
+                <InputDate label="Food Safety Certification"
+                  value={data.foodSafetyCertification2}
+                  stateKey="foodSafetyCertification2"
+                  onChange={this.handleInputChange} required />
               </Col>
             </Row>
 
@@ -464,7 +487,7 @@ class AgencyProfileForm extends Component {
                     "Walk-in Freezer",
                     "Double-Door Stand Alone Fridge",
                     "Side By Side Fridge",
-                    "Single-Door Stand ALone Fridge",
+                    "Single-Door Stand Alone Fridge",
                     "Walk-in Fridge",
                     "Dry Storage (Climate Controlled)",
                     "Dry Storage (Non-Climate Controlled)",

@@ -10,6 +10,7 @@ import InputCheckboxList from "./InputCheckboxList";
 import InputIncrementerBoxList from "./InputIncrementerBoxList";
 import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
+import ContactsList from "./ContactsList";
 import InlineDropdown from "./InlineDropdown";
 import FormButton from "./FormButton";
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -179,6 +180,20 @@ class AgencyProfileForm extends Component {
     });
   }
 
+  addContact = () => {
+    const contacts = this.state.contacts;
+    let updatedContacts = contacts.slice();
+    updatedContacts.push({
+      contact: null,
+      position: null,
+      phoneNumber: null,
+      email: null
+    });
+    this.setState({
+      contacts: updatedContacts
+    });
+  }
+
   render() {
     const data = this.state;
     return (
@@ -302,33 +317,17 @@ class AgencyProfileForm extends Component {
                   required />
               </Col>
             </Row>
-
-            <Row noGutters={true}>
-              <Col xs="auto">
-                <SmallButton text="Add Address" onClick={this.addAddress} />
-              </Col>
-            </Row>
+            <SmallButton text="Add Address" onClick={this.addAddress} />
           </div>
 
           <div className="form-section">
             <FormSectionHeader title="Contacts" />
-            <Row noGutters={true}>
-              <Col xs="auto">
-                <InputText label="Contact" leftmost required />
-              </Col>
-              <Col xs="auto">
-                <InputText label="Position" required />
-              </Col>
-              <Col xs="auto">
-                <InputText label="Phone #" />
-              </Col>
-            </Row>
-
-            <Row noGutters={true}>
-              <Col xs="auto">
-                <InputText label="Email" leftmost required wide />
-              </Col>
-            </Row>
+            <ContactsList
+              contacts={data.contacts}
+              stateKey="contacts"
+              onChange={this.handleInputChange}
+            />
+            <SmallButton text="Add Contact" onClick={this.addContact} />
           </div>
 
           <div className="form-section">

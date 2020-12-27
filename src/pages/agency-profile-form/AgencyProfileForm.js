@@ -12,21 +12,9 @@ import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import InlineDropdown from "./InlineDropdown";
-import FormButton from "./FormButton";
-//import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "typeface-roboto";
 import "./formstyle.css";
-
-//For pulling: git pull (once you are in proper branch)
-// For pushing: git add -A .; git commit -m '<COMMENT>'; git push
-
-// Page name
-// Section headers
-// Input components (label + required mark + input):
-// Text field (placeholders) - EF (make sure that the style is right)
-// Single-select dropdown - WW
-// Checkbox list - WW
-// Number field / counter - EF/WW
-// Button - EF/WW
 
 class AgencyProfileForm extends Component {
   constructor(props) {
@@ -192,6 +180,16 @@ class AgencyProfileForm extends Component {
     this.setState({
       contacts: updatedContacts,
     });
+  };
+
+  submitForm = () => {
+    // TODO
+    alert("Submitting dat form");
+  };
+
+  cancelForm = () => {
+    // TODO
+    alert("Form do be canceled");
   };
 
   render() {
@@ -696,7 +694,7 @@ class AgencyProfileForm extends Component {
                       subkey: "car",
                     },
                   ]}
-                  stateKey="transportCapacity"
+                  stateKey="transportationCapacity"
                   onChange={this.handleInputChange}
                 />
               </Col>
@@ -808,24 +806,19 @@ class AgencyProfileForm extends Component {
             </Row>
           </div>
 
-          {/*BUTTON
-          <FormButton
-            left={"calc(50% - 376px/2 - 216.5px)"}
-            top={"4030px"}
-            label={"Create Profile"}
-            labelColor={"#FFFFFF"}
-            borderColor={"#54682F"}
-            backgroundColor={"#54682F"}
-          />
-
-          <FormButton
-            left={"calc(50% - 376px/2 + 223.5px)"}
-            top={"4030px"}
-            label={"Cancel"}
-            labelColor={"#000000"}
-            borderColor={"#000000"}
-            backgroundColor={"#FFFFFF"}
-          />*/}
+          <div className="form-section">
+            <Row noGutters={true}>
+              <Col>
+                <button
+                  type="button"
+                  className="form-button-submit"
+                  onClick={this.submitForm}
+                >
+                  Save Profile
+                </button>
+              </Col>
+            </Row>
+          </div>
         </Form>
       </div>
     );

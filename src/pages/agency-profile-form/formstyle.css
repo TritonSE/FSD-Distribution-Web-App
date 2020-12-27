@@ -68,15 +68,6 @@
   margin-bottom: 0px;
 }
 
-/*.form-input-list-header {
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  color: #000000;
-}*/
-
 .form-input-list-subheader {
   font-style: italic;
   font-weight: 300;
@@ -258,7 +249,7 @@
 }
 
 .incrementer-box-list-column {
-  width: 630px;
+  width: 624px;
 }
 
 /* * * * Small button * * * */
@@ -284,22 +275,44 @@
   text-decoration: underline;
 }
 
-.btn-create-profile-button {
-  background: #54682f;
+/* * * * Form buttons * * * */
 
-  position: absolute;
+.form-button-submit {
   width: 376px;
   height: 67px;
-  left: calc(50% - 376px / 2 - 216.5px);
-  top: 4030px;
-
+  float: right;
+  margin-right: 32px;
+  background: #54682f;
+  border: none;
+  border-radius: 20px;
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
   line-height: 35px;
-  letter-spacing: -0.01em;
+  color: #ffffff;
+}
 
-  border-color: #54682f;
-  border-radius: 10px;
+.form-button-submit:hover {
+  background: #38451f;
+}
+
+.form-button-cancel {
+  width: 376px;
+  height: 67px;
+  float: left;
+  margin-left: 32px;
+  background: #ffffff;
+  border: 4px solid #000000;
+  border-radius: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+  color: #000000;
+}
+
+.form-button-cancel:hover {
+  background: #aaaaaa;
 }

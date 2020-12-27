@@ -22,36 +22,36 @@ class AgencyProfileForm extends Component {
     let data = props.agencyData;
     if (!data) {
       data = {
-        agencyNumber: null,
-        agencyName: null,
-        primaryContact: null,
-        mainSiteAddress1: null,
-        agencyStatus: null,
-        region: null,
-        sanDiegoDistrict: null,
-        countyDistrict: null,
-        stateAssemblyDistrict: null,
-        stateSenateDistrict: null,
-        federalCongressionalDistrict: null,
-        mainSiteAddress2: null,
-        additionalAddresses: [null],
-        billingAddress: null,
-        billingZipcode: null,
+        agencyNumber: "",
+        agencyName: "",
+        primaryContact: "",
+        mainSiteAddress1: "",
+        agencyStatus: "",
+        region: "",
+        sanDiegoDistrict: "",
+        countyDistrict: "",
+        stateAssemblyDistrict: "",
+        stateSenateDistrict: "",
+        federalCongressionalDistrict: "",
+        mainSiteAddress2: "",
+        additionalAddresses: [""],
+        billingAddress: "",
+        billingZipcode: "",
         contacts: [
           {
-            contact: null,
-            position: null,
-            phoneNumber: null,
-            email: null,
+            contact: "",
+            position: "",
+            phoneNumber: "",
+            email: "",
           },
         ],
-        scheduledNextVisit: null,
-        dateOfMostRecentAgreement: null,
-        dateOfInitialPartnership: null,
-        fileAudit: null,
-        monitored1: null,
-        foodSafetyCertification1: null,
-        mainSitePhoneNumber: null,
+        scheduledNextVisit: "",
+        dateOfMostRecentAgreement: "",
+        dateOfInitialPartnership: "",
+        fileAudit: "",
+        monitored1: "",
+        foodSafetyCertification1: "",
+        mainSitePhoneNumber: "",
         "distributionDay.monday": false,
         "distributionDay.tuesday": false,
         "distributionDay.wednesday": false,
@@ -68,10 +68,10 @@ class AgencyProfileForm extends Component {
           saturday: false,
           sunday: false
         },*/
-        distributionFrequency: null,
-        distributionHours: null,
-        monitored2: null,
-        foodSafetyCertification2: null,
+        distributionFrequency: "",
+        distributionHours: "",
+        monitored2: "",
+        foodSafetyCertification2: "",
         "distributionType.pantry": false,
         "distributionType.mealProgram": false,
         "distributionType.homeboundDeliveryPartner": false,
@@ -146,7 +146,7 @@ class AgencyProfileForm extends Component {
           residential: false,
           immigrant: false
         },*/
-        assignedStaff: null, // single or multi select?
+        assignedStaff: "", // single or multi select?
       };
     }
     this.state = data;

@@ -17,10 +17,15 @@ class IncrementerBox extends Component {
 
   handleInputChange = (event) => {
     const { onChange, index } = this.props;
-    const newNumber = parseInt(event.target.value);
-    if (!isNaN(newNumber) && isFinite(newNumber)) {
-      if (newNumber >= 0 && newNumber <= 99) {
-        onChange(index, newNumber);
+    if (event.target.value === "") {
+      onChange(index, "");
+    }
+    else {
+      const newNumber = parseInt(event.target.value);
+      if (!isNaN(newNumber) && isFinite(newNumber)) {
+        if (newNumber >= 0 && newNumber <= 99) {
+          onChange(index, newNumber);
+        }
       }
     }
   };

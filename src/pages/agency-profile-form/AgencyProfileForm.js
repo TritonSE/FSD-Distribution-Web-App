@@ -817,6 +817,15 @@ class AgencyProfileForm extends Component {
                   Save Profile
                 </button>
               </Col>
+              <Col>
+                <button
+                  type="button"
+                  className="form-button-cancel"
+                  onClick={this.cancelForm}
+                >
+                  Cancel
+                </button>
+              </Col>
             </Row>
           </div>
         </Form>

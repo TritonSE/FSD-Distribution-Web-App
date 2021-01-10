@@ -153,16 +153,17 @@ class AgencyProfileForm extends Component {
   }
 
   handleInputChange = (key, newValue) => {
-    alert(key + " -> " + newValue); // TEMP
-    this.setState({
-      [key]: newValue,
-    });
+    if (this.state.hasOwnProperty(key)) {
+      this.setState({
+        [key]: newValue,
+      });
+    }
   };
 
   addAddress = () => {
     const addresses = this.state.additionalAddresses;
     let updatedAddresses = addresses.slice();
-    updatedAddresses.push(null);
+    updatedAddresses.push("");
     this.setState({
       additionalAddresses: updatedAddresses,
     });
@@ -172,10 +173,10 @@ class AgencyProfileForm extends Component {
     const contacts = this.state.contacts;
     let updatedContacts = contacts.slice();
     updatedContacts.push({
-      contact: null,
-      position: null,
-      phoneNumber: null,
-      email: null,
+      contact: "",
+      position: "",
+      phoneNumber: "",
+      email: "",
     });
     this.setState({
       contacts: updatedContacts,

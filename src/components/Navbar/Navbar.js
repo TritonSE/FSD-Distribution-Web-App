@@ -10,6 +10,8 @@ class Navbar extends Component {
     render() {
         return(
             <div>
+                <img src = "FSD_Logo_RGB_horizonal_300 2.png" id = "logo"></img>
+
                 <nav className="NavbarItems">
                     <ul className='nav-menu'>
                         {MenuItems.map((item, index) => {

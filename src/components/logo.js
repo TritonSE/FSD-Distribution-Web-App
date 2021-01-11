@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
-export default class Home extends Component {
+export default class Logo extends Component {
     render() {
         return (
             <div>
-                {/* <h2>Home</h2> */}
+                <img src = "public\FSD_Logo_RGB_horizonal_300 2.png" ></img>
             </div>
         )
     }

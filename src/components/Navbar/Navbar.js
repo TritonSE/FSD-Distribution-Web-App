@@ -30,8 +30,11 @@ class Navbar extends Component {
                 </nav>
                 <div>
                     <switch>
-                        <Route exact path="/" component={Home}/>
-                        <Route exact path="/agency" component={Agency}/>
+                        <div>
+                            <Route exact path="/" component={Home}/>
+                            <Route exact path="/agency" component={Agency}/>
+                        </div>
+                        
                     </switch>
                 </div>
             </div>

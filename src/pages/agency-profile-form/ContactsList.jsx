@@ -4,12 +4,33 @@ import Col from "react-bootstrap/Col";
 import InputText from "./InputText";
 import "./formstyle.css";
 
+/**
+ * ContactsList is a container encapsulating the expandable list of contact
+ * information in the agency form. It generates a series of sets of InputTexts
+ * which correspond to the elements in the contacts prop.
+ *
+ * Expected props:
+ * - {Array<Object>} contacts: list of objects containing contact information
+ * (contact, position, phoneNumber, and email)
+ * - {String} stateKey: key to pass into the onChange callback
+ * - {Function} onChange: callback from the form page to handle input changes,
+ * should take a String and an Any
+ */
 class ContactsList extends Component {
+  /**
+   * Callback function to handle changes in one of the text boxes.
+   * Creates an updated copy of the contacts list, then passes it back up to the
+   * onChange callback prop.
+   * @param {Number} index Index of the contact that was changed
+   * @param {String} key Sub-key of the field that was changed (e.g.
+   * "phoneNumber")
+   * @param {String} newValue New value for the field
+   */
   setContactInfo(index, key, newValue) {
     const { contacts, stateKey, onChange } = this.props;
     let updatedContacts = [];
     for (let contact in contacts) {
-      let contactCopy = { ...contact };
+      let contactCopy = { ...contact }; // spread notation copies all fields
       updatedContacts.push(contactCopy);
     }
     updatedContacts[index][key] = newValue;

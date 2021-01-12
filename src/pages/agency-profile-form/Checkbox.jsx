@@ -1,19 +1,35 @@
 import React, { Component } from "react";
 import "./formstyle.css";
 
+/**
+ * Checkbox is a custom checkbox component, including a label. It replaces
+ * default browser checkboxes to better match the form style.
+ *
+ * Expected props:
+ * - {Boolean} isChecked: whether it should be currently checked
+ * - {String} label: text to display next to the checkbox
+ * - {Number} index: index to pass into the onChange callback
+ * - {Function} onChange: callback to handle input changes, should take a
+ * Number
+ */
 class Checkbox extends Component {
   constructor(props) {
     super(props);
-    this.state = { isChecked: props.isChecked };
+    //this.state = { isChecked: props.isChecked };
   }
 
+  /**
+   * Callback function to handle toggling the checkbox. Passes the index prop
+   * up to the onChange callback.
+   */
   onChange = () => {
     const { index, onChange } = this.props;
-    this.setState((prevState) => ({
+    /*this.setState((prevState) => ({
       isChecked: !prevState.isChecked,
-    }));
+    }));*/
     onChange(index);
   };
+
   render() {
     return (
       <label className="custom-checkbox">

@@ -2,6 +2,19 @@ import React from "react";
 import Checkbox from "./Checkbox";
 import "./formstyle.css";
 
+/**
+ * CheckboxColumn is a container for Checkbox components in a single column.
+ * Sets of checkboxes (InputCheckboxList) may come in either one or two of these
+ * columns.
+ *
+ * Expected props:
+ * - {Array<Object>} options: list of objects containing data about each
+ * checkbox option (title and whether it is currently selected)
+ * - {Number} indexBuffer: value to add to indices (accounts for multiple
+ * columns)
+ * - {Function} onChange: callback to handle input changes, should take a
+ * Number
+ */
 export default function CheckboxColumn(props) {
   return (
     <div className="checkbox-list-column selection-choice">

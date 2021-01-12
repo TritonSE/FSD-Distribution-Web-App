@@ -16,10 +16,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "typeface-roboto";
 import "./formstyle.css";
 
+/**
+ * AgencyProfileForm describes the whole agency form page.
+ * Expected props: ???
+ *
+ * TODO: determine if adding new agency or editing existing one - need to change
+ * some text and pre-populate fields. also need to do form validation :(
+ */
 class AgencyProfileForm extends Component {
   constructor(props) {
     super(props);
-    let data = props.agencyData;
+    let data = props.agencyData; // TODO: should this be a prop or come from
+    // some function call??
     if (!data) {
       data = {
         agencyNumber: "",
@@ -152,6 +160,13 @@ class AgencyProfileForm extends Component {
     this.state = data;
   }
 
+  /**
+   * Callback to handle when the user makes changes to any input field. Updates
+   * the state with the given key and value, if the key already exists in the
+   * state.
+   * @param {String} key The key to update in the state
+   * @param {Any} newValue The new value to set for the key
+   */
   handleInputChange = (key, newValue) => {
     if (this.state.hasOwnProperty(key)) {
       this.setState({
@@ -160,6 +175,9 @@ class AgencyProfileForm extends Component {
     }
   };
 
+  /**
+   * Appends an empty string to the array of addresses in the component's state.
+   */
   addAddress = () => {
     const addresses = this.state.additionalAddresses;
     let updatedAddresses = addresses.slice();
@@ -169,6 +187,10 @@ class AgencyProfileForm extends Component {
     });
   };
 
+  /**
+   * Appends a blank contact object to the array of contacts in the component's
+   * state.
+   */
   addContact = () => {
     const contacts = this.state.contacts;
     let updatedContacts = contacts.slice();

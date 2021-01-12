@@ -2,12 +2,38 @@ import React, { Component } from "react";
 import RequiredAsterisk from "./RequiredAsterisk";
 import "./formstyle.css";
 
+/**
+ * InputText is a container for text input fields in the agency form. It handles
+ * changes made by the user to the text in the field and passes them up to the
+ * form page's callback.
+ *
+ * Expected props:
+ * - {String} label: text to display above the input field
+ * - {String} value: text currently in the input field
+ * - {String} stateKey: key to pass into the onChange callback
+ * - {Function} onChange: callback to handle input changes, should take a String
+ * and an Any
+ * - {Boolean} leftmost: determines whether the component will have left padding
+ * - {Boolean} required: whether the user is required to make a selection
+ * - {Boolean} wide: if true, the input field will be approximately twice as
+ * wide as normal
+ */
 class InputText extends Component {
+  /**
+   * Event handler for when the user types in the text field. Allows any value
+   * (subclasses may want to override this). Passes it up to the form page's
+   * callback.
+   * @param {SyntheticEvent} event Event object to handle
+   */
   onChange = (event) => {
     const { stateKey, onChange } = this.props;
     onChange(stateKey, event.target.value);
   };
 
+  /**
+   * Returns the placeholder for the text field. Subclasses may want to override
+   * this.
+   */
   getPlaceholder() {
     return null;
   }

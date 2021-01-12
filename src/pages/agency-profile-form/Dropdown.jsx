@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import "./formstyle.css";
 
+/**
+ * Dropdown is a custom dropdown selection menu component, with support for both
+ * single- and multi-select.
+ *
+ * Expected props:
+ * - {Array<Object>} options: list of objects containing data about each option
+ * (title and whether it is currently selected)
+ * - {Boolean} multiple: whether the dropdown should allow multiple selections
+ * - {Function} onSelect: callback to handle input changes, should take a
+ * Number
+ */
 class Dropdown extends Component {
   constructor(props) {
     super(props);
@@ -13,6 +24,10 @@ class Dropdown extends Component {
     this.closeList = this.closeList.bind(this);
   }
 
+  /**
+   * Updates component's state based on new props.
+   * @param {Any} nextProps The new props for the component
+   */
   static getDerivedStateFromProps(nextProps) {
     // determine what text to display in the header
     const selectedItems = nextProps.options.filter((item) => item.selected);
@@ -45,6 +60,9 @@ class Dropdown extends Component {
     }, 0); // 0 ms delay schedules this add/remove listener for next event loop
   }
 
+  /**
+   * Returns an svg for the triangle icon on the right side of the box.
+   */
   triangleIcon() {
     return (
       <svg
@@ -60,6 +78,9 @@ class Dropdown extends Component {
     );
   }
 
+  /**
+   * Returns an svg for the checkmark icon next to selected items.
+   */
   checkmarkIcon() {
     return (
       <svg
@@ -87,12 +108,16 @@ class Dropdown extends Component {
     });
   }
 
+  /**
+   * Callback function to handle selection/deselection of an option. Closes the
+   * menu if it's set to single-select, and passes index up to the onSelect
+   * callback.
+   * @param {Number} index Index of the option that was selected/deselected
+   */
   selectItem(index) {
     const { multiple, onSelect } = this.props;
     if (!multiple) {
-      this.setState({
-        isListOpen: false,
-      });
+      this.closeList();
     }
     onSelect(index);
   }

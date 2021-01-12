@@ -4,7 +4,29 @@ import Col from "react-bootstrap/Col";
 import IncrementerBoxColumn from "./IncrementerBoxColumn";
 import "./formstyle.css";
 
+/**
+ * InputIncrementerBoxList is a container for a column or columns of incrementer
+ * boxes as one group/set in the agency form. It handles changes made by the
+ * user to any of its incrementer boxes, and passes those changes up to the form
+ * page's callback.
+ *
+ * Expected props:
+ * - {String} label: label to display above the whole incrementer box group
+ * - {Array<Object>} options: list of objects containing data about each
+ * numeric option (title, current value, and the sub-key to use in the onChange
+ * callback)
+ * - {String} stateKey: first part of the key to pass into the onChange callback
+ * - {Function} onChange: callback to handle input changes, should take a String
+ * and an Any
+ * - {Boolean} twoColumns: whether the incrementer box group should be split
+ * into two columns
+ */
 class InputIncrementerBoxList extends Component {
+  /**
+   * Callback for handling when the user changes a number. Passes it up to
+   * the callback from the form page.
+   * @param {Number} index Index (in options) of the number that was changed
+   */
   onChange = (index, newNumber) => {
     const { options, stateKey, onChange } = this.props;
     const subkey = options[index].subkey;

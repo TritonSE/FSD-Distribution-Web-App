@@ -29,13 +29,13 @@ class Navbar extends Component {
                     </ul>
                 </nav>
                 <div>
-                    <switch>
+                    <Switch>
                         <div>
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/agency" component={Agency}/>
                         </div>
                         
-                    </switch>
+                    </Switch>
                 </div>
             </div>
         )

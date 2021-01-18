@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "./formstyle.css";
 
 /**
@@ -6,9 +6,24 @@ import "./formstyle.css";
  * expects a prop `required`: if true, it will appear; otherwise, the component
  * will turn into null.
  */
-export default function RequiredAsterisk(props) {
-  if (props.required) {
-    return <h3 className="form-input-label asterisk"> *</h3>;
+class RequiredAsterisk extends Component {
+  renderAsterisk = () => {
+    if (this.props.required) {
+      return <h3 className="form-input-label asterisk"> *</h3>;
+    }
+    return null;
+  };
+
+  render() {
+    return (this.renderAsterisk());
   }
-  return null;
 }
+ 
+export default RequiredAsterisk;
+
+// export default function RequiredAsterisk(props) {
+//   if (props.required) {
+//     return <h3 className="form-input-label asterisk"> *</h3>;
+//   }
+//   return null;
+// }

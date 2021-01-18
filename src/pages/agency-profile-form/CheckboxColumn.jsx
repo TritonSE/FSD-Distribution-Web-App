@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Checkbox from "./Checkbox";
 import "./formstyle.css";
 
@@ -15,20 +15,44 @@ import "./formstyle.css";
  * - {Function} onChange: callback to handle input changes, should take a
  * Number
  */
-export default function CheckboxColumn(props) {
-  return (
-    <div className="checkbox-list-column selection-choice">
-      {props.options.map((item, index) => {
-        return (
-          <Checkbox
-            key={index}
-            label={item.title}
-            index={index + props.indexBuffer}
-            isChecked={item.selected}
-            onChange={props.onChange}
-          />
-        );
-      })}
-    </div>
-  );
+
+class CheckboxColumn extends Component {
+  render() {
+    const { indexBuffer, onChange, options } = this.props;
+    return (
+      <div className="checkbox-list-column selection-choice">
+        {options.map((item, index) => {
+          return (
+            <Checkbox
+              key={index}
+              label={item.title}
+              index={index + indexBuffer}
+              isChecked={item.selected}
+              onChange={onChange}
+            />
+          );
+        })}
+      </div>
+    );
+  }
 }
+
+export default CheckboxColumn;
+
+// export default function CheckboxColumn(props) {
+//   return (
+//     <div className="checkbox-list-column selection-choice">
+//       {props.options.map((item, index) => {
+//         return (
+//           <Checkbox
+//             key={index}
+//             label={item.title}
+//             index={index + props.indexBuffer}
+//             isChecked={item.selected}
+//             onChange={props.onChange}
+//           />
+//         );
+//       })}
+//     </div>
+//   );
+// }

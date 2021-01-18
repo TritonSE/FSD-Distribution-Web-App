@@ -15,7 +15,6 @@ import "./formstyle.css";
 class Checkbox extends Component {
   constructor(props) {
     super(props);
-    //this.state = { isChecked: props.isChecked };
   }
 
   /**
@@ -24,9 +23,6 @@ class Checkbox extends Component {
    */
   onChange = () => {
     const { index, onChange } = this.props;
-    /*this.setState((prevState) => ({
-      isChecked: !prevState.isChecked,
-    }));*/
     onChange(index);
   };
 

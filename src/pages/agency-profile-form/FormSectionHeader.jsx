@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "./formstyle.css";
 
 /**
@@ -6,11 +6,16 @@ import "./formstyle.css";
  * Expected props:
  * - {String} title: title of the section
  */
-export default function FormSectionHeader(props) {
-  return (
-    <h2 className="form-section-title">
-      {props.title}
-      <div className="form-section-title-underline" />
-    </h2>
-  );
+class FormSectionHeader extends Component {
+  render() {
+    const { title } = this.props;
+    return (
+      <h2 className="form-section-title">
+        {title}
+        <div className="form-section-title-underline" />
+      </h2>
+    );
+  }
 }
+
+export default FormSectionHeader;

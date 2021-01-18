@@ -67,15 +67,6 @@ class AgencyProfileForm extends Component {
         "distributionDay.friday": false,
         "distributionDay.saturday": false,
         "distributionDay.sunday": false,
-        /*distributionDays: {
-          monday: false,
-          tuesday: false,
-          wednesday: false,
-          thursday: false,
-          friday: false,
-          saturday: false,
-          sunday: false
-        },*/
         distributionFrequency: "",
         distributionHours: "",
         monitored2: "",
@@ -85,13 +76,6 @@ class AgencyProfileForm extends Component {
         "distributionType.homeboundDeliveryPartner": false,
         "distributionType.largeScaleDistributionSite": false,
         "distributionType.residentialFacilityOrGroupHome": false,
-        /*distributionTypes: {
-          pantry: false,
-          mealProgram: false,
-          homeboundDeliveryPartner: false,
-          largeScaleDistributionSite: false,
-          residentialFacilityOrGroupHome: false
-        },*/
         "storageCapacity.standAloneFreezer": 0,
         "storageCapacity.freezerFridge": 0,
         "storageCapacity.chestFreezer": 0,
@@ -104,36 +88,12 @@ class AgencyProfileForm extends Component {
         "storageCapacity.walkInFridge": 0,
         "storageCapacity.dryStorageClimateControlled": 0,
         "storageCapacity.dryStorageNonClimateControlled": 0,
-        /*storageTypesAndCapacities: {
-          standAloneFreezer: 0,
-          freezerFridge: 0,
-          chestFreezer: 0,
-          singleDoorStandAloneFreezer: 0,
-          freezerRefrigeratorCombo: 0,
-          walkInFreezer: 0,
-          doubleDoorStandAloneFridge: 0,
-          sideBySideFridge: 0,
-          singleDoorStandAloneFridge: 0,
-          walkInFridge: 0,
-          dryStorageClimateControlled: 0,
-          dryStorageNonClimateControlled: 0
-        },*/
         "transportationCapacity.pickupTruck": 0,
         "transportationCapacity.van": 0,
         "transportationCapacity.car": 0,
-        /*transportationTypesAndCapacities: {
-          pickupTruck: 0,
-          van: 0,
-          car: 0
-        },*/
         "retailRescueType.retailRescue": false,
         "retailRescueType.preparedFoodCapacity": false,
         "retailRescueType.capacityWithRRWithDelivery": false,
-        /*retailRescueTypes: {
-          retailRescue: false,
-          preparedFoodCapacity: false,
-          capacityWithRRWithDelivery: false
-        },*/
         "demographicType.youth": false,
         "demographicType.senior": false,
         "demographicType.homeless": false,
@@ -143,17 +103,6 @@ class AgencyProfileForm extends Component {
         "demographicType.disability": false,
         "demographicType.residential": false,
         "demographicType.immigrant": false,
-        /*demographicTypes: {
-          youth: false,
-          senior: false,
-          homeless: false,
-          veteranMilitary: false,
-          healthcare: false,
-          collegeUniversity: false,
-          disability: false,
-          residential: false,
-          immigrant: false
-        },*/
         assignedStaff: "", // single or multi select?
       };
     }
@@ -217,6 +166,7 @@ class AgencyProfileForm extends Component {
 
   render() {
     const data = this.state;
+     
     return (
       <div className="form-body">
         <h1 className="form-title">Add a New Agency Profile.</h1>
@@ -820,7 +770,7 @@ class AgencyProfileForm extends Component {
               <Col xs="auto">
                 <InlineDropdown
                   label={null}
-                  options={["None"]}
+                  options={["Mia", "Charlie", "Eli", "Kate"]}
                   initial={this.state.assignedStaff}
                   stateKey="assignedStaff"
                   onChange={this.handleInputChange}

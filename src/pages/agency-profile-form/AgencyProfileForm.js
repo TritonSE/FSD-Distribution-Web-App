@@ -787,7 +787,7 @@ class AgencyProfileForm extends Component {
                   className="form-button-submit"
                   onClick={this.submitForm}
                 >
-                  Save Profile
+                  {this.props.edit ? "Save Form" : "Create Form"}
                 </button>
               </Col>
               <Col>

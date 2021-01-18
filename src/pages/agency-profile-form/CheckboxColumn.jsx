@@ -39,20 +39,3 @@ class CheckboxColumn extends Component {
 
 export default CheckboxColumn;
 
-// export default function CheckboxColumn(props) {
-//   return (
-//     <div className="checkbox-list-column selection-choice">
-//       {props.options.map((item, index) => {
-//         return (
-//           <Checkbox
-//             key={index}
-//             label={item.title}
-//             index={index + props.indexBuffer}
-//             isChecked={item.selected}
-//             onChange={props.onChange}
-//           />
-//         );
-//       })}
-//     </div>
-//   );
-// }

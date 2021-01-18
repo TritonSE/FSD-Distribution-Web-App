@@ -15,15 +15,11 @@ class RequiredAsterisk extends Component {
   };
 
   render() {
+    const { required } = this.props;
     return (this.renderAsterisk());
   }
 }
  
 export default RequiredAsterisk;
 
-// export default function RequiredAsterisk(props) {
-//   if (props.required) {
-//     return <h3 className="form-input-label asterisk"> *</h3>;
-//   }
-//   return null;
-// }
+

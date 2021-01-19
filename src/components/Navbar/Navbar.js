@@ -30,10 +30,10 @@ class Navbar extends Component {
                 </nav>
                 <div>
                     <Switch>
-                        <div>
+                        <React.Fragment>
                             <Route exact path="/" component={Home}/>
                             <Route exact path="/agency" component={Agency}/>
-                        </div>
+                        </React.Fragment>
                         
                     </Switch>
                 </div>

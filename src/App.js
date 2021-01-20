@@ -1,8 +1,13 @@
-import "./App.css";
-import AgencyProfileForm from "./pages/agency-profile-form/AgencyProfileForm";
+import React from 'react';
+import Navbar from "./components/Navbar/Navbar";
+import './App.css';
 
 function App() {
-  return <AgencyProfileForm />;
+  return (
+    <div className="App">
+      <Navbar />
+    </div>
+  );
 }
 
 export default App;

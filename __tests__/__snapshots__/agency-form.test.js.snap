@@ -1,0 +1,2447 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] = `
+<div
+  className="form-body"
+>
+  <h1
+    className="form-title"
+  >
+    Add a New Agency Profile.
+  </h1>
+  <form
+    className=""
+  >
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Quick Information
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Agency Number
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Agency Name
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice form-input-box-wide"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Primary Contact
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Main Site Address
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice form-input-box-wide"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Agency Status
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <div
+              className="dropdown-wrapper"
+            >
+              <button
+                className="form-input-box selection-choice"
+                onClick={[Function]}
+                type="button"
+              >
+                
+                <svg
+                  aria-hidden="true"
+                  className="icon-triangle"
+                  focusable="false"
+                  height="10"
+                  viewBox="0 0 12 10"
+                  width="12"
+                >
+                  <polyline
+                    fill="#545252"
+                    points="0,0 12,0 6,10"
+                    stroke="none"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Location and Addresses
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Region
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              San Diego District
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              County District
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              State Assembly District
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              State Senate District
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Federal Congressional District
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Main Site Address
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice form-input-box-wide"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Additional Address
+            </label>
+            <input
+              className="form-input-box selection-choice form-input-box-wide"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Billing Address
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice form-input-box-wide"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Billing Zipcode
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <button
+        className="small-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="small-button-text"
+        >
+          + 
+        </span>
+        <span
+          className="small-button-text underline"
+        >
+          Add Address
+        </span>
+      </button>
+    </div>
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Contacts
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div>
+        <div
+          className="row no-gutters"
+        >
+          <div
+            className="col-auto"
+          >
+            <div
+              className="form-input"
+            >
+              <label
+                className="form-input-label"
+              >
+                Contact
+                <h3
+                  className="form-input-label asterisk"
+                >
+                   *
+                </h3>
+              </label>
+              <input
+                className="form-input-box selection-choice"
+                onChange={[Function]}
+                placeholder={null}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-auto"
+          >
+            <div
+              className="form-input form-col-gutter"
+            >
+              <label
+                className="form-input-label"
+              >
+                Position
+                <h3
+                  className="form-input-label asterisk"
+                >
+                   *
+                </h3>
+              </label>
+              <input
+                className="form-input-box selection-choice"
+                onChange={[Function]}
+                placeholder={null}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+          <div
+            className="col-auto"
+          >
+            <div
+              className="form-input form-col-gutter"
+            >
+              <label
+                className="form-input-label"
+              >
+                Phone #
+              </label>
+              <input
+                className="form-input-box selection-choice"
+                onChange={[Function]}
+                placeholder={null}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          className="row no-gutters"
+        >
+          <div
+            className="col-auto"
+          >
+            <div
+              className="form-input"
+            >
+              <label
+                className="form-input-label"
+              >
+                Email
+                <h3
+                  className="form-input-label asterisk"
+                >
+                   *
+                </h3>
+              </label>
+              <input
+                className="form-input-box selection-choice form-input-box-wide"
+                onChange={[Function]}
+                placeholder={null}
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        className="small-button"
+        onClick={[Function]}
+        type="button"
+      >
+        <span
+          className="small-button-text"
+        >
+          + 
+        </span>
+        <span
+          className="small-button-text underline"
+        >
+          Add Contact
+        </span>
+      </button>
+    </div>
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Compliance
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Scheduled Next Visit
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Date of Most Recent Agreement
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Date of Initial Partnership
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              File Audit
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Monitored
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Food Safety Certification
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Distribution
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Main Site Phone #
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Distribution Day(s)
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <div
+              className="dropdown-wrapper"
+            >
+              <button
+                className="form-input-box selection-choice"
+                onClick={[Function]}
+                type="button"
+              >
+                
+                <svg
+                  aria-hidden="true"
+                  className="icon-triangle"
+                  focusable="false"
+                  height="10"
+                  viewBox="0 0 12 10"
+                  width="12"
+                >
+                  <polyline
+                    fill="#545252"
+                    points="0,0 12,0 6,10"
+                    stroke="none"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Distribution Frequency
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-label"
+            >
+              Distribution Hours
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder={null}
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Monitored
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Food Safety Certification
+              <h3
+                className="form-input-label asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-list-header"
+            >
+              Check Boxes if Available/Correct.
+            </label>
+            <div
+              className="checkbox-list-column selection-choice"
+            >
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Pantry
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Meal Program
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Homebound Delivery Partner
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Large Scale Distribution Site
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Residential Facility or Group Home
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Capacity
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-list-header"
+            >
+              <span>
+                Storage and Type: 
+              </span>
+              <span
+                className="form-input-list-subheader"
+              >
+                Select Quantity if Storage Type is Available
+              </span>
+            </label>
+            <div
+              className="row no-gutters"
+            >
+              <div
+                className="col-auto"
+              >
+                <div
+                  className="incrementer-box-list-column selection-choice"
+                >
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Stand Alone Freezer
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Freezer Fridge
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Chest Freezer
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Single-Door Stand Alone Freezer
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Freezer-Refrigerator Combo
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Walk-in Freezer
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div
+                className="col-auto"
+              >
+                <div
+                  className="incrementer-box-list-column selection-choice"
+                >
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Double-Door Stand Alone Fridge
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Side By Side Fridge
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Single-Door Stand Alone Fridge
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Walk-in Fridge
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Dry Storage (Climate Controlled)
+                    </span>
+                  </label>
+                  <label
+                    className="incrementer-box"
+                  >
+                    <div
+                      className="incrementer-box-container"
+                    >
+                      <input
+                        className="incrementer-box-input"
+                        onChange={[Function]}
+                        type="text"
+                        value={0}
+                      />
+                      <svg
+                        aria-hidden="true"
+                        className="incrementer-buttons"
+                        focusable="false"
+                        height="16"
+                        viewBox="0 0 8 16"
+                        width="7"
+                      >
+                        <polyline
+                          className="up-button"
+                          onClick={[Function]}
+                          points="0,6 3.5,0 7,6"
+                          stroke="none"
+                        />
+                        <polyline
+                          className="down-button"
+                          onClick={[Function]}
+                          points="0,10 3.5,16 7,10"
+                          stroke="none"
+                        />
+                      </svg>
+                    </div>
+                    <span>
+                      Dry Storage (Non-Climate Controlled)
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <div
+            className="form-input"
+          >
+            <label
+              className="form-input-list-header"
+            >
+              <span>
+                Transport and Type: 
+              </span>
+              <span
+                className="form-input-list-subheader"
+              >
+                Select Quantity if Transport Type is Available
+              </span>
+            </label>
+            <div
+              className="incrementer-box-list-column selection-choice"
+            >
+              <label
+                className="incrementer-box"
+              >
+                <div
+                  className="incrementer-box-container"
+                >
+                  <input
+                    className="incrementer-box-input"
+                    onChange={[Function]}
+                    type="text"
+                    value={0}
+                  />
+                  <svg
+                    aria-hidden="true"
+                    className="incrementer-buttons"
+                    focusable="false"
+                    height="16"
+                    viewBox="0 0 8 16"
+                    width="7"
+                  >
+                    <polyline
+                      className="up-button"
+                      onClick={[Function]}
+                      points="0,6 3.5,0 7,6"
+                      stroke="none"
+                    />
+                    <polyline
+                      className="down-button"
+                      onClick={[Function]}
+                      points="0,10 3.5,16 7,10"
+                      stroke="none"
+                    />
+                  </svg>
+                </div>
+                <span>
+                  Pickup Truck
+                </span>
+              </label>
+              <label
+                className="incrementer-box"
+              >
+                <div
+                  className="incrementer-box-container"
+                >
+                  <input
+                    className="incrementer-box-input"
+                    onChange={[Function]}
+                    type="text"
+                    value={0}
+                  />
+                  <svg
+                    aria-hidden="true"
+                    className="incrementer-buttons"
+                    focusable="false"
+                    height="16"
+                    viewBox="0 0 8 16"
+                    width="7"
+                  >
+                    <polyline
+                      className="up-button"
+                      onClick={[Function]}
+                      points="0,6 3.5,0 7,6"
+                      stroke="none"
+                    />
+                    <polyline
+                      className="down-button"
+                      onClick={[Function]}
+                      points="0,10 3.5,16 7,10"
+                      stroke="none"
+                    />
+                  </svg>
+                </div>
+                <span>
+                  Van
+                </span>
+              </label>
+              <label
+                className="incrementer-box"
+              >
+                <div
+                  className="incrementer-box-container"
+                >
+                  <input
+                    className="incrementer-box-input"
+                    onChange={[Function]}
+                    type="text"
+                    value={0}
+                  />
+                  <svg
+                    aria-hidden="true"
+                    className="incrementer-buttons"
+                    focusable="false"
+                    height="16"
+                    viewBox="0 0 8 16"
+                    width="7"
+                  >
+                    <polyline
+                      className="up-button"
+                      onClick={[Function]}
+                      points="0,6 3.5,0 7,6"
+                      stroke="none"
+                    />
+                    <polyline
+                      className="down-button"
+                      onClick={[Function]}
+                      points="0,10 3.5,16 7,10"
+                      stroke="none"
+                    />
+                  </svg>
+                </div>
+                <span>
+                  Car
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Retail Rescue
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div
+        className="form-input"
+      >
+        <label
+          className="form-input-list-header"
+        >
+          Check Boxes if Available.
+        </label>
+        <div
+          className="checkbox-list-column selection-choice"
+        >
+          <label
+            className="custom-checkbox"
+          >
+            <input
+              checked={false}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="23"
+              viewBox="0 0 23 23"
+              width="23"
+            >
+              <rect
+                className="custom-checkbox-bg"
+                fill="none"
+                height="23"
+                rx="2"
+                ry="2"
+                stroke="#000000"
+                strokeWidth="1"
+                width="23"
+                x="0"
+                y="0"
+              />
+              <polyline
+                className="custom-checkbox-checkmark"
+                fill="none"
+                points="4,12 10,17 20,5"
+                stroke="transparent"
+                strokeWidth="4"
+              />
+            </svg>
+            <span>
+              Retail Rescue
+            </span>
+          </label>
+          <label
+            className="custom-checkbox"
+          >
+            <input
+              checked={false}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="23"
+              viewBox="0 0 23 23"
+              width="23"
+            >
+              <rect
+                className="custom-checkbox-bg"
+                fill="none"
+                height="23"
+                rx="2"
+                ry="2"
+                stroke="#000000"
+                strokeWidth="1"
+                width="23"
+                x="0"
+                y="0"
+              />
+              <polyline
+                className="custom-checkbox-checkmark"
+                fill="none"
+                points="4,12 10,17 20,5"
+                stroke="transparent"
+                strokeWidth="4"
+              />
+            </svg>
+            <span>
+              Prepared Food Capacity
+            </span>
+          </label>
+          <label
+            className="custom-checkbox"
+          >
+            <input
+              checked={false}
+              onChange={[Function]}
+              type="checkbox"
+            />
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              height="23"
+              viewBox="0 0 23 23"
+              width="23"
+            >
+              <rect
+                className="custom-checkbox-bg"
+                fill="none"
+                height="23"
+                rx="2"
+                ry="2"
+                stroke="#000000"
+                strokeWidth="1"
+                width="23"
+                x="0"
+                y="0"
+              />
+              <polyline
+                className="custom-checkbox-checkmark"
+                fill="none"
+                points="4,12 10,17 20,5"
+                stroke="transparent"
+                strokeWidth="4"
+              />
+            </svg>
+            <span>
+              Capacity with RR with Delivery
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-section"
+    >
+      <h2
+        className="form-section-title"
+      >
+        Demographics
+        <div
+          className="form-section-title-underline"
+        />
+      </h2>
+      <div
+        className="form-input"
+      >
+        <label
+          className="form-input-list-header"
+        >
+          Check Boxes if Applicable.
+        </label>
+        <div
+          className="row no-gutters"
+        >
+          <div
+            className="col-auto"
+          >
+            <div
+              className="checkbox-list-column selection-choice"
+            >
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Youth
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Senior
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Homeless
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Veteran/Military
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Healthcare
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className="col-auto"
+          >
+            <div
+              className="checkbox-list-column selection-choice"
+            >
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  College/University
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Disability Specific (Physical or Mental)
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Residential
+                </span>
+              </label>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Immigrant
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-section"
+    >
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col-auto"
+        >
+          <h2
+            className="form-section-title"
+            style={
+              Object {
+                "marginRight": 24,
+                "marginTop": 7,
+              }
+            }
+          >
+            Assigned Staff
+          </h2>
+        </div>
+        <div
+          className="col-auto"
+        >
+          <div
+            className={null}
+          >
+            <div
+              className="dropdown-wrapper"
+            >
+              <button
+                className="form-input-box selection-choice"
+                onClick={[Function]}
+                type="button"
+              >
+                
+                <svg
+                  aria-hidden="true"
+                  className="icon-triangle"
+                  focusable="false"
+                  height="10"
+                  viewBox="0 0 12 10"
+                  width="12"
+                >
+                  <polyline
+                    fill="#545252"
+                    points="0,0 12,0 6,10"
+                    stroke="none"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-section"
+    >
+      <div
+        className="row no-gutters"
+      >
+        <div
+          className="col"
+        >
+          <button
+            className="form-button-submit"
+            onClick={[Function]}
+            type="button"
+          >
+            Create Profile
+          </button>
+        </div>
+        <div
+          className="col"
+        >
+          <button
+            className="form-button-cancel"
+            onClick={[Function]}
+            type="button"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+`;

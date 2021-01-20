@@ -1,0 +1,318 @@
+/* * * * Form layout * * * */
+
+.form-body {
+  margin: 62px 0px 64px 130px;
+}
+
+.form-section {
+  margin-top: 74px;
+}
+
+.form-input {
+  margin-top: 23px;
+  padding-left: 7px;
+}
+
+.form-col-gutter {
+  margin-left: 142px;
+}
+
+/* * * * Text styles * * * */
+
+.form-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 35px;
+  line-height: 41px;
+  color: #000000;
+}
+
+.form-section-title {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
+  color: #000000;
+  display: inline-block;
+}
+
+.form-section-title-underline {
+  background: #54682f;
+  height: 4px;
+  border-radius: 1px;
+  margin-top: 3px;
+  margin-bottom: 8px;
+}
+
+.form-input-label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: -7px;
+  margin-bottom: 8px;
+}
+
+.form-input-list-header {
+  font-family: Roboto;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: -7px;
+  margin-bottom: 0px;
+}
+
+.form-input-list-subheader {
+  font-style: italic;
+  font-weight: 300;
+  display: inline;
+}
+
+.selection-choice {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.asterisk {
+  margin-left: 0px;
+  display: inline;
+  color: #fc0808;
+}
+
+/* * * * General input boxes * * * */
+
+.form-input-box {
+  width: 289px;
+  height: 43px;
+  display: block;
+  background: #ffffff;
+  border: 2px solid #cdcbd4;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.form-input-box-wide {
+  width: 698px;
+}
+
+.form-input-box::placeholder {
+  font-style: italic;
+  color: #cdcbd4;
+}
+
+/* * * * Custom dropdowns * * * */
+
+.dropdown-wrapper {
+  position: relative;
+}
+
+.icon-triangle {
+  position: absolute;
+  right: 15px;
+  top: 17px;
+}
+
+.icon-checkmark {
+  margin-left: 10px;
+  stroke: #54682f;
+}
+
+.dropdown-list {
+  position: absolute;
+  width: 289px;
+  background: #f4f4f4;
+  border: 1px solid #cdcbd4;
+  border-radius: 7px;
+  z-index: 10;
+}
+
+.dropdown-list-item {
+  width: 100%;
+  height: 43px;
+  display: block;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.dropdown-list-item:hover {
+  background: #54682f;
+  color: #ffffff;
+}
+
+.dropdown-list-item:hover > .icon-checkmark {
+  stroke: #ffffff;
+}
+
+/* * * * Custom checkboxes * * * */
+
+.checkbox-list-column {
+  width: 624px;
+}
+
+.custom-checkbox {
+  position: relative;
+  margin-top: 9px;
+  margin-bottom: 0px;
+  display: table;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  /* hide the actual checkbox visually */
+  position: absolute;
+  opacity: 0;
+  width: 23px;
+  height: 23px;
+  top: 1px;
+  left: 0px;
+}
+
+.custom-checkbox svg {
+  margin-right: 11px;
+  border-radius: 2px;
+}
+
+.custom-checkbox input[type="checkbox"]:focus + svg {
+  outline: 2px solid #54682f80;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + svg .custom-checkbox-bg {
+  fill: #54682f;
+}
+
+.custom-checkbox
+  input[type="checkbox"]:checked
+  + svg
+  .custom-checkbox-checkmark {
+  stroke: #ffffff;
+}
+
+/* * Incrementer Box * */
+
+.incrementer-box {
+  display: block;
+  margin: 9px 0px 0px 0px;
+}
+
+.incrementer-box-container {
+  position: relative;
+  height: 25px;
+  width: 35px;
+  display: inline-block;
+  padding: 0px;
+  margin: 0px 15px 0px 0px;
+  border-radius: 2px;
+  border: 1px solid #000000;
+}
+
+.incrementer-box-input {
+  width: 25px;
+  text-align: center;
+  padding-left: 2px;
+  padding-right: 2px;
+  font-family: Roboto;
+  font-style: normal;
+  font-size: 12px;
+  background: none;
+  border: transparent;
+  outline: transparent;
+}
+
+.incrementer-buttons {
+  position: absolute;
+  right: 2px;
+  top: 5px;
+  fill: #545252;
+  cursor: pointer;
+}
+
+.incrementer-buttons > .up-button:hover {
+  fill: #000000;
+}
+
+.incrementer-buttons > .down-button:hover {
+  fill: #000000;
+}
+
+.incrementer-box-list-column {
+  width: 624px;
+}
+
+/* * * * Small button * * * */
+
+.small-button {
+  background: none;
+  border: none;
+  padding: 0px;
+  margin-left: 7px;
+  margin-top: 23px;
+}
+
+.small-button-text {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/* * * * Form buttons * * * */
+
+.form-button-submit {
+  width: 376px;
+  height: 67px;
+  float: right;
+  margin-right: 32px;
+  background: #54682f;
+  border: none;
+  border-radius: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+  color: #ffffff;
+}
+
+.form-button-submit:hover {
+  background: #38451f;
+}
+
+.form-button-cancel {
+  width: 376px;
+  height: 67px;
+  float: left;
+  margin-left: 32px;
+  background: #ffffff;
+  border: 4px solid #000000;
+  border-radius: 20px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+  color: #000000;
+}
+
+.form-button-cancel:hover {
+  background: #cccccc;
+}

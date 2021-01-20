@@ -14,7 +14,7 @@ import "./formstyle.css";
  * (contact, position, phoneNumber, and email)
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback from the form page to handle input changes,
- * should take a String and an Any
+ * should take a String and an Array of Objects
  */
 class ContactsList extends Component {
   /**

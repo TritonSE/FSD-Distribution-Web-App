@@ -17,7 +17,7 @@ import "./formstyle.css";
  * callback)
  * - {String} stateKey: first part of the key to pass into the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
- * and an Any
+ * and a Number
  * - {Boolean} twoColumns: whether the incrementer box group should be split
  * into two columns
  */

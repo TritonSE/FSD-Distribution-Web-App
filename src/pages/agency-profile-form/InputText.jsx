@@ -12,7 +12,7 @@ import "./formstyle.css";
  * - {String} value: text currently in the input field
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
- * and an Any
+ * and a String
  * - {Boolean} leftmost: determines whether the component will have left padding
  * - {Boolean} required: whether the user is required to make a selection
  * - {Boolean} wide: if true, the input field will be approximately twice as

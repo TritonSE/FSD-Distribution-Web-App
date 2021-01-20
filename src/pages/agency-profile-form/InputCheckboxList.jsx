@@ -16,7 +16,7 @@ import "./formstyle.css";
  * use in the onChange callback)
  * - {String} stateKey: first part of the key to pass into the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
- * and an Any
+ * and a Boolean
  * - {Boolean} twoColumns: whether the checkbox group should be split into two
  * columns
  */

@@ -11,7 +11,7 @@ import "./formstyle.css";
  * - {Array<String>} addresses: list of addresses
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback from the form page to handle input changes,
- * should take a String and Any
+ * should take a String and an Array of Strings
  */
 class AddressList extends Component {
   /**

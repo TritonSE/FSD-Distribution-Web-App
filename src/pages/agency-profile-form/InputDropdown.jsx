@@ -16,7 +16,7 @@ import "./formstyle.css";
  * select dropdown, a list of strings representing each option
  * - {String} stateKey: first part of the key to pass into the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
- * and an Any
+ * and a String or Boolean
  * - {Boolean} multiple: whether the dropdown should allow multiple selections
  * - {Boolean} leftmost: determines whether the component will have left padding
  * - {Boolean} required: whether the user is required to make a selection

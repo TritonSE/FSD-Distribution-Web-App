@@ -1,0 +1,34 @@
+const express = require('express');
+const mongoose = require('mongoose');
+const path = require('path');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const cors = require('cors');
+require('dotenv').config();
+
+// Database
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useUnifiedTopology', true)
+mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017');
+mongoose.connection.once('open', async () => {
+    console.log('Established connection to MongoDB.');
+});
+
+const app = express();
+
+// Middleware
+app.use(morgan('combined'));
+app.use(cors({ methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
+app.use(express.static(path.join(__dirname, 'build')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Routes
+app.use('/agency', require('./routes/agency'));
+
+const port = process.env.PORT || 8000
+app.listen(port, () => {
+    console.log('Express server started on port %s', port);
+});
+
+module.exports = app;

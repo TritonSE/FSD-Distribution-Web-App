@@ -8,9 +8,16 @@
   margin-top: 74px;
 }
 
+.form-col {
+  display: inline-block;
+  position: relative;
+}
+
 .form-input {
   margin-top: 23px;
   padding-left: 7px;
+  position: relative;
+  overflow: auto;
 }
 
 .form-col-gutter {
@@ -55,6 +62,7 @@
   color: #000000;
   margin-left: -7px;
   margin-bottom: 8px;
+  display: inline-block;
 }
 
 .form-input-list-header {
@@ -201,6 +209,11 @@
   stroke: #ffffff;
 }
 
+.custom-checkbox span {
+  position: relative;
+  top: -4px;
+}
+
 /* * Incrementer Box * */
 
 .incrementer-box {
@@ -276,6 +289,10 @@
 }
 
 /* * * * Form buttons * * * */
+
+button {
+  cursor: pointer;
+}
 
 .form-button-submit {
   width: 376px;

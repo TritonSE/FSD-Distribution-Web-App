@@ -2,19 +2,19 @@ import React, { Component } from "react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import FormSectionHeader from "./FormSectionHeader";
-import InputText from "./InputText";
-import InputDate from "./InputDate";
-import InputDropdown from "./InputDropdown";
-import InputCheckboxList from "./InputCheckboxList";
-import InputIncrementerBoxList from "./InputIncrementerBoxList";
-import SmallButton from "./SmallButton";
-import AddressList from "./AddressList";
-import ContactsList from "./ContactsList";
-import InlineDropdown from "./InlineDropdown";
+import FormSectionHeader from "./agency-form/FormSectionHeader";
+import InputText from "./agency-form/InputText";
+import InputDate from "./agency-form/InputDate";
+import InputDropdown from "./agency-form/InputDropdown";
+import InputCheckboxList from "./agency-form/InputCheckboxList";
+import InputIncrementerBoxList from "./agency-form/InputIncrementerBoxList";
+import SmallButton from "./agency-form/SmallButton";
+import AddressList from "./agency-form/AddressList";
+import ContactsList from "./agency-form/ContactsList";
+import InlineDropdown from "./agency-form/InlineDropdown";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "typeface-roboto";
-import "./formstyle.css";
+import "./agency-form/formstyle.css";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -166,7 +166,7 @@ class AgencyProfileForm extends Component {
 
   render() {
     const data = this.state;
-     
+
     return (
       <div className="form-body">
         <h1 className="form-title">Add a New Agency Profile.</h1>

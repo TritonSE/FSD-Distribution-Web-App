@@ -133,6 +133,15 @@ class AgencyProfileForm extends Component {
     });
   };
 
+  removeAddress = () => {
+    const addresses = this.state.additionalAddresses;
+    let updatedAddresses = addresses.slice();
+    updatedAddresses.pop();
+    this.setState({
+      additionalAddresses: updatedAddresses,
+    });
+  };
+
   /**
    * Appends a blank contact object to the array of contacts in the component's
    * state.
@@ -146,6 +155,15 @@ class AgencyProfileForm extends Component {
       phoneNumber: "",
       email: "",
     });
+    this.setState({
+      contacts: updatedContacts,
+    });
+  };
+
+  removeContact = () => {
+    const contacts = this.state.contacts;
+    let updatedContacts = contacts.slice();
+    updatedContacts.pop();
     this.setState({
       contacts: updatedContacts,
     });
@@ -346,7 +364,20 @@ class AgencyProfileForm extends Component {
                 />
               </FormCol>
             </FormRow>
-            <SmallButton text="Add Address" onClick={this.addAddress} />
+            <FormRow>
+              <SmallButton
+                text="Add Address"
+                symbol="+"
+                onClick={this.addAddress}
+              />
+              {this.state.additionalAddresses.length > 1 && (
+                <SmallButton
+                  text="Remove Address"
+                  symbol="-"
+                  onClick={this.removeAddress}
+                />
+              )}
+            </FormRow>
           </div>
 
           <div className="form-section">
@@ -356,7 +387,20 @@ class AgencyProfileForm extends Component {
               stateKey="contacts"
               onChange={this.handleInputChange}
             />
-            <SmallButton text="Add Contact" onClick={this.addContact} />
+            <FormRow>
+              <SmallButton
+                text="Add Contact"
+                symbol="+"
+                onClick={this.addContact}
+              />
+              {this.state.contacts.length > 1 && (
+                <SmallButton
+                  text="Remove Contact"
+                  symbol="-"
+                  onClick={this.removeContact}
+                />
+              )}
+            </FormRow>
           </div>
 
           <div className="form-section">

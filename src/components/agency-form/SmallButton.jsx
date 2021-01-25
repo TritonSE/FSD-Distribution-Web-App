@@ -17,7 +17,7 @@ class SmallButton extends Component {
         className="small-button"
         onClick={this.props.onClick}
       >
-        <span className="small-button-text">{"+ "}</span>
+        <span className="small-button-text">{this.props.symbol + " "}</span>
         <span className="small-button-text underline">{this.props.text}</span>
       </button>
     );

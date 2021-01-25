@@ -1,4 +1,6 @@
 version: 2.1
+jobs:
+  app-dir: ~/project/backend
 orbs:
   node: circleci/node@3.0.0
 workflows:

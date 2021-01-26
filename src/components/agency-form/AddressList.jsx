@@ -33,7 +33,8 @@ class AddressList extends Component {
       <React.Fragment>
         {this.props.addresses.map((address, index) => {
           return (
-            <InputText
+            <div>
+              <InputText
               label="Additional Address"
               value={address}
               onChange={(key, text) => this.setAddress(index, text)}
@@ -41,6 +42,8 @@ class AddressList extends Component {
               leftmost
               wide
             />
+            </div>
+            
           );
         })}
       </React.Fragment>

@@ -60,6 +60,8 @@ class InputText extends Component {
           placeholder={this.getPlaceholder()}
           value={this.props.value}
           onChange={this.onChange}
+          onFocus={this.props.onFocus}
+          onBlur={this.props.onBlur}
         />
       </div>
     );

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { FormRow, FormCol } from "./FormLayout";
+import ExpandableList from "./ExpandableList";
 import InputText from "./InputText";
 import "./formstyle.css";
 
@@ -15,11 +16,7 @@ import "./formstyle.css";
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and an Array of Objects
  */
-class ContactsList extends Component {
-  state = {
-    contactInFocusIndex: -1,
-  };
-
+class ContactsList extends ExpandableList {
   /**
    * Callback function to handle changes in one of the text boxes.
    * Creates an updated copy of the contacts list, then passes it back up to the
@@ -40,31 +37,12 @@ class ContactsList extends Component {
     onChange(stateKey, updatedContacts);
   }
 
-  getContactBodyStyle(index) {
-    if (this.state.contactInFocusIndex == index && index != 0) {
-      return { backgroundColor: "gray" };
-    }
-    return {};
-  }
-
-  handleFocus = (e, index) => {
-    this.setState({ contactInFocusIndex: index }, () =>
-      console.log("IN FOCUS", this.state)
-    );
-  };
-
-  handleBlur = () => {
-    this.setState({ contactInFocusIndex: -1 }, () =>
-      console.log("BLURRED", this.state)
-    );
-  };
-
   render() {
     return (
       <React.Fragment>
         {this.props.contacts.map((contactInfo, index) => {
           return (
-            <div style={this.getContactBodyStyle(index)} key={index}>
+            <div className={this.getContactBodyStyle(index)} key={index}>
               <FormRow>
                 <FormCol>
                   <InputText
@@ -73,7 +51,7 @@ class ContactsList extends Component {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "contact", text);
                     }}
-                    onFocus={(e) => this.handleFocus(e, index)}
+                    onFocus={() => this.handleFocus(index)}
                     onBlur={this.handleBlur}
                     leftmost
                     required
@@ -86,6 +64,8 @@ class ContactsList extends Component {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "position", text);
                     }}
+                    onFocus={() => this.handleFocus(index)}
+                    onBlur={this.handleBlur}
                     required
                   />
                 </FormCol>
@@ -96,6 +76,8 @@ class ContactsList extends Component {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "phoneNumber", text);
                     }}
+                    onFocus={() => this.handleFocus(index)}
+                    onBlur={this.handleBlur}
                   />
                 </FormCol>
               </FormRow>
@@ -107,6 +89,8 @@ class ContactsList extends Component {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "email", text);
                     }}
+                    onFocus={() => this.handleFocus(index)}
+                    onBlur={this.handleBlur}
                     leftmost
                     required
                     wide

@@ -332,15 +332,11 @@ class AgencyProfileForm extends Component {
               </FormCol>
             </FormRow>
 
-            <FormRow>
-              <FormCol>
-                <AddressList
-                  addresses={data.additionalAddresses}
-                  stateKey="additionalAddresses"
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
+            <AddressList
+              addresses={data.additionalAddresses}
+              stateKey="additionalAddresses"
+              onChange={this.handleInputChange}
+            />
 
             <FormRow>
               <FormCol>
@@ -365,18 +361,21 @@ class AgencyProfileForm extends Component {
               </FormCol>
             </FormRow>
             <FormRow>
-              <SmallButton
-                text="Add Address"
-                symbol="+"
-                onClick={this.addAddress}
-              />
-              {this.state.additionalAddresses.length > 1 && (
+              <span className="small-button-span">
                 <SmallButton
-                  text="Remove Address"
-                  symbol="-"
-                  onClick={this.removeAddress}
+                  text="Add Address"
+                  symbol="+"
+                  onClick={this.addAddress}
                 />
-              )}
+                {this.state.additionalAddresses.length > 1 && (
+                  <SmallButton
+                    text="Remove Address"
+                    symbol="-"
+                    alignRight
+                    onClick={this.removeAddress}
+                  />
+                )}
+              </span>
             </FormRow>
           </div>
 
@@ -388,18 +387,21 @@ class AgencyProfileForm extends Component {
               onChange={this.handleInputChange}
             />
             <FormRow>
-              <SmallButton
-                text="Add Contact"
-                symbol="+"
-                onClick={this.addContact}
-              />
-              {this.state.contacts.length > 1 && (
+              <span className="small-button-span">
                 <SmallButton
-                  text="Remove Contact"
-                  symbol="-"
-                  onClick={this.removeContact}
+                  text="Add Contact"
+                  symbol="+"
+                  onClick={this.addContact}
                 />
-              )}
+                {this.state.contacts.length > 1 && (
+                  <SmallButton
+                    text="Remove Contact"
+                    symbol="-"
+                    alignRight
+                    onClick={this.removeContact}
+                  />
+                )}
+              </span>
             </FormRow>
           </div>
 

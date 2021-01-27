@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import ExpandableList from "./ExpandableList";
 import InputText from "./InputText";
 import "./formstyle.css";
 
@@ -13,7 +14,7 @@ import "./formstyle.css";
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and an Array of Strings
  */
-class AddressList extends Component {
+class AddressList extends ExpandableList {
   /**
    * Callback function to handle changes in one of the address inputs.
    * Creates an updated copy of the addresses list, then passes it up to the
@@ -33,17 +34,17 @@ class AddressList extends Component {
       <React.Fragment>
         {this.props.addresses.map((address, index) => {
           return (
-            <div>
+            <div className={this.getContactBodyStyle(index)} key={index}>
               <InputText
-              label="Additional Address"
-              value={address}
-              onChange={(key, text) => this.setAddress(index, text)}
-              key={index}
-              leftmost
-              wide
-            />
+                label="Additional Address"
+                value={address}
+                onChange={(key, text) => this.setAddress(index, text)}
+                onFocus={() => this.handleFocus(index)}
+                onBlur={this.handleBlur}
+                leftmost
+                wide
+              />
             </div>
-            
           );
         })}
       </React.Fragment>

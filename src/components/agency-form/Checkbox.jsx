@@ -13,10 +13,6 @@ import "./formstyle.css";
  * Number
  */
 class Checkbox extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   /**
    * Callback function to handle toggling the checkbox. Passes the index prop
    * up to the onChange callback.

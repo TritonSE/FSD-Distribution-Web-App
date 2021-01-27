@@ -17,6 +17,8 @@ import "./formstyle.css";
  * - {Boolean} required: whether the user is required to make a selection
  * - {Boolean} wide: if true, the input field will be approximately twice as
  * wide as normal
+ * - {Function} onFocus: callback to handle when the user clicks into the field
+ * - {Function} onBlur: callback to handle when the user exits the field
  */
 class InputText extends Component {
   /**

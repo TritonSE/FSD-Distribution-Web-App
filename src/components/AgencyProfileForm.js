@@ -133,6 +133,10 @@ class AgencyProfileForm extends Component {
     });
   };
 
+  /**
+   * Removes the last element in the array of addresses in the component's
+   * state.
+   */
   removeAddress = () => {
     const addresses = this.state.additionalAddresses;
     let updatedAddresses = addresses.slice();
@@ -160,6 +164,10 @@ class AgencyProfileForm extends Component {
     });
   };
 
+  /**
+   * Removes the last element in the array of contact objects in the component's
+   * state.
+   */
   removeContact = () => {
     const contacts = this.state.contacts;
     let updatedContacts = contacts.slice();

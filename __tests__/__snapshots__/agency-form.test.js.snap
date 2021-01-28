@@ -9,9 +9,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
   >
     Add a New Agency Profile.
   </h1>
-  <form
-    className=""
-  >
+  <form>
     <div
       className="form-section"
     >
@@ -24,10 +22,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         />
       </h2>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -52,7 +50,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -78,10 +76,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -106,7 +104,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -132,10 +130,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -191,10 +189,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         />
       </h2>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -220,10 +218,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -248,7 +246,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -273,7 +271,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -299,10 +297,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -327,7 +325,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -353,10 +351,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -382,34 +380,32 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className={null}
       >
         <div
-          className="col-auto"
+          className="form-input"
         >
-          <div
-            className="form-input"
+          <label
+            className="form-input-label"
           >
-            <label
-              className="form-input-label"
-            >
-              Additional Address
-            </label>
-            <input
-              className="form-input-box selection-choice form-input-box-wide"
-              onChange={[Function]}
-              placeholder={null}
-              type="text"
-              value=""
-            />
-          </div>
+            Additional Address
+          </label>
+          <input
+            className="form-input-box selection-choice form-input-box-wide"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder={null}
+            type="text"
+            value=""
+          />
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -434,7 +430,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -459,22 +455,30 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
       </div>
-      <button
-        className="small-button"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="form-row"
       >
         <span
-          className="small-button-text"
+          className="small-button-span"
         >
-          + 
+          <button
+            className="small-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="small-button-text"
+            >
+              + 
+            </span>
+            <span
+              className="small-button-text underline"
+            >
+              Add Address
+            </span>
+          </button>
         </span>
-        <span
-          className="small-button-text underline"
-        >
-          Add Address
-        </span>
-      </button>
+      </div>
     </div>
     <div
       className="form-section"
@@ -487,12 +491,14 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           className="form-section-title-underline"
         />
       </h2>
-      <div>
+      <div
+        className={null}
+      >
         <div
-          className="row no-gutters"
+          className="form-row"
         >
           <div
-            className="col-auto"
+            className="form-col"
           >
             <div
               className="form-input"
@@ -509,7 +515,9 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice"
+                onBlur={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -517,7 +525,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             </div>
           </div>
           <div
-            className="col-auto"
+            className="form-col"
           >
             <div
               className="form-input form-col-gutter"
@@ -534,7 +542,9 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice"
+                onBlur={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -542,7 +552,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             </div>
           </div>
           <div
-            className="col-auto"
+            className="form-col"
           >
             <div
               className="form-input form-col-gutter"
@@ -554,7 +564,9 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice"
+                onBlur={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -563,10 +575,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="row no-gutters"
+          className="form-row"
         >
           <div
-            className="col-auto"
+            className="form-col"
           >
             <div
               className="form-input"
@@ -583,7 +595,9 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice form-input-box-wide"
+                onBlur={[Function]}
                 onChange={[Function]}
+                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -592,22 +606,30 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
       </div>
-      <button
-        className="small-button"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="form-row"
       >
         <span
-          className="small-button-text"
+          className="small-button-span"
         >
-          + 
+          <button
+            className="small-button"
+            onClick={[Function]}
+            type="button"
+          >
+            <span
+              className="small-button-text"
+            >
+              + 
+            </span>
+            <span
+              className="small-button-text underline"
+            >
+              Add Contact
+            </span>
+          </button>
         </span>
-        <span
-          className="small-button-text underline"
-        >
-          Add Contact
-        </span>
-      </button>
+      </div>
     </div>
     <div
       className="form-section"
@@ -621,10 +643,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         />
       </h2>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -649,7 +671,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -674,7 +696,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -700,10 +722,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -723,7 +745,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -748,7 +770,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -786,10 +808,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         />
       </h2>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -809,7 +831,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -852,7 +874,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -878,10 +900,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -901,7 +923,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -926,7 +948,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </div>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input form-col-gutter"
@@ -952,10 +974,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -1180,10 +1202,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         />
       </h2>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -1201,10 +1223,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </span>
             </label>
             <div
-              className="row no-gutters"
+              className="form-row"
             >
               <div
-                className="col-auto"
+                className="form-col"
               >
                 <div
                   className="incrementer-box-list-column selection-choice"
@@ -1440,7 +1462,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
                 </div>
               </div>
               <div
-                className="col-auto"
+                className="form-col"
               >
                 <div
                   className="incrementer-box-list-column selection-choice"
@@ -1680,10 +1702,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className="form-input"
@@ -1984,10 +2006,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           Check Boxes if Applicable.
         </label>
         <div
-          className="row no-gutters"
+          className="form-row"
         >
           <div
-            className="col-auto"
+            className="form-col"
           >
             <div
               className="checkbox-list-column selection-choice"
@@ -2190,7 +2212,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             </div>
           </div>
           <div
-            className="col-auto"
+            className="form-col"
           >
             <div
               className="checkbox-list-column selection-choice"
@@ -2360,10 +2382,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
       className="form-section"
     >
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col-auto"
+          className="form-col"
         >
           <h2
             className="form-section-title"
@@ -2378,7 +2400,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </h2>
         </div>
         <div
-          className="col-auto"
+          className="form-col"
         >
           <div
             className={null}
@@ -2416,10 +2438,10 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
       className="form-section"
     >
       <div
-        className="row no-gutters"
+        className="form-row"
       >
         <div
-          className="col"
+          className="form-col"
         >
           <button
             className="form-button-submit"
@@ -2430,7 +2452,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </button>
         </div>
         <div
-          className="col"
+          className="form-col"
         >
           <button
             className="form-button-cancel"

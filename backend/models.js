@@ -126,10 +126,14 @@ const AgencySchema = new Schema({
         type: String,
         required: true
     },
+
+    /* Contacts Section */
     contacts: {
         type: [ContactSchema],
         required: true
     },
+
+    /* Compliance Section */
     scheduledNextVisit: {
         type: String,
         required: true
@@ -145,17 +149,16 @@ const AgencySchema = new Schema({
     fileAudit: {
         type: String
     },
-    monitoredCompliance: {
+    monitored: {
         type: String,
         required: true
     },
-    foodSafetyCertificationCompliance: {
+    foodSafetyCertification: {
         type: String,
         required: true
     },
-    mainSitePhone: {
-        type: String
-    },
+
+    /* Distribution Section */
     distributionDays: {
         type: DistributionDaysSchema,
         required: true
@@ -167,14 +170,8 @@ const AgencySchema = new Schema({
     distributionHours: {
         type: String
     },
-    monitoredDistribution: {
-        type: String,
-        required: true
-    },
-    foodSafetyCertificationDistribution: {
-        type: String,
-        required: true
-    },
+
+    // Checkboxes for Distribution Section
     pantry: {
         type: Boolean
     },
@@ -190,6 +187,9 @@ const AgencySchema = new Schema({
     residentialFacility: {
         type: Boolean
     },
+
+    /* Capacity Section */
+    // Storage Type
     standAloneFreezer: {
         type: Number
     },
@@ -226,6 +226,8 @@ const AgencySchema = new Schema({
     dryStorageNonClimateControl: {
         type: Number
     },
+
+    // Transportation Type
     pickUpTruck: {
         type: Number
     },
@@ -235,6 +237,8 @@ const AgencySchema = new Schema({
     car: {
         type: Number
     },
+
+    /* Retail Rescue Section */
     retailRescue: {
         type: Boolean
     },
@@ -244,6 +248,8 @@ const AgencySchema = new Schema({
     capacityWithRRL: {
         type: Boolean
     },
+
+    /* Demographics Section */
     youth: {
         type: Boolean
     },

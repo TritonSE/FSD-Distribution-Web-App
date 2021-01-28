@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -25,6 +26,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/agency', require('./routes/agency'));
+
+// Error handling
+app.use((req, res, next) => {
+    next(createError(404));
+});
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({message: err.message});
+})
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {

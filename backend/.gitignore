@@ -4,3 +4,6 @@
 # production
 /build
 .env
+
+# testing
+request.json

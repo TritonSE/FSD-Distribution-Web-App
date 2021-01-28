@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const TableContentSchema = new Schema({
     agencyNumber: {
-        // unique agency number?
         type: Number,
         required: true
     },

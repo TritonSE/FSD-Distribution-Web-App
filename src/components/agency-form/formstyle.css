@@ -321,10 +321,14 @@ button {
   cursor: pointer;
 }
 
+.form-button-container {
+  margin: auto;
+  width: fit-content;
+}
+
 .form-button-submit {
   width: 376px;
   height: 67px;
-  float: right;
   margin-right: 32px;
   background: #54682f;
   border: none;
@@ -344,7 +348,6 @@ button {
 .form-button-cancel {
   width: 376px;
   height: 67px;
-  float: left;
   margin-left: 32px;
   background: #ffffff;
   border: 4px solid #000000;

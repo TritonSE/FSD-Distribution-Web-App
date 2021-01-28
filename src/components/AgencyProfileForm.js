@@ -30,7 +30,7 @@ class AgencyProfileForm extends Component {
         agencyNumber: "",
         agencyName: "",
         primaryContact: "",
-        mainSiteAddress1: "",
+        mainSiteAddress: "",
         agencyStatus: "",
         region: "",
         sanDiegoDistrict: "",
@@ -38,7 +38,6 @@ class AgencyProfileForm extends Component {
         stateAssemblyDistrict: "",
         stateSenateDistrict: "",
         federalCongressionalDistrict: "",
-        mainSiteAddress2: "",
         additionalAddresses: [""],
         billingAddress: "",
         billingZipcode: "",
@@ -54,9 +53,8 @@ class AgencyProfileForm extends Component {
         dateOfMostRecentAgreement: "",
         dateOfInitialPartnership: "",
         fileAudit: "",
-        monitored1: "",
-        foodSafetyCertification1: "",
-        mainSitePhoneNumber: "",
+        monitored: "",
+        foodSafetyCertification: "",
         "distributionDay.monday": false,
         "distributionDay.tuesday": false,
         "distributionDay.wednesday": false,
@@ -66,8 +64,6 @@ class AgencyProfileForm extends Component {
         "distributionDay.sunday": false,
         distributionFrequency: "",
         distributionHours: "",
-        monitored2: "",
-        foodSafetyCertification2: "",
         "distributionType.pantry": false,
         "distributionType.mealProgram": false,
         "distributionType.homeboundDeliveryPartner": false,
@@ -234,7 +230,7 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputText
                   label="Main Site Address"
-                  value={data.mainSiteAddress1}
+                  value={data.mainSiteAddress}
                   stateKey="mainSiteAddress1"
                   onChange={this.handleInputChange}
                   required
@@ -322,20 +318,6 @@ class AgencyProfileForm extends Component {
                   stateKey="federalCongressionalDistrict"
                   onChange={this.handleInputChange}
                   required
-                />
-              </FormCol>
-            </FormRow>
-
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="Main Site Address"
-                  value={data.mainSiteAddress2}
-                  stateKey="mainSiteAddress2"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                  wide
                 />
               </FormCol>
             </FormRow>
@@ -459,7 +441,7 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputDate
                   label="Monitored"
-                  value={data.monitored1}
+                  value={data.monitored}
                   stateKey="monitored1"
                   onChange={this.handleInputChange}
                   required
@@ -468,7 +450,7 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputDate
                   label="Food Safety Certification"
-                  value={data.foodSafetyCertification1}
+                  value={data.foodSafetyCertification}
                   stateKey="foodSafetyCertification1"
                   onChange={this.handleInputChange}
                   required
@@ -480,15 +462,6 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <FormSectionHeader title="Distribution" />
             <FormRow>
-              <FormCol>
-                <InputText
-                  label="Main Site Phone #"
-                  value={data.mainSitePhoneNumber}
-                  stateKey="mainSitePhoneNumber"
-                  onChange={this.handleInputChange}
-                  leftmost
-                />
-              </FormCol>
               <FormCol>
                 <InputDropdown
                   label="Distribution Day(s)"
@@ -532,6 +505,7 @@ class AgencyProfileForm extends Component {
                   stateKey="distributionDay"
                   onChange={this.handleInputChange}
                   multiple
+                  leftmost
                   required
                 />
               </FormCol>
@@ -544,34 +518,12 @@ class AgencyProfileForm extends Component {
                   required
                 />
               </FormCol>
-            </FormRow>
-
-            <FormRow>
               <FormCol>
                 <InputText
                   label="Distribution Hours"
                   value={data.distributionHours}
                   stateKey="distributionHours"
                   onChange={this.handleInputChange}
-                  leftmost
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Monitored"
-                  value={data.monitored2}
-                  stateKey="monitored2"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Food Safety Certification"
-                  value={data.foodSafetyCertification2}
-                  stateKey="foodSafetyCertification2"
-                  onChange={this.handleInputChange}
-                  required
                 />
               </FormCol>
             </FormRow>
@@ -831,26 +783,22 @@ class AgencyProfileForm extends Component {
           </div>
 
           <div className="form-section">
-            <FormRow>
-              <FormCol>
-                <button
-                  type="button"
-                  className="form-button-submit"
-                  onClick={this.submitForm}
-                >
-                  {this.props.edit ? "Save" : "Create Profile"}
-                </button>
-              </FormCol>
-              <FormCol>
-                <button
-                  type="button"
-                  className="form-button-cancel"
-                  onClick={this.cancelForm}
-                >
-                  Cancel
-                </button>
-              </FormCol>
-            </FormRow>
+            <div className="form-button-container">
+              <button
+                type="button"
+                className="form-button-submit"
+                onClick={this.submitForm}
+              >
+                {this.props.edit ? "Save Profile" : "Create Profile"}
+              </button>
+              <button
+                type="button"
+                className="form-button-cancel"
+                onClick={this.cancelForm}
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </form>
       </div>

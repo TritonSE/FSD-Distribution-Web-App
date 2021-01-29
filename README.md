@@ -20,7 +20,7 @@ First, install the dependencies in both the frontend and the backend:
 ```
 $ cd frontend
 $ npm install
-$ ../cd backend
+$ cd ../backend
 $ npm install
 ```
 

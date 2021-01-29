@@ -28,7 +28,7 @@ Next, run the build script located in the backend:
 ```
 $ npm-script build
 ```
-This build script builds the frontend of the project and moves the build directory created in the frontend to the backend. This is done so Express knows to serve the build direcotry's static pages.
+This build script builds the frontend of the project and moves the build directory created in the frontend to the backend. This is done so Express knows to serve the build directory's static pages.
 
 Then, start the web app while still located in the backend directory:
 ```

@@ -1,17 +1,18 @@
 version: 2.1
-job: 
+jobs: 
   test:
+    docker:
+      - image: circleci/node:10.16.2
     steps:
       - checkout
       - run:
-        command: cd frontend && npm install
+          command: cd frontend && npm install
       - run:
-        command: cd frontend && npm test
+          command: cd frontend && npm test
 # orbs:
 #   node: circleci/node@3.0.0
 workflows:
-  node-tests:
+  tests:
     jobs:
       - test
       # - node/test
-      

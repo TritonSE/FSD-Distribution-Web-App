@@ -30,8 +30,8 @@ $ npm-script build
 ```
 This build script builds the frontend of the project and moves the build directory created in the frontend to the backend. This is done so Express knows to serve the build direcotry's static pages.
 
-Now, start the webapp while still located in the backend directory:
+Then, start the web app while still located in the backend directory:
 ```
 $ npm start
 ```
-The server is now live at localhost:8000.
+The server is now live at localhost:8000

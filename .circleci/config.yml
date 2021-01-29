@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   node/test:
-	  app-dir: ~/frontend
+    app-dir: ~/frontend
 orbs:
   node: circleci/node@3.0.0
 workflows:

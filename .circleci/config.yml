@@ -1,6 +1,8 @@
 version: 2.1
 parameters:
-  app-dir: ~/project/frontend
+  app-dir: 
+    default: ~/frontend
+    type: string
 orbs:
   node: circleci/node@3.0.0
 workflows:

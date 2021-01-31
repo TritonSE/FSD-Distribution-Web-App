@@ -1,26 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { Agency } = require('../models');
-const { body } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 const router = express.Router();
 
 const validationChain = [
-    body('tableContents.phone').isMobilePhone('any'),
-    body('primaryContact').isMobilePhone('any'),
-    body('billingZipcode').isPostalCode('any'),
-    body('contacts.*.phoneNumber').isMobilePhone('any'),
-    body('contact.*.email').isEmail(),
-    body('scheduledNextVisit').isDate([{format: 'MM/DD/YYYY'}]),
-    body('dateOfMostRecentAgreement').isDate([{format: 'MM/DD/YYYY'}]),
-    body('dateOfInitialPartnership').isDate([{format: 'MM/DD/YYYY'}]),
-    body('fileAudit').isDate([{format: 'MM/DD/YYYY'}]),
-    body('monitored').isDate([{format: 'MM/DD/YYYY'}]),
-    body('foodSafetyCertification').isDate([{format: 'MM/DD/YYYY'}]),
+    body('tableContents.phone').trim().isMobilePhone('en-US'),
+    body('primaryContact').trim().isMobilePhone('en-US'),
+    body('billingZipcode').trim().isPostalCode('US'),
+    body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
+    body('contacts.*.email').trim().isEmail(),
+    body('scheduledNextVisit').isISO8601(),
+    body('dateOfMostRecentAgreement').trim().isDate(),
+    body('dateOfInitialPartnership').trim().isDate(),
+    body('fileAudit').trim().isDate(),
+    body('monitored').trim().isDate(),
+    body('foodSafetyCertification').trim().isDate(),
 ];
 
 router.put('/', validationChain, async (req, res, next) => {
-    // TODO: parse body? 
-
+    // TODO: parse body?
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    
     const agency = new Agency(req.body);
     agency.save()
         .then(() => {

@@ -19,7 +19,6 @@ const validationChain = [
 ];
 
 router.put('/', validationChain, async (req, res, next) => {
-    // TODO: parse body?
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -35,7 +34,10 @@ router.put('/', validationChain, async (req, res, next) => {
 });
 
 router.post('/:id', validationChain, async (req, res, next) => {
-    // TODO: parse body? 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
     
     Agency.updateOne({_id: req.params.id}, req.body).then((agency) => {
         res.status(200).json({ agency: agency });

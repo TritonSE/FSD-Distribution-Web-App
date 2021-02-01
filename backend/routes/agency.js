@@ -5,25 +5,25 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 
 const validationChain = [
-    body('tableContents.phone').trim().isMobilePhone('en-US'),
+    body('tableContent.phone').trim().isMobilePhone('en-US'),
     body('primaryContact').trim().isMobilePhone('en-US'),
     body('billingZipcode').trim().isPostalCode('US'),
     body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
     body('contacts.*.email').trim().isEmail(),
     body('scheduledNextVisit').isISO8601(),
-    body('dateOfMostRecentAgreement').trim().isDate(),
-    body('dateOfInitialPartnership').trim().isDate(),
-    body('fileAudit').trim().isDate(),
-    body('monitored').trim().isDate(),
-    body('foodSafetyCertification').trim().isDate(),
+    body('dateOfMostRecentAgreement').trim().isDate({ format: 'MM/DD/YYYY' }),
+    body('dateOfInitialPartnership').trim().isDate({ format: 'MM/DD/YYYY' }),
+    body('fileAudit').trim().isDate({ format: 'MM/DD/YYYY' }),
+    body('monitored').trim().isDate({ format: 'MM/DD/YYYY' }),
+    body('foodSafetyCertification').trim().isDate({ format: 'MM/DD/YYYY' }),
 ];
 
 router.put('/', validationChain, async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
     }
-    
+
     const agency = new Agency(req.body);
     agency.save()
         .then(() => {
@@ -36,10 +36,10 @@ router.put('/', validationChain, async (req, res, next) => {
 router.post('/:id', validationChain, async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
     }
-    
-    Agency.updateOne({_id: req.params.id}, req.body).then((agency) => {
+
+    Agency.updateOne({ _id: req.params.id }, req.body).then((agency) => {
         res.status(200).json({ agency: agency });
     }).catch((err) => {
         next(err);

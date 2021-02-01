@@ -1,4 +1,5 @@
 import { useHistory } from "react-router-dom";
+import './CreateAgencyBtn.css'
 
 export default function CreateAgencyBtn() {
     let history = useHistory();
@@ -9,7 +10,8 @@ export default function CreateAgencyBtn() {
   
     return (
       <button type="button" onClick={handleClick}>
-        Button
+        <div className="res-circle"><strong>+</strong></div>
+        <span>Create New Agency Profile</span>
       </button>
     );
   }

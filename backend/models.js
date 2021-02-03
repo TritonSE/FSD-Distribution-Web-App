@@ -82,6 +82,11 @@ const DistributionDaysSchema = new Schema({
 });
 
 const AgencySchema = new Schema({
+    /**
+     * Accessing the TableContentSchema
+     * 
+     * Ex. tableContent.name
+     */
     tableContent: {
         type: TableContentSchema,
         required: true
@@ -244,7 +249,7 @@ const AgencySchema = new Schema({
     preparedFoodCapacity: {
         type: Boolean
     },
-    capacityWithRRL: {
+    capacityWithRRD: {
         type: Boolean
     },
 

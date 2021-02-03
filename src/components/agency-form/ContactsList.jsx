@@ -10,7 +10,7 @@ import "./formstyle.css";
  * which correspond to the elements in the contacts prop.
  *
  * Expected props:
- * - {Array<Object>} contacts: list of objects containing contact information
+ * - {Array<Object>} items: list of objects containing contact information
  * (contact, position, phoneNumber, and email)
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback from the form page to handle input changes,
@@ -27,9 +27,9 @@ class ContactsList extends ExpandableList {
    * @param {String} newValue New value for the field
    */
   setContactInfo(index, key, newValue) {
-    const { contacts, stateKey, onChange } = this.props;
+    const { items, stateKey, onChange } = this.props;
     let updatedContacts = [];
-    for (let contact in contacts) {
+    for (let contact in items) {
       let contactCopy = { ...contact }; // spread notation copies all fields
       updatedContacts.push(contactCopy);
     }
@@ -40,7 +40,7 @@ class ContactsList extends ExpandableList {
   render() {
     return (
       <React.Fragment>
-        {this.props.contacts.map((contactInfo, index) => {
+        {this.props.items.map((contactInfo, index) => {
           return (
             <div className={this.getContactBodyStyle(index)} key={index}>
               <FormRow>
@@ -51,8 +51,6 @@ class ContactsList extends ExpandableList {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "contact", text);
                     }}
-                    onFocus={() => this.handleFocus(index)}
-                    onBlur={this.handleBlur}
                     leftmost
                     required
                   />
@@ -64,8 +62,6 @@ class ContactsList extends ExpandableList {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "position", text);
                     }}
-                    onFocus={() => this.handleFocus(index)}
-                    onBlur={this.handleBlur}
                     required
                   />
                 </FormCol>
@@ -76,8 +72,6 @@ class ContactsList extends ExpandableList {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "phoneNumber", text);
                     }}
-                    onFocus={() => this.handleFocus(index)}
-                    onBlur={this.handleBlur}
                   />
                 </FormCol>
               </FormRow>
@@ -89,8 +83,6 @@ class ContactsList extends ExpandableList {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "email", text);
                     }}
-                    onFocus={() => this.handleFocus(index)}
-                    onBlur={this.handleBlur}
                     leftmost
                     required
                     wide

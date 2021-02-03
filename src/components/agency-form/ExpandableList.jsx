@@ -15,32 +15,28 @@ class ExpandableList extends Component {
   }
 
   /**
+   * Invoked immediately after updating occurs. The ExpandableList component
+   * will determine whether to highlight its last item. If the new items prop
+   * is longer than it was previously, then the last item will be highlighted.
+   * @param {Any} prevProps The previous props of this component
+   */
+  componentDidUpdate(prevProps) {
+    const length = this.props.items.length;
+    if (length > prevProps.items.length) {
+      this.setState({ focusIndex: length - 1 });
+    }
+  }
+
+  /**
    * Returns the class name for a div around each component item.
    * @param {Number} index The index in the list of items
    */
   getContactBodyStyle(index) {
-    if (index === 0) {
-      return null;
-    } else if (this.state.focusIndex === index) {
+    if (this.state.focusIndex === index) {
       return "form-focus-gray";
     }
-    return "form-focusable";
+    return null;
   }
-
-  /**
-   * Callback for when one of the component items receives focus.
-   * @param {Number} index The index in the list of items
-   */
-  handleFocus = (index) => {
-    this.setState({ focusIndex: index });
-  };
-
-  /**
-   * Callback for when one of the component items loses focus.
-   */
-  handleBlur = () => {
-    this.setState({ focusIndex: -1 });
-  };
 
   render() {
     return null;

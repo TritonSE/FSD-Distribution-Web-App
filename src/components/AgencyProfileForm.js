@@ -231,7 +231,7 @@ class AgencyProfileForm extends Component {
                 <InputText
                   label="Main Site Address"
                   value={data.mainSiteAddress}
-                  stateKey="mainSiteAddress1"
+                  stateKey="mainSiteAddress"
                   onChange={this.handleInputChange}
                   required
                   wide
@@ -323,7 +323,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
 
             <AddressList
-              addresses={data.additionalAddresses}
+              items={data.additionalAddresses}
               stateKey="additionalAddresses"
               onChange={this.handleInputChange}
             />
@@ -372,7 +372,7 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <FormSectionHeader title="Contacts" />
             <ContactsList
-              contacts={data.contacts}
+              items={data.contacts}
               stateKey="contacts"
               onChange={this.handleInputChange}
             />

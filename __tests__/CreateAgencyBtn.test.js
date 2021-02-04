@@ -7,21 +7,21 @@ const mockHistoryPush = jest.fn();
 
 // Creates a mock router to be used for testing
 jest.mock('react-router-dom', () => ({
-    ...jest.requireActual('react-router-dom'),
-    useHistory: () => ({
-        push: mockHistoryPush,
-    }),
+  ...jest.requireActual('react-router-dom'),
+  useHistory: () => ({
+    push: mockHistoryPush,
+  }),
 }));
 
 // Checks if the rendered button from the CreateAgencyBtn component redirects to the correct URL
 describe('CreateAgencyBtn', () => {
-    it('Button goes to the correct URL on click', () => {
-      const { getByRole } = render(
-        <MemoryRouter>
-          <CreateAgencyBtn />
-        </MemoryRouter>,
-      );
-      fireEvent.click(getByRole('button'));
-      expect(mockHistoryPush).toHaveBeenCalledWith('/create-agency');
-    });
+  it('Button goes to the correct URL on click', () => {
+    const { getByRole } = render(
+      <MemoryRouter>
+        <CreateAgencyBtn />
+      </MemoryRouter>,
+    );
+    fireEvent.click(getByRole('button'));
+    expect(mockHistoryPush).toHaveBeenCalledWith('/create-agency');
   });
+});

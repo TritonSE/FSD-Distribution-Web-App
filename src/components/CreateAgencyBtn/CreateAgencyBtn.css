@@ -1,9 +1,12 @@
+/* Basic styling setup for entire button */
 button {
   border: none;
   background: none;
   display: flex;
   justify-content: space-between;
 }
+
+/* Styling for circular div element and plus sign */
 .res-circle {
   background: #ffffff;
   border: 1px solid #54682f;
@@ -13,6 +16,8 @@ button {
   width: 25px;
   margin-right: 6.35px;
 }
+
+/* Styling for button text */
 button span {
   font-family: Roboto;
   font-style: normal;

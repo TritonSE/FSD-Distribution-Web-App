@@ -14,7 +14,7 @@ const validationChain = [
     body('billingZipcode').trim().isPostalCode('US'),
     body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
     body('contacts.*.email').trim().isEmail(),
-    body('scheduledNextVisit').isISO8601(),
+    body('scheduledNextVisit').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('dateOfMostRecentAgreement').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('dateOfInitialPartnership').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('fileAudit').trim().isDate({ format: 'MM/DD/YYYY' }),

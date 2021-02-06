@@ -27,6 +27,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Routes
 app.use('/agency', require('./routes/agency'));
 
+// Catch-all route
+app.get('/*', (req, res, next) => {
+    res.sendFile(path.join(__dirname, 'build/index.html'), (err) => {
+        if (err) {
+            next();
+        }
+    });
+});
+
 // Error handling
 app.use((req, res, next) => {
     next(createError(404));
@@ -34,7 +43,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.json({message: err.message});
-})
+});
 
 const port = process.env.PORT || 8000
 app.listen(port, () => {

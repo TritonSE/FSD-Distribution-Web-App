@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { FormRow, FormCol } from "./FormLayout";
 import InputText from "./InputText";
 import "./formstyle.css";
 
@@ -43,8 +42,8 @@ class ContactsList extends Component {
         {this.props.contacts.map((contactInfo, index) => {
           return (
             <div key={index}>
-              <Row noGutters={true}>
-                <Col xs="auto">
+              <FormRow>
+                <FormCol>
                   <InputText
                     label="Contact"
                     value={contactInfo.contact}
@@ -54,8 +53,8 @@ class ContactsList extends Component {
                     leftmost
                     required
                   />
-                </Col>
-                <Col xs="auto">
+                </FormCol>
+                <FormCol>
                   <InputText
                     label="Position"
                     value={contactInfo.position}
@@ -64,8 +63,8 @@ class ContactsList extends Component {
                     }}
                     required
                   />
-                </Col>
-                <Col xs="auto">
+                </FormCol>
+                <FormCol>
                   <InputText
                     label="Phone #"
                     value={contactInfo.phoneNumber}
@@ -73,10 +72,10 @@ class ContactsList extends Component {
                       this.setContactInfo(index, "phoneNumber", text);
                     }}
                   />
-                </Col>
-              </Row>
-              <Row noGutters={true}>
-                <Col xs="auto">
+                </FormCol>
+              </FormRow>
+              <FormRow>
+                <FormCol>
                   <InputText
                     label="Email"
                     value={contactInfo.email}
@@ -87,8 +86,8 @@ class ContactsList extends Component {
                     required
                     wide
                   />
-                </Col>
-              </Row>
+                </FormCol>
+              </FormRow>
             </div>
           );
         })}

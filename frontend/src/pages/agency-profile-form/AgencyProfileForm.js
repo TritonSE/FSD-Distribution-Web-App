@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { FormRow, FormCol } from "./FormLayout";
 import FormSectionHeader from "./FormSectionHeader";
 import InputText from "./InputText";
@@ -154,8 +155,10 @@ class AgencyProfileForm extends Component {
   };
 
   cancelForm = () => {
-    // TODO
-    alert("Form do be canceled");
+    const { history } = this.props;
+    if (history) {
+      history.push("/agency");
+    }
   };
 
   render() {
@@ -765,4 +768,4 @@ class AgencyProfileForm extends Component {
   }
 }
 
-export default AgencyProfileForm;
+export default withRouter(AgencyProfileForm);

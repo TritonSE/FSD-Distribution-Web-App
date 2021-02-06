@@ -6,7 +6,7 @@ function CreateAgencyBtn() {
   let history = useHistory();
 
   function handleClick() {
-    history.push("/create-agency");
+    history.push("/agency/new");
   }
 
   return (

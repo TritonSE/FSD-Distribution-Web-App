@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const UserSchema = new Schema({
+    username: {
+        type: String,
+        required:true,
+        unique: true
+    },
+    password: {
+        type: String, 
+        required: true,   
+    }
+});
+
 const TableContentSchema = new Schema({
     agencyNumber: {
         type: Number,
@@ -284,5 +296,6 @@ const AgencySchema = new Schema({
 });
 
 const Agency = mongoose.model('Agency', AgencySchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = { Agency }
+module.exports = { Agency, User }

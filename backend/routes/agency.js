@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const { Agency } = require('../models');
 const { body, validationResult } = require('express-validator');
 const router = express.Router();
@@ -30,7 +31,7 @@ const validationChain = [
  * @params validationChain - the form fields that will be validated
  * @returns the new Agency object created in Json or any form input errors
  */
-router.put('/', validationChain, async (req, res, next) => {
+router.put('/', passport.authenticate('local', { failureRedirect: '/login' }), validationChain, async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });

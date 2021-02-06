@@ -5,6 +5,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const { User } = require('./models');
 require('dotenv').config();
 
 // Database
@@ -20,12 +23,36 @@ const app = express();
 // Middleware
 app.use(morgan('combined'));
 app.use(cors({ methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
+app.use('/login', express.static(path.join(__dirname, 'build')));
+app.use(passport.authenticate('local', { failureRedirect: '/login' }));
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Authentication
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+      User.findOne({ username: username }, function (err, user) {
+        if (err) { 
+            console.log("error")
+            return done(err); 
+        }
+        if (!user) { 
+            console.log("not a user")
+            return done(null, false); 
+        }
+        if (!user.verifyPassword(password)) { 
+            console.log("incorrect password")
+            return done(null, false); 
+        }
+        return done(null, user);
+      });
+    }
+));
+
 // Routes
 app.use('/agency', require('./routes/agency'));
+app.use('/login', require('./routes/login'));
 
 // Error handling
 app.use((req, res, next) => {
@@ -41,4 +68,4 @@ app.listen(port, () => {
     console.log('Express server started on port %s', port);
 });
 
-module.exports = app;
+module.exports = app

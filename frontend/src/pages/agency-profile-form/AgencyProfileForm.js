@@ -30,7 +30,7 @@ class AgencyProfileForm extends Component {
         agencyNumber: "",
         agencyName: "",
         primaryContact: "",
-        mainSiteAddress1: "",
+        mainSiteAddress: "",
         agencyStatus: "",
         region: "",
         sanDiegoDistrict: "",
@@ -38,7 +38,6 @@ class AgencyProfileForm extends Component {
         stateAssemblyDistrict: "",
         stateSenateDistrict: "",
         federalCongressionalDistrict: "",
-        mainSiteAddress2: "",
         additionalAddresses: [""],
         billingAddress: "",
         billingZipcode: "",
@@ -54,8 +53,8 @@ class AgencyProfileForm extends Component {
         dateOfMostRecentAgreement: "",
         dateOfInitialPartnership: "",
         fileAudit: "",
-        monitored1: "",
-        foodSafetyCertification1: "",
+        monitored: "",
+        foodSafetyCertification: "",
         mainSitePhoneNumber: "",
         "distributionDay.monday": false,
         "distributionDay.tuesday": false,
@@ -66,8 +65,6 @@ class AgencyProfileForm extends Component {
         "distributionDay.sunday": false,
         distributionFrequency: "",
         distributionHours: "",
-        monitored2: "",
-        foodSafetyCertification2: "",
         "distributionType.pantry": false,
         "distributionType.mealProgram": false,
         "distributionType.homeboundDeliveryPartner": false,
@@ -208,8 +205,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputText
                   label="Main Site Address"
-                  value={data.mainSiteAddress1}
-                  stateKey="mainSiteAddress1"
+                  value={data.mainSiteAddress}
+                  stateKey="mainSiteAddress"
                   onChange={this.handleInputChange}
                   required
                   wide
@@ -296,20 +293,6 @@ class AgencyProfileForm extends Component {
                   stateKey="federalCongressionalDistrict"
                   onChange={this.handleInputChange}
                   required
-                />
-              </FormCol>
-            </FormRow>
-
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="Main Site Address"
-                  value={data.mainSiteAddress2}
-                  stateKey="mainSiteAddress2"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                  wide
                 />
               </FormCol>
             </FormRow>
@@ -405,8 +388,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputDate
                   label="Monitored"
-                  value={data.monitored1}
-                  stateKey="monitored1"
+                  value={data.monitored}
+                  stateKey="monitored"
                   onChange={this.handleInputChange}
                   required
                 />
@@ -414,8 +397,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputDate
                   label="Food Safety Certification"
-                  value={data.foodSafetyCertification1}
-                  stateKey="foodSafetyCertification1"
+                  value={data.foodSafetyCertification}
+                  stateKey="foodSafetyCertification"
                   onChange={this.handleInputChange}
                   required
                 />
@@ -500,24 +483,6 @@ class AgencyProfileForm extends Component {
                   stateKey="distributionHours"
                   onChange={this.handleInputChange}
                   leftmost
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Monitored"
-                  value={data.monitored2}
-                  stateKey="monitored2"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Food Safety Certification"
-                  value={data.foodSafetyCertification2}
-                  stateKey="foodSafetyCertification2"
-                  onChange={this.handleInputChange}
-                  required
                 />
               </FormCol>
             </FormRow>

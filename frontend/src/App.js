@@ -17,7 +17,7 @@ function App() {
             <React.Fragment>
               <Route exact path="/" component={Home} />
               <Route exact path="/agency" component={Agency} />
-              <Route exact path="/agency/new" component={AgencyProfileForm} />
+              <Route exact path="/create-agency" component={AgencyProfileForm} />
             </React.Fragment>
           </Switch>
         </div>

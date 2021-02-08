@@ -28,7 +28,7 @@ class ContactsList extends Component {
   setContactInfo(index, key, newValue) {
     const { contacts, stateKey, onChange } = this.props;
     let updatedContacts = [];
-    for (let contact in contacts) {
+    for (let contact of contacts) {
       let contactCopy = { ...contact }; // spread notation copies all fields
       updatedContacts.push(contactCopy);
     }

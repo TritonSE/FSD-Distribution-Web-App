@@ -8,7 +8,7 @@ import "./formstyle.css";
  */
 class InlineDropdown extends InputDropdown {
   groupClass() {
-    return null;
+    return "inline-dropdown";
   }
 }
 

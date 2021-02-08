@@ -123,6 +123,12 @@
 
 /* * * * Custom dropdowns * * * */
 
+.inline-dropdown {
+  display: inline-block;
+  position: absolute;
+  top: -28px;
+}
+
 .dropdown-wrapper {
   position: relative;
 }

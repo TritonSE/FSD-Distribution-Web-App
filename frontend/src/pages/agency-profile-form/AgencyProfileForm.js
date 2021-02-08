@@ -16,10 +16,11 @@ import "./formstyle.css";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
- * Expected props: ???
- *
- * TODO: determine if adding new agency or editing existing one - need to change
- * some text and pre-populate fields. also need to do form validation :(
+ * Expected props:
+ * - {Object} agencyData: object following agency schema (if editing an
+ * existing agency)
+ * - {String} editSection: name of the section being edited (if editing an
+ * existing agency)
  */
 class AgencyProfileForm extends Component {
   constructor(props) {
@@ -160,7 +161,6 @@ class AgencyProfileForm extends Component {
    */
   handleInputChange = (key, newValue) => {
     if (this.state.hasOwnProperty(key)) {
-      console.log(key + " -> " + JSON.stringify(newValue));
       this.setState({
         [key]: newValue,
       });
@@ -198,17 +198,27 @@ class AgencyProfileForm extends Component {
   };
 
   submitForm = () => {
-    const data = this.prepareData();
+    const { history } = this.props;
+    const formData = this.prepareData();
     fetch("http://localhost:8000/agency/", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(formData),
     })
-      .then((response) => response.json())
-      //.then(() => console.log("cool"))
-      .catch((error) => console.error(error.data));
+      .then((response) => {
+        response.json().then((data) => {
+          if (data.errors) {
+            alert("error!!!!!!!!!!! :(");
+          } else {
+            if (history) {
+              history.push("/agency/" + data._id);
+            }
+          }
+        });
+      })
+      .catch((error) => console.error(error));
   };
 
   cancelForm = () => {
@@ -798,7 +808,7 @@ class AgencyProfileForm extends Component {
                 className="form-button-submit"
                 onClick={this.submitForm}
               >
-                {this.props.edit ? "Save Profile" : "Create Profile"}
+                {this.props.editSection ? "Save Profile" : "Create Profile"}
               </button>
               <button
                 type="button"

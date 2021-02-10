@@ -25,11 +25,11 @@ class Dropdown extends Component {
   }
 
   /**
-   * Updates component's state based on new props.
+   * Updates component's state based on new props. The Dropdown determines what
+   * text to display in its header.
    * @param {Any} nextProps The new props for the component
    */
   static getDerivedStateFromProps(nextProps) {
-    // determine what text to display in the header
     const selectedItems = nextProps.options.filter((item) => item.selected);
     if (nextProps.multiple) {
       if (selectedItems.length === 0) {

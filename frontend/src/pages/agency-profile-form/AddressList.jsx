@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
+import ExpandableList from "./ExpandableList";
 import InputText from "./InputText";
 import "./formstyle.css";
 
@@ -8,12 +9,12 @@ import "./formstyle.css";
  * each element in the addresses list.
  *
  * Expected props:
- * - {Array<String>} addresses: list of addresses
+ * - {Array<String>} items: list of addresses
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and an Array of Strings
  */
-class AddressList extends Component {
+class AddressList extends ExpandableList {
   /**
    * Callback function to handle changes in one of the address inputs.
    * Creates an updated copy of the addresses list, then passes it up to the
@@ -22,8 +23,8 @@ class AddressList extends Component {
    * @param {String} newAddress New value for the address
    */
   setAddress(index, newAddress) {
-    const { addresses, stateKey, onChange } = this.props;
-    let updatedAddresses = addresses.slice();
+    const { items, stateKey, onChange } = this.props;
+    let updatedAddresses = items.slice();
     updatedAddresses[index] = newAddress;
     onChange(stateKey, updatedAddresses);
   }
@@ -31,16 +32,17 @@ class AddressList extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.addresses.map((address, index) => {
+        {this.props.items.map((address, index) => {
           return (
-            <InputText
-              label="Additional Address"
-              value={address}
-              onChange={(key, text) => this.setAddress(index, text)}
-              key={index}
-              leftmost
-              wide
-            />
+            <div className={this.getContactBodyStyle(index)} key={index}>
+              <InputText
+                label="Additional Address"
+                value={address}
+                onChange={(key, text) => this.setAddress(index, text)}
+                leftmost
+                wide
+              />
+            </div>
           );
         })}
       </React.Fragment>

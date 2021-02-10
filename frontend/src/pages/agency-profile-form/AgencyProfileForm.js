@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { FormRow, FormCol } from "./FormLayout";
 import FormSectionHeader from "./FormSectionHeader";
+import { FormRow, FormCol } from "./FormLayout";
 import InputText from "./InputText";
 import InputDate from "./InputDate";
 import InputDropdown from "./InputDropdown";
@@ -132,8 +132,7 @@ class AgencyProfileForm extends Component {
     };
 
     // Remove empty strings in additionalAddresses
-    data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "")
-
+    data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 
     delete data.agencyNumber;
     delete data.name;
@@ -184,6 +183,19 @@ class AgencyProfileForm extends Component {
   };
 
   /**
+   * Removes the last element in the array of addresses in the component's
+   * state.
+   */
+  removeAddress = () => {
+    const addresses = this.state.additionalAddresses;
+    let updatedAddresses = addresses.slice();
+    updatedAddresses.pop();
+    this.setState({
+      additionalAddresses: updatedAddresses,
+    });
+  };
+
+  /**
    * Appends a blank contact object to the array of contacts in the component's
    * state.
    */
@@ -196,6 +208,19 @@ class AgencyProfileForm extends Component {
       phoneNumber: "",
       email: "",
     });
+    this.setState({
+      contacts: updatedContacts,
+    });
+  };
+
+  /**
+   * Removes the last element in the array of contact objects in the component's
+   * state.
+   */
+  removeContact = () => {
+    const contacts = this.state.contacts;
+    let updatedContacts = contacts.slice();
+    updatedContacts.pop();
     this.setState({
       contacts: updatedContacts,
     });
@@ -371,15 +396,11 @@ class AgencyProfileForm extends Component {
               </FormCol>
             </FormRow>
 
-            <FormRow>
-              <FormCol>
-                <AddressList
-                  addresses={data.additionalAddresses}
-                  stateKey="additionalAddresses"
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
+            <AddressList
+              items={data.additionalAddresses}
+              stateKey="additionalAddresses"
+              onChange={this.handleInputChange}
+            />
 
             <FormRow>
               <FormCol>
@@ -403,17 +424,49 @@ class AgencyProfileForm extends Component {
                 />
               </FormCol>
             </FormRow>
-            <SmallButton text="Add Address" onClick={this.addAddress} />
+            <FormRow>
+              <span className="small-button-span">
+                <SmallButton
+                  text="Add Address"
+                  symbol="+"
+                  onClick={this.addAddress}
+                />
+                {this.state.additionalAddresses.length > 1 && (
+                  <SmallButton
+                    text="Remove Address"
+                    symbol="-"
+                    alignRight
+                    onClick={this.removeAddress}
+                  />
+                )}
+              </span>
+            </FormRow>
           </div>
 
           <div className="form-section">
             <FormSectionHeader title="Contacts" />
             <ContactsList
-              contacts={data.contacts}
+              items={data.contacts}
               stateKey="contacts"
               onChange={this.handleInputChange}
             />
-            <SmallButton text="Add Contact" onClick={this.addContact} />
+            <FormRow>
+              <span className="small-button-span">
+                <SmallButton
+                  text="Add Contact"
+                  symbol="+"
+                  onClick={this.addContact}
+                />
+                {this.state.contacts.length > 1 && (
+                  <SmallButton
+                    text="Remove Contact"
+                    symbol="-"
+                    alignRight
+                    onClick={this.removeContact}
+                  />
+                )}
+              </span>
+            </FormRow>
           </div>
 
           <div className="form-section">
@@ -484,15 +537,6 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Distribution" />
             <FormRow>
               <FormCol>
-                <InputText
-                  label="Main Site Phone #"
-                  value={data.mainSitePhoneNumber}
-                  stateKey="mainSitePhoneNumber"
-                  onChange={this.handleInputChange}
-                  leftmost
-                />
-              </FormCol>
-              <FormCol>
                 <InputDropdown
                   label="Distribution Day(s)"
                   options={[
@@ -535,6 +579,7 @@ class AgencyProfileForm extends Component {
                   ]}
                   onChange={this.handleInputChange}
                   multiple
+                  leftmost
                   required
                 />
               </FormCol>
@@ -547,16 +592,12 @@ class AgencyProfileForm extends Component {
                   required
                 />
               </FormCol>
-            </FormRow>
-
-            <FormRow>
               <FormCol>
                 <InputText
                   label="Distribution Hours"
                   value={data.distributionHours}
                   stateKey="distributionHours"
                   onChange={this.handleInputChange}
-                  leftmost
                 />
               </FormCol>
             </FormRow>

@@ -10,10 +10,8 @@ function CreateAgencyBtn() {
   }
 
   return (
-    <button type="button" onClick={handleClick}>
-      <div className="res-circle">
-        <strong>+</strong>
-      </div>
+    <button type="button" className="create-agency-btn" onClick={handleClick}>
+      <div className="res-circle"><strong>+</strong></div>
       <span>Create New Agency Profile</span>
     </button>
   );

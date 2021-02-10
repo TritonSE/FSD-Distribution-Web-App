@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import { FormRow, FormCol } from "./FormLayout";
+import ExpandableList from "./ExpandableList";
 import InputText from "./InputText";
 import "./formstyle.css";
 
@@ -9,13 +10,13 @@ import "./formstyle.css";
  * which correspond to the elements in the contacts prop.
  *
  * Expected props:
- * - {Array<Object>} contacts: list of objects containing contact information
+ * - {Array<Object>} items: list of objects containing contact information
  * (contact, position, phoneNumber, and email)
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and an Array of Objects
  */
-class ContactsList extends Component {
+class ContactsList extends ExpandableList {
   /**
    * Callback function to handle changes in one of the text boxes.
    * Creates an updated copy of the contacts list, then passes it back up to the
@@ -26,9 +27,9 @@ class ContactsList extends Component {
    * @param {String} newValue New value for the field
    */
   setContactInfo(index, key, newValue) {
-    const { contacts, stateKey, onChange } = this.props;
+    const { items, stateKey, onChange } = this.props;
     let updatedContacts = [];
-    for (let contact of contacts) {
+    for (let contact of items) {
       let contactCopy = { ...contact }; // spread notation copies all fields
       updatedContacts.push(contactCopy);
     }
@@ -39,9 +40,9 @@ class ContactsList extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.contacts.map((contactInfo, index) => {
+        {this.props.items.map((contactInfo, index) => {
           return (
-            <div key={index}>
+            <div className={this.getContactBodyStyle(index)} key={index}>
               <FormRow>
                 <FormCol>
                   <InputText

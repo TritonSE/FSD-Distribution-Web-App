@@ -272,6 +272,23 @@
   width: 624px;
 }
 
+/* * * * div highlighting * * * */
+
+div.form-focusable {
+  margin-top: 15px;
+  padding-bottom: 23px;
+  overflow: hidden;
+}
+
+div.form-focus-gray {
+  margin-top: 12px;
+  margin-left: -130px;
+  padding-left: 130px;
+  padding-bottom: 23px;
+  background-color: #c4c4c4;
+  border-top: 3px solid #a0a0a0;
+}
+
 /* * * * Small button * * * */
 
 .small-button {
@@ -289,6 +306,15 @@
   font-size: 18px;
   line-height: 21px;
   color: #000000;
+}
+
+.small-button-span {
+  display: inline-block;
+  width: 1170px;
+}
+
+.align-right {
+  float: right;
 }
 
 .underline {

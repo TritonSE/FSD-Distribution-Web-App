@@ -1,5 +1,5 @@
 /* Basic styling setup for entire button */
-button {
+.create-agency-btn {
   border: none;
   background: none;
   display: flex;

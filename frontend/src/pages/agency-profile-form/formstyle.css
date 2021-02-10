@@ -123,6 +123,12 @@
 
 /* * * * Custom dropdowns * * * */
 
+.inline-dropdown {
+  display: inline-block;
+  position: absolute;
+  top: -28px;
+}
+
 .dropdown-wrapper {
   position: relative;
 }
@@ -322,8 +328,7 @@ button {
 }
 
 .form-button-container {
-  margin: auto;
-  width: fit-content;
+  margin-left: 300px;
 }
 
 .form-button-submit {
@@ -339,6 +344,7 @@ button {
   font-size: 30px;
   line-height: 35px;
   color: #ffffff;
+  display: inline;
 }
 
 .form-button-submit:hover {
@@ -358,6 +364,7 @@ button {
   font-size: 30px;
   line-height: 35px;
   color: #000000;
+  display: inline;
 }
 
 .form-button-cancel:hover {

@@ -131,6 +131,8 @@ class AgencyProfileForm extends Component {
       sunday: data.sunday,
     };
 
+    // TODO - Emmanuel: Remove empty strings in additionalAddresses
+
     delete data.agencyNumber;
     delete data.name;
     delete data.status;

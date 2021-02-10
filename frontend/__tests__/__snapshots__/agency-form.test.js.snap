@@ -351,35 +351,6 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         </div>
       </div>
       <div
-        className="form-row"
-      >
-        <div
-          className="form-col"
-        >
-          <div
-            className="form-input"
-          >
-            <label
-              className="form-input-label"
-            >
-              Main Site Address
-              <h3
-                className="form-input-label asterisk"
-              >
-                 *
-              </h3>
-            </label>
-            <input
-              className="form-input-box selection-choice form-input-box-wide"
-              onChange={[Function]}
-              placeholder={null}
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-      </div>
-      <div
         className={null}
       >
         <div
@@ -392,9 +363,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           </label>
           <input
             className="form-input-box selection-choice form-input-box-wide"
-            onBlur={[Function]}
             onChange={[Function]}
-            onFocus={[Function]}
             placeholder={null}
             type="text"
             value=""
@@ -515,9 +484,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice"
-                onBlur={[Function]}
                 onChange={[Function]}
-                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -542,9 +509,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice"
-                onBlur={[Function]}
                 onChange={[Function]}
-                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -564,9 +529,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice"
-                onBlur={[Function]}
                 onChange={[Function]}
-                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -595,9 +558,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </label>
               <input
                 className="form-input-box selection-choice form-input-box-wide"
-                onBlur={[Function]}
                 onChange={[Function]}
-                onFocus={[Function]}
                 placeholder={null}
                 type="text"
                 value=""
@@ -819,26 +780,6 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             <label
               className="form-input-label"
             >
-              Main Site Phone #
-            </label>
-            <input
-              className="form-input-box selection-choice"
-              onChange={[Function]}
-              placeholder={null}
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          className="form-col"
-        >
-          <div
-            className="form-input form-col-gutter"
-          >
-            <label
-              className="form-input-label"
-            >
               Distribution Day(s)
               <h3
                 className="form-input-label asterisk"
@@ -898,15 +839,11 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             />
           </div>
         </div>
-      </div>
-      <div
-        className="form-row"
-      >
         <div
           className="form-col"
         >
           <div
-            className="form-input"
+            className="form-input form-col-gutter"
           >
             <label
               className="form-input-label"
@@ -917,56 +854,6 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               className="form-input-box selection-choice"
               onChange={[Function]}
               placeholder={null}
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          className="form-col"
-        >
-          <div
-            className="form-input form-col-gutter"
-          >
-            <label
-              className="form-input-label"
-            >
-              Monitored
-              <h3
-                className="form-input-label asterisk"
-              >
-                 *
-              </h3>
-            </label>
-            <input
-              className="form-input-box selection-choice"
-              onChange={[Function]}
-              placeholder="MM/DD/YYYY"
-              type="text"
-              value=""
-            />
-          </div>
-        </div>
-        <div
-          className="form-col"
-        >
-          <div
-            className="form-input form-col-gutter"
-          >
-            <label
-              className="form-input-label"
-            >
-              Food Safety Certification
-              <h3
-                className="form-input-label asterisk"
-              >
-                 *
-              </h3>
-            </label>
-            <input
-              className="form-input-box selection-choice"
-              onChange={[Function]}
-              placeholder="MM/DD/YYYY"
               type="text"
               value=""
             />
@@ -2403,7 +2290,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           className="form-col"
         >
           <div
-            className={null}
+            className="inline-dropdown"
           >
             <div
               className="dropdown-wrapper"
@@ -2438,30 +2325,22 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
       className="form-section"
     >
       <div
-        className="form-row"
+        className="form-button-container"
       >
-        <div
-          className="form-col"
+        <button
+          className="form-button-submit"
+          onClick={[Function]}
+          type="button"
         >
-          <button
-            className="form-button-submit"
-            onClick={[Function]}
-            type="button"
-          >
-            Create Profile
-          </button>
-        </div>
-        <div
-          className="form-col"
+          Create Profile
+        </button>
+        <button
+          className="form-button-cancel"
+          onClick={[Function]}
+          type="button"
         >
-          <button
-            className="form-button-cancel"
-            onClick={[Function]}
-            type="button"
-          >
-            Cancel
-          </button>
-        </div>
+          Cancel
+        </button>
       </div>
     </div>
   </form>

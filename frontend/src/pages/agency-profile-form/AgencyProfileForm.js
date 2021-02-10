@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import FormSectionHeader from "./agency-form/FormSectionHeader";
-import { FormRow, FormCol } from "./agency-form/FormLayout";
-import InputText from "./agency-form/InputText";
-import InputDate from "./agency-form/InputDate";
-import InputDropdown from "./agency-form/InputDropdown";
-import InputCheckboxList from "./agency-form/InputCheckboxList";
-import InputIncrementerBoxList from "./agency-form/InputIncrementerBoxList";
-import SmallButton from "./agency-form/SmallButton";
-import AddressList from "./agency-form/AddressList";
-import ContactsList from "./agency-form/ContactsList";
-import InlineDropdown from "./agency-form/InlineDropdown";
+import FormSectionHeader from "./FormSectionHeader";
+import { FormRow, FormCol } from "./FormLayout";
+import InputText from "./InputText";
+import InputDate from "./InputDate";
+import InputDropdown from "./InputDropdown";
+import InputCheckboxList from "./InputCheckboxList";
+import InputIncrementerBoxList from "./InputIncrementerBoxList";
+import SmallButton from "./SmallButton";
+import AddressList from "./AddressList";
+import ContactsList from "./ContactsList";
+import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
-import "./agency-form/formstyle.css";
+import "./formstyle.css";
 
 /**
  * AgencyProfileForm describes the whole agency form page.

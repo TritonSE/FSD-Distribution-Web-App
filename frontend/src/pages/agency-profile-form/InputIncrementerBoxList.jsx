@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { FormRow, FormCol } from "./FormLayout";
 import IncrementerBoxColumn from "./IncrementerBoxColumn";
 import "./formstyle.css";
 
@@ -44,22 +43,22 @@ class InputIncrementerBoxList extends Component {
       let firstColumnOptions = this.props.options.slice(0, midIndex);
       let secondColumnOptions = this.props.options.slice(midIndex); // to end
       listColumns = (
-        <Row noGutters={true}>
-          <Col xs="auto">
+        <FormRow>
+          <FormCol>
             <IncrementerBoxColumn
               options={firstColumnOptions}
               indexBuffer={0}
               onChange={this.onChange}
             />
-          </Col>
-          <Col xs="auto">
+          </FormCol>
+          <FormCol>
             <IncrementerBoxColumn
               options={secondColumnOptions}
               indexBuffer={firstColumnOptions.length}
               onChange={this.onChange}
             />
-          </Col>
-        </Row>
+          </FormCol>
+        </FormRow>
       );
     } else {
       listColumns = (

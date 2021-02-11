@@ -7,9 +7,11 @@ node_modules/
 
 # testing
 coverage/
+request.json
 
 # production
 build/
+.env
 
 # misc
 .DS_Store

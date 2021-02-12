@@ -42,7 +42,8 @@ const ContactSchema = new Schema({
         required: true
     },
     phoneNumber: {
-        type: String
+        type: String,
+        required: true
     },
     email: {
         type: String,
@@ -89,10 +90,6 @@ const AgencySchema = new Schema({
      */
     tableContent: {
         type: TableContentSchema,
-        required: true
-    },
-    primaryContact: {
-        type: String,
         required: true
     },
     mainSiteAddress: {

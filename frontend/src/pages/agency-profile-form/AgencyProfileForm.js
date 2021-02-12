@@ -30,8 +30,8 @@ class AgencyProfileForm extends Component {
       data = {
         agencyNumber: "",
         name: "",
-        primaryContact: "",
         mainSiteAddress: "",
+        city: "",
         status: "",
         region: "",
         sanDiegoDistrict: "",
@@ -117,8 +117,8 @@ class AgencyProfileForm extends Component {
       name: data.name,
       status: data.status,
       region: data.region,
-      city: "city",
-      phone: "555-456-7890",
+      city: data.city,
+      phone: data.contacts[0].phoneNumber,
       staff: data.staff,
     };
     let distributionDays = {
@@ -131,26 +131,12 @@ class AgencyProfileForm extends Component {
       sunday: data.sunday,
     };
 
-    // Remove empty strings in additionalAddresses
-    data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
-
-    delete data.agencyNumber;
-    delete data.name;
-    delete data.status;
-    delete data.region;
-    delete data.city;
-    delete data.phone;
-    delete data.staff;
-    delete data.monday;
-    delete data.tuesday;
-    delete data.wednesday;
-    delete data.thursday;
-    delete data.friday;
-    delete data.saturday;
-    delete data.sunday;
-
     data.tableContent = tableContent;
     data.distributionDays = distributionDays;
+    // extra fields will be ignored by mongoose
+
+    // Remove empty strings in additionalAddresses
+    data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 
     return data;
   }
@@ -293,22 +279,22 @@ class AgencyProfileForm extends Component {
             <FormRow>
               <FormCol>
                 <InputText
-                  label="Primary Contact"
-                  value={data.primaryContact}
-                  stateKey="primaryContact"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
                   label="Main Site Address"
                   value={data.mainSiteAddress}
                   stateKey="mainSiteAddress"
                   onChange={this.handleInputChange}
+                  leftmost
                   required
                   wide
+                />
+              </FormCol>
+              <FormCol>
+                <InputText
+                  label="City"
+                  value={data.city}
+                  stateKey="city"
+                  onChange={this.handleInputChange}
+                  required
                 />
               </FormCol>
             </FormRow>

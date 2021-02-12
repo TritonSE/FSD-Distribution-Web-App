@@ -72,6 +72,7 @@ class ContactsList extends ExpandableList {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "phoneNumber", text);
                     }}
+                    required
                   />
                 </FormCol>
               </FormRow>

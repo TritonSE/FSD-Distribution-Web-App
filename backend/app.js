@@ -23,9 +23,8 @@ const app = express();
 // Middleware
 app.use(morgan('combined'));
 app.use(cors({ methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
-app.use('/login', express.static(path.join(__dirname, 'build')));
-app.use(passport.authenticate('local', { failureRedirect: '/login' }));
 app.use(express.static(path.join(__dirname, 'build')));
+app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

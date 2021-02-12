@@ -224,7 +224,8 @@ class AgencyProfileForm extends Component {
     })
       .then((response) => {
         response.json().then((data) => {
-          if (data.errors) {
+          if (!response.ok) {
+            console.log(data.errors);
             alert("error!!!!!!!!!!! :(");
           } else {
             if (history) {
@@ -707,7 +708,7 @@ class AgencyProfileForm extends Component {
                   subLabel="Select Quantity if Transport Type is Available"
                   options={[
                     {
-                      title: "Pickup Truck",
+                      title: "Pick-up Truck",
                       value: data.pickUpTruck,
                       stateKey: "pickUpTruck",
                     },

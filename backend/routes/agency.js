@@ -9,15 +9,14 @@ const router = express.Router();
  * specified model fields. 
  */
 const validationChain = [
-    body('tableContent.phone').trim().isMobilePhone('en-US'),
-    body('primaryContact').trim().isMobilePhone('en-US'),
     body('billingZipcode').trim().isPostalCode('US'),
     body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
     body('contacts.*.email').trim().isEmail(),
     body('scheduledNextVisit').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('dateOfMostRecentAgreement').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('dateOfInitialPartnership').trim().isDate({ format: 'MM/DD/YYYY' }),
-    body('fileAudit').trim().isDate({ format: 'MM/DD/YYYY' }),
+    body('fileAudit').trim().optional({ checkFalsy: true })
+        .isDate({ format: 'MM/DD/YYYY' }),
     body('monitored').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('foodSafetyCertification').trim().isDate({ format: 'MM/DD/YYYY' }),
 ];

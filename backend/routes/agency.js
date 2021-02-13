@@ -1,8 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const { Agency } = require('../models');
 const { body, validationResult } = require('express-validator');
+
+const { isValidated } = require('../middleware/validation');
+const { isAuthenticated } = require('../middleware/auth');
+const { Agency } = require('../models');
 const router = express.Router();
 
 /**
@@ -21,6 +24,8 @@ const validationChain = [
     body('fileAudit').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('monitored').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('foodSafetyCertification').trim().isDate({ format: 'MM/DD/YYYY' }),
+    isValidated,
+    isAuthenticated
 ];
 
 /**
@@ -31,19 +36,13 @@ const validationChain = [
  * @params validationChain - the form fields that will be validated
  * @returns the new Agency object created in Json or any form input errors
  */
-router.put('/', passport.authenticate('local', { failureRedirect: '/login' }), validationChain, async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
+router.put('/', validationChain, async (req, res, next) => {
     const agency = new Agency(req.body);
-    agency.save()
-        .then(() => {
-            res.status(200).json(agency);
-        }).catch(err => {
-            next(err);
-        });
+    agency.save().then(() => {
+        res.status(200).json(agency);
+    }).catch(err => {
+        next(err);
+    });
 });
 
 /**
@@ -56,11 +55,6 @@ router.put('/', passport.authenticate('local', { failureRedirect: '/login' }), v
  * @returns the updated Agency object in Json or any form input errors
  */
 router.post('/:id', validationChain, async (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     Agency.updateOne({ _id: req.params.id }, req.body).then((agency) => {
         res.status(200).json({ agency: agency });
     }).catch((err) => {
@@ -77,7 +71,7 @@ router.post('/:id', validationChain, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAuthenticated, async (req, res, next) => {
     Agency.findById(req.params.id).then((agency) => {
         res.status(200).json({ agency: agency });
     }).catch((err) => {

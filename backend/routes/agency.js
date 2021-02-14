@@ -32,7 +32,9 @@ const validationChain = [
 router.put('/', validationChain, async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json({
+            fields: errors.array().map((error) => error.param)
+        });
     }
 
     const agency = new Agency(req.body);

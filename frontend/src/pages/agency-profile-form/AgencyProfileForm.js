@@ -99,6 +99,7 @@ class AgencyProfileForm extends Component {
         residential: false,
         immigrant: false,
         staff: "",
+        errors: [],
       };
     }
     this.state = data;
@@ -157,6 +158,15 @@ class AgencyProfileForm extends Component {
   };
 
   /**
+   * Returns whether the input field corresponding to the given key passed
+   * validation (or has not been validated yet).
+   * @param {String} key The key of the field to check
+   */
+  isValid = (key) => {
+    return !this.state.errors.includes(key);
+  };
+
+  /**
    * Appends an empty string to the array of addresses in the component's state.
    */
   addAddress = () => {
@@ -212,6 +222,9 @@ class AgencyProfileForm extends Component {
     });
   };
 
+  /**
+   * Handles form submission.
+   */
   submitForm = () => {
     const { history } = this.props;
     const formData = this.prepareData();
@@ -225,8 +238,9 @@ class AgencyProfileForm extends Component {
       .then((response) => {
         response.json().then((data) => {
           if (!response.ok) {
-            console.log(data.errors);
-            alert("error!!!!!!!!!!! :(");
+            let errors = data.fields.filter((x) => x !== null);
+            this.setState({ errors: errors });
+            alert(`${errors.length} fields have errors!`);
           } else {
             if (history) {
               history.push("/agency/" + data._id);
@@ -237,6 +251,9 @@ class AgencyProfileForm extends Component {
       .catch((error) => console.error(error));
   };
 
+  /**
+   * Handles form cancellation.
+   */
   cancelForm = () => {
     const { history } = this.props;
     if (history) {
@@ -263,6 +280,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("agencyNumber")}
                 />
               </FormCol>
               <FormCol>
@@ -273,6 +291,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   required
                   wide
+                  valid={this.isValid("name")}
                 />
               </FormCol>
             </FormRow>
@@ -287,6 +306,7 @@ class AgencyProfileForm extends Component {
                   leftmost
                   required
                   wide
+                  valid={this.isValid("mainSiteAddress")}
                 />
               </FormCol>
               <FormCol>
@@ -296,6 +316,7 @@ class AgencyProfileForm extends Component {
                   stateKey="city"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("city")}
                 />
               </FormCol>
             </FormRow>
@@ -310,6 +331,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("status")}
                 />
               </FormCol>
             </FormRow>
@@ -326,6 +348,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("region")}
                 />
               </FormCol>
             </FormRow>
@@ -339,6 +362,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("sanDiegoDistrict")}
                 />
               </FormCol>
               <FormCol>
@@ -348,6 +372,7 @@ class AgencyProfileForm extends Component {
                   stateKey="countyDistrict"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("countyDistrict")}
                 />
               </FormCol>
               <FormCol>
@@ -357,6 +382,7 @@ class AgencyProfileForm extends Component {
                   stateKey="stateAssemblyDistrict"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("stateAssemblyDistrict")}
                 />
               </FormCol>
             </FormRow>
@@ -370,6 +396,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("stateSenateDistrict")}
                 />
               </FormCol>
               <FormCol>
@@ -379,6 +406,7 @@ class AgencyProfileForm extends Component {
                   stateKey="federalCongressionalDistrict"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("federalCongressionalDistrict")}
                 />
               </FormCol>
             </FormRow>
@@ -399,6 +427,7 @@ class AgencyProfileForm extends Component {
                   leftmost
                   required
                   wide
+                  valid={this.isValid("billingAddress")}
                 />
               </FormCol>
               <FormCol>
@@ -408,6 +437,7 @@ class AgencyProfileForm extends Component {
                   stateKey="billingZipcode"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("billingZipcode")}
                 />
               </FormCol>
             </FormRow>
@@ -436,6 +466,7 @@ class AgencyProfileForm extends Component {
               items={data.contacts}
               stateKey="contacts"
               onChange={this.handleInputChange}
+              validCheck={this.isValid}
             />
             <FormRow>
               <span className="small-button-span">
@@ -467,6 +498,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("scheduledNextVisit")}
                 />
               </FormCol>
               <FormCol>
@@ -476,6 +508,7 @@ class AgencyProfileForm extends Component {
                   stateKey="dateOfMostRecentAgreement"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("dateOfMostRecentAgreement")}
                 />
               </FormCol>
               <FormCol>
@@ -485,6 +518,7 @@ class AgencyProfileForm extends Component {
                   stateKey="dateOfInitialPartnership"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("dateOfInitialPartnership")}
                 />
               </FormCol>
             </FormRow>
@@ -497,6 +531,7 @@ class AgencyProfileForm extends Component {
                   stateKey="fileAudit"
                   onChange={this.handleInputChange}
                   leftmost
+                  valid={this.isValid("fileAudit")}
                 />
               </FormCol>
               <FormCol>
@@ -506,6 +541,7 @@ class AgencyProfileForm extends Component {
                   stateKey="monitored"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("monitored")}
                 />
               </FormCol>
               <FormCol>
@@ -515,6 +551,7 @@ class AgencyProfileForm extends Component {
                   stateKey="foodSafetyCertification"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("foodSafetyCertification")}
                 />
               </FormCol>
             </FormRow>
@@ -577,6 +614,7 @@ class AgencyProfileForm extends Component {
                   stateKey="distributionFrequency"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("distributionFrequency")}
                 />
               </FormCol>
               <FormCol>
@@ -828,6 +866,7 @@ class AgencyProfileForm extends Component {
                   initial={this.state.staff}
                   stateKey="staff"
                   onChange={this.handleInputChange}
+                  valid={this.isValid("staff")}
                 />
               </FormCol>
             </FormRow>

@@ -16,34 +16,39 @@ const options = {
 };
 
 module.exports = () => {
-    passport.use(new LocalStrategy( 
-        function(username, password, done) {
-            User.findOne({ username: username }, function (err, user) {
-                if (err) {
-                    return done(err); 
-                }
+    passport.use(new LocalStrategy(
+        (username, password, next) => {
+            User.findOne({ username: username }).exec().then((user) => {
                 if (!user) {
-                    return done(null, false); 
+                    return next(null, false);
                 }
                 if (!user.verifyPassword(password)) {
-                    return done(null, false); 
+                    return next(null, false);
                 }
-                return done(null, user);
+                return next(null, user);
             });
         }
     ));
 
-    passport.use(new JwtStrategy(options, 
-        function(jwt_payload, done) {
-            User.findOne({ _id: jwt_payload._id }, function(err, user) {
+    passport.use(new JwtStrategy(options,
+        (jwt_payload, next) => {
+            User.findOne({ _id: jwt_payload._id }, (err, user) => {
                 if (err) {
-                    return done(error, false);
+                    return next(err, false);
                 }
                 if (user) {
-                    return done(null, user);
+                    return next(null, user);
                 }
-                return done(null, false);
+                return next(null, false);
             });
         }
     ));
+
+    passport.serializeUser(function (user, next) {
+        next(null, user);
+    });
+
+    passport.deserializeUser(function (user, next) {
+        next(null, user);
+    });
 };

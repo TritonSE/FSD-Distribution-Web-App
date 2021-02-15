@@ -3,10 +3,20 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const { body, validationResult } = require('express-validator');
 
-const { isValidated } = require('../middleware/validation');
 const { isAuthenticated } = require('../middleware/auth');
 const { Agency } = require('../models');
 const router = express.Router();
+
+/**
+ * Error handler for form validation 
+ */
+const isValidated = (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+}
 
 /**
  * Form Validation: validationChain is an array of expected formats for the
@@ -61,7 +71,6 @@ router.post('/:id', validationChain, async (req, res, next) => {
         next(err);
     });
 });
-
 
 /**
  * Route for Get request to read a current Agency in the database

@@ -24,9 +24,12 @@ const app = express();
 app.use(morgan('combined'));
 app.use(cors({ methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(express.static(path.join(__dirname, 'build')));
-app.use(passport.initialize());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Authentication
+require('./middleware/passport')();
+app.use(passport.initialize());
 
 // Routes
 app.use('/agency', require('./routes/agency'));

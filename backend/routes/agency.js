@@ -84,4 +84,28 @@ router.get('/:id', async (req, res, next) => {
     });
 })
 
+/**
+ * Route for Get request to read all Agencies
+ * 
+ * Ex: Get request with localhost:8000/agency/
+ * 
+ * @params - the object id of the Agency
+ * @returns the fetched Agency object in Json
+ */
+router.get('/', async (req, res, next) => {
+  try {
+    const room = await Agency.find().select('tableContent');
+
+    return res.status(200).json({
+        success: true,
+        data: room
+    });
+  } catch (err) {
+      return res.status(500).json({
+          success: false,
+          error: 'Server Error'
+      });
+  }
+})
+
 module.exports = router;

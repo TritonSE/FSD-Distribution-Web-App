@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { FormRow, FormCol } from "./FormLayout";
 import CheckboxColumn from "./CheckboxColumn";
 import "./formstyle.css";
 
@@ -43,22 +42,22 @@ class InputCheckboxList extends Component {
       let firstColumnOptions = this.props.options.slice(0, midIndex);
       let secondColumnOptions = this.props.options.slice(midIndex); // to end
       listColumns = (
-        <Row noGutters={true}>
-          <Col xs="auto">
+        <FormRow>
+          <FormCol>
             <CheckboxColumn
               indexBuffer={0}
               options={firstColumnOptions}
               onChange={this.onSelect}
             />
-          </Col>
-          <Col xs="auto">
+          </FormCol>
+          <FormCol>
             <CheckboxColumn
               indexBuffer={firstColumnOptions.length}
               options={secondColumnOptions}
               onChange={this.onSelect}
             />
-          </Col>
-        </Row>
+          </FormCol>
+        </FormRow>
       );
     } else {
       listColumns = (

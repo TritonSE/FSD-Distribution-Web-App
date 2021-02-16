@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import React from "react";
+import { FormRow, FormCol } from "./FormLayout";
+import ExpandableList from "./ExpandableList";
 import InputText from "./InputText";
 import "./formstyle.css";
 
@@ -10,13 +10,13 @@ import "./formstyle.css";
  * which correspond to the elements in the contacts prop.
  *
  * Expected props:
- * - {Array<Object>} contacts: list of objects containing contact information
+ * - {Array<Object>} items: list of objects containing contact information
  * (contact, position, phoneNumber, and email)
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and an Array of Objects
  */
-class ContactsList extends Component {
+class ContactsList extends ExpandableList {
   /**
    * Callback function to handle changes in one of the text boxes.
    * Creates an updated copy of the contacts list, then passes it back up to the
@@ -27,9 +27,9 @@ class ContactsList extends Component {
    * @param {String} newValue New value for the field
    */
   setContactInfo(index, key, newValue) {
-    const { contacts, stateKey, onChange } = this.props;
+    const { items, stateKey, onChange } = this.props;
     let updatedContacts = [];
-    for (let contact in contacts) {
+    for (let contact in items) {
       let contactCopy = { ...contact }; // spread notation copies all fields
       updatedContacts.push(contactCopy);
     }
@@ -40,11 +40,11 @@ class ContactsList extends Component {
   render() {
     return (
       <React.Fragment>
-        {this.props.contacts.map((contactInfo, index) => {
+        {this.props.items.map((contactInfo, index) => {
           return (
-            <div key={index}>
-              <Row noGutters={true}>
-                <Col xs="auto">
+            <div className={this.getContactBodyStyle(index)} key={index}>
+              <FormRow>
+                <FormCol>
                   <InputText
                     label="Contact"
                     value={contactInfo.contact}
@@ -54,8 +54,8 @@ class ContactsList extends Component {
                     leftmost
                     required
                   />
-                </Col>
-                <Col xs="auto">
+                </FormCol>
+                <FormCol>
                   <InputText
                     label="Position"
                     value={contactInfo.position}
@@ -64,8 +64,8 @@ class ContactsList extends Component {
                     }}
                     required
                   />
-                </Col>
-                <Col xs="auto">
+                </FormCol>
+                <FormCol>
                   <InputText
                     label="Phone #"
                     value={contactInfo.phoneNumber}
@@ -73,10 +73,10 @@ class ContactsList extends Component {
                       this.setContactInfo(index, "phoneNumber", text);
                     }}
                   />
-                </Col>
-              </Row>
-              <Row noGutters={true}>
-                <Col xs="auto">
+                </FormCol>
+              </FormRow>
+              <FormRow>
+                <FormCol>
                   <InputText
                     label="Email"
                     value={contactInfo.email}
@@ -87,8 +87,8 @@ class ContactsList extends Component {
                     required
                     wide
                   />
-                </Col>
-              </Row>
+                </FormCol>
+              </FormRow>
             </div>
           );
         })}

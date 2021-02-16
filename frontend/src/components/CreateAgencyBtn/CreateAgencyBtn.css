@@ -1,5 +1,5 @@
 /* Basic styling setup for entire button */
-button {
+.create-agency-btn {
   border: none;
   background: none;
   display: flex;
@@ -9,12 +9,21 @@ button {
 /* Styling for circular div element and plus sign */
 .res-circle {
   background: #ffffff;
-  border: 1px solid #54682f;
+  border: 2px solid #54682f;
   color: #54682f;
   border-radius: 50%;
   text-align: center;
   width: 25px;
+  height: 25px;
+  font-size: 25px;
   margin-right: 6.35px;
+  position: relative;
+}
+
+.res-circle strong {
+  position: absolute;
+  top: -6px;
+  left: 3px;
 }
 
 /* Styling for button text */

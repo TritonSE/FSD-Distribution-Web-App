@@ -38,4 +38,3 @@ class CheckboxColumn extends Component {
 }
 
 export default CheckboxColumn;
-

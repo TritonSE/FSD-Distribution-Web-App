@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "build": "rm -rf build && cd ../frontend && rm -rf build && npm run-script build && mv build ../backend"
+    "build": "rm -rf build && cd ../frontend && rm -rf build && npm run-script build && mv build ../backend",
+    "cmd-build": "del build && cd ../frontend && del build && npm run-script build && move build ../backend"
   },
   "author": "",
   "license": "ISC",

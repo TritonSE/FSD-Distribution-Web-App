@@ -94,7 +94,7 @@ router.get('/:id', async (req, res, next) => {
  */
 router.get('/', async (req, res, next) => {
   try {
-    const room = await Agency.find().select('tableContent');
+    const room = await Agency.find({}, {_id: 0}).select('tableContent');
 
     return res.status(200).json({
         success: true,

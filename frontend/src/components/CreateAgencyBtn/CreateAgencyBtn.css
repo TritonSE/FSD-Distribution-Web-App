@@ -1,0 +1,38 @@
+/* Basic styling setup for entire button */
+.create-agency-btn {
+  border: none;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Styling for circular div element and plus sign */
+.res-circle {
+  background: #ffffff;
+  border: 2px solid #54682f;
+  color: #54682f;
+  border-radius: 50%;
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  font-size: 25px;
+  margin-right: 6.35px;
+  position: relative;
+}
+
+.res-circle strong {
+  position: absolute;
+  top: -6px;
+  left: 3px;
+}
+
+/* Styling for button text */
+button span {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  padding-top: 2px;
+}

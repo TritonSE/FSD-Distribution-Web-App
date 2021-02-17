@@ -1,5 +1,7 @@
 # Distribution Web App
 
+[![TritonSE](https://circleci.com/gh/TritonSE/distribution-web-app.svg?style=svg)](https://app.circleci.com/pipelines/github/TritonSE/distribution-web-app)
+
 Web app that stores and tracks information on food distribution and the agencies partnered with [Feeding San Diego](https://feedingsandiego.org/). 
 This repository contains:
 - frontend: React web app for Feeding San Diego to input, store, and view data on food distribution and agencies and to view a calendar of upcoming receivals, deliveries, and distributions
@@ -26,7 +28,7 @@ $ npm install
 
 Next, run the build script located in the backend:
 ```
-$ npm-script build
+$ npm run-script build
 ```
 This build script builds the frontend of the project and moves the build directory created in the frontend to the backend. This is done so Express knows to serve the build directory's static pages.
 

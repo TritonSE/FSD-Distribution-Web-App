@@ -767,7 +767,6 @@ class AgencyProfileForm extends Component {
                       stateKey: "car",
                     },
                   ]}
-                  stateKey="transportationCapacity"
                   onChange={this.handleInputChange}
                 />
               </FormCol>

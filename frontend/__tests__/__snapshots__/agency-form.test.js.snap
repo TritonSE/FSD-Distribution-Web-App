@@ -87,7 +87,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             <label
               className="form-input-label"
             >
-              Primary Contact
+              Main Site Address
               <h3
                 className="form-input-label asterisk"
               >
@@ -95,7 +95,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </h3>
             </label>
             <input
-              className="form-input-box selection-choice"
+              className="form-input-box selection-choice form-input-box-wide"
               onChange={[Function]}
               placeholder={null}
               type="text"
@@ -112,7 +112,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             <label
               className="form-input-label"
             >
-              Main Site Address
+              City
               <h3
                 className="form-input-label asterisk"
               >
@@ -120,7 +120,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </h3>
             </label>
             <input
-              className="form-input-box selection-choice form-input-box-wide"
+              className="form-input-box selection-choice"
               onChange={[Function]}
               placeholder={null}
               type="text"
@@ -526,6 +526,11 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
                 className="form-input-label"
               >
                 Phone #
+                <h3
+                  className="form-input-label asterisk"
+                >
+                   *
+                </h3>
               </label>
               <input
                 className="form-input-box selection-choice"
@@ -795,7 +800,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
                 onClick={[Function]}
                 type="button"
               >
-                
+                1 selected
                 <svg
                   aria-hidden="true"
                   className="icon-triangle"
@@ -1647,7 +1652,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
                   </svg>
                 </div>
                 <span>
-                  Pickup Truck
+                  Pick-up Truck
                 </span>
               </label>
               <label

@@ -238,9 +238,15 @@ class AgencyProfileForm extends Component {
       .then((response) => {
         response.json().then((data) => {
           if (!response.ok) {
-            let errors = data.fields.filter((x) => x !== null);
-            this.setState({ errors: errors });
-            alert(`${errors.length} fields have errors!`);
+            if (data.fields) {
+              let errors = data.fields.filter((x) => x !== null);
+              this.setState({ errors: errors });
+              let message = `${errors.length} fields have errors!`;
+              if (errors.length == 1) {
+                message = "1 field has errors!";
+              }
+              alert(message);
+            }
           } else {
             if (history) {
               history.push("/agency/" + data._id);

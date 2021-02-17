@@ -10,6 +10,8 @@ const router = express.Router();
  */
 const validationChain = [
     body('billingZipcode').trim().isPostalCode('US'),
+    body('contacts.*.contact').trim().not().isEmpty(),
+    body('contacts.*.position').trim().not().isEmpty(),
     body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
     body('contacts.*.email').trim().isEmail(),
     body('scheduledNextVisit').trim().isDate({ format: 'MM/DD/YYYY' }),
@@ -30,14 +32,22 @@ const validationChain = [
  * @returns the new Agency object created in Json or any form input errors
  */
 router.put('/', validationChain, async (req, res, next) => {
+    let invalidFields = [];
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({
-            fields: errors.array().map((error) => error.param)
-        });
+        invalidFields = errors.array().map((error) => error.param);
     }
 
     const agency = new Agency(req.body);
+    const schemaErrors = agency.validateSync();
+    if (schemaErrors) {
+        let fields = Object.values(schemaErrors.errors).map((error) => error.path);
+        invalidFields = invalidFields.concat(fields);
+    }
+    if (invalidFields.length > 0) {
+        return res.status(400).json({ fields: invalidFields });
+    }
+    
     agency.save()
         .then(() => {
             res.status(200).json(agency);

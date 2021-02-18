@@ -14,7 +14,9 @@ export const MenuItems = [
     className: 'nav-links'
   },
 ];
-
+/**
+ * Component produces a navigational bar that provides links to all the paths listed in MenuItems
+ */
 class Navbar extends Component {
   render() {
     return(

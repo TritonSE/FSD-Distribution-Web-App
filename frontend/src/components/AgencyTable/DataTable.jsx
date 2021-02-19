@@ -1,10 +1,11 @@
 import React from 'react';
+import './DataTable.css';
 
 function DataTable({ data }) {
   //console.log(data[0].tableContent);
   //const columns = data[0].tableContent && Object.keys(data[0].tableContent);
   return (
-    <table cellPadding={0} cellSpacing={0}>
+    <table cellPadding={0} cellSpacing={0} className = "table">
       <thead>
         <tr>
         <th>Agency #</th> 

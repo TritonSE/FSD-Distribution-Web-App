@@ -9,11 +9,15 @@ function AgencyTable() {
 
   useEffect(() => {
     
-    axios.get('http://localhost:8000/agency/').then((res) => setData(res.data.data));
+    fetch('http://localhost:8000/agency/', { method: 'GET' })
+    .then(res => res.json())
+    .then(data => setData(data.data))
+    .catch(err => {
+      console.log(err);
+    });
 
   }, []);
 
-  console.log(data);
   return (
     <div className="agency-table">
       <div id="filter"></div>

@@ -7,7 +7,7 @@ describe("AgencyProfileForm.render", () => {
     // snapshot (UI) test for an initially-blank form - basically to check that
     // nothing disappears or changes in the interface
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -19,7 +19,7 @@ describe("AgencyProfileForm.handleInputChange", () => {
     // calls handleInputChange() with various (known) keys and test values to
     // check that it updates AgencyProfileForm's state correctly
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
 
     // string value
@@ -28,9 +28,9 @@ describe("AgencyProfileForm.handleInputChange", () => {
     expect(component.state.agencyNumber).toBe("12345");
 
     // another string value
-    expect(component.state.agencyName).toBe("");
-    component.handleInputChange("agencyName", "Test Name");
-    expect(component.state.agencyName).toBe("Test Name");
+    expect(component.state.name).toBe("");
+    component.handleInputChange("name", "Test Name");
+    expect(component.state.name).toBe("Test Name");
 
     // string array value
     expect(component.state.additionalAddresses).toEqual([""]);
@@ -64,19 +64,19 @@ describe("AgencyProfileForm.handleInputChange", () => {
     ]);
 
     // boolean value
-    expect(component.state["distributionDay.monday"]).toBe(false);
-    component.handleInputChange("distributionDay.monday", true);
-    expect(component.state["distributionDay.monday"]).toBe(true);
+    expect(component.state["monday"]).toBe(false);
+    component.handleInputChange("monday", true);
+    expect(component.state["monday"]).toBe(true);
 
     // number value
-    expect(component.state["storageCapacity.standAloneFreezer"]).toBe(0);
-    component.handleInputChange("storageCapacity.standAloneFreezer", 3);
-    expect(component.state["storageCapacity.standAloneFreezer"]).toBe(3);
+    expect(component.state["standAloneFreezer"]).toBe(0);
+    component.handleInputChange("standAloneFreezer", 3);
+    expect(component.state["standAloneFreezer"]).toBe(3);
 
     // same boolean value again
-    expect(component.state["distributionDay.monday"]).toBe(true);
-    component.handleInputChange("distributionDay.monday", false);
-    expect(component.state["distributionDay.monday"]).toBe(false);
+    expect(component.state["monday"]).toBe(true);
+    component.handleInputChange("monday", false);
+    expect(component.state["monday"]).toBe(false);
 
     // same string value again
     expect(component.state.agencyNumber).toBe("12345");
@@ -88,7 +88,7 @@ describe("AgencyProfileForm.handleInputChange", () => {
     // calls handleInputChange() with an unknown key to check that it rejects
     // the change and doesn't add it to the state
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
 
     expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
@@ -102,7 +102,7 @@ describe("AgencyProfileForm.addAddress", () => {
     // checks that addAddress() does append an empty string to the string array
     // holding additional addresses in the state
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
 
     component.handleInputChange("additionalAddresses", ["address1"]);
@@ -121,7 +121,7 @@ describe("AgencyProfileForm.addContact", () => {
     // correct keys, mapped to empty strings) to the array holding contact info
     // in the state
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
     const blankContact = {
       contact: "",

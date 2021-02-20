@@ -7,15 +7,11 @@ import "./formstyle.css";
  * will turn into null.
  */
 class RequiredAsterisk extends Component {
-  renderAsterisk() {
+  render() {
     if (this.props.required) {
       return <h3 className="form-input-label asterisk"> *</h3>;
     }
     return null;
-  }
-
-  render() {
-    return this.renderAsterisk();
   }
 }
 

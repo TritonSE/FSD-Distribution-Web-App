@@ -17,6 +17,7 @@ import "./formstyle.css";
  * - {Boolean} required: whether the user is required to make a selection
  * - {Boolean} wide: if true, the input field will be approximately twice as
  * wide as normal
+ * - {Boolean} valid: whether the current input value passed validation
  */
 class InputText extends Component {
   /**
@@ -39,26 +40,30 @@ class InputText extends Component {
   }
 
   render() {
+    const { label, value, leftmost, required, wide, valid } = this.props;
     let groupClass = "form-input";
-    if (!this.props.leftmost) {
+    if (!leftmost) {
       groupClass += " form-col-gutter";
     }
     let boxClass = "form-input-box selection-choice";
-    if (this.props.wide) {
+    if (wide) {
       boxClass += " form-input-box-wide";
+    }
+    if (valid !== undefined && !valid) {
+      boxClass += " form-invalid";
     }
 
     return (
       <div className={groupClass}>
         <label className="form-input-label">
-          {this.props.label}
-          <RequiredAsterisk required={this.props.required} />
+          {label}
+          <RequiredAsterisk required={required} />
         </label>
         <input
           type="text"
           className={boxClass}
           placeholder={this.getPlaceholder()}
-          value={this.props.value}
+          value={value}
           onChange={this.onChange}
         />
       </div>

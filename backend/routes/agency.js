@@ -9,15 +9,16 @@ const router = express.Router();
  * specified model fields. 
  */
 const validationChain = [
-    body('tableContent.phone').trim().isMobilePhone('en-US'),
-    body('primaryContact').trim().isMobilePhone('en-US'),
     body('billingZipcode').trim().isPostalCode('US'),
+    body('contacts.*.contact').trim().not().isEmpty(),
+    body('contacts.*.position').trim().not().isEmpty(),
     body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
     body('contacts.*.email').trim().isEmail(),
     body('scheduledNextVisit').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('dateOfMostRecentAgreement').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('dateOfInitialPartnership').trim().isDate({ format: 'MM/DD/YYYY' }),
-    body('fileAudit').trim().isDate({ format: 'MM/DD/YYYY' }),
+    body('fileAudit').trim().optional({ checkFalsy: true })
+        .isDate({ format: 'MM/DD/YYYY' }),
     body('monitored').trim().isDate({ format: 'MM/DD/YYYY' }),
     body('foodSafetyCertification').trim().isDate({ format: 'MM/DD/YYYY' }),
 ];
@@ -31,12 +32,23 @@ const validationChain = [
  * @returns the new Agency object created in Json or any form input errors
  */
 router.put('/', validationChain, async (req, res, next) => {
+    let invalidFields = []; // will contain the names of any invalid fields
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        invalidFields = errors.array().map((error) => error.param);
     }
 
+    // manually validate against schema with validateSync()
     const agency = new Agency(req.body);
+    const schemaErrors = agency.validateSync();
+    if (schemaErrors) {
+        let fields = Object.values(schemaErrors.errors).map((error) => error.path);
+        invalidFields = invalidFields.concat(fields);
+    }
+    if (invalidFields.length > 0) {
+        return res.status(400).json({ fields: invalidFields });
+    }
+    
     agency.save()
         .then(() => {
             res.status(200).json(agency);

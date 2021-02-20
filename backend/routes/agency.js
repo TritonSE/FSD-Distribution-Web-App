@@ -32,12 +32,13 @@ const validationChain = [
  * @returns the new Agency object created in Json or any form input errors
  */
 router.put('/', validationChain, async (req, res, next) => {
-    let invalidFields = [];
+    let invalidFields = []; // will contain the names of any invalid fields
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         invalidFields = errors.array().map((error) => error.param);
     }
 
+    // manually validate against schema with validateSync()
     const agency = new Agency(req.body);
     const schemaErrors = agency.validateSync();
     if (schemaErrors) {

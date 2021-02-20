@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * SmallButton represents minor buttons on the agency form, e.g. those attached

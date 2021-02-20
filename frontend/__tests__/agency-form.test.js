@@ -1,6 +1,6 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import AgencyProfileForm from "../src/pages/agency-profile-form/AgencyProfileForm";
+import AgencyProfileForm from "../src/pages/AgencyProfileForm/AgencyProfileForm";
 
 describe("AgencyProfileForm.render", () => {
   it("renders correctly for adding a new agency", () => {

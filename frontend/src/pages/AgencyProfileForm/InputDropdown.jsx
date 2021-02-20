@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Dropdown from "./Dropdown";
 import RequiredAsterisk from "./RequiredAsterisk";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * InputDropdown is a container for Dropdown components in the agency form. It

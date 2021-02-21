@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import FormSectionHeader from "./FormSectionHeader";
 import { FormRow, FormCol } from "./FormLayout";
 import InputText from "./InputText";
@@ -15,23 +16,23 @@ import "./formstyle.css";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
- * Expected props: ???
- *
- * TODO: determine if adding new agency or editing existing one - need to change
- * some text and pre-populate fields. also need to do form validation :(
+ * Expected props:
+ * - {Object} agencyData: object following agency schema (if editing an
+ * existing agency)
+ * - {String} editSection: name of the section being edited (if editing an
+ * existing agency)
  */
 class AgencyProfileForm extends Component {
   constructor(props) {
     super(props);
-    let data = props.agencyData; // TODO: should this be a prop or come from
-    // some function call??
+    let data = props.agencyData;
     if (!data) {
       data = {
         agencyNumber: "",
-        agencyName: "",
-        primaryContact: "",
+        name: "",
         mainSiteAddress: "",
-        agencyStatus: "",
+        city: "",
+        status: "",
         region: "",
         sanDiegoDistrict: "",
         countyDistrict: "",
@@ -55,51 +56,90 @@ class AgencyProfileForm extends Component {
         fileAudit: "",
         monitored: "",
         foodSafetyCertification: "",
-        "distributionDay.monday": false,
-        "distributionDay.tuesday": false,
-        "distributionDay.wednesday": false,
-        "distributionDay.thursday": false,
-        "distributionDay.friday": false,
-        "distributionDay.saturday": false,
-        "distributionDay.sunday": false,
+        mainSitePhoneNumber: "",
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
         distributionFrequency: "",
         distributionHours: "",
-        "distributionType.pantry": false,
-        "distributionType.mealProgram": false,
-        "distributionType.homeboundDeliveryPartner": false,
-        "distributionType.largeScaleDistributionSite": false,
-        "distributionType.residentialFacilityOrGroupHome": false,
-        "storageCapacity.standAloneFreezer": 0,
-        "storageCapacity.freezerFridge": 0,
-        "storageCapacity.chestFreezer": 0,
-        "storageCapacity.singleDoorStandAloneFreezer": 0,
-        "storageCapacity.freezerRefrigeratorCombo": 0,
-        "storageCapacity.walkInFreezer": 0,
-        "storageCapacity.doubleDoorStandAloneFridge": 0,
-        "storageCapacity.sideBySideFridge": 0,
-        "storageCapacity.singleDoorStandAloneFridge": 0,
-        "storageCapacity.walkInFridge": 0,
-        "storageCapacity.dryStorageClimateControlled": 0,
-        "storageCapacity.dryStorageNonClimateControlled": 0,
-        "transportationCapacity.pickupTruck": 0,
-        "transportationCapacity.van": 0,
-        "transportationCapacity.car": 0,
-        "retailRescueType.retailRescue": false,
-        "retailRescueType.preparedFoodCapacity": false,
-        "retailRescueType.capacityWithRRWithDelivery": false,
-        "demographicType.youth": false,
-        "demographicType.senior": false,
-        "demographicType.homeless": false,
-        "demographicType.veteranMilitary": false,
-        "demographicType.healthcare": false,
-        "demographicType.collegeUniversity": false,
-        "demographicType.disability": false,
-        "demographicType.residential": false,
-        "demographicType.immigrant": false,
-        assignedStaff: "", // single or multi select?
+        pantry: false,
+        mealProgram: false,
+        homeboundDeliveryPartner: false,
+        largeScaleDistributionSite: false,
+        residentialFacility: false,
+        standAloneFreezer: 0,
+        freezerFridge: 0,
+        chestFreezer: 0,
+        singleDoorFreezer: 0,
+        freezerFridgeCombo: 0,
+        walkInFreezer: 0,
+        doubleDoorFridge: 0,
+        sideBySideFridge: 0,
+        singleDoorFridge: 0,
+        walkInFridge: 0,
+        dryStorageClimateControl: 0,
+        dryStorageNonClimateControl: 0,
+        pickUpTruck: 0,
+        van: 0,
+        car: 0,
+        retailRescue: false,
+        preparedFoodCapacity: false,
+        capacityWithRRD: false,
+        youth: false,
+        senior: false,
+        homeless: false,
+        veteran: false,
+        healthcare: false,
+        college: false,
+        disabilitySpecific: false,
+        residential: false,
+        immigrant: false,
+        staff: "",
+        errors: [],
       };
     }
     this.state = data;
+  }
+
+  /**
+   * Helper function that processes this component's state into the format
+   * expected by the agency schema (see backend/routes/agency.js).
+   * @returns An object matching the agency schema populated with values from
+   * this component's state
+   */
+  prepareData() {
+    let data = { ...this.state };
+    let tableContent = {
+      agencyNumber: data.agencyNumber,
+      name: data.name,
+      status: data.status,
+      region: data.region,
+      city: data.city,
+      phone: data.contacts[0].phoneNumber,
+      staff: data.staff,
+    };
+    let distributionDays = {
+      monday: data.monday,
+      tuesday: data.tuesday,
+      wednesday: data.wednesday,
+      thursday: data.thursday,
+      friday: data.friday,
+      saturday: data.saturday,
+      sunday: data.sunday,
+    };
+
+    data.tableContent = tableContent;
+    data.distributionDays = distributionDays;
+    // extra fields will be ignored by mongoose
+
+    // Remove empty strings in additionalAddresses
+    data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
+
+    return data;
   }
 
   /**
@@ -115,6 +155,15 @@ class AgencyProfileForm extends Component {
         [key]: newValue,
       });
     }
+  };
+
+  /**
+   * Returns whether the input field corresponding to the given key passed
+   * validation (or has not been validated yet).
+   * @param {String} key The key of the field to check
+   */
+  isValid = (key) => {
+    return !this.state.errors.includes(key);
   };
 
   /**
@@ -173,14 +222,49 @@ class AgencyProfileForm extends Component {
     });
   };
 
+  /**
+   * Handles form submission.
+   */
   submitForm = () => {
-    // TODO
-    alert("Submitting dat form");
+    const { history } = this.props;
+    const formData = this.prepareData();
+    fetch("http://localhost:8000/agency/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => {
+        response.json().then((data) => {
+          if (!response.ok) {
+            if (data.fields) {
+              let errors = data.fields.filter((x) => x !== null);
+              this.setState({ errors: errors });
+              let message = `${errors.length} fields have errors!`;
+              if (errors.length == 1) {
+                message = "1 field has errors!";
+              }
+              alert(message);
+            }
+          } else {
+            if (history) {
+              history.push("/agency/" + data._id);
+            }
+          }
+        });
+      })
+      .catch((error) => console.error(error));
   };
 
+  /**
+   * Handles form cancellation.
+   */
   cancelForm = () => {
-    // TODO
-    alert("Form do be canceled");
+    const { history } = this.props;
+    if (history) {
+      history.push("/agency");
+    }
   };
 
   render() {
@@ -202,16 +286,18 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("agencyNumber")}
                 />
               </FormCol>
               <FormCol>
                 <InputText
                   label="Agency Name"
-                  value={data.agencyName}
-                  stateKey="agencyName"
+                  value={data.name}
+                  stateKey="name"
                   onChange={this.handleInputChange}
                   required
                   wide
+                  valid={this.isValid("name")}
                 />
               </FormCol>
             </FormRow>
@@ -219,22 +305,24 @@ class AgencyProfileForm extends Component {
             <FormRow>
               <FormCol>
                 <InputText
-                  label="Primary Contact"
-                  value={data.primaryContact}
-                  stateKey="primaryContact"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
                   label="Main Site Address"
                   value={data.mainSiteAddress}
                   stateKey="mainSiteAddress"
                   onChange={this.handleInputChange}
+                  leftmost
                   required
                   wide
+                  valid={this.isValid("mainSiteAddress")}
+                />
+              </FormCol>
+              <FormCol>
+                <InputText
+                  label="City"
+                  value={data.city}
+                  stateKey="city"
+                  onChange={this.handleInputChange}
+                  required
+                  valid={this.isValid("city")}
                 />
               </FormCol>
             </FormRow>
@@ -244,11 +332,12 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
-                  initial={data.agencyStatus}
-                  stateKey="agencyStatus"
+                  initial={data.status}
+                  stateKey="status"
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("status")}
                 />
               </FormCol>
             </FormRow>
@@ -265,6 +354,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("region")}
                 />
               </FormCol>
             </FormRow>
@@ -278,6 +368,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("sanDiegoDistrict")}
                 />
               </FormCol>
               <FormCol>
@@ -287,6 +378,7 @@ class AgencyProfileForm extends Component {
                   stateKey="countyDistrict"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("countyDistrict")}
                 />
               </FormCol>
               <FormCol>
@@ -296,6 +388,7 @@ class AgencyProfileForm extends Component {
                   stateKey="stateAssemblyDistrict"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("stateAssemblyDistrict")}
                 />
               </FormCol>
             </FormRow>
@@ -309,6 +402,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("stateSenateDistrict")}
                 />
               </FormCol>
               <FormCol>
@@ -318,6 +412,7 @@ class AgencyProfileForm extends Component {
                   stateKey="federalCongressionalDistrict"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("federalCongressionalDistrict")}
                 />
               </FormCol>
             </FormRow>
@@ -338,6 +433,7 @@ class AgencyProfileForm extends Component {
                   leftmost
                   required
                   wide
+                  valid={this.isValid("billingAddress")}
                 />
               </FormCol>
               <FormCol>
@@ -347,6 +443,7 @@ class AgencyProfileForm extends Component {
                   stateKey="billingZipcode"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("billingZipcode")}
                 />
               </FormCol>
             </FormRow>
@@ -375,6 +472,7 @@ class AgencyProfileForm extends Component {
               items={data.contacts}
               stateKey="contacts"
               onChange={this.handleInputChange}
+              validCheck={this.isValid}
             />
             <FormRow>
               <span className="small-button-span">
@@ -406,6 +504,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
+                  valid={this.isValid("scheduledNextVisit")}
                 />
               </FormCol>
               <FormCol>
@@ -415,6 +514,7 @@ class AgencyProfileForm extends Component {
                   stateKey="dateOfMostRecentAgreement"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("dateOfMostRecentAgreement")}
                 />
               </FormCol>
               <FormCol>
@@ -424,6 +524,7 @@ class AgencyProfileForm extends Component {
                   stateKey="dateOfInitialPartnership"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("dateOfInitialPartnership")}
                 />
               </FormCol>
             </FormRow>
@@ -436,24 +537,27 @@ class AgencyProfileForm extends Component {
                   stateKey="fileAudit"
                   onChange={this.handleInputChange}
                   leftmost
+                  valid={this.isValid("fileAudit")}
                 />
               </FormCol>
               <FormCol>
                 <InputDate
                   label="Monitored"
                   value={data.monitored}
-                  stateKey="monitored1"
+                  stateKey="monitored"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("monitored")}
                 />
               </FormCol>
               <FormCol>
                 <InputDate
                   label="Food Safety Certification"
                   value={data.foodSafetyCertification}
-                  stateKey="foodSafetyCertification1"
+                  stateKey="foodSafetyCertification"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("foodSafetyCertification")}
                 />
               </FormCol>
             </FormRow>
@@ -468,41 +572,41 @@ class AgencyProfileForm extends Component {
                   options={[
                     {
                       title: "Monday",
-                      selected: data["distributionDay.monday"],
-                      subkey: "monday",
+                      //selected: data.monday,
+                      selected: true,
+                      stateKey: "monday",
                     },
                     {
                       title: "Tuesday",
-                      selected: data["distributionDay.tuesday"],
-                      subkey: "tuesday",
+                      selected: data.tuesday,
+                      stateKey: "tuesday",
                     },
                     {
                       title: "Wednesday",
-                      selected: data["distributionDay.wednesday"],
-                      subkey: "wednesday",
+                      selected: data.wednesday,
+                      stateKey: "wednesday",
                     },
                     {
                       title: "Thursday",
-                      selected: data["distributionDay.thursday"],
-                      subkey: "thursday",
+                      selected: data.thursday,
+                      stateKey: "thursday",
                     },
                     {
                       title: "Friday",
-                      selected: data["distributionDay.friday"],
-                      subkey: "friday",
+                      selected: data.friday,
+                      stateKey: "friday",
                     },
                     {
                       title: "Saturday",
-                      selected: data["distributionDay.saturday"],
-                      subkey: "saturday",
+                      selected: data.saturday,
+                      stateKey: "saturday",
                     },
                     {
                       title: "Sunday",
-                      selected: data["distributionDay.sunday"],
-                      subkey: "sunday",
+                      selected: data.sunday,
+                      stateKey: "sunday",
                     },
                   ]}
-                  stateKey="distributionDay"
                   onChange={this.handleInputChange}
                   multiple
                   leftmost
@@ -516,6 +620,7 @@ class AgencyProfileForm extends Component {
                   stateKey="distributionFrequency"
                   onChange={this.handleInputChange}
                   required
+                  valid={this.isValid("distributionFrequency")}
                 />
               </FormCol>
               <FormCol>
@@ -532,36 +637,32 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputCheckboxList
                   label="Check Boxes if Available/Correct."
-                  stateKey="distributionType"
                   onChange={this.handleInputChange}
                   options={[
                     {
                       title: "Pantry",
-                      selected: data["distributionType.pantry"],
-                      subkey: "pantry",
+                      selected: data.pantry,
+                      stateKey: "pantry",
                     },
                     {
                       title: "Meal Program",
-                      selected: data["distributionType.mealProgram"],
-                      subkey: "mealProgram",
+                      selected: data.mealProgram,
+                      stateKey: "mealProgram",
                     },
                     {
                       title: "Homebound Delivery Partner",
-                      selected:
-                        data["distributionType.homeboundDeliveryPartner"],
-                      subkey: "homeboundDeliveryPartner",
+                      selected: data.homeboundDeliveryPartner,
+                      stateKey: "homeboundDeliveryPartner",
                     },
                     {
                       title: "Large Scale Distribution Site",
-                      selected:
-                        data["distributionType.largeScaleDistributionSite"],
-                      subkey: "largeScaleDistributionSite",
+                      selected: data.largeScaleDistributionSite,
+                      stateKey: "largeScaleDistributionSite",
                     },
                     {
                       title: "Residential Facility or Group Home",
-                      selected:
-                        data["distributionType.residentialFacilityOrGroupHome"],
-                      subkey: "residentialFacilityOrGroupHome",
+                      selected: data.residentialFacility,
+                      stateKey: "residentialFacility",
                     },
                   ]}
                 />
@@ -579,69 +680,65 @@ class AgencyProfileForm extends Component {
                   options={[
                     {
                       title: "Stand Alone Freezer",
-                      value: data["storageCapacity.standAloneFreezer"],
-                      subkey: "standAloneFreezer",
+                      value: data.standAloneFreezer,
+                      stateKey: "standAloneFreezer",
                     },
                     {
                       title: "Freezer Fridge",
-                      value: data["storageCapacity.freezerFridge"],
-                      subkey: "freezerFridge",
+                      value: data.freezerFridge,
+                      stateKey: "freezerFridge",
                     },
                     {
                       title: "Chest Freezer",
-                      value: data["storageCapacity.chestFreezer"],
-                      subkey: "chestFreezer",
+                      value: data.chestFreezer,
+                      stateKey: "chestFreezer",
                     },
                     {
                       title: "Single-Door Stand Alone Freezer",
-                      value:
-                        data["storageCapacity.singleDoorStandAloneFreezer"],
-                      subkey: "singleDoorStandAloneFreezer",
+                      value: data.singleDoorFreezer,
+                      stateKey: "singleDoorFreezer",
                     },
                     {
                       title: "Freezer-Refrigerator Combo",
-                      value: data["storageCapacity.freezerRefrigeratorCombo"],
-                      subkey: "freezerRefrigeratorCombo",
+                      value: data.freezerFridgeCombo,
+                      stateKey: "freezerFridgeCombo",
                     },
                     {
                       title: "Walk-in Freezer",
-                      value: data["storageCapacity.walkInFreezer"],
-                      subkey: "walkInFreezer",
+                      value: data.walkInFreezer,
+                      stateKey: "walkInFreezer",
                     },
                     {
                       title: "Double-Door Stand Alone Fridge",
-                      value: data["storageCapacity.doubleDoorStandAloneFridge"],
-                      subkey: "doubleDoorStandAloneFridge",
+                      value: data.doubleDoorFridge,
+                      stateKey: "doubleDoorFridge",
                     },
                     {
                       title: "Side By Side Fridge",
-                      value: data["storageCapacity.sideBySideFridge"],
-                      subkey: "sideBySideFridge",
+                      value: data.sideBySideFridge,
+                      stateKey: "sideBySideFridge",
                     },
                     {
                       title: "Single-Door Stand Alone Fridge",
-                      value: data["storageCapacity.singleDoorStandAloneFridge"],
-                      subkey: "singleDoorStandAloneFridge",
+                      value: data.singleDoorFridge,
+                      stateKey: "singleDoorFridge",
                     },
                     {
                       title: "Walk-in Fridge",
-                      value: data["storageCapacity.walkInFridge"],
-                      subkey: "walkInFridge",
+                      value: data.walkInFridge,
+                      stateKey: "walkInFridge",
                     },
                     {
                       title: "Dry Storage (Climate Controlled)",
-                      value:
-                        data["storageCapacity.dryStorageClimateControlled"],
-                      subkey: "dryStorageClimateControlled",
+                      value: data.dryStorageClimateControl,
+                      stateKey: "dryStorageClimateControl",
                     },
                     {
                       title: "Dry Storage (Non-Climate Controlled)",
-                      value:
-                        data["storageCapacity.dryStorageNonClimateControlled"],
-                      subkey: "dryStorageNonClimateControlled",
+                      value: data.dryStorageNonClimateControl,
+                      stateKey: "dryStorageNonClimateControl",
                     },
                   ]}
-                  stateKey="storageCapacity"
                   onChange={this.handleInputChange}
                   twoColumns
                 />
@@ -655,22 +752,21 @@ class AgencyProfileForm extends Component {
                   subLabel="Select Quantity if Transport Type is Available"
                   options={[
                     {
-                      title: "Pickup Truck",
-                      value: data["transportationCapacity.pickupTruck"],
-                      subkey: "pickupTruck",
+                      title: "Pick-up Truck",
+                      value: data.pickUpTruck,
+                      stateKey: "pickUpTruck",
                     },
                     {
                       title: "Van",
-                      value: data["transportationCapacity.van"],
-                      subkey: "van",
+                      value: data.van,
+                      stateKey: "van",
                     },
                     {
                       title: "Car",
-                      value: data["transportationCapacity.car"],
-                      subkey: "car",
+                      value: data.car,
+                      stateKey: "car",
                     },
                   ]}
-                  stateKey="transportationCapacity"
                   onChange={this.handleInputChange}
                 />
               </FormCol>
@@ -681,22 +777,21 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Retail Rescue" />
             <InputCheckboxList
               label="Check Boxes if Available."
-              stateKey="retailRescueType"
               options={[
                 {
                   title: "Retail Rescue",
-                  selected: data["retailRescueType.retailRescue"],
-                  subkey: "retailRescue",
+                  selected: data.retailRescue,
+                  stateKey: "retailRescue",
                 },
                 {
                   title: "Prepared Food Capacity",
-                  selected: data["retailRescueType.preparedFoodCapacity"],
-                  subkey: "preparedFoodCapacity",
+                  selected: data.preparedFoodCapacity,
+                  stateKey: "preparedFoodCapacity",
                 },
                 {
                   title: "Capacity with RR with Delivery",
-                  selected: data["retailRescueType.capacityWithRRWithDelivery"],
-                  subkey: "capacityWithRRWithDelivery",
+                  selected: data.capacityWithRRD,
+                  stateKey: "capacityWithRRD",
                 },
               ]}
               onChange={this.handleInputChange}
@@ -710,51 +805,50 @@ class AgencyProfileForm extends Component {
               options={[
                 {
                   title: "Youth",
-                  selected: data["demographicType.youth"],
-                  subkey: "youth",
+                  selected: data.youth,
+                  stateKey: "youth",
                 },
                 {
                   title: "Senior",
-                  selected: data["demographicType.senior"],
-                  subkey: "senior",
+                  selected: data.senior,
+                  stateKey: "senior",
                 },
                 {
                   title: "Homeless",
-                  selected: data["demographicType.homeless"],
-                  subkey: "homeless",
+                  selected: data.homeless,
+                  stateKey: "homeless",
                 },
                 {
                   title: "Veteran/Military",
-                  selected: data["demographicType.veteranMilitary"],
-                  subkey: "veteranMilitary",
+                  selected: data.veteran,
+                  stateKey: "veteran",
                 },
                 {
                   title: "Healthcare",
-                  selected: data["demographicType.healthcare"],
-                  subkey: "healthcare",
+                  selected: data.healthcare,
+                  stateKey: "healthcare",
                 },
                 {
                   title: "College/University",
-                  selected: data["demographicType.collegeUniversity"],
-                  subkey: "collegeUniversity",
+                  selected: data.college,
+                  stateKey: "college",
                 },
                 {
                   title: "Disability Specific (Physical or Mental)",
-                  selected: data["demographicType.disability"],
-                  subkey: "disability",
+                  selected: data.disabilitySpecific,
+                  stateKey: "disabilitySpecific",
                 },
                 {
                   title: "Residential",
-                  selected: data["demographicType.residential"],
-                  subkey: "residential",
+                  selected: data.residential,
+                  stateKey: "residential",
                 },
                 {
                   title: "Immigrant",
-                  selected: data["demographicType.immigrant"],
-                  subkey: "immigrant",
+                  selected: data.immigrant,
+                  stateKey: "immigrant",
                 },
               ]}
-              stateKey="demographicType"
               onChange={this.handleInputChange}
               twoColumns
             />
@@ -774,9 +868,10 @@ class AgencyProfileForm extends Component {
                 <InlineDropdown
                   label={null}
                   options={["Mia", "Charlie", "Eli", "Kate"]}
-                  initial={this.state.assignedStaff}
-                  stateKey="assignedStaff"
+                  initial={this.state.staff}
+                  stateKey="staff"
                   onChange={this.handleInputChange}
+                  valid={this.isValid("staff")}
                 />
               </FormCol>
             </FormRow>
@@ -789,7 +884,7 @@ class AgencyProfileForm extends Component {
                 className="form-button-submit"
                 onClick={this.submitForm}
               >
-                {this.props.edit ? "Save Profile" : "Create Profile"}
+                {this.props.editSection ? "Save Profile" : "Create Profile"}
               </button>
               <button
                 type="button"
@@ -806,4 +901,4 @@ class AgencyProfileForm extends Component {
   }
 }
 
-export default AgencyProfileForm;
+export default withRouter(AgencyProfileForm);

@@ -15,6 +15,8 @@ import "./formstyle.css";
  * - {String} stateKey: key to pass into the onChange callback
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and an Array of Objects
+ * - {Function} validCheck: callback from the form page to check whether inputs
+ * passed validation, should take a String
  */
 class ContactsList extends ExpandableList {
   /**
@@ -29,7 +31,7 @@ class ContactsList extends ExpandableList {
   setContactInfo(index, key, newValue) {
     const { items, stateKey, onChange } = this.props;
     let updatedContacts = [];
-    for (let contact in items) {
+    for (let contact of items) {
       let contactCopy = { ...contact }; // spread notation copies all fields
       updatedContacts.push(contactCopy);
     }
@@ -38,9 +40,10 @@ class ContactsList extends ExpandableList {
   }
 
   render() {
+    const { items, stateKey, validCheck } = this.props;
     return (
       <React.Fragment>
-        {this.props.items.map((contactInfo, index) => {
+        {items.map((contactInfo, index) => {
           return (
             <div className={this.getContactBodyStyle(index)} key={index}>
               <FormRow>
@@ -53,6 +56,7 @@ class ContactsList extends ExpandableList {
                     }}
                     leftmost
                     required
+                    valid={validCheck(`${stateKey}[${index}].contact`)}
                   />
                 </FormCol>
                 <FormCol>
@@ -63,6 +67,7 @@ class ContactsList extends ExpandableList {
                       this.setContactInfo(index, "position", text);
                     }}
                     required
+                    valid={validCheck(`${stateKey}[${index}].position`)}
                   />
                 </FormCol>
                 <FormCol>
@@ -72,6 +77,8 @@ class ContactsList extends ExpandableList {
                     onChange={(key, text) => {
                       this.setContactInfo(index, "phoneNumber", text);
                     }}
+                    required
+                    valid={validCheck(`${stateKey}[${index}].phoneNumber`)}
                   />
                 </FormCol>
               </FormRow>
@@ -86,6 +93,7 @@ class ContactsList extends ExpandableList {
                     leftmost
                     required
                     wide
+                    valid={validCheck(`${stateKey}[${index}].email`)}
                   />
                 </FormCol>
               </FormRow>

@@ -27,10 +27,8 @@ class InputIncrementerBoxList extends Component {
    * @param {Number} index Index (in options) of the number that was changed
    */
   onChange = (index, newNumber) => {
-    const { options, stateKey, onChange } = this.props;
-    const subkey = options[index].subkey;
-    const fullKey = stateKey + "." + subkey;
-    onChange(fullKey, newNumber);
+    const { options, onChange } = this.props;
+    onChange(options[index].stateKey, newNumber);
   };
 
   render() {

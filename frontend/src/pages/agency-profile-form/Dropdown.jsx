@@ -11,6 +11,7 @@ import "./formstyle.css";
  * - {Boolean} multiple: whether the dropdown should allow multiple selections
  * - {Function} onSelect: callback to handle input changes, should take a
  * Number
+ * - {Boolean} valid: whether the current input value passed validation
  */
 class Dropdown extends Component {
   constructor(props) {
@@ -124,15 +125,16 @@ class Dropdown extends Component {
 
   render() {
     const { isListOpen, displayText } = this.state;
-    const options = this.props.options;
+    const { options, valid } = this.props;
+
+    let boxClass = "form-input-box selection-choice";
+    if (valid !== undefined && !valid) {
+      boxClass += " form-invalid";
+    }
 
     return (
       <div className="dropdown-wrapper">
-        <button
-          type="button"
-          className="form-input-box selection-choice"
-          onClick={this.toggleList}
-        >
+        <button type="button" className={boxClass} onClick={this.toggleList}>
           {displayText}
           {this.triangleIcon()}
         </button>

@@ -26,10 +26,8 @@ class InputCheckboxList extends Component {
    * @param {Number} index Index (in options) of the checkbox that was toggled
    */
   onSelect = (index) => {
-    const { options, stateKey, onChange } = this.props;
-    const subkey = options[index].subkey;
-    const fullKey = stateKey + "." + subkey;
-    onChange(fullKey, !options[index].selected);
+    const { options, onChange } = this.props;
+    onChange(options[index].stateKey, !options[index].selected);
   };
 
   render() {

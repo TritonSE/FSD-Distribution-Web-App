@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FormRow, FormCol } from "./FormLayout";
 import IncrementerBoxColumn from "./IncrementerBoxColumn";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * InputIncrementerBoxList is a container for a column or columns of incrementer

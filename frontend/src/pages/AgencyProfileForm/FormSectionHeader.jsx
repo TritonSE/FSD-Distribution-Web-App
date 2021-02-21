@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * Header for each section in the agency form.

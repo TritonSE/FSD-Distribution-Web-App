@@ -2,7 +2,7 @@ import React from "react";
 import { FormRow, FormCol } from "./FormLayout";
 import ExpandableList from "./ExpandableList";
 import InputText from "./InputText";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * ContactsList is a container encapsulating the expandable list of contact

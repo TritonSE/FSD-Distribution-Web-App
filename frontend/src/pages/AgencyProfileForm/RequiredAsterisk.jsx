@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * RequiredAsterisk is the indicator for form inputs that are required. It

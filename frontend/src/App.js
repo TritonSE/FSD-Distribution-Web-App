@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Agency from "./pages/Agency/Agency";
-import AgencyProfileForm from "./pages/agency-profile-form/AgencyProfileForm";
+import AgencyProfileForm from "./pages/AgencyProfileForm/AgencyProfileForm";
 
 function App() {
   return (

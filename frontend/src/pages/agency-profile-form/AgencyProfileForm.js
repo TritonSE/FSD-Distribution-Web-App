@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import FormSectionHeader from "./FormSectionHeader";
 import { FormRow, FormCol } from "./FormLayout";
 import InputText from "./InputText";
@@ -10,6 +11,7 @@ import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import InlineDropdown from "./InlineDropdown";
+import {isAuthenticated} from "../../auth";
 import "typeface-roboto";
 import "./formstyle.css";
 
@@ -184,625 +186,631 @@ class AgencyProfileForm extends Component {
   };
 
   render() {
-    const data = this.state;
 
-    return (
-      <div className="form-body">
-        <h1 className="form-title">Add a New Agency Profile.</h1>
+    if (isAuthenticated()) {
 
-        <form>
-          <div className="form-section">
-            <FormSectionHeader title="Quick Information" />
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="Agency Number"
-                  value={data.agencyNumber}
-                  stateKey="agencyNumber"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="Agency Name"
-                  value={data.agencyName}
-                  stateKey="agencyName"
-                  onChange={this.handleInputChange}
-                  required
-                  wide
-                />
-              </FormCol>
-            </FormRow>
+      const data = this.state;
 
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="Primary Contact"
-                  value={data.primaryContact}
-                  stateKey="primaryContact"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="Main Site Address"
-                  value={data.mainSiteAddress}
-                  stateKey="mainSiteAddress"
-                  onChange={this.handleInputChange}
-                  required
-                  wide
-                />
-              </FormCol>
-            </FormRow>
+      return (
+        <div className="form-body">
+          <h1 className="form-title">Add a New Agency Profile.</h1>
 
-            <FormRow>
-              <FormCol>
-                <InputDropdown
-                  label="Agency Status"
-                  options={["Onboarding", "Active", "Inactive", "On Hold"]}
-                  initial={data.agencyStatus}
-                  stateKey="agencyStatus"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-            </FormRow>
-          </div>
-
-          <div className="form-section">
-            <FormSectionHeader title="Location and Addresses" />
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="Region"
-                  value={data.region}
-                  stateKey="region"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-            </FormRow>
-
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="San Diego District"
-                  value={data.sanDiegoDistrict}
-                  stateKey="sanDiegoDistrict"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="County District"
-                  value={data.countyDistrict}
-                  stateKey="countyDistrict"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="State Assembly District"
-                  value={data.stateAssemblyDistrict}
-                  stateKey="stateAssemblyDistrict"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-            </FormRow>
-
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="State Senate District"
-                  value={data.stateSenateDistrict}
-                  stateKey="stateSenateDistrict"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="Federal Congressional District"
-                  value={data.federalCongressionalDistrict}
-                  stateKey="federalCongressionalDistrict"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-            </FormRow>
-
-            <AddressList
-              items={data.additionalAddresses}
-              stateKey="additionalAddresses"
-              onChange={this.handleInputChange}
-            />
-
-            <FormRow>
-              <FormCol>
-                <InputText
-                  label="Billing Address"
-                  value={data.billingAddress}
-                  stateKey="billingAddress"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                  wide
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="Billing Zipcode"
-                  value={data.billingZipcode}
-                  stateKey="billingZipcode"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-            </FormRow>
-            <FormRow>
-              <span className="small-button-span">
-                <SmallButton
-                  text="Add Address"
-                  symbol="+"
-                  onClick={this.addAddress}
-                />
-                {this.state.additionalAddresses.length > 1 && (
-                  <SmallButton
-                    text="Remove Address"
-                    symbol="-"
-                    alignRight
-                    onClick={this.removeAddress}
+          <form>
+            <div className="form-section">
+              <FormSectionHeader title="Quick Information" />
+              <FormRow>
+                <FormCol>
+                  <InputText
+                    label="Agency Number"
+                    value={data.agencyNumber}
+                    stateKey="agencyNumber"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
                   />
-                )}
-              </span>
-            </FormRow>
-          </div>
-
-          <div className="form-section">
-            <FormSectionHeader title="Contacts" />
-            <ContactsList
-              items={data.contacts}
-              stateKey="contacts"
-              onChange={this.handleInputChange}
-            />
-            <FormRow>
-              <span className="small-button-span">
-                <SmallButton
-                  text="Add Contact"
-                  symbol="+"
-                  onClick={this.addContact}
-                />
-                {this.state.contacts.length > 1 && (
-                  <SmallButton
-                    text="Remove Contact"
-                    symbol="-"
-                    alignRight
-                    onClick={this.removeContact}
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="Agency Name"
+                    value={data.agencyName}
+                    stateKey="agencyName"
+                    onChange={this.handleInputChange}
+                    required
+                    wide
                   />
-                )}
-              </span>
-            </FormRow>
-          </div>
+                </FormCol>
+              </FormRow>
 
-          <div className="form-section">
-            <FormSectionHeader title="Compliance" />
-            <FormRow>
-              <FormCol>
-                <InputDate
-                  label="Scheduled Next Visit"
-                  value={data.scheduledNextVisit}
-                  stateKey="scheduledNextVisit"
-                  onChange={this.handleInputChange}
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Date of Most Recent Agreement"
-                  value={data.dateOfMostRecentAgreement}
-                  stateKey="dateOfMostRecentAgreement"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Date of Initial Partnership"
-                  value={data.dateOfInitialPartnership}
-                  stateKey="dateOfInitialPartnership"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-            </FormRow>
+              <FormRow>
+                <FormCol>
+                  <InputText
+                    label="Primary Contact"
+                    value={data.primaryContact}
+                    stateKey="primaryContact"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="Main Site Address"
+                    value={data.mainSiteAddress}
+                    stateKey="mainSiteAddress"
+                    onChange={this.handleInputChange}
+                    required
+                    wide
+                  />
+                </FormCol>
+              </FormRow>
 
-            <FormRow>
-              <FormCol>
-                <InputDate
-                  label="File Audit"
-                  value={data.fileAudit}
-                  stateKey="fileAudit"
-                  onChange={this.handleInputChange}
-                  leftmost
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Monitored"
-                  value={data.monitored}
-                  stateKey="monitored1"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputDate
-                  label="Food Safety Certification"
-                  value={data.foodSafetyCertification}
-                  stateKey="foodSafetyCertification1"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-            </FormRow>
-          </div>
-
-          <div className="form-section">
-            <FormSectionHeader title="Distribution" />
-            <FormRow>
-              <FormCol>
-                <InputDropdown
-                  label="Distribution Day(s)"
-                  options={[
-                    {
-                      title: "Monday",
-                      selected: data["distributionDay.monday"],
-                      subkey: "monday",
-                    },
-                    {
-                      title: "Tuesday",
-                      selected: data["distributionDay.tuesday"],
-                      subkey: "tuesday",
-                    },
-                    {
-                      title: "Wednesday",
-                      selected: data["distributionDay.wednesday"],
-                      subkey: "wednesday",
-                    },
-                    {
-                      title: "Thursday",
-                      selected: data["distributionDay.thursday"],
-                      subkey: "thursday",
-                    },
-                    {
-                      title: "Friday",
-                      selected: data["distributionDay.friday"],
-                      subkey: "friday",
-                    },
-                    {
-                      title: "Saturday",
-                      selected: data["distributionDay.saturday"],
-                      subkey: "saturday",
-                    },
-                    {
-                      title: "Sunday",
-                      selected: data["distributionDay.sunday"],
-                      subkey: "sunday",
-                    },
-                  ]}
-                  stateKey="distributionDay"
-                  onChange={this.handleInputChange}
-                  multiple
-                  leftmost
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="Distribution Frequency"
-                  value={data.distributionFrequency}
-                  stateKey="distributionFrequency"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </FormCol>
-              <FormCol>
-                <InputText
-                  label="Distribution Hours"
-                  value={data.distributionHours}
-                  stateKey="distributionHours"
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
-
-            <FormRow>
-              <FormCol>
-                <InputCheckboxList
-                  label="Check Boxes if Available/Correct."
-                  stateKey="distributionType"
-                  onChange={this.handleInputChange}
-                  options={[
-                    {
-                      title: "Pantry",
-                      selected: data["distributionType.pantry"],
-                      subkey: "pantry",
-                    },
-                    {
-                      title: "Meal Program",
-                      selected: data["distributionType.mealProgram"],
-                      subkey: "mealProgram",
-                    },
-                    {
-                      title: "Homebound Delivery Partner",
-                      selected:
-                        data["distributionType.homeboundDeliveryPartner"],
-                      subkey: "homeboundDeliveryPartner",
-                    },
-                    {
-                      title: "Large Scale Distribution Site",
-                      selected:
-                        data["distributionType.largeScaleDistributionSite"],
-                      subkey: "largeScaleDistributionSite",
-                    },
-                    {
-                      title: "Residential Facility or Group Home",
-                      selected:
-                        data["distributionType.residentialFacilityOrGroupHome"],
-                      subkey: "residentialFacilityOrGroupHome",
-                    },
-                  ]}
-                />
-              </FormCol>
-            </FormRow>
-          </div>
-
-          <div className="form-section">
-            <FormSectionHeader title="Capacity" />
-            <FormRow>
-              <FormCol>
-                <InputIncrementerBoxList
-                  label="Storage and Type:"
-                  subLabel="Select Quantity if Storage Type is Available"
-                  options={[
-                    {
-                      title: "Stand Alone Freezer",
-                      value: data["storageCapacity.standAloneFreezer"],
-                      subkey: "standAloneFreezer",
-                    },
-                    {
-                      title: "Freezer Fridge",
-                      value: data["storageCapacity.freezerFridge"],
-                      subkey: "freezerFridge",
-                    },
-                    {
-                      title: "Chest Freezer",
-                      value: data["storageCapacity.chestFreezer"],
-                      subkey: "chestFreezer",
-                    },
-                    {
-                      title: "Single-Door Stand Alone Freezer",
-                      value:
-                        data["storageCapacity.singleDoorStandAloneFreezer"],
-                      subkey: "singleDoorStandAloneFreezer",
-                    },
-                    {
-                      title: "Freezer-Refrigerator Combo",
-                      value: data["storageCapacity.freezerRefrigeratorCombo"],
-                      subkey: "freezerRefrigeratorCombo",
-                    },
-                    {
-                      title: "Walk-in Freezer",
-                      value: data["storageCapacity.walkInFreezer"],
-                      subkey: "walkInFreezer",
-                    },
-                    {
-                      title: "Double-Door Stand Alone Fridge",
-                      value: data["storageCapacity.doubleDoorStandAloneFridge"],
-                      subkey: "doubleDoorStandAloneFridge",
-                    },
-                    {
-                      title: "Side By Side Fridge",
-                      value: data["storageCapacity.sideBySideFridge"],
-                      subkey: "sideBySideFridge",
-                    },
-                    {
-                      title: "Single-Door Stand Alone Fridge",
-                      value: data["storageCapacity.singleDoorStandAloneFridge"],
-                      subkey: "singleDoorStandAloneFridge",
-                    },
-                    {
-                      title: "Walk-in Fridge",
-                      value: data["storageCapacity.walkInFridge"],
-                      subkey: "walkInFridge",
-                    },
-                    {
-                      title: "Dry Storage (Climate Controlled)",
-                      value:
-                        data["storageCapacity.dryStorageClimateControlled"],
-                      subkey: "dryStorageClimateControlled",
-                    },
-                    {
-                      title: "Dry Storage (Non-Climate Controlled)",
-                      value:
-                        data["storageCapacity.dryStorageNonClimateControlled"],
-                      subkey: "dryStorageNonClimateControlled",
-                    },
-                  ]}
-                  stateKey="storageCapacity"
-                  onChange={this.handleInputChange}
-                  twoColumns
-                />
-              </FormCol>
-            </FormRow>
-
-            <FormRow>
-              <FormCol>
-                <InputIncrementerBoxList
-                  label="Transport and Type:"
-                  subLabel="Select Quantity if Transport Type is Available"
-                  options={[
-                    {
-                      title: "Pickup Truck",
-                      value: data["transportationCapacity.pickupTruck"],
-                      subkey: "pickupTruck",
-                    },
-                    {
-                      title: "Van",
-                      value: data["transportationCapacity.van"],
-                      subkey: "van",
-                    },
-                    {
-                      title: "Car",
-                      value: data["transportationCapacity.car"],
-                      subkey: "car",
-                    },
-                  ]}
-                  stateKey="transportationCapacity"
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
-          </div>
-
-          <div className="form-section">
-            <FormSectionHeader title="Retail Rescue" />
-            <InputCheckboxList
-              label="Check Boxes if Available."
-              stateKey="retailRescueType"
-              options={[
-                {
-                  title: "Retail Rescue",
-                  selected: data["retailRescueType.retailRescue"],
-                  subkey: "retailRescue",
-                },
-                {
-                  title: "Prepared Food Capacity",
-                  selected: data["retailRescueType.preparedFoodCapacity"],
-                  subkey: "preparedFoodCapacity",
-                },
-                {
-                  title: "Capacity with RR with Delivery",
-                  selected: data["retailRescueType.capacityWithRRWithDelivery"],
-                  subkey: "capacityWithRRWithDelivery",
-                },
-              ]}
-              onChange={this.handleInputChange}
-            />
-          </div>
-
-          <div className="form-section">
-            <FormSectionHeader title="Demographics" />
-            <InputCheckboxList
-              label="Check Boxes if Applicable."
-              options={[
-                {
-                  title: "Youth",
-                  selected: data["demographicType.youth"],
-                  subkey: "youth",
-                },
-                {
-                  title: "Senior",
-                  selected: data["demographicType.senior"],
-                  subkey: "senior",
-                },
-                {
-                  title: "Homeless",
-                  selected: data["demographicType.homeless"],
-                  subkey: "homeless",
-                },
-                {
-                  title: "Veteran/Military",
-                  selected: data["demographicType.veteranMilitary"],
-                  subkey: "veteranMilitary",
-                },
-                {
-                  title: "Healthcare",
-                  selected: data["demographicType.healthcare"],
-                  subkey: "healthcare",
-                },
-                {
-                  title: "College/University",
-                  selected: data["demographicType.collegeUniversity"],
-                  subkey: "collegeUniversity",
-                },
-                {
-                  title: "Disability Specific (Physical or Mental)",
-                  selected: data["demographicType.disability"],
-                  subkey: "disability",
-                },
-                {
-                  title: "Residential",
-                  selected: data["demographicType.residential"],
-                  subkey: "residential",
-                },
-                {
-                  title: "Immigrant",
-                  selected: data["demographicType.immigrant"],
-                  subkey: "immigrant",
-                },
-              ]}
-              stateKey="demographicType"
-              onChange={this.handleInputChange}
-              twoColumns
-            />
-          </div>
-
-          <div className="form-section">
-            <FormRow>
-              <FormCol>
-                <h2
-                  className="form-section-title"
-                  style={{ marginTop: 7, marginRight: 24 }}
-                >
-                  Assigned Staff
-                </h2>
-              </FormCol>
-              <FormCol>
-                <InlineDropdown
-                  label={null}
-                  options={["Mia", "Charlie", "Eli", "Kate"]}
-                  initial={this.state.assignedStaff}
-                  stateKey="assignedStaff"
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
-          </div>
-
-          <div className="form-section">
-            <div className="form-button-container">
-              <button
-                type="button"
-                className="form-button-submit"
-                onClick={this.submitForm}
-              >
-                {this.props.edit ? "Save Profile" : "Create Profile"}
-              </button>
-              <button
-                type="button"
-                className="form-button-cancel"
-                onClick={this.cancelForm}
-              >
-                Cancel
-              </button>
+              <FormRow>
+                <FormCol>
+                  <InputDropdown
+                    label="Agency Status"
+                    options={["Onboarding", "Active", "Inactive", "On Hold"]}
+                    initial={data.agencyStatus}
+                    stateKey="agencyStatus"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
+                  />
+                </FormCol>
+              </FormRow>
             </div>
-          </div>
-        </form>
-      </div>
-    );
+
+            <div className="form-section">
+              <FormSectionHeader title="Location and Addresses" />
+              <FormRow>
+                <FormCol>
+                  <InputText
+                    label="Region"
+                    value={data.region}
+                    stateKey="region"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
+                  />
+                </FormCol>
+              </FormRow>
+
+              <FormRow>
+                <FormCol>
+                  <InputText
+                    label="San Diego District"
+                    value={data.sanDiegoDistrict}
+                    stateKey="sanDiegoDistrict"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="County District"
+                    value={data.countyDistrict}
+                    stateKey="countyDistrict"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="State Assembly District"
+                    value={data.stateAssemblyDistrict}
+                    stateKey="stateAssemblyDistrict"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+              </FormRow>
+
+              <FormRow>
+                <FormCol>
+                  <InputText
+                    label="State Senate District"
+                    value={data.stateSenateDistrict}
+                    stateKey="stateSenateDistrict"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="Federal Congressional District"
+                    value={data.federalCongressionalDistrict}
+                    stateKey="federalCongressionalDistrict"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+              </FormRow>
+
+              <AddressList
+                items={data.additionalAddresses}
+                stateKey="additionalAddresses"
+                onChange={this.handleInputChange}
+              />
+
+              <FormRow>
+                <FormCol>
+                  <InputText
+                    label="Billing Address"
+                    value={data.billingAddress}
+                    stateKey="billingAddress"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
+                    wide
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="Billing Zipcode"
+                    value={data.billingZipcode}
+                    stateKey="billingZipcode"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+              </FormRow>
+              <FormRow>
+                <span className="small-button-span">
+                  <SmallButton
+                    text="Add Address"
+                    symbol="+"
+                    onClick={this.addAddress}
+                  />
+                  {this.state.additionalAddresses.length > 1 && (
+                    <SmallButton
+                      text="Remove Address"
+                      symbol="-"
+                      alignRight
+                      onClick={this.removeAddress}
+                    />
+                  )}
+                </span>
+              </FormRow>
+            </div>
+
+            <div className="form-section">
+              <FormSectionHeader title="Contacts" />
+              <ContactsList
+                items={data.contacts}
+                stateKey="contacts"
+                onChange={this.handleInputChange}
+              />
+              <FormRow>
+                <span className="small-button-span">
+                  <SmallButton
+                    text="Add Contact"
+                    symbol="+"
+                    onClick={this.addContact}
+                  />
+                  {this.state.contacts.length > 1 && (
+                    <SmallButton
+                      text="Remove Contact"
+                      symbol="-"
+                      alignRight
+                      onClick={this.removeContact}
+                    />
+                  )}
+                </span>
+              </FormRow>
+            </div>
+
+            <div className="form-section">
+              <FormSectionHeader title="Compliance" />
+              <FormRow>
+                <FormCol>
+                  <InputDate
+                    label="Scheduled Next Visit"
+                    value={data.scheduledNextVisit}
+                    stateKey="scheduledNextVisit"
+                    onChange={this.handleInputChange}
+                    leftmost
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputDate
+                    label="Date of Most Recent Agreement"
+                    value={data.dateOfMostRecentAgreement}
+                    stateKey="dateOfMostRecentAgreement"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputDate
+                    label="Date of Initial Partnership"
+                    value={data.dateOfInitialPartnership}
+                    stateKey="dateOfInitialPartnership"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+              </FormRow>
+
+              <FormRow>
+                <FormCol>
+                  <InputDate
+                    label="File Audit"
+                    value={data.fileAudit}
+                    stateKey="fileAudit"
+                    onChange={this.handleInputChange}
+                    leftmost
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputDate
+                    label="Monitored"
+                    value={data.monitored}
+                    stateKey="monitored1"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputDate
+                    label="Food Safety Certification"
+                    value={data.foodSafetyCertification}
+                    stateKey="foodSafetyCertification1"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+              </FormRow>
+            </div>
+
+            <div className="form-section">
+              <FormSectionHeader title="Distribution" />
+              <FormRow>
+                <FormCol>
+                  <InputDropdown
+                    label="Distribution Day(s)"
+                    options={[
+                      {
+                        title: "Monday",
+                        selected: data["distributionDay.monday"],
+                        subkey: "monday",
+                      },
+                      {
+                        title: "Tuesday",
+                        selected: data["distributionDay.tuesday"],
+                        subkey: "tuesday",
+                      },
+                      {
+                        title: "Wednesday",
+                        selected: data["distributionDay.wednesday"],
+                        subkey: "wednesday",
+                      },
+                      {
+                        title: "Thursday",
+                        selected: data["distributionDay.thursday"],
+                        subkey: "thursday",
+                      },
+                      {
+                        title: "Friday",
+                        selected: data["distributionDay.friday"],
+                        subkey: "friday",
+                      },
+                      {
+                        title: "Saturday",
+                        selected: data["distributionDay.saturday"],
+                        subkey: "saturday",
+                      },
+                      {
+                        title: "Sunday",
+                        selected: data["distributionDay.sunday"],
+                        subkey: "sunday",
+                      },
+                    ]}
+                    stateKey="distributionDay"
+                    onChange={this.handleInputChange}
+                    multiple
+                    leftmost
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="Distribution Frequency"
+                    value={data.distributionFrequency}
+                    stateKey="distributionFrequency"
+                    onChange={this.handleInputChange}
+                    required
+                  />
+                </FormCol>
+                <FormCol>
+                  <InputText
+                    label="Distribution Hours"
+                    value={data.distributionHours}
+                    stateKey="distributionHours"
+                    onChange={this.handleInputChange}
+                  />
+                </FormCol>
+              </FormRow>
+
+              <FormRow>
+                <FormCol>
+                  <InputCheckboxList
+                    label="Check Boxes if Available/Correct."
+                    stateKey="distributionType"
+                    onChange={this.handleInputChange}
+                    options={[
+                      {
+                        title: "Pantry",
+                        selected: data["distributionType.pantry"],
+                        subkey: "pantry",
+                      },
+                      {
+                        title: "Meal Program",
+                        selected: data["distributionType.mealProgram"],
+                        subkey: "mealProgram",
+                      },
+                      {
+                        title: "Homebound Delivery Partner",
+                        selected:
+                          data["distributionType.homeboundDeliveryPartner"],
+                        subkey: "homeboundDeliveryPartner",
+                      },
+                      {
+                        title: "Large Scale Distribution Site",
+                        selected:
+                          data["distributionType.largeScaleDistributionSite"],
+                        subkey: "largeScaleDistributionSite",
+                      },
+                      {
+                        title: "Residential Facility or Group Home",
+                        selected:
+                          data["distributionType.residentialFacilityOrGroupHome"],
+                        subkey: "residentialFacilityOrGroupHome",
+                      },
+                    ]}
+                  />
+                </FormCol>
+              </FormRow>
+            </div>
+
+            <div className="form-section">
+              <FormSectionHeader title="Capacity" />
+              <FormRow>
+                <FormCol>
+                  <InputIncrementerBoxList
+                    label="Storage and Type:"
+                    subLabel="Select Quantity if Storage Type is Available"
+                    options={[
+                      {
+                        title: "Stand Alone Freezer",
+                        value: data["storageCapacity.standAloneFreezer"],
+                        subkey: "standAloneFreezer",
+                      },
+                      {
+                        title: "Freezer Fridge",
+                        value: data["storageCapacity.freezerFridge"],
+                        subkey: "freezerFridge",
+                      },
+                      {
+                        title: "Chest Freezer",
+                        value: data["storageCapacity.chestFreezer"],
+                        subkey: "chestFreezer",
+                      },
+                      {
+                        title: "Single-Door Stand Alone Freezer",
+                        value:
+                          data["storageCapacity.singleDoorStandAloneFreezer"],
+                        subkey: "singleDoorStandAloneFreezer",
+                      },
+                      {
+                        title: "Freezer-Refrigerator Combo",
+                        value: data["storageCapacity.freezerRefrigeratorCombo"],
+                        subkey: "freezerRefrigeratorCombo",
+                      },
+                      {
+                        title: "Walk-in Freezer",
+                        value: data["storageCapacity.walkInFreezer"],
+                        subkey: "walkInFreezer",
+                      },
+                      {
+                        title: "Double-Door Stand Alone Fridge",
+                        value: data["storageCapacity.doubleDoorStandAloneFridge"],
+                        subkey: "doubleDoorStandAloneFridge",
+                      },
+                      {
+                        title: "Side By Side Fridge",
+                        value: data["storageCapacity.sideBySideFridge"],
+                        subkey: "sideBySideFridge",
+                      },
+                      {
+                        title: "Single-Door Stand Alone Fridge",
+                        value: data["storageCapacity.singleDoorStandAloneFridge"],
+                        subkey: "singleDoorStandAloneFridge",
+                      },
+                      {
+                        title: "Walk-in Fridge",
+                        value: data["storageCapacity.walkInFridge"],
+                        subkey: "walkInFridge",
+                      },
+                      {
+                        title: "Dry Storage (Climate Controlled)",
+                        value:
+                          data["storageCapacity.dryStorageClimateControlled"],
+                        subkey: "dryStorageClimateControlled",
+                      },
+                      {
+                        title: "Dry Storage (Non-Climate Controlled)",
+                        value:
+                          data["storageCapacity.dryStorageNonClimateControlled"],
+                        subkey: "dryStorageNonClimateControlled",
+                      },
+                    ]}
+                    stateKey="storageCapacity"
+                    onChange={this.handleInputChange}
+                    twoColumns
+                  />
+                </FormCol>
+              </FormRow>
+
+              <FormRow>
+                <FormCol>
+                  <InputIncrementerBoxList
+                    label="Transport and Type:"
+                    subLabel="Select Quantity if Transport Type is Available"
+                    options={[
+                      {
+                        title: "Pickup Truck",
+                        value: data["transportationCapacity.pickupTruck"],
+                        subkey: "pickupTruck",
+                      },
+                      {
+                        title: "Van",
+                        value: data["transportationCapacity.van"],
+                        subkey: "van",
+                      },
+                      {
+                        title: "Car",
+                        value: data["transportationCapacity.car"],
+                        subkey: "car",
+                      },
+                    ]}
+                    stateKey="transportationCapacity"
+                    onChange={this.handleInputChange}
+                  />
+                </FormCol>
+              </FormRow>
+            </div>
+
+            <div className="form-section">
+              <FormSectionHeader title="Retail Rescue" />
+              <InputCheckboxList
+                label="Check Boxes if Available."
+                stateKey="retailRescueType"
+                options={[
+                  {
+                    title: "Retail Rescue",
+                    selected: data["retailRescueType.retailRescue"],
+                    subkey: "retailRescue",
+                  },
+                  {
+                    title: "Prepared Food Capacity",
+                    selected: data["retailRescueType.preparedFoodCapacity"],
+                    subkey: "preparedFoodCapacity",
+                  },
+                  {
+                    title: "Capacity with RR with Delivery",
+                    selected: data["retailRescueType.capacityWithRRWithDelivery"],
+                    subkey: "capacityWithRRWithDelivery",
+                  },
+                ]}
+                onChange={this.handleInputChange}
+              />
+            </div>
+
+            <div className="form-section">
+              <FormSectionHeader title="Demographics" />
+              <InputCheckboxList
+                label="Check Boxes if Applicable."
+                options={[
+                  {
+                    title: "Youth",
+                    selected: data["demographicType.youth"],
+                    subkey: "youth",
+                  },
+                  {
+                    title: "Senior",
+                    selected: data["demographicType.senior"],
+                    subkey: "senior",
+                  },
+                  {
+                    title: "Homeless",
+                    selected: data["demographicType.homeless"],
+                    subkey: "homeless",
+                  },
+                  {
+                    title: "Veteran/Military",
+                    selected: data["demographicType.veteranMilitary"],
+                    subkey: "veteranMilitary",
+                  },
+                  {
+                    title: "Healthcare",
+                    selected: data["demographicType.healthcare"],
+                    subkey: "healthcare",
+                  },
+                  {
+                    title: "College/University",
+                    selected: data["demographicType.collegeUniversity"],
+                    subkey: "collegeUniversity",
+                  },
+                  {
+                    title: "Disability Specific (Physical or Mental)",
+                    selected: data["demographicType.disability"],
+                    subkey: "disability",
+                  },
+                  {
+                    title: "Residential",
+                    selected: data["demographicType.residential"],
+                    subkey: "residential",
+                  },
+                  {
+                    title: "Immigrant",
+                    selected: data["demographicType.immigrant"],
+                    subkey: "immigrant",
+                  },
+                ]}
+                stateKey="demographicType"
+                onChange={this.handleInputChange}
+                twoColumns
+              />
+            </div>
+
+            <div className="form-section">
+              <FormRow>
+                <FormCol>
+                  <h2
+                    className="form-section-title"
+                    style={{ marginTop: 7, marginRight: 24 }}
+                  >
+                    Assigned Staff
+                </h2>
+                </FormCol>
+                <FormCol>
+                  <InlineDropdown
+                    label={null}
+                    options={["Mia", "Charlie", "Eli", "Kate"]}
+                    initial={this.state.assignedStaff}
+                    stateKey="assignedStaff"
+                    onChange={this.handleInputChange}
+                  />
+                </FormCol>
+              </FormRow>
+            </div>
+
+            <div className="form-section">
+              <div className="form-button-container">
+                <button
+                  type="button"
+                  className="form-button-submit"
+                  onClick={this.submitForm}
+                >
+                  {this.props.edit ? "Save Profile" : "Create Profile"}
+                </button>
+                <button
+                  type="button"
+                  className="form-button-cancel"
+                  onClick={this.cancelForm}
+                >
+                  Cancel
+              </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      );
+    } else {
+        return <Redirect to="/login" />
+    }
   }
 }
 

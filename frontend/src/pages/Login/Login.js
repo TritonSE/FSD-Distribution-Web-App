@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-import { isAuthenticated, setJWT, setUser } from '../../auth';
+import { Redirect } from 'react-router-dom';
+import {isAuthenticated, setJWT, setUser, logout}  from '../../auth';
 
 class Login extends Component {
     constructor(props) {
@@ -17,6 +17,11 @@ class Login extends Component {
     }
 
     handleSubmit = async (event) => {
+        // REMOVE THIS 
+        if (isAuthenticated()) {
+            logout();
+        }
+
         event.preventDefault();
 
         const submission = {
@@ -35,7 +40,8 @@ class Login extends Component {
                 const json = await response.json();
                 setJWT(json.token);
                 setUser(json.user);
-                console.log(json.user, json.token);
+                
+                <Redirect to="/" />
             }
         }
         catch (error) {

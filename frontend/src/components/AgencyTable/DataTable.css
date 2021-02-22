@@ -37,6 +37,7 @@ tbody:before {
   width: 1219px;
   height: 30px;
   text-align: center;
+  border-bottom: 1px solid #e8eced;
 }
 
 .table tr:hover {

@@ -15,6 +15,12 @@
   line-height: 21px;
 }
 
+.pagination p {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+}
+
 .pagination button:focus {
   outline: none;
 }

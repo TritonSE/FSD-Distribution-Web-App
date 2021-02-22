@@ -1,0 +1,20 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+}
+
+.pagination button {
+  background: none;
+  background-color: none;
+  border: none;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.pagination button:focus {
+  outline: none;
+}

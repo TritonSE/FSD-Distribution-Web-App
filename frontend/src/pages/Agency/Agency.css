@@ -1,0 +1,82 @@
+.search-container {
+  margin: auto;
+  width: 80%;
+  margin-bottom: 3em;
+  margin-top: 3em;
+}
+
+#search {
+  background: #ffffff;
+  border: 2px solid #545252;
+  box-sizing: border-box;
+  border-radius: 2px;
+  height: 30px;
+  width: 246px;
+}
+
+#searchLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 21px;
+  margin-right: 1em;
+}
+
+.filter-container {
+  margin: auto;
+  width: 80%;
+  background: #ffffff;
+  border: 1.75px solid #000000;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 3em;
+  padding: 0.5%;
+  padding-left: 1%;
+}
+
+.filter-container h2 {
+  font-size: 18px;
+}
+
+.selects-container {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.selects-container select {
+  margin-right: 1em;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+#clearall {
+  background: none;
+  background-color: none;
+  border: none;
+  text-decoration: underline;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  color: #000000;
+}
+
+#clearall:focus {
+  outline: none;
+}
+
+.data-table-container {
+  margin: auto;
+  width: 80%;
+  text-align: center;
+}
+
+.create-btn-container {
+  margin: auto;
+  margin-top: 1em;
+  width: 80%;
+  text-align: center;
+}

@@ -121,6 +121,10 @@
   color: #cdcbd4;
 }
 
+.form-invalid {
+  border-color: #fc0808;
+}
+
 /* * * * Custom dropdowns * * * */
 
 .inline-dropdown {

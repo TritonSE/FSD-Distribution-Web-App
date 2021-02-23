@@ -1,7 +1,7 @@
 import React from "react";
 import ExpandableList from "./ExpandableList";
 import InputText from "./InputText";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * AddressList encapsulates the expandable list of additional addresses in the

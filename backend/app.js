@@ -30,9 +30,9 @@ app.use('/agency', require('./routes/agency'));
 // Catch-all route
 app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'build/index.html'), (err) => {
-	if (err) {
-	  next();
-	}
+  if (err) {
+    next();
+  }
   });
 });
 

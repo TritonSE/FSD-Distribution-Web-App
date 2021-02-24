@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import './Navbar.css';
 
-export const MenuItems = [
+const MenuItems = [
   {
     title: 'Home',
     url: '/',
@@ -14,6 +14,7 @@ export const MenuItems = [
     className: 'nav-links'
   },
 ];
+
 /**
  * Component produces a navigational bar that provides links to all the paths listed in MenuItems
  */

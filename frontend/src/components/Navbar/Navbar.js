@@ -22,7 +22,7 @@ class Navbar extends Component {
     return(
       <div>
         <div className="logo-container">
-          <img src = "FSD_Logo_RGB_horizonal_300 2.png" alt="feedLogo" id="logo"></img>
+          <img src = "fsd_logo300.png" alt="feedLogo" id="logo"></img>
         </div>
         <nav className="NavbarItems">
           <ul className='nav-menu'>

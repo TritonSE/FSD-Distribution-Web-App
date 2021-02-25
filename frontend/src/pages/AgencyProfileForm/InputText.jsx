@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import RequiredAsterisk from "./RequiredAsterisk";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * InputText is a container for text input fields in the agency form. It handles

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * Dropdown is a custom dropdown selection menu component, with support for both

@@ -2,6 +2,9 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import "./CreateAgencyBtn.css";
 
+/**
+ * Component produces a button that directs the user to the AgencyProfileForm page
+ */
 function CreateAgencyBtn() {
   let history = useHistory();
 

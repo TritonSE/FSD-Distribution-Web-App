@@ -12,7 +12,7 @@ import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * AgencyProfileForm describes the whole agency form page.

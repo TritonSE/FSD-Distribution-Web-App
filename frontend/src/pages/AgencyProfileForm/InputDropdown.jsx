@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Dropdown from "./Dropdown";
 import RequiredAsterisk from "./RequiredAsterisk";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * InputDropdown is a container for Dropdown components in the agency form. It
@@ -20,6 +20,7 @@ import "./formstyle.css";
  * - {Boolean} multiple: whether the dropdown should allow multiple selections
  * - {Boolean} leftmost: determines whether the component will have left padding
  * - {Boolean} required: whether the user is required to make a selection
+ * - {Boolean} valid: whether the current input value passed validation
  */
 class InputDropdown extends Component {
   /**
@@ -63,6 +64,7 @@ class InputDropdown extends Component {
           })}
           multiple
           onSelect={this.onSelect}
+          valid={this.props.valid}
         />
       );
     } else {
@@ -75,6 +77,7 @@ class InputDropdown extends Component {
             };
           })}
           onSelect={this.onSelect}
+          valid={this.props.valid}
         />
       );
     }

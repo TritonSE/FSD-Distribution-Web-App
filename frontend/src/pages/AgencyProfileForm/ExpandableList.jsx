@@ -1,5 +1,5 @@
 import { Component } from "react";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * ExpandableList implements the functionality of lists in the agency form,

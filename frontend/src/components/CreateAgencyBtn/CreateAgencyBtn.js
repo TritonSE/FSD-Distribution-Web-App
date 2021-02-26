@@ -4,9 +4,12 @@ import './CreateAgencyBtn.css';
 
 import { isAuthenticated } from '../../auth';
 
+/**
+ * Component produces a button that directs the user to the AgencyProfileForm page
+ */
 function CreateAgencyBtn() {
   let history = useHistory();
-  
+
   function handleClick() {
     history.push("/create-agency");
   }

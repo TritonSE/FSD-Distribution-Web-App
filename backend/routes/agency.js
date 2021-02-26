@@ -8,34 +8,22 @@ const { Agency } = require('../models');
 const router = express.Router();
 
 /**
- * Error handler for form validation 
- */
-const isValidated = (req, res, next) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-}
-
-/**
  * Form Validation: validationChain is an array of expected formats for the
  * specified model fields. 
  */
 const validationChain = [
-    body('tableContent.phone').trim().isMobilePhone('en-US'),
-    body('primaryContact').trim().isMobilePhone('en-US'),
-    body('billingZipcode').trim().isPostalCode('US'),
-    body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
-    body('contacts.*.email').trim().isEmail(),
-    body('scheduledNextVisit').trim().isDate({ format: 'MM/DD/YYYY' }),
-    body('dateOfMostRecentAgreement').trim().isDate({ format: 'MM/DD/YYYY' }),
-    body('dateOfInitialPartnership').trim().isDate({ format: 'MM/DD/YYYY' }),
-    body('fileAudit').trim().isDate({ format: 'MM/DD/YYYY' }),
-    body('monitored').trim().isDate({ format: 'MM/DD/YYYY' }),
-    body('foodSafetyCertification').trim().isDate({ format: 'MM/DD/YYYY' }),
-    isValidated,
-    isAuthenticated
+  body('tableContent.phone').trim().isMobilePhone('en-US'),
+  body('primaryContact').trim().isMobilePhone('en-US'),
+  body('billingZipcode').trim().isPostalCode('US'),
+  body('contacts.*.phoneNumber').trim().isMobilePhone('en-US'),
+  body('contacts.*.email').trim().isEmail(),
+  body('scheduledNextVisit').trim().isDate({ format: 'MM/DD/YYYY' }),
+  body('dateOfMostRecentAgreement').trim().isDate({ format: 'MM/DD/YYYY' }),
+  body('dateOfInitialPartnership').trim().isDate({ format: 'MM/DD/YYYY' }),
+  body('fileAudit').trim().isDate({ format: 'MM/DD/YYYY' }),
+  body('monitored').trim().isDate({ format: 'MM/DD/YYYY' }),
+  body('foodSafetyCertification').trim().isDate({ format: 'MM/DD/YYYY' }),
+  isAuthenticated
 ];
 
 /**
@@ -47,12 +35,18 @@ const validationChain = [
  * @returns the new Agency object created in Json or any form input errors
  */
 router.put('/', validationChain, async (req, res, next) => {
-    const agency = new Agency(req.body);
-    agency.save().then(() => {
-        res.status(200).json(agency);
-    }).catch(err => {
-        next(err);
-    });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  
+  const agency = new Agency(req.body);
+  agency.save()
+  .then(() => {
+    res.status(200).json(agency);
+  }).catch(err => {
+    next(err);
+  });
 });
 
 /**
@@ -65,11 +59,16 @@ router.put('/', validationChain, async (req, res, next) => {
  * @returns the updated Agency object in Json or any form input errors
  */
 router.post('/:id', validationChain, async (req, res, next) => {
-    Agency.updateOne({ _id: req.params.id }, req.body).then((agency) => {
-        res.status(200).json({ agency: agency });
-    }).catch((err) => {
-        next(err);
-    });
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  Agency.updateOne({ _id: req.params.id }, req.body).then((agency) => {
+    res.status(200).json({ agency: agency });
+  }).catch((err) => {
+    next(err);
+  });
 });
 
 /**
@@ -80,12 +79,12 @@ router.post('/:id', validationChain, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get('/:id', isAuthenticated, async (req, res, next) => {
-    Agency.findById(req.params.id).then((agency) => {
-        res.status(200).json({ agency: agency });
-    }).catch((err) => {
-        next(err);
-    });
+router.get('/:id', async (req, res, next) => {
+  Agency.findById(req.params.id).then((agency) => {
+  res.status(200).json({ agency: agency });
+  }).catch((err) => {
+    next(err);
+  });
 })
 
 module.exports = router;

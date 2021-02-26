@@ -1,5 +1,5 @@
 import InputDropdown from "./InputDropdown";
-import "./formstyle.css";
+import "./FormStyle.css";
 
 /**
  * InlineDropdown is a subclass of InputDropdown that places the Dropdown in-

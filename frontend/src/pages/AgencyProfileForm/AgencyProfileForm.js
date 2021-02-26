@@ -13,6 +13,7 @@ import ContactsList from "./ContactsList";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
+import Calendar from "./DistributionCalendar/calendar";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -631,6 +632,16 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                 />
               </FormCol>
+            </FormRow>
+            <FormRow>
+              <Calendar
+                distributionRecurrence={{
+                  startDate: moment("02/01/2021", "MM/DD/YYYY"),
+                  endDate: moment("05/01/2021", "MM/DD/YYYY"),
+                  frequency: 2,
+                  days: ["Monday", "Wednesday", "Friday"],
+                }}
+              />
             </FormRow>
 
             <FormRow>

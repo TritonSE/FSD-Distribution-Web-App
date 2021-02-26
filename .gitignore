@@ -9,14 +9,9 @@ node_modules
 coverage
 
 # production
-<<<<<<< HEAD
-build/
-.env
-=======
 build
 .env
 frontend/debug.log
->>>>>>> origin/main
 
 # misc
 .DS_Store

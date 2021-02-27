@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
-import {isAuthenticated, setJWT, setUser, logout}  from '../../auth';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { isAuthenticated, setJWT, setUser, logout } from '../../auth';
 
-class Login extends Component {
-  constructor(props) {
-  super(props);
+const Login = (props) => {
+  let history = useHistory();
 
-  this.state = {
+  const [state, setState] = React.useState({
     username: "",
     password: ""
-    }
+  });
+
+  const handleChange = (prop) => (event) => {
+    setState({ ...state, [prop]: event.target.value });
   }
 
-  handleChange = (prop) => (event) => {
-    this.setState({ [prop]: event.target.value });
-  }
-
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     // REMOVE THIS 
     if (isAuthenticated()) {
       logout();
@@ -25,8 +23,8 @@ class Login extends Component {
     event.preventDefault();
 
     const submission = {
-      username: this.state.username,
-      password: this.state.password
+      username: state.username,
+      password: state.password
     };
 
     try {
@@ -40,8 +38,8 @@ class Login extends Component {
         const json = await response.json();
         setJWT(json.token);
         setUser(json.user);
-                    
-        <Redirect to="/" />
+
+        history.push("/");
       }
     }
     catch (error) {
@@ -49,26 +47,24 @@ class Login extends Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-        <h2>Hello world</h2>
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <label>Username:</label>
-              <input type="username" onChange={this.handleChange("username")} />
-            </div>
-            <div>
-              <label>Password:</label>
-              <input type="password" name="password" onChange={this.handleChange("password")} />
-            </div>
-            <div>
-              <input type="submit" value="Log In" />
-            </div>
-          </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h2>Hello world</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Username:</label>
+          <input type="username" onChange={handleChange("username")} />
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="password" name="password" onChange={handleChange("password")} />
+        </div>
+        <div>
+          <input type="submit" value="Log In" />
+        </div>
+      </form>
+    </div>
+  );
 }
 
 export default Login;

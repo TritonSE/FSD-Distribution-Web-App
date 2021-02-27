@@ -7,6 +7,7 @@ import Home from "./pages/Home/Home";
 import Agency from "./pages/Agency/Agency";
 import Login from "./pages/Login/Login";
 import AgencyProfileForm from "./pages/AgencyProfileForm/AgencyProfileForm";
+import { logout } from "./auth";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route exact path="/agency" component={Agency} />
               <Route exact path="/create-agency" component={AgencyProfileForm} />
               <Route exact path="/login" component={Login} />
+              <Route exact path="/logout" component={logout()} />
             </React.Fragment>
           </Switch>
         </div>

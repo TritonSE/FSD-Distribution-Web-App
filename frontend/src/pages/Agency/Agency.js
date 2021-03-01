@@ -33,7 +33,11 @@ function AgencyTable() {
       (row) => 
         (row.tableContent.name.toLowerCase().indexOf(filters.search) > -1 ||
         row.tableContent.agencyNumber.toString().toLowerCase().indexOf(filters.search) > -1) &&
-        row.tableContent.status.toLowerCase().indexOf(filters.status) > -1
+        filters.status.forEach(stat => {
+          if(row.tableContent.status.toLowerCase().indexOf(stat) > -1){
+            return true;
+          }
+        })
     );
 };
 

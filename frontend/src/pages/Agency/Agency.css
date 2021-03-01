@@ -80,3 +80,33 @@
   width: 80%;
   text-align: center;
 }
+
+.multiselect {
+  width: 200px;
+}
+
+.selectBox{
+  position: relative;
+}
+
+.selectBox select{
+  width: 100%;
+  font-weight: bold;
+}
+
+/* .overSelect {
+  position: absolute;
+} */
+
+#checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+}
+
+#checkboxes label{
+  display: block;
+}
+
+#checkboxes label:hover {
+  text-decoration: underline #1e90ff;
+}

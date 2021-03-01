@@ -13,7 +13,8 @@ function AgencyTable() {
   const [data, setData] = useState([]);
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState(1);
+  const [entriesPerPage] = useState(2);
+  //const[checkboxes, setCheckboxes] = useState();
 
   useEffect(() => {
     fetch('http://localhost:8000/agency/', { method: 'GET' })
@@ -22,6 +23,9 @@ function AgencyTable() {
     .catch(err => {
       console.log(err);
     });
+
+    // setCheckboxes(document.getElementById("checkboxes"));
+    // console.log(checkboxes);
   }, []);
 
   function search(rows) {
@@ -33,6 +37,20 @@ function AgencyTable() {
     );
 };
 
+var expanded = false;
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  console.log(checkboxes);
+  if(!expanded){
+    checkboxes.style.display = "block";
+    expanded = true;
+  }
+  else{
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+
 const indexOfLastEntry = currentPage * entriesPerPage;
 const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
 //const currentPosts = data.slice(indexOfFirstEntry, indexOfLastEntry);
@@ -41,7 +59,7 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <div className="agency-table">
       <div className="search-container">
-      <label for="search" id="searchLabel">Search:</label>
+      <label htmlFor="search" id="searchLabel">Search:</label>
         <input id="search" type="text" value={filters.search} onChange={(e) => {setFilter({
           ...filters,
           search: e.target.value.toLowerCase(),
@@ -53,16 +71,25 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
           <select name="region">
             <option value="">Region</option>
           </select>
-          <select id="status" name="status" onChange={(e) => {setFilter({
-            ...filters,
-            status: e.target.value.toLowerCase(),
-          }); paginate(1)}}>
-            <option value="">None</option>
-            <option value="Onboarding">Onboarding</option>
-            <option value="Inactive">Inactive</option>
-            <option value="Active">Active</option>
-            <option value="On hold">On hold</option>
-          </select>
+
+          <form>
+            <div className = "multiselect">
+              <div className = "selectBox" onClick = {showCheckboxes}>
+                <select>
+                  <option>Status</option>
+                </select>
+              </div>
+              <div className ="overSelect"></div>
+            </div>
+            <div id="checkboxes">
+              <label htmlFor="Onboarding">
+                <input type="checkbox" id="onboard" onChange={(e) => {setFilter({...filters, status: e.target.value.toLowerCase(),}); paginate(1)}}/>Onboarding</label>
+              <label htmlFor="inactive">
+                <input type="checkbox" id="onhold" onChange={(e) => {setFilter({...filters, status: e.target.value.toLowerCase(),}); paginate(1)}}/>On Hold
+              </label>
+            </div>
+          </form>
+
           <select name="staff">
             <option value="">Staff</option>
           </select>

@@ -84,203 +84,199 @@ const DistributionDaysSchema = new Schema({
 const AgencySchema = new Schema({
   /**
    * Accessing the TableContentSchema
-   * 
+   *
    * Ex. tableContent.name
    */
   tableContent: {
     type: TableContentSchema,
-    required: true
+    required: true,
   },
   primaryContact: {
     type: String,
-    required: true
+    required: true,
   },
   mainSiteAddress: {
     type: String,
-     required: true
+    required: true,
   },
   sanDiegoDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   countyDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   stateAssemblyDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   stateSenateDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   federalCongressionalDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   additionalAddresses: {
     type: [String],
   },
   billingAddress: {
     type: String,
-    required: true
+    required: true,
   },
   billingZipcode: {
     type: String,
-    required: true
+    required: true,
   },
 
   /* Contacts Section */
   contacts: {
     type: [ContactSchema],
-    required: true
+    required: true,
   },
 
   /* Compliance Section */
   scheduledNextVisit: {
     type: String,
-    required: true
+    required: true,
   },
   dateOfMostRecentAgreement: {
     type: String,
-    required: true
+    required: true,
   },
   dateOfInitialPartnership: {
     type: String,
-    required: true
+    required: true,
   },
   fileAudit: {
-    type: String
+    type: String,
   },
   monitored: {
     type: String,
-    required: true
+    required: true,
   },
   foodSafetyCertification: {
     type: String,
-    required: true
+    required: true,
   },
 
   /* Distribution Section */
-  distributionDays: {
-    type: DistributionDaysSchema,
-    required: true
-  },
-  distributionFrequency: {
-    type: String,
-    required: true
-  },
-  distributionHours: {
-    type: String
+  distributionRecurrence: {
+    days: { type: DistributionDaysSchema, required: true },
+    frequency: {
+      type: Number,
+      required: true,
+    },
   },
 
   // Checkboxes for Distribution Section
   pantry: {
-    type: Boolean
+    type: Boolean,
   },
   mealProgram: {
-    type: Boolean
+    type: Boolean,
   },
   homeboundDeliveryPartner: {
-    type: Boolean
+    type: Boolean,
   },
   largeScaleDistributionSite: {
-    type: Boolean
+    type: Boolean,
   },
   residentialFacility: {
-    type: Boolean
+    type: Boolean,
   },
 
   /* Capacity Section */
   // Storage Type
   standAloneFreezer: {
-    type: Number
+    type: Number,
   },
   freezerFridge: {
-    type: Number
+    type: Number,
   },
   chestFreezer: {
-    type: Number
+    type: Number,
   },
   singleDoorFreezer: {
-    type: Number
+    type: Number,
   },
   freezerFridgeCombo: {
-    type: Number
+    type: Number,
   },
   walkInFreezer: {
-    type: Number
+    type: Number,
   },
   doubleDoorFridge: {
-    type: Number
+    type: Number,
   },
   sideBySideFridge: {
-    type: Number
+    type: Number,
   },
   singleDoorFridge: {
-    type: Number
+    type: Number,
   },
   walkInFridge: {
-    type: Number
+    type: Number,
   },
   dryStorageClimateControl: {
-    type: Number
+    type: Number,
   },
   dryStorageNonClimateControl: {
-    type: Number
+    type: Number,
   },
 
   // Transportation Type
   pickUpTruck: {
-    type: Number
+    type: Number,
   },
   van: {
-    type: Number
+    type: Number,
   },
   car: {
-    type: Number
+    type: Number,
   },
 
   /* Retail Rescue Section */
   retailRescue: {
-    type: Boolean
+    type: Boolean,
   },
   preparedFoodCapacity: {
-    type: Boolean
+    type: Boolean,
   },
   capacityWithRRD: {
-    type: Boolean
+    type: Boolean,
   },
 
   /* Demographics Section */
   youth: {
-    type: Boolean
+    type: Boolean,
   },
   senior: {
-    type: Boolean
+    type: Boolean,
   },
   homeless: {
-    type: Boolean
+    type: Boolean,
   },
   veteran: {
-    type: Boolean
+    type: Boolean,
   },
   healthcare: {
-    type: Boolean
+    type: Boolean,
   },
-    college: {
-    type: Boolean
+  college: {
+    type: Boolean,
   },
   disabilitySpecific: {
-    type: Boolean
+    type: Boolean,
   },
   residential: {
-    type: Boolean
+    type: Boolean,
   },
   immigrant: {
-    type: Boolean
-  }
+    type: Boolean,
+  },
 });
 
 const Agency = mongoose.model('Agency', AgencySchema);

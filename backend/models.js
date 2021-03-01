@@ -81,6 +81,37 @@ const DistributionDaysSchema = new Schema({
   }
 });
 
+const DistributionTimesSchema = new Schema({
+  monday: {
+    type: String,
+    required: true
+  },
+  tuesday: {
+    type: String,
+    required: true
+  },
+  wednesday: {
+    type: String,
+    required: true
+  },
+  thursday: {
+    type: String,
+    required: true
+  },
+  friday: {
+    type: String,
+    required: true
+  },
+  saturday: {
+    type: String,
+    required: true
+  },
+  sunday: {
+    type: String,
+    required: true
+  }
+});
+
 const AgencySchema = new Schema({
   /**
    * Accessing the TableContentSchema
@@ -163,12 +194,27 @@ const AgencySchema = new Schema({
   },
 
   /* Distribution Section */
-  distributionRecurrence: {
-    days: { type: DistributionDaysSchema, required: true },
-    frequency: {
-      type: Number,
-      required: true,
-    },
+  distributionDays: {
+    type: DistributionDaysSchema,
+    required: true
+  },
+  distributionStartTimes: {
+    type: DistributionTimesSchema,
+    required: true
+  },
+  distributionStartDate: {
+    type: String,
+    required: true
+  },
+  distributionFrequency: {
+    type: Number,
+    required: true
+  },
+  userSelectedDates: {
+    type: [String]
+  },
+  userExcludedDates: {
+    type: [String]
   },
 
   // Checkboxes for Distribution Section

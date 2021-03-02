@@ -6,14 +6,22 @@ import './Agency.css';
 
 let fOptions = {
   search: '',
-  status: '',
+  status: [
+    {
+    onboarding: false,
+    active: false,
+    
+    },
+  ]
 };
+
 
 function AgencyTable() {
   const [data, setData] = useState([]);
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(2);
+
   //const[checkboxes, setCheckboxes] = useState();
 
   useEffect(() => {
@@ -33,18 +41,34 @@ function AgencyTable() {
       (row) => 
         (row.tableContent.name.toLowerCase().indexOf(filters.search) > -1 ||
         row.tableContent.agencyNumber.toString().toLowerCase().indexOf(filters.search) > -1) &&
-        filters.status.forEach(stat => {
-          if(row.tableContent.status.toLowerCase().indexOf(stat) > -1){
-            return true;
-          }
-        })
+        checkstatuses(row, filters.status[0])
+        //row.tableContent.status.toLowerCase().indexOf(filters.status) > -1
     );
 };
+
+function checkstatuses(row, status){
+  let falseCount = 0;
+  let runCount = 0;
+  for(var key in status){
+    runCount++;
+    if(status[key]){
+      if(row.tableContent.status.toLowerCase().indexOf(key) > -1){
+        return true;
+      }
+    }
+    else{
+      falseCount++;
+    }
+  }
+  if(falseCount == runCount){
+    return true;
+  }
+  return false;
+}
 
 var expanded = false;
 function showCheckboxes() {
   var checkboxes = document.getElementById("checkboxes");
-  console.log(checkboxes);
   if(!expanded){
     checkboxes.style.display = "block";
     expanded = true;
@@ -87,9 +111,9 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
             </div>
             <div id="checkboxes">
               <label htmlFor="Onboarding">
-                <input type="checkbox" id="onboard" onChange={(e) => {setFilter({...filters, status: e.target.value.toLowerCase(),}); paginate(1)}}/>Onboarding</label>
+                <input type="checkbox" id="onboard" onChange={(e) => {let newStat = !(filters.status[0].onboarding); setFilter({...filters, status: [{onboarding: newStat, active: filters.status[0].active}],}); paginate(1)}}/>Onboarding</label>
               <label htmlFor="inactive">
-                <input type="checkbox" id="onhold" onChange={(e) => {setFilter({...filters, status: e.target.value.toLowerCase(),}); paginate(1)}}/>On Hold
+                <input type="checkbox" id="active" onChange={(e) => {let newStat = !(filters.status[0].active); setFilter({...filters, status:[{onboarding: filters.status[0].onboarding, active: newStat} ],}); paginate(1)}}/>Active
               </label>
             </div>
           </form>

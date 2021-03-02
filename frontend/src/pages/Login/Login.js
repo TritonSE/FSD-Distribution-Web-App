@@ -38,8 +38,8 @@ const Login = (props) => {
         const json = await response.json();
         setJWT(json.token);
         setUser(json.user);
-
         history.push("/");
+        props.changeIsLogged(true);
       }
     }
     catch (error) {

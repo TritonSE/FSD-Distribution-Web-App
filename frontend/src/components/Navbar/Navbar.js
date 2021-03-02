@@ -22,9 +22,9 @@ const MenuItems = [
 class Navbar extends Component {
   constructor(props) {
     super(props);
-
+  
     this.state = {
-      authenticated: isAuthenticated()
+      authenticated: this.props.islogged,
     };
   }
 
@@ -51,8 +51,10 @@ class Navbar extends Component {
   // }
 
   render() {
+
+
     let menuItem = null;
-    this.state.authenticated ? menuItem = (
+    this.props.islogged ? menuItem = (
       <li>
         <Link className="nav-links" as={Link} to="/logout">
           Logout

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import IncrementerBox from "./IncrementerBox";
+import "./FormStyle.css";
 
 /**
  * IncrementerBoxColumn is a container for IncrementerBox components in a single

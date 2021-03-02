@@ -5,7 +5,7 @@
 Web app that stores and tracks information on food distribution and the agencies partnered with [Feeding San Diego](https://feedingsandiego.org/). 
 This repository contains:
 - frontend: React web app for Feeding San Diego to input, store, and view data on food distribution and agencies and to view a calendar of upcoming receivals, deliveries, and distributions
-- backend: MongoDB database to store data on agencies and dsitribution schedules using Mongoose to model database schema between Node and MongoDB
+- backend: MongoDB database to store data on agencies and distribution schedules using Mongoose to model database schema between Node and MongoDB
 
 ## Setup
 
@@ -14,9 +14,6 @@ Dependencies required:
 - MongoDB
 - Mongoose
 - Express
-- [cors](https://www.npmjs.com/package/cors)
-- [express-validator](https://github.com/express-validator/express-validator)
-- [http-errors](https://www.npmjs.com/package/http-errors)
 
 First, install the dependencies in both the frontend and the backend:
 ```

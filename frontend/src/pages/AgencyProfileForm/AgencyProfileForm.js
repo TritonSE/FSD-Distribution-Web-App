@@ -10,6 +10,7 @@ import InputIncrementerBoxList from "./InputIncrementerBoxList";
 import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
+import DistributionDays from "./DistributionDays";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
@@ -65,8 +66,17 @@ class AgencyProfileForm extends Component {
         friday: false,
         saturday: false,
         sunday: false,
-        distributionFrequency: "",
-        distributionHours: "",
+        mondayStartTime: "",
+        tuesdayStartTime: "",
+        wednesdayStartTime: "",
+        thursdayStartTime: "",
+        fridayStartTime: "",
+        saturdayStartTime: "",
+        sundayStartTime: "",
+        distributionStartDate: "",
+        distributionFrequency: 1,
+        userSelectedDates: [],
+        userExcludedDates: [],
         pantry: false,
         mealProgram: false,
         homeboundDeliveryPartner: false,
@@ -132,9 +142,19 @@ class AgencyProfileForm extends Component {
       saturday: data.saturday,
       sunday: data.sunday,
     };
+    let distributionStartTimes = {
+      monday: data.mondayStartTime,
+      tuesday: data.tuesdayStartTime,
+      wednesday: data.wednesdayStartTime,
+      thursday: data.thursdayStartTime,
+      friday: data.fridayStartTime,
+      saturday: data.saturdayStartTime,
+      sunday: data.sundayStartTime,
+    };
 
     data.tableContent = tableContent;
     data.distributionDays = distributionDays;
+    data.distributionStartTimes = distributionStartTimes;
     // extra fields will be ignored by mongoose
 
     // Remove empty strings in additionalAddresses

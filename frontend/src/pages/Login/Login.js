@@ -16,9 +16,9 @@ const Login = (props) => {
 
   const handleSubmit = async (event) => {
     // REMOVE THIS 
-    if (isAuthenticated()) {
-      logout();
-    }
+    // if (isAuthenticated()) {
+    //   logout();
+    // }
 
     event.preventDefault();
 

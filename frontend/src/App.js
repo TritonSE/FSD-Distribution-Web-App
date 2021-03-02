@@ -26,7 +26,7 @@ function App() {
               <Route exact path="/agency" component={Agency} />
               <Route exact path="/create-agency" component={AgencyProfileForm} />
               <Route exact path="/login" render={(...props) => (<Login {...props} islogged = {islogged} changeIsLogged = {changeIsLogged}/>)} />
-              <Route exact path="/logout" render={logout()} />
+            {/* <Route exact path="/logout" render={logout()} /> */}
             </React.Fragment>
           </Switch>
         </div>

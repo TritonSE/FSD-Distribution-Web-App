@@ -24,6 +24,7 @@ function setUser(user) {
 }
 
 function logout() {
+    console.log("logging out");
     localStorage.removeItem('DWA:token');
     localStorage.removeItem('DWA:user');
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import './Navbar.css';
-import { isAuthenticated } from "../../auth";
+import { isAuthenticated, logout } from "../../auth";
 
 const MenuItems = [
   {
@@ -56,7 +56,7 @@ class Navbar extends Component {
     let menuItem = null;
     this.props.islogged ? menuItem = (
       <li>
-        <Link className="nav-links" as={Link} to="/logout">
+        <Link className="nav-links" as={Link} to="/logout" onClick = {logout}>
           Logout
         </Link>
       </li>

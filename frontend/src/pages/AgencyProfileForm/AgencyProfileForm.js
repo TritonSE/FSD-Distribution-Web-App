@@ -11,10 +11,10 @@ import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import DistributionDays from "./DistributionDays";
+import Calendar from "./DistributionCalendar/calendar";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
-import Calendar from "./DistributionCalendar/calendar";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -263,7 +263,7 @@ class AgencyProfileForm extends Component {
               let errors = data.fields.filter((x) => x !== null);
               this.setState({ errors: errors });
               let message = `${errors.length} fields have errors!`;
-              if (errors.length == 1) {
+              if (errors.length === 1) {
                 message = "1 field has errors!";
               }
               alert(message);
@@ -588,55 +588,72 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Distribution" />
             <FormRow>
               <FormCol>
-                <InputDropdown
-                  label="Distribution Day(s)"
-                  options={[
+                <DistributionDays
+                  values={[
                     {
                       title: "Monday",
-                      //selected: data.monday,
-                      selected: true,
+                      selected: data.monday,
+                      time: data.mondayStartTime,
                       stateKey: "monday",
+                      timeStateKey: "mondayStartTime",
                     },
                     {
                       title: "Tuesday",
                       selected: data.tuesday,
+                      time: data.tuesdayStartTime,
                       stateKey: "tuesday",
+                      timeStateKey: "tuesdayStartTime",
                     },
                     {
                       title: "Wednesday",
                       selected: data.wednesday,
+                      time: data.wednesdayStartTime,
                       stateKey: "wednesday",
+                      timeStateKey: "wednesdayStartTime",
                     },
                     {
                       title: "Thursday",
                       selected: data.thursday,
+                      time: data.thursdayStartTime,
                       stateKey: "thursday",
+                      timeStateKey: "thursdayStartTime",
                     },
                     {
                       title: "Friday",
                       selected: data.friday,
+                      time: data.fridayStartTime,
                       stateKey: "friday",
+                      timeStateKey: "fridayStartTime",
                     },
                     {
                       title: "Saturday",
                       selected: data.saturday,
+                      time: data.saturdayStartTime,
                       stateKey: "saturday",
+                      timeStateKey: "saturdayStartTime",
                     },
                     {
                       title: "Sunday",
                       selected: data.sunday,
+                      time: data.sundayStartTime,
                       stateKey: "sunday",
+                      timeStateKey: "sundayStartTime",
                     },
                   ]}
                   onChange={this.handleInputChange}
-                  multiple
-                  leftmost
-                  required
                 />
               </FormCol>
               <FormCol>
+                <InputDate
+                  label="Start Date"
+                  value={data.distributionStartDate}
+                  stateKey="distributionStartDate"
+                  onChange={this.handleInputChange}
+                  required
+                  valid={this.isValid("distributionStartDate")}
+                />
                 <InputText
-                  label="Distribution Frequency"
+                  label="Frequency (Every X Weeks)"
                   value={data.distributionFrequency}
                   stateKey="distributionFrequency"
                   onChange={this.handleInputChange}
@@ -644,27 +661,6 @@ class AgencyProfileForm extends Component {
                   valid={this.isValid("distributionFrequency")}
                 />
               </FormCol>
-              <FormCol>
-                <InputText
-                  label="Distribution Hours"
-                  value={data.distributionHours}
-                  stateKey="distributionHours"
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
-            <FormRow>
-              <Calendar
-                distributionRecurrence={{
-                  startDate: moment("02/01/2021", "MM/DD/YYYY"),
-                  endDate: moment("05/01/2021", "MM/DD/YYYY"),
-                  frequency: 2,
-                  days: ["Monday", "Wednesday", "Friday"],
-                }}
-              />
-            </FormRow>
-
-            <FormRow>
               <FormCol>
                 <InputCheckboxList
                   label="Check Boxes if Available/Correct."

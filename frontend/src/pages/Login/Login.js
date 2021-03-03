@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { setJWT, setUser } from '../../auth';
+const config = require('../../config');
 
 const Login = (props) => {
   let history = useHistory();
@@ -23,7 +24,7 @@ const Login = (props) => {
     };
 
     try {
-      const response = await fetch(`http://localhost:8000/login`, {
+      const response = await fetch(`${config.backend.uri}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(submission)

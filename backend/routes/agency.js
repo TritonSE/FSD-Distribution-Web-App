@@ -39,14 +39,14 @@ router.put('/', validationChain, async (req, res, next) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  
+
   const agency = new Agency(req.body);
   agency.save()
-  .then(() => {
-    res.status(200).json(agency);
-  }).catch(err => {
-    next(err);
-  });
+    .then(() => {
+      res.status(200).json(agency);
+    }).catch(err => {
+      next(err);
+    });
 });
 
 /**
@@ -79,9 +79,9 @@ router.post('/:id', validationChain, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get('/:id', async (req, res, next) => {
+router.get('/:id', isAuthenticated, async (req, res, next) => {
   Agency.findById(req.params.id).then((agency) => {
-  res.status(200).json({ agency: agency });
+    res.status(200).json({ agency: agency });
   }).catch((err) => {
     next(err);
   });

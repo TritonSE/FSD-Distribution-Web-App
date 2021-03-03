@@ -8,7 +8,7 @@ require('dotenv').config();
 router.post('/', passport.authenticate('local', { session: false }),
   function (req, res, next) {
     res.status(200).json({
-      // user: req.user,
+      user: req.user.email,
       token: jwt.sign(req.user.toJSON(), process.env.SECRET_KEY)
     });
   }

@@ -1,13 +1,51 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { TextField, Button, Typography, makeStyles } from '@material-ui/core';
+import { useHistory, Link } from 'react-router-dom';
 import { setJWT, setUser } from '../../auth';
+import './Login.css'
 const config = require('../../config');
 
+const useStyles = makeStyles((theme) => ({
+  centered: {
+    textAlign: 'center'
+  },
+  form: {
+    //Input Field - General Layout
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: '95%'
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "black"
+    },
+    "& .MuiInputLabel-outlined.Mui-focused": {
+      color: "black"
+    },
+    '& .MuiTypography-root': {
+      margin: theme.spacing(1),
+      width: '100%'
+    },
+
+    '& .MuiButton-root': {
+      margin: theme.spacing(3),
+      background: '#54682f',
+      width: '30%'
+    }
+  },
+  title: {
+    margin: theme.spacing(2),
+    textAlign: 'center',
+    fontWeight: 'bolder',
+    textTransform: 'uppercase'
+  }
+}));
+
 const Login = (props) => {
-  let history = useHistory();
+  const classes = useStyles();
+  const history = useHistory();
 
   const [state, setState] = React.useState({
-    username: "",
+    email: "",
     password: ""
   });
 
@@ -19,7 +57,7 @@ const Login = (props) => {
     event.preventDefault();
 
     const submission = {
-      username: state.username,
+      username: state.email,
       password: state.password
     };
 
@@ -44,21 +82,20 @@ const Login = (props) => {
   }
 
   return (
-    <div>
-      <h2>Hello world</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input type="username" onChange={handleChange("username")} />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" name="password" onChange={handleChange("password")} />
-        </div>
-        <div>
-          <input type="submit" value="Log In" />
-        </div>
-      </form>
+    <div className="Main">
+      <div className="Border">
+        <Typography variant="h4" className={classes.title} style={{ fontSize: "2.5rem" }} > Login </Typography>
+        <p className={classes.centered} style={{ color: "#8d8d8d" }}> Sign-in into an existing account below </p>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <TextField label='Email' variant='outlined' type='email' onChange={handleChange('email')} />
+          <TextField label='Password' variant='outlined' type='password' onChange={handleChange('password')} />
+          <Link to="register" className="Child"><Typography>Register Account</Typography></Link>
+          {/* <Link to="reset-password"><Typography>Reset Password</Typography></Link> */}
+          <div className={classes.centered}>
+            <Button variant="contained" type="submit" >Login</Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

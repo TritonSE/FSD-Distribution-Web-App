@@ -17,8 +17,8 @@ const options = {
 
 module.exports = () => {
   passport.use(new LocalStrategy(
-    (username, password, next) => {
-      User.findOne({ username: username }).exec().then((user) => {
+    (user, password, next) => {
+      User.findOne({ email: user }).exec().then((user) => {
         if (!user) {
           return next(null, false);
         }

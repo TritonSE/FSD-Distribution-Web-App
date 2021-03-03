@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 const UserSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true,
     unique: true
@@ -115,7 +115,7 @@ const AgencySchema = new Schema({
   },
   mainSiteAddress: {
     type: String,
-     required: true
+    required: true
   },
   sanDiegoDistrict: {
     type: String,
@@ -287,7 +287,7 @@ const AgencySchema = new Schema({
   healthcare: {
     type: Boolean
   },
-    college: {
+  college: {
     type: Boolean
   },
   disabilitySpecific: {

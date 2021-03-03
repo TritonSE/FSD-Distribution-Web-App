@@ -20,7 +20,7 @@ const MenuItems = [
  * Component produces a navigational bar that provides links to all the paths listed in MenuItems
  */
 const Navbar = (props) => {
-  let history = useHistory();
+  const history = useHistory();
 
   const handleLogout = (event) => {
     logout();
@@ -32,9 +32,9 @@ const Navbar = (props) => {
   let menuItem = null;
   props.isLogged ? menuItem = (
     <li>
-      <Link className="nav-links" as={Link} onClick={handleLogout}>
+      <Link className="nav-links" as={Link} to="#" onClick={handleLogout}>
         Logout
-        </Link>
+      </Link>
     </li>
   ) : menuItem = (
     <li>

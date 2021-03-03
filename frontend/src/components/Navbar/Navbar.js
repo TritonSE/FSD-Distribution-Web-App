@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import React from 'react';
+import { useHistory, Link } from "react-router-dom";
 import './Navbar.css';
-import { isAuthenticated, logout } from "../../auth";
+import { logout } from "../../auth";
 
 const MenuItems = [
   {
@@ -19,77 +19,52 @@ const MenuItems = [
 /**
  * Component produces a navigational bar that provides links to all the paths listed in MenuItems
  */
-class Navbar extends Component {
-  constructor(props) {
-    super(props);
-  
-    this.state = {
-      authenticated: this.props.islogged,
-    };
+const Navbar = (props) => {
+  let history = useHistory();
+
+  const handleLogout = (event) => {
+    logout();
+    history.push("/");
+    props.changeIsLogged(false);
   }
 
-  // componentDidMount() {
-  //   if (!isAuthenticated()) {
-  //     this.setState({
-  //       MenuItems:
-  //         [...this.state.MenuItems, {
-  //           title: 'Login',
-  //           url: '/login',
-  //           className: 'nav-links'
-  //         }]
-  //     });
-  //   } else {
-  //     this.setState({
-  //       MenuItems:
-  //         [...this.state.MenuItems, {
-  //           title: 'Logout',
-  //           url: '/logout',
-  //           className: 'nav-links'
-  //         }]
-  //     });
-  //   }
-  // }
 
-  render() {
-
-
-    let menuItem = null;
-    this.props.islogged ? menuItem = (
-      <li>
-        <Link className="nav-links" as={Link} to="/logout" onClick = {logout}>
-          Logout
+  let menuItem = null;
+  props.isLogged ? menuItem = (
+    <li>
+      <Link className="nav-links" as={Link} onClick={handleLogout}>
+        Logout
         </Link>
-      </li>
-    ) : menuItem = (
-      <li>
-        <Link className="nav-links" as={Link} to="/login">
-          Login
+    </li>
+  ) : menuItem = (
+    <li>
+      <Link className="nav-links" as={Link} to="/login">
+        Login
       </Link>
-      </li>
-    );
+    </li>
+  );
 
-    return (
-      <div>
-        <div className="logo-container">
-          <img src="fsd_logo300.png" alt="feedLogo" id="logo"></img>
-        </div>
-        <nav className="NavbarItems">
-          <ul className='nav-menu'>
-            {MenuItems.map((item, index) => {
-              return (
-                <li key={index}>
-                  <Link className={item.className} as={Link} to={item.url}>
-                    {item.title}
-                  </Link>
-                </li>
-              )
-            })}
-            {menuItem}
-          </ul>
-        </nav>
+  return (
+    <div>
+      <div className="logo-container">
+        <img src="fsd_logo300.png" alt="feedLogo" id="logo"></img>
       </div>
-    );
-  }
+      <nav className="NavbarItems">
+        <ul className='nav-menu'>
+          {MenuItems.map((item, index) => {
+            return (
+              <li key={index}>
+                <Link className={item.className} as={Link} to={item.url}>
+                  {item.title}
+                </Link>
+              </li>
+            )
+          })}
+          {menuItem}
+        </ul>
+      </nav>
+    </div>
+  );
 }
 
 export default Navbar;

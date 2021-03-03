@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { isAuthenticated, setJWT, setUser, logout } from '../../auth';
+import { setJWT, setUser } from '../../auth';
 
 const Login = (props) => {
   let history = useHistory();
@@ -15,11 +15,6 @@ const Login = (props) => {
   }
 
   const handleSubmit = async (event) => {
-    // REMOVE THIS 
-    // if (isAuthenticated()) {
-    //   logout();
-    // }
-
     event.preventDefault();
 
     const submission = {

@@ -2,6 +2,7 @@
 
 .form-body {
   margin: 62px 0px 64px 130px;
+  white-space: nowrap;
 }
 
 .form-section {

@@ -11,6 +11,7 @@ import "./FormStyle.css";
  *
  * Expected props:
  * - {String} label: label to display above the whole incrementer box group
+ * - {String} subLabel: subheading to display
  * - {Array<Object>} options: list of objects containing data about each
  * numeric option (title, current value, and the state key to use in the
  * onChange callback)
@@ -20,39 +21,30 @@ import "./FormStyle.css";
  * into two columns
  */
 class InputIncrementerBoxList extends Component {
-  /**
-   * Callback for handling when the user changes a number. Passes it up to
-   * the callback from the form page.
-   * @param {Number} index Index (in options) of the number that was changed
-   */
-  onChange = (index, newNumber) => {
-    const { options, onChange } = this.props;
-    onChange(options[index].stateKey, newNumber);
-  };
-
   render() {
+    const { twoColumns, label, subLabel, options, onChange } = this.props;
     let listColumns = null;
-    if (this.props.twoColumns) {
-      let numOptions = this.props.options.length;
+    if (twoColumns) {
+      let numOptions = options.length;
       let midIndex = numOptions / 2; // index of first thing in second column
       if (numOptions % 2 === 1) midIndex++;
 
-      let firstColumnOptions = this.props.options.slice(0, midIndex);
-      let secondColumnOptions = this.props.options.slice(midIndex); // to end
+      let firstColumnOptions = options.slice(0, midIndex);
+      let secondColumnOptions = options.slice(midIndex); // to end
       listColumns = (
         <FormRow>
           <FormCol>
             <IncrementerBoxColumn
               options={firstColumnOptions}
               indexBuffer={0}
-              onChange={this.onChange}
+              onChange={onChange}
             />
           </FormCol>
           <FormCol>
             <IncrementerBoxColumn
               options={secondColumnOptions}
               indexBuffer={firstColumnOptions.length}
-              onChange={this.onChange}
+              onChange={onChange}
             />
           </FormCol>
         </FormRow>
@@ -60,9 +52,9 @@ class InputIncrementerBoxList extends Component {
     } else {
       listColumns = (
         <IncrementerBoxColumn
-          options={this.props.options}
+          options={options}
           indexBuffer={0}
-          onChange={this.onChange}
+          onChange={onChange}
         />
       );
     }
@@ -70,10 +62,8 @@ class InputIncrementerBoxList extends Component {
     return (
       <div className="form-input">
         <label className="form-input-list-header">
-          <span>{this.props.label + " "}</span>
-          <span className="form-input-list-subheader">
-            {this.props.subLabel}
-          </span>
+          <span>{label + " "}</span>
+          <span className="form-input-list-subheader">{subLabel}</span>
         </label>
         {listColumns}
       </div>

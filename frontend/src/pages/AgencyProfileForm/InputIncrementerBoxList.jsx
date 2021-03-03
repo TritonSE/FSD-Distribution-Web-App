@@ -12,9 +12,8 @@ import "./FormStyle.css";
  * Expected props:
  * - {String} label: label to display above the whole incrementer box group
  * - {Array<Object>} options: list of objects containing data about each
- * numeric option (title, current value, and the sub-key to use in the onChange
- * callback)
- * - {String} stateKey: first part of the key to pass into the onChange callback
+ * numeric option (title, current value, and the state key to use in the
+ * onChange callback)
  * - {Function} onChange: callback to handle input changes, should take a String
  * and a Number
  * - {Boolean} twoColumns: whether the incrementer box group should be split

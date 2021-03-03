@@ -19,56 +19,33 @@ import "./FormStyle.css";
  * columns
  */
 class InputCheckboxList extends Component {
-  /**
-   * Callback for handling when the user toggles a checkbox. Passes it up to
-   * the callback from the form page.
-   * @param {Number} index Index (in options) of the checkbox that was toggled
-   */
-  onSelect = (index) => {
-    const { options, onChange } = this.props;
-    onChange(options[index].stateKey, !options[index].selected);
-  };
-
   render() {
+    const { twoColumns, label, options, onChange } = this.props;
     let listColumns = null;
-    if (this.props.twoColumns) {
-      let numOptions = this.props.options.length;
+    if (twoColumns) {
+      let numOptions = options.length;
       let midIndex = numOptions / 2; // index of first thing in second column
       if (numOptions % 2 === 1) midIndex++;
 
-      let firstColumnOptions = this.props.options.slice(0, midIndex);
-      let secondColumnOptions = this.props.options.slice(midIndex); // to end
+      let firstColumnOptions = options.slice(0, midIndex);
+      let secondColumnOptions = options.slice(midIndex); // to end
       listColumns = (
         <FormRow>
           <FormCol>
-            <CheckboxColumn
-              indexBuffer={0}
-              options={firstColumnOptions}
-              onChange={this.onSelect}
-            />
+            <CheckboxColumn options={firstColumnOptions} onChange={onChange} />
           </FormCol>
           <FormCol>
-            <CheckboxColumn
-              indexBuffer={firstColumnOptions.length}
-              options={secondColumnOptions}
-              onChange={this.onSelect}
-            />
+            <CheckboxColumn options={secondColumnOptions} onChange={onChange} />
           </FormCol>
         </FormRow>
       );
     } else {
-      listColumns = (
-        <CheckboxColumn
-          indexBuffer={0}
-          options={this.props.options}
-          onChange={this.onSelect}
-        />
-      );
+      listColumns = <CheckboxColumn options={options} onChange={onChange} />;
     }
 
     return (
       <div className="form-input">
-        <label className="form-input-list-header">{this.props.label}</label>
+        <label className="form-input-list-header">{label}</label>
         {listColumns}
       </div>
     );

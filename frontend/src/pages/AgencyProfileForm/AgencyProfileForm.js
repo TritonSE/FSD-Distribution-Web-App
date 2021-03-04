@@ -143,13 +143,13 @@ class AgencyProfileForm extends Component {
       sunday: data.sunday,
     };
     let distributionStartTimes = {
-      monday: data.mondayStartTime,
-      tuesday: data.tuesdayStartTime,
-      wednesday: data.wednesdayStartTime,
-      thursday: data.thursdayStartTime,
-      friday: data.fridayStartTime,
-      saturday: data.saturdayStartTime,
-      sunday: data.sundayStartTime,
+      monday: data.monday ? data.mondayStartTime : "",
+      tuesday: data.tuesday ? data.tuesdayStartTime : "",
+      wednesday: data.wednesday ? data.wednesdayStartTime : "",
+      thursday: data.thursday ? data.thursdayStartTime : "",
+      friday: data.friday ? data.fridayStartTime : "",
+      saturday: data.saturday ? data.saturdayStartTime : "",
+      sunday: data.sunday ? data.sundayStartTime : "",
     };
 
     data.tableContent = tableContent;

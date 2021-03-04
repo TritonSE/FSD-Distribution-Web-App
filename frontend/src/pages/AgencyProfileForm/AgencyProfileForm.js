@@ -11,7 +11,7 @@ import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import DistributionDays from "./DistributionDays";
-import Calendar from "./DistributionCalendar/calendar";
+import Calendar from "./DistributionCalendar/Calendar";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
@@ -163,22 +163,6 @@ class AgencyProfileForm extends Component {
     return data;
   }
 
-  getDistributionDays() {
-    let data = this.prepareData();
-
-    let distributionDaysObj = data.distributionDays;
-    let distributionDaysArr = [];
-
-    for (let distributionDay in distributionDaysObj) {
-      if (distributionDaysObj[distributionDay] === true) {
-        distributionDaysArr.push(distributionDay);
-      }
-    }
-
-    console.log(distributionDaysArr)
-    return distributionDaysArr;
-  }
-
   /**
    * Callback to handle when the user makes changes to any input field. Updates
    * the state with the given key and value, if the key already exists in the
@@ -188,12 +172,9 @@ class AgencyProfileForm extends Component {
    */
   handleInputChange = (key, newValue) => {
     if (this.state.hasOwnProperty(key)) {
-      this.setState(
-        {
-          [key]: newValue,
-        },
-        () => console.log(key, newValue)
-      );
+      this.setState({
+        [key]: newValue,
+      });
     }
   };
 
@@ -683,7 +664,15 @@ class AgencyProfileForm extends Component {
                   label="Customize Distribution Schedule"
                   distributionStartDate={data.distributionStartDate}
                   distributionFrequency={data.distributionFrequency}
-                  distributionDays={this.getDistributionDays()}
+                  distributionDays={[
+                    data.sunday,
+                    data.monday,
+                    data.tuesday,
+                    data.wednesday,
+                    data.thursday,
+                    data.friday,
+                    data.saturday,
+                  ]}
                   userSelectedDates={data.userSelectedDates}
                   userExcludedDates={data.userExcludedDates}
                   onChange={this.handleInputChange}

@@ -1,39 +1,25 @@
 import React, { Component } from "react";
 import moment from "moment";
-import "./styles.css";
-import Header from "./header";
-import { stripTime, isExtraneousDate } from "./DateHandling";
-
-const weekNumToDayOfWeek = {
-  0: "sunday",
-  1: "monday",
-  2: "tuesday",
-  3: "wednesday",
-  4: "thursday",
-  5: "friday",
-  6: "saturday",
-};
+import "./CalendarStyle.css";
+import Header from "./Header";
 
 const DEFAULT_DATE_FORMAT = "MM/DD/YYYY";
 
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    let { baseCalendarValue, buildCalendar, getDistributionDates } = this;
-    baseCalendarValue = stripTime(moment());
+    let { buildCalendar } = this;
+    let todayMoment = moment();
     this.state = {
-      baseCalendarValue: baseCalendarValue,
-      calendar: buildCalendar(baseCalendarValue),
-      defaultDistributionDates: getDistributionDates(baseCalendarValue),
+      todayMoment: todayMoment,
+      calendar: buildCalendar(todayMoment),
+      startDateMoment: moment(props.distributionStartDate, DEFAULT_DATE_FORMAT),
     };
   }
 
-  buildCalendar = (baseCalendarValue) => {
-    const startDate = baseCalendarValue
-      .clone()
-      .startOf("month")
-      .startOf("week");
-    const endDate = baseCalendarValue.clone().endOf("month").endOf("week");
+  buildCalendar = (todayMoment) => {
+    const startDate = todayMoment.clone().startOf("month").startOf("week");
+    const endDate = todayMoment.clone().endOf("month").endOf("week");
 
     const day = startDate.clone().subtract(1, "day");
     const calendar = [];
@@ -50,39 +36,27 @@ class Calendar extends Component {
     return calendar;
   };
 
-  // Date should be a date
-  isValidDistributionDate = (date) => {
-    const {
-      distributionStartDate,
-      distributionFrequency,
-      distributionDays,
-    } = this.props;
+  isDistributionDate = (date) => {
+    const { distributionDays, distributionFrequency } = this.props;
+    const { startDateMoment } = this.state;
 
-    let distributionStartDateAsMoment = moment(
-      distributionStartDate,
-      DEFAULT_DATE_FORMAT
-    );
-
-    let dateAsMoment = moment(date, DEFAULT_DATE_FORMAT);
+    let currDateMoment = moment(date, DEFAULT_DATE_FORMAT);
 
     // Determine if the pertinent weekday is a valid distribution day
-    const weekDayOfDate = weekNumToDayOfWeek[dateAsMoment.day()];
-    let dayOfWeekIsDistributionDay =
-      distributionDays.indexOf(weekDayOfDate) !== -1;
+    // moment object's day() function returns 0 for sunday, 1 for monday, etc.
+    let isDistDate = distributionDays[currDateMoment.day()];
 
-    // Verify day is between recurrence startDate and endDate
+    // Verify day is on or after recurrence startDate
     if (
-      dateAsMoment.isAfter(distributionStartDateAsMoment) ||
-      dateAsMoment.isSame(distributionStartDateAsMoment)
+      currDateMoment.isAfter(startDateMoment) ||
+      currDateMoment.isSame(startDateMoment)
     ) {
       // Verify day meet frequency requirements
-      if (
-        Math.abs(distributionStartDateAsMoment.week() - dateAsMoment.week()) %
-          distributionFrequency ===
-        0
-      ) {
+      let weekDiff = currDateMoment.week() - startDateMoment.week();
+      let isOnWeek = weekDiff % distributionFrequency === 0;
+      if (isOnWeek) {
         // Verify day is a valid distribution day
-        if (dayOfWeekIsDistributionDay) {
+        if (isDistDate) {
           return true;
         }
       }
@@ -91,139 +65,81 @@ class Calendar extends Component {
     return false;
   };
 
-  getDistributionDates = (baseCalendarValue) => {
-    const currDate = baseCalendarValue.clone().startOf("month").startOf("week");
-    const endDate = baseCalendarValue.clone().endOf("month").endOf("week");
-
-    let distributionDates = [];
-
-    while (currDate.isBefore(endDate, "day")) {
-      if (this.isValidDistributionDate(currDate)) {
-        distributionDates.push(currDate.format(DEFAULT_DATE_FORMAT));
-      }
-
-      currDate.add(1, "day");
-    }
-
-    return distributionDates;
+  isExtraneousDate = (date) => {
+    let dateMonth = parseInt(date.slice(0, 2));
+    let calendarMonth = this.state.todayMoment.month();
+    let calendarMonthNum = parseInt(moment().month(calendarMonth).format("M"));
+    return dateMonth !== calendarMonthNum;
   };
 
   isSelectedDate = (date) => {
-    const { userSelectedDates } = this.props;
-    let dayIsSelectedDate = userSelectedDates.indexOf(date) !== -1;
-    return dayIsSelectedDate;
+    return this.props.userSelectedDates.includes(date);
   };
 
-  isDefaultDistributionDate = (date) => {
-    let defaultDistributionDates = [...this.state.defaultDistributionDates];
-
-    // Iterate through defaultDistributionDates
-    for (let defaultDistributionDate of defaultDistributionDates) {
-      // Determine if day is defaultDistributionDate
-      if (defaultDistributionDate === date) {
-        return true;
-      }
-    }
-    return false;
-  };
-
-  isExcludedDefaultDistributionDate = (date) => {
-    const { userExcludedDates } = this.props;
-
-    // Iterate through userExcludedDates
-    for (let excludedDefaultDistributionDate of userExcludedDates) {
-      // Determine if distributionDate is excluded
-      if (excludedDefaultDistributionDate === date) {
-        return true;
-      }
-    }
-    return false;
+  isExcludedDate = (date) => {
+    return this.props.userExcludedDates.includes(date);
   };
 
   removeSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
-    let indexOfDate = userSelectedDates.indexOf(date);
-    userSelectedDates.splice(indexOfDate, 1);
+
+    let newSelectedDates = userSelectedDates.slice();
+    let indexOfDate = newSelectedDates.indexOf(date);
+    newSelectedDates.splice(indexOfDate, 1);
 
     // Update AgencyProfileForm state (and consequently local state)
-    onChange("userSelectedDates", userSelectedDates);
+    onChange("userSelectedDates", newSelectedDates);
   };
 
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
-    userSelectedDates.push(date);
+
+    let newSelectedDates = userSelectedDates.slice();
+    newSelectedDates.push(date);
 
     // Update AgencyProfileForm state (and consequently local state)
-    onChange("userSelectedDates", userSelectedDates);
+    onChange("userSelectedDates", newSelectedDates);
   };
 
-  getDateStyle = (date) => {
-    const {
-      isSelectedDate,
-      isDefaultDistributionDate,
-      isExcludedDefaultDistributionDate,
-    } = this;
-    const { baseCalendarValue } = this.state;
-    let style = "";
-    console.log("GETTING DATE STYLE");
-
-    if (isSelectedDate(date)) {
-      style += style === "" ? "selected" : "-selected";
-    }
-    if (isDefaultDistributionDate(date)) {
-      if (!isExcludedDefaultDistributionDate(date)) {
-        style += style === "" ? "distribution" : "-distribution";
-      }
-    }
-    if (isExtraneousDate(date, baseCalendarValue)) {
-      style += style === "" ? "extraneous" : "-extraneous";
-    }
-
-    return style;
-  };
-
-  excludeDefaultDistributionDate = (date) => {
-    // Update state with excluded dates
+  addExcludedDate = (date) => {
     const { userExcludedDates, onChange } = this.props;
-    userExcludedDates.push(date);
+
+    let newExcludedDates = userExcludedDates.slice();
+    newExcludedDates.push(date);
 
     // Update AgencyProfileFormState --> rerender
-    onChange("userExcludedDates", userExcludedDates);
+    onChange("userExcludedDates", newExcludedDates);
   };
 
-  includeDefaultDistributionDate = (date) => {
+  removeExcludedDate = (date) => {
     const { userExcludedDates, onChange } = this.props;
 
-    for (let i = 0; i < userExcludedDates.length; i++) {
-      if (userExcludedDates[i] === date) {
-        userExcludedDates.splice(i, 1);
+    let newExcludedDates = userExcludedDates.slice();
+    let indexOfDate = newExcludedDates.indexOf(date);
+    newExcludedDates.splice(indexOfDate, 1);
 
-        // Update AgencyProfileFormState --> rerender
-        onChange("userExcludedDates", userExcludedDates);
-        return;
-      }
-    }
+    // Update AgencyProfileFormState --> rerender
+    onChange("userExcludedDates", newExcludedDates);
   };
 
   handleDateSelect = (date) => {
     const {
+      isDistributionDate,
       isSelectedDate,
+      isExcludedDate,
+      isExtraneousDate,
       removeSelectedDate,
       addSelectedDate,
-      isDefaultDistributionDate,
-      excludeDefaultDistributionDate,
-      includeDefaultDistributionDate,
-      isExcludedDefaultDistributionDate,
+      addExcludedDate,
+      removeExcludedDate,
     } = this;
 
-    const { baseCalendarValue } = this.state;
-
-    if (!isExtraneousDate(date, baseCalendarValue)) {
-      if (isDefaultDistributionDate(date)) {
-        if (isExcludedDefaultDistributionDate(date)) {
-          includeDefaultDistributionDate(date);
+    if (!isExtraneousDate(date)) {
+      if (isDistributionDate(date)) {
+        if (isExcludedDate(date)) {
+          removeExcludedDate(date);
         } else {
-          excludeDefaultDistributionDate(date);
+          addExcludedDate(date);
         }
       } else {
         if (isSelectedDate(date)) {
@@ -236,55 +152,61 @@ class Calendar extends Component {
   };
 
   handleNext = () => {
-    let newBaseCalendarValue = this.state.baseCalendarValue
-      .clone()
-      .add(1, "month");
-
-    // Update defaultDistributionDates to only store the dates
-    // for the new month to be displayed
-    let updatedDefaultDistributionDates = this.getDistributionDates(
-      newBaseCalendarValue
-    );
-
-    // Update fields and rerender calendar
+    let newTodayMoment = this.state.todayMoment.clone().add(1, "month");
     this.setState({
-      defaultDistributionDates: updatedDefaultDistributionDates,
-      baseCalendarValue: newBaseCalendarValue,
-      calendar: this.buildCalendar(newBaseCalendarValue),
+      todayMoment: newTodayMoment,
+      calendar: this.buildCalendar(newTodayMoment),
     });
   };
 
   handlePrev = () => {
-    let newBaseCalendarValue = this.state.baseCalendarValue
-      .clone()
-      .subtract(1, "month");
-
-    // Update defaultDistributionDates to only store the dates
-    // for the new month to be displayed
-    let updatedDefaultDistributionDates = this.getDistributionDates(
-      newBaseCalendarValue
-    );
-
+    let newTodayMoment = this.state.todayMoment.clone().subtract(1, "month");
     this.setState({
-      defaultDistributionDates: updatedDefaultDistributionDates,
-      baseCalendarValue: newBaseCalendarValue,
-      calendar: this.buildCalendar(newBaseCalendarValue),
+      todayMoment: newTodayMoment,
+      calendar: this.buildCalendar(newTodayMoment),
     });
   };
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      let baseCalendarValue = stripTime(moment());
+      let todayMoment = moment();
       this.setState({
-        baseCalendarValue: baseCalendarValue,
-        calendar: this.buildCalendar(baseCalendarValue),
-        defaultDistributionDates: this.getDistributionDates(baseCalendarValue),
+        todayMoment: todayMoment,
+        calendar: this.buildCalendar(todayMoment),
+        startDateMoment: moment(
+          this.props.distributionStartDate,
+          DEFAULT_DATE_FORMAT
+        ),
       });
     }
   }
 
+  getDateStyle = (date) => {
+    const {
+      isDistributionDate,
+      isSelectedDate,
+      isExcludedDate,
+      isExtraneousDate,
+    } = this;
+    let style = "";
+
+    if (isDistributionDate(date)) {
+      if (!isExcludedDate(date)) {
+        style = "distribution";
+      }
+    } else if (isSelectedDate(date)) {
+      style = "selected";
+    }
+
+    if (isExtraneousDate(date)) {
+      style += style === "" ? "extraneous" : "-extraneous";
+    }
+
+    return style;
+  };
+
   render() {
-    const { calendar, baseCalendarValue } = this.state;
+    const { calendar, todayMoment } = this.state;
     const { label } = this.props;
     const { handlePrev, handleNext, getDateStyle, handleDateSelect } = this;
     return (
@@ -292,7 +214,7 @@ class Calendar extends Component {
         <label className="calendar-label">{label}</label>
         <div className="calendar">
           <Header
-            value={baseCalendarValue}
+            value={todayMoment}
             handlePrev={handlePrev}
             handleNext={handleNext}
           />

@@ -4,8 +4,6 @@ import "./styles.css";
 import Header from "./header";
 import { stripTime, isExtraneousDate } from "./DateHandling";
 
-require("typeface-roboto");
-
 const weekNumToDayOfWeek = {
   0: "sunday",
   1: "monday",
@@ -23,12 +21,9 @@ class Calendar extends Component {
     super(props);
     let { baseCalendarValue, buildCalendar, getDistributionDates } = this;
     baseCalendarValue = stripTime(moment());
-
     this.state = {
       baseCalendarValue: baseCalendarValue,
       calendar: buildCalendar(baseCalendarValue),
-      selectedDates: [],
-      excludedDefaultDistributionDates: [],
       defaultDistributionDates: getDistributionDates(baseCalendarValue),
     };
   }
@@ -57,28 +52,32 @@ class Calendar extends Component {
 
   // Date should be a date
   isValidDistributionDate = (date) => {
-    const { distributionRecurrence } = this.props;
-    const distributionStartDate = distributionRecurrence.startDate;
-    const distributionEndDate = distributionRecurrence.endDate;
-    const distributionFrequency = distributionRecurrence.frequency;
-    const distributionDays = distributionRecurrence.days;
+    const {
+      distributionStartDate,
+      distributionFrequency,
+      distributionDays,
+    } = this.props;
+
+    let distributionStartDateAsMoment = moment(
+      distributionStartDate,
+      DEFAULT_DATE_FORMAT
+    );
 
     let dateAsMoment = moment(date, DEFAULT_DATE_FORMAT);
 
     // Determine if the pertinent weekday is a valid distribution day
-    const weekDayOfDate = weekNumToDayOfWeek[date.day()];
+    const weekDayOfDate = weekNumToDayOfWeek[dateAsMoment.day()];
     let dayOfWeekIsDistributionDay =
       distributionDays.indexOf(weekDayOfDate) !== -1;
 
     // Verify day is between recurrence startDate and endDate
     if (
-      (dateAsMoment.isAfter(distributionStartDate) ||
-        dateAsMoment.isSame(distributionStartDate)) &&
-      dateAsMoment.isBefore(distributionEndDate)
+      dateAsMoment.isAfter(distributionStartDateAsMoment) ||
+      dateAsMoment.isSame(distributionStartDateAsMoment)
     ) {
       // Verify day meet frequency requirements
       if (
-        Math.abs(distributionStartDate.week() - dateAsMoment.week()) %
+        Math.abs(distributionStartDateAsMoment.week() - dateAsMoment.week()) %
           distributionFrequency ===
         0
       ) {
@@ -110,8 +109,8 @@ class Calendar extends Component {
   };
 
   isSelectedDate = (date) => {
-    let selectedDates = [...this.state.selectedDates];
-    let dayIsSelectedDate = selectedDates.indexOf(date) !== -1;
+    const { userSelectedDates } = this.props;
+    let dayIsSelectedDate = userSelectedDates.indexOf(date) !== -1;
     return dayIsSelectedDate;
   };
 
@@ -129,11 +128,10 @@ class Calendar extends Component {
   };
 
   isExcludedDefaultDistributionDate = (date) => {
-    let excludedDefaultDistributionDates = this.state
-      .excludedDefaultDistributionDates;
+    const { userExcludedDates } = this.props;
 
-    // Iterate through excludedDefaultDistributionDates
-    for (let excludedDefaultDistributionDate of excludedDefaultDistributionDates) {
+    // Iterate through userExcludedDates
+    for (let excludedDefaultDistributionDate of userExcludedDates) {
       // Determine if distributionDate is excluded
       if (excludedDefaultDistributionDate === date) {
         return true;
@@ -143,16 +141,20 @@ class Calendar extends Component {
   };
 
   removeSelectedDate = (date) => {
-    let updatedSelectedDates = [...this.state.selectedDates];
-    let indexOfDate = updatedSelectedDates.indexOf(date);
-    updatedSelectedDates.splice(indexOfDate, 1);
-    this.setState({ selectedDates: updatedSelectedDates });
+    const { userSelectedDates, onChange } = this.props;
+    let indexOfDate = userSelectedDates.indexOf(date);
+    userSelectedDates.splice(indexOfDate, 1);
+
+    // Update AgencyProfileForm state (and consequently local state)
+    onChange("userSelectedDates", userSelectedDates);
   };
 
   addSelectedDate = (date) => {
-    let selectedDates = [...this.state.selectedDates];
-    selectedDates.push(date);
-    this.setState({ selectedDates: selectedDates });
+    const { userSelectedDates, onChange } = this.props;
+    userSelectedDates.push(date);
+
+    // Update AgencyProfileForm state (and consequently local state)
+    onChange("userSelectedDates", userSelectedDates);
   };
 
   getDateStyle = (date) => {
@@ -163,6 +165,7 @@ class Calendar extends Component {
     } = this;
     const { baseCalendarValue } = this.state;
     let style = "";
+    console.log("GETTING DATE STYLE");
 
     if (isSelectedDate(date)) {
       style += style === "" ? "selected" : "-selected";
@@ -181,27 +184,22 @@ class Calendar extends Component {
 
   excludeDefaultDistributionDate = (date) => {
     // Update state with excluded dates
-    let excludedDefaultDistributionDates = [
-      ...this.state.excludedDefaultDistributionDates,
-    ];
-    excludedDefaultDistributionDates.push(date);
+    const { userExcludedDates, onChange } = this.props;
+    userExcludedDates.push(date);
 
-    this.setState({
-      excludedDefaultDistributionDates: excludedDefaultDistributionDates,
-    });
+    // Update AgencyProfileFormState --> rerender
+    onChange("userExcludedDates", userExcludedDates);
   };
 
   includeDefaultDistributionDate = (date) => {
-    let excludedDefaultDistributionDates = [
-      ...this.state.excludedDefaultDistributionDates,
-    ];
+    const { userExcludedDates, onChange } = this.props;
 
-    for (let i = 0; i < excludedDefaultDistributionDates.length; i++) {
-      if (excludedDefaultDistributionDates[i] === date) {
-        excludedDefaultDistributionDates.splice(i, 1);
-        this.setState({
-          excludedDefaultDistributionDates: excludedDefaultDistributionDates,
-        });
+    for (let i = 0; i < userExcludedDates.length; i++) {
+      if (userExcludedDates[i] === date) {
+        userExcludedDates.splice(i, 1);
+
+        // Update AgencyProfileFormState --> rerender
+        onChange("userExcludedDates", userExcludedDates);
         return;
       }
     }
@@ -274,40 +272,55 @@ class Calendar extends Component {
     });
   };
 
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      let baseCalendarValue = stripTime(moment());
+      this.setState({
+        baseCalendarValue: baseCalendarValue,
+        calendar: this.buildCalendar(baseCalendarValue),
+        defaultDistributionDates: this.getDistributionDates(baseCalendarValue),
+      });
+    }
+  }
+
   render() {
     const { calendar, baseCalendarValue } = this.state;
+    const { label } = this.props;
     const { handlePrev, handleNext, getDateStyle, handleDateSelect } = this;
     return (
-      <div className="calendar">
-        <Header
-          value={baseCalendarValue}
-          handlePrev={handlePrev}
-          handleNext={handleNext}
-        />
-        <div className="body">
-          <div className="day-names">
-            {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(
-              (weekDay) => (
-                <div className="week" key={weekDay}>
-                  {weekDay}
-                </div>
-              )
-            )}
-          </div>
-          {calendar.map((week) => (
-            <div key={week}>
-              {week.map((date) => (
-                <div className="day" key={date}>
-                  <div
-                    className={getDateStyle(date)}
-                    onClick={() => handleDateSelect(date)}
-                  >
-                    {date.slice(3, 5)}
+      <div>
+        <label className="calendar-label">{label}</label>
+        <div className="calendar">
+          <Header
+            value={baseCalendarValue}
+            handlePrev={handlePrev}
+            handleNext={handleNext}
+          />
+          <div className="body">
+            <div className="day-names">
+              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(
+                (weekDay) => (
+                  <div className="week" key={weekDay}>
+                    {weekDay}
                   </div>
-                </div>
-              ))}
+                )
+              )}
             </div>
-          ))}
+            {calendar.map((week) => (
+              <div key={week}>
+                {week.map((date) => (
+                  <div className="day" key={date}>
+                    <div
+                      className={getDateStyle(date)}
+                      onClick={() => handleDateSelect(date)}
+                    >
+                      {date.slice(3, 5)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );

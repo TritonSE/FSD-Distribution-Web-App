@@ -169,14 +169,29 @@ class Calendar extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
+      const {
+        userSelectedDates,
+        userExcludedDates,
+        distributionStartDate,
+      } = this.props;
+      for (let selectedDate of userSelectedDates) {
+        if (this.isDistributionDate(selectedDate)) {
+          this.removeSelectedDate(selectedDate);
+          return;
+        }
+      }
+      for (let excludedDate of userExcludedDates) {
+        if (!this.isDistributionDate(excludedDate)) {
+          this.removeExcludedDate(excludedDate);
+          return;
+        }
+      }
+
       let todayMoment = moment();
       this.setState({
         todayMoment: todayMoment,
         calendar: this.buildCalendar(todayMoment),
-        startDateMoment: moment(
-          this.props.distributionStartDate,
-          DEFAULT_DATE_FORMAT
-        ),
+        startDateMoment: moment(distributionStartDate, DEFAULT_DATE_FORMAT),
       });
     }
   }

@@ -1,115 +1,116 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const TableContentSchema = new Schema({
   agencyNumber: {
     type: Number,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   status: {
     type: String,
-    required: true
+    required: true,
   },
   region: {
     type: String,
-    required: true
+    required: true,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   phone: {
     type: String,
-    required: true
+    required: true,
   },
   staff: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const ContactSchema = new Schema({
   contact: {
     type: String,
-    required: true
+    required: true,
   },
   position: {
     type: String,
-    required: true
+    required: true,
   },
   phoneNumber: {
-    type: String
+    type: String,
+    required: true,
   },
   email: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const DistributionDaysSchema = new Schema({
   monday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   tuesday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   wednesday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   thursday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   friday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   saturday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   sunday: {
     type: Boolean,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const DistributionTimesSchema = new Schema({
   monday: {
     type: String,
-    required: true
+    required: true,
   },
   tuesday: {
     type: String,
-    required: true
+    required: true,
   },
   wednesday: {
     type: String,
-    required: true
+    required: true,
   },
   thursday: {
     type: String,
-    required: true
+    required: true,
   },
   friday: {
     type: String,
-    required: true
+    required: true,
   },
   saturday: {
     type: String,
-    required: true
+    required: true,
   },
   sunday: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const AgencySchema = new Schema({
@@ -120,10 +121,6 @@ const AgencySchema = new Schema({
    */
   tableContent: {
     type: TableContentSchema,
-    required: true,
-  },
-  primaryContact: {
-    type: String,
     required: true,
   },
   mainSiteAddress: {
@@ -196,25 +193,25 @@ const AgencySchema = new Schema({
   /* Distribution Section */
   distributionDays: {
     type: DistributionDaysSchema,
-    required: true
+    required: true,
   },
   distributionStartTimes: {
     type: DistributionTimesSchema,
-    required: true
+    required: true,
   },
   distributionStartDate: {
     type: String,
-    required: true
+    required: true,
   },
   distributionFrequency: {
     type: Number,
-    required: true
+    required: true,
   },
   userSelectedDates: {
-    type: [String]
+    type: [String],
   },
   userExcludedDates: {
-    type: [String]
+    type: [String],
   },
 
   // Checkboxes for Distribution Section
@@ -325,6 +322,6 @@ const AgencySchema = new Schema({
   },
 });
 
-const Agency = mongoose.model('Agency', AgencySchema);
+const Agency = mongoose.model("Agency", AgencySchema);
 
-module.exports = { Agency }
+module.exports = { Agency };

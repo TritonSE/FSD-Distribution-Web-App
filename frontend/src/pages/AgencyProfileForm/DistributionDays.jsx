@@ -14,10 +14,12 @@ import "./FormStyle.css";
  * selection, and state key for the time)
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and a Boolean or String
+ * - {Function} validCheck: callback from the form page to check whether inputs
+ * passed validation, should take a String
  */
 class DistributionDays extends Component {
   render() {
-    const { values, onChange } = this.props;
+    const { values, onChange, validCheck } = this.props;
     return (
       <div className="form-input selection-choice form-col-width">
         <label className="form-input-label">
@@ -36,6 +38,7 @@ class DistributionDays extends Component {
               value={item.time}
               stateKey={item.timeStateKey}
               onChange={onChange}
+              valid={validCheck(`distributionStartTimes.${item.stateKey}`)}
             />
           </div>
         ))}

@@ -74,7 +74,7 @@ class AgencyProfileForm extends Component {
         saturdayStartTime: "",
         sundayStartTime: "",
         distributionStartDate: "",
-        distributionFrequency: 1,
+        distributionFrequency: "1",
         userSelectedDates: [],
         userExcludedDates: [],
         pantry: false,
@@ -641,6 +641,7 @@ class AgencyProfileForm extends Component {
                     },
                   ]}
                   onChange={this.handleInputChange}
+                  validCheck={this.isValid}
                 />
               </FormCol>
               <FormCol>

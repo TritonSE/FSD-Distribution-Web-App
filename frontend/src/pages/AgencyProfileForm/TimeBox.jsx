@@ -10,6 +10,7 @@ import "./FormStyle.css";
  * - {String} stateKey: key to use in the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
  * and a String
+ * - {Boolean} valid: whether the current input value passed validation
  */
 class TimeBox extends Component {
   constructor(props) {
@@ -88,8 +89,8 @@ class TimeBox extends Component {
     }
     const { stateKey, onChange } = this.props;
     const numVal = parseInt(value);
-    if (isNaN(numVal) || numVal === 0) {
-      // reject values that are not numbers or are just 0
+    if (isNaN(numVal)) {
+      // reject values that are not numbers
       onChange(stateKey, "");
     } else if (value.length === 1) {
       // prepend a 0 if there's only one digit
@@ -102,11 +103,17 @@ class TimeBox extends Component {
 
   render() {
     const { hour, minute, ampm } = this.state;
+    const { valid } = this.props;
+
+    let styleClass = "number-field";
+    if (valid !== undefined && !valid) {
+      styleClass += " form-invalid";
+    }
     return (
       <span className="time-input">
         <input
           type="text"
-          className="number-field"
+          className={styleClass}
           placeholder="00"
           value={hour}
           onChange={(event) => this.handleChange("hour", event.target.value)}
@@ -115,7 +122,7 @@ class TimeBox extends Component {
         :
         <input
           type="text"
-          className="number-field"
+          className={styleClass}
           placeholder="00"
           value={minute}
           onChange={(event) => this.handleChange("minute", event.target.value)}

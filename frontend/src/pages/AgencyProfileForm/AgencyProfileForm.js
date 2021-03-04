@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, withRouter } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import FormSectionHeader from "./FormSectionHeader";
 import { FormRow, FormCol } from "./FormLayout";
 import InputText from "./InputText";
@@ -11,7 +11,6 @@ import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import InlineDropdown from "./InlineDropdown";
-import {isAuthenticated} from "../../auth";
 import "typeface-roboto";
 import "./FormStyle.css";
 
@@ -227,7 +226,7 @@ class AgencyProfileForm extends Component {
    * Handles form submission.
    */
   submitForm = () => {
-    const { history } = this.props;
+    let history = useHistory();
     const formData = this.prepareData();
     fetch("http://localhost:8000/agency/", {
       method: "PUT",
@@ -269,7 +268,6 @@ class AgencyProfileForm extends Component {
   };
 
   render() {
-    if (isAuthenticated()) {
     const data = this.state;
 
     return (
@@ -893,15 +891,12 @@ class AgencyProfileForm extends Component {
               >
                 Cancel
               </button>
-              </div>
             </div>
-          </form>
-        </div>
-      );
-    } else {
-        return <Redirect to="/login" />
-    }
+          </div>
+        </form>
+      </div>
+    );
   }
 }
 
-export default withRouter(AgencyProfileForm);
+export default AgencyProfileForm;

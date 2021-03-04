@@ -4,6 +4,14 @@ const { Agency } = require("../models");
 const { body, validationResult } = require("express-validator");
 const router = express.Router();
 
+const validateDistributionStartTime = (day) =>
+  body(`distributionStartTimes.${day}`)
+    .trim()
+    .if((value, { req }) => req.body.distributionDays[day])
+    .custom((value) => {
+      return value.match(/^(0[1-9]|1[0-2]):([0-5][0-9]) [AP]M$/);
+    });
+
 /**
  * Form Validation: validationChain is an array of expected formats for the
  * specified model fields.
@@ -15,14 +23,30 @@ const validationChain = [
   body("contacts.*.phoneNumber").trim().isMobilePhone("en-US"),
   body("contacts.*.email").trim().isEmail(),
   body("scheduledNextVisit").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("dateOfMostRecentAgreement")
-    .trim()
-    .isOptional({ checkFalsy: true })
-    .isDate({ format: "MM/DD/YYYY" }),
+  body("dateOfMostRecentAgreement").trim().isDate({ format: "MM/DD/YYYY" }),
   body("dateOfInitialPartnership").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("fileAudit").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("fileAudit")
+    .trim()
+    .optional({ checkFalsy: true })
+    .isDate({ format: "MM/DD/YYYY" }),
   body("monitored").trim().isDate({ format: "MM/DD/YYYY" }),
   body("foodSafetyCertification").trim().isDate({ format: "MM/DD/YYYY" }),
+  /*body("distributionStartTimes.*")
+    .trim()
+    .optional({ checkFalsy: true })
+    .custom((value) => {
+      return value.match(/^(0[1-9]|1[0-2]):([0-5][0-9]) [AP]M$/);
+    }),*/
+  validateDistributionStartTime("monday"),
+  validateDistributionStartTime("tuesday"),
+  validateDistributionStartTime("wednesday"),
+  validateDistributionStartTime("thursday"),
+  validateDistributionStartTime("friday"),
+  validateDistributionStartTime("saturday"),
+  validateDistributionStartTime("sunday"),
+  body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("userSelectedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("userExcludedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
 ];
 
 /**

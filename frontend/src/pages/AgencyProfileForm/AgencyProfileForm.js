@@ -660,6 +660,8 @@ class AgencyProfileForm extends Component {
                   required
                   valid={this.isValid("distributionFrequency")}
                 />
+              </FormCol>
+              <FormCol>
                 <Calendar
                   label="Customize Distribution Schedule"
                   distributionStartDate={data.distributionStartDate}
@@ -678,6 +680,8 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                 />
               </FormCol>
+            </FormRow>
+            <FormRow>
               <FormCol>
                 <InputCheckboxList
                   label="Check Boxes if Available/Correct."

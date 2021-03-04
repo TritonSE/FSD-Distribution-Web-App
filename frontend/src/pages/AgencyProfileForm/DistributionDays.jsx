@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
+import RequiredAsterisk from "./RequiredAsterisk";
 import "./FormStyle.css";
 
 /**
@@ -17,7 +18,11 @@ class DistributionDays extends Component {
   render() {
     const { values, onChange } = this.props;
     return (
-      <div className="form-input selection-choice">
+      <div className="form-input selection-choice form-col-width">
+        <label className="form-input-label">
+          Distribution Days and Start Times
+          <RequiredAsterisk required={true} />
+        </label>
         {values.map((item, index) => (
           <span key={index}>
             <Checkbox

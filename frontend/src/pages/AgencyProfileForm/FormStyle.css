@@ -12,6 +12,7 @@
 .form-col {
   display: inline-block;
   position: relative;
+  vertical-align: top;
 }
 
 .form-input {
@@ -23,6 +24,10 @@
 
 .form-col-gutter {
   margin-left: 142px;
+}
+
+.form-col-width {
+  width: 296px;
 }
 
 /* * * * Text styles * * * */
@@ -375,5 +380,3 @@ button {
 .form-button-cancel:hover {
   background: #cccccc;
 }
-
-

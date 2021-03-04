@@ -225,7 +225,7 @@ class Calendar extends Component {
     const { label } = this.props;
     const { handlePrev, handleNext, getDateStyle, handleDateSelect } = this;
     return (
-      <div>
+      <div className="calendar-container">
         <label className="calendar-label">{label}</label>
         <div className="calendar">
           <Header

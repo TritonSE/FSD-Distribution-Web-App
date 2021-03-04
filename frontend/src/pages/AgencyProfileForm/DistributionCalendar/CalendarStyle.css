@@ -1,10 +1,14 @@
+.calendar-container {
+  margin-left: 142px;
+}
+
 .calendar {
   box-sizing: border-box;
   font-size: 1rem;
-  max-width: 300px;
-  border: 1px solid;
-  color: lightgray;
+  width: 289px;
+  border: 2px solid #cdcbd4;
   border-radius: 5%;
+  margin-left: 7px;
 }
 
 .calendar-label {
@@ -16,6 +20,7 @@
   color: #000000;
   margin-left: -7px;
   margin-bottom: 8px;
+  margin-top: 23px;
   display: inline-block;
 }
 
@@ -50,6 +55,7 @@
   flex: 1;
   text-align: left;
   margin-left: 1rem;
+  cursor: pointer;
 }
 
 .calendar .header .previous .arrow {
@@ -78,6 +84,7 @@
   flex: 1;
   text-align: center;
   margin-right: 1rem;
+  cursor: pointer;
 }
 
 .calendar .week {

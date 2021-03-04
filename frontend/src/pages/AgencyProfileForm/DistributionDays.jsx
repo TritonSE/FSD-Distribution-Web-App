@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
+import TimeBox from "./TimeBox";
 import RequiredAsterisk from "./RequiredAsterisk";
 import "./FormStyle.css";
 
@@ -24,14 +25,19 @@ class DistributionDays extends Component {
           <RequiredAsterisk required={true} />
         </label>
         {values.map((item, index) => (
-          <span key={index}>
+          <div key={index}>
             <Checkbox
               label={item.title}
               isChecked={item.selected}
               stateKey={item.stateKey}
               onChange={onChange}
             />
-          </span>
+            <TimeBox
+              value={item.time}
+              stateKey={item.timeStateKey}
+              onChange={onChange}
+            />
+          </div>
         ))}
       </div>
     );

@@ -653,7 +653,7 @@ class AgencyProfileForm extends Component {
                   valid={this.isValid("distributionStartDate")}
                 />
                 <InputText
-                  label="Frequency (Every X Weeks)"
+                  label="Weekly Frequency"
                   value={data.distributionFrequency}
                   stateKey="distributionFrequency"
                   onChange={this.handleInputChange}

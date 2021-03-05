@@ -97,9 +97,7 @@ class AgencyProfileForm extends Component {
         pickUpTruck: 0,
         van: 0,
         car: 0,
-        retailRescue: false,
-        preparedFoodCapacity: false,
-        capacityWithRRD: false,
+        retailRescueAvailable: false,
         youth: false,
         senior: false,
         homeless: false,
@@ -825,22 +823,12 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <FormSectionHeader title="Retail Rescue" />
             <InputCheckboxList
-              label="Check Boxes if Available."
+              label={null}
               options={[
                 {
-                  title: "Retail Rescue",
-                  selected: data.retailRescue,
-                  stateKey: "retailRescue",
-                },
-                {
-                  title: "Prepared Food Capacity",
-                  selected: data.preparedFoodCapacity,
-                  stateKey: "preparedFoodCapacity",
-                },
-                {
-                  title: "Capacity with RR with Delivery",
-                  selected: data.capacityWithRRD,
-                  stateKey: "capacityWithRRD",
+                  title: "Available",
+                  selected: data.retailRescueAvailable,
+                  stateKey: "retailRescueAvailable",
                 },
               ]}
               onChange={this.handleInputChange}

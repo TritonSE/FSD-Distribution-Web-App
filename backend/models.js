@@ -275,13 +275,7 @@ const AgencySchema = new Schema({
   },
 
   /* Retail Rescue Section */
-  retailRescue: {
-    type: Boolean,
-  },
-  preparedFoodCapacity: {
-    type: Boolean,
-  },
-  capacityWithRRD: {
+  retailRescueAvailable: {
     type: Boolean,
   },
 

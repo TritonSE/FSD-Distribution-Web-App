@@ -5,6 +5,25 @@ import Header from "./Header";
 
 const DEFAULT_DATE_FORMAT = "MM/DD/YYYY";
 
+/**
+ * Custom calendar component to aid with user distribution date
+ * selection and exclusion.
+ *
+ * Expected props:
+ * - {String} distributionStartDate: String in default date format representing
+ * the starting distributiond date
+ * - {Number} distributionFrequency: Number representing how often the agency
+ * distributes (in weeks)
+ * - {Array<Boolean>} distributionDays: List of booleans indicating which days
+ * of the week are valid distribution days
+ * - {Array<String>} userSelectedDates: List of Strings in default date format
+ * representing which dates the user selected
+ * - {Array<String>} userExcludedDates: List of Strings in default date format
+ * representing which default distribution days the user excluded
+ * - {Function} onChange: Callback function to agency profile form
+ * handleInputChange
+ */
+
 class Calendar extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +36,15 @@ class Calendar extends Component {
     };
   }
 
+  /**
+   * Creates a two-dimensional array of String in default date format 
+   * representing the calendar.
+   *
+   * @param {Object} todayMoment Moment object corresponding with today's date
+   * @returns Two-dimensional array of Strings in default date format 
+   * representing the calendar. Inner arrays represent individual weeks and 
+   * contain Strings that represent individual dates.
+   */
   buildCalendar = (todayMoment) => {
     const startDate = todayMoment.clone().startOf("month").startOf("week");
     const endDate = todayMoment.clone().endOf("month").endOf("week");
@@ -36,6 +64,13 @@ class Calendar extends Component {
     return calendar;
   };
 
+  /**
+   * Determines if a given date string is a valid distribution date.
+   *
+   * @param {String} date String in default date format to be assessed
+   * @returns Boolean representing if the given date string is a valid
+   * distributiond ate
+   */
   isDistributionDate = (date) => {
     const { distributionDays, distributionFrequency } = this.props;
     const { startDateMoment } = this.state;
@@ -65,6 +100,13 @@ class Calendar extends Component {
     return false;
   };
 
+  /**
+   * Determines if a given date string is a valid distribution date.
+   *
+   * @param {String} date String in default date format to be assessed
+   * @returns Boolean representing if the given date string is a valid
+   * distributiond ate
+   */
   isExtraneousDate = (date) => {
     let dateMonth = parseInt(date.slice(0, 2));
     let calendarMonth = this.state.todayMoment.month();
@@ -72,14 +114,32 @@ class Calendar extends Component {
     return dateMonth !== calendarMonthNum;
   };
 
+  /**
+   * Determines if a given date is a user selected date
+   *
+   * @param {String} date String in default date format to be assessed
+   * @returns Boolean representing if the given date is a user selected date
+   */
   isSelectedDate = (date) => {
     return this.props.userSelectedDates.includes(date);
   };
 
+  /**
+   * Determines if a given date is a user excluded date
+   *
+   * @param {String} date String in default date format to be assessed
+   * @returns Boolean representing if the given date is a user selected date
+   */
   isExcludedDate = (date) => {
     return this.props.userExcludedDates.includes(date);
   };
 
+  /**
+   * Removes a given date from user selected dates
+   *
+   * @param {String} date String in default date format to be removed from
+   * user selected dates
+   */
   removeSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
 
@@ -91,6 +151,12 @@ class Calendar extends Component {
     onChange("userSelectedDates", newSelectedDates);
   };
 
+  /**
+   * Adds a given date to user selected dates
+   *
+   * @param {String} date String in default date format to be added to
+   * user selected dates
+   */
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
 
@@ -101,6 +167,12 @@ class Calendar extends Component {
     onChange("userSelectedDates", newSelectedDates);
   };
 
+  /**
+   * Adds a given date to user excluded dates
+   *
+   * @param {String} date String in default date format to be added to
+   * user excluded dates
+   */
   addExcludedDate = (date) => {
     const { userExcludedDates, onChange } = this.props;
 
@@ -111,6 +183,12 @@ class Calendar extends Component {
     onChange("userExcludedDates", newExcludedDates);
   };
 
+  /**
+   * Remvoes a given date from user excluded dates
+   *
+   * @param {String} date String in default date format to be removed from
+   * user excluded dates
+   */
   removeExcludedDate = (date) => {
     const { userExcludedDates, onChange } = this.props;
 
@@ -122,6 +200,11 @@ class Calendar extends Component {
     onChange("userExcludedDates", newExcludedDates);
   };
 
+  /**
+   * Adds/removes a given date to excluded/user selected dates.
+   *
+   * @param {String} date String in default date format to be removed/added
+   */
   handleDateSelect = (date) => {
     const {
       isDistributionDate,
@@ -151,6 +234,9 @@ class Calendar extends Component {
     }
   };
 
+  /**
+   * Updates todayMoment and rerenders calendar for following month.
+   */
   handleNext = () => {
     let newTodayMoment = this.state.todayMoment.clone().add(1, "month");
     this.setState({
@@ -159,6 +245,9 @@ class Calendar extends Component {
     });
   };
 
+  /**
+   * Updates todayMoment and rerenders calendar for previous month.
+   */
   handlePrev = () => {
     let newTodayMoment = this.state.todayMoment.clone().subtract(1, "month");
     this.setState({
@@ -167,6 +256,12 @@ class Calendar extends Component {
     });
   };
 
+  /**
+   * Determines if the component's props have been updated based on
+   * userSelectedDates and userExcludedDates
+   *
+   * @param {Object} prevProps Contains previous calendar props
+   */
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
       const {
@@ -196,6 +291,12 @@ class Calendar extends Component {
     }
   }
 
+  /**
+   * Helper function to determine the style of a given date.
+   *
+   * @param {String} date String in default date format
+   * @returns String with the appropriate style
+   */
   getDateStyle = (date) => {
     const {
       isDistributionDate,

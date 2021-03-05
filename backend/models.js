@@ -16,7 +16,7 @@ const UserSchema = new Schema({
 
 // TODO: Hash passwords
 UserSchema.methods.verifyPassword = function (password) {
-  return password == this.password;
+  return password === this.password;
 };
 
 const TableContentSchema = new Schema({

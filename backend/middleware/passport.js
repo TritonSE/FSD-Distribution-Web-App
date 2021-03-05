@@ -1,3 +1,8 @@
+/**
+ * File is contains the middleware that will be used for every network request
+ * for passport authentication.
+ */
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JwtStrategy = require('passport-jwt').Strategy;
@@ -16,6 +21,10 @@ const options = {
 };
 
 module.exports = () => {
+  /**
+   * Validating user login by checking whether the user and the corresponding
+   * password exists in the database
+   */
   passport.use(new LocalStrategy(
     (user, password, next) => {
       User.findOne({ email: user }).exec().then((user) => {
@@ -30,6 +39,9 @@ module.exports = () => {
     }
   ));
 
+  /**
+   * Validating the Json Web Token passed in from network requests
+   */
   passport.use(new JwtStrategy(options,
     (jwt_payload, next) => {
       User.findOne({ _id: jwt_payload._id }, (err, user) => {
@@ -43,11 +55,17 @@ module.exports = () => {
       });
     }
   ));
-
+  
+  /**
+   * Serializing the user to be saved in the session
+   */
   passport.serializeUser(function (user, next) {
     next(null, user);
   });
 
+  /**
+   * Deserializing the user when user object is being fetched
+   */
   passport.deserializeUser(function (user, next) {
     next(null, user);
   });

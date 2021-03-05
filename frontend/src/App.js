@@ -10,7 +10,17 @@ import AgencyForm from "./pages/AgencyForm/AgencyForm";
 import { isAuthenticated } from "./auth";
 import { useState } from "react";
 
+
+/**
+ * Rendering the navigation bar of the website and creating all the routes that will
+ * be used in the web app
+ */
 function App() {
+  /**
+   * used as a helper to track whether the user is logged in
+   * changedIsLogged will be passed into components as props to allow isLogged to be changed
+   * and force re-rendering of the navigation bar
+   */
   const [isLogged, setLogged] = useState(isAuthenticated());
   const changeIsLogged = (isLogged) => setLogged(isLogged);
   return (

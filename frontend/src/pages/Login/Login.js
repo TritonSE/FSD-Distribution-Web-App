@@ -1,9 +1,9 @@
-import React from 'react';
-import { TextField, Button, Typography, makeStyles } from '@material-ui/core';
-import { useHistory, Link } from 'react-router-dom';
-import { setJWT, setUser } from '../../auth';
-import './Login.css'
-const config = require('../../config');
+import React from "react";
+import { TextField, Button, Typography, makeStyles } from "@material-ui/core";
+import { useHistory, Link } from "react-router-dom";
+import { setJWT, setUser } from "../../auth";
+import "./Login.css"
+const config = require("../../config");
 
 const useStyles = makeStyles((theme) => ({
   centered: {
@@ -40,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+/**
+ * Login is the login form page that user will have to go through in order
+ * to access the site.
+ */
 const Login = (props) => {
   const classes = useStyles();
   const history = useHistory();

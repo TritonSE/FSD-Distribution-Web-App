@@ -20,7 +20,7 @@ const app = express();
 
 // Middleware
 app.use(morgan('combined'));
-app.use(cors(/*{ methods: ['GET', 'POST', 'PUT', 'DELETE'] }*/));
+app.use(cors());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -57,4 +57,4 @@ app.listen(port, () => {
   console.log('Express server started on port %s', port);
 });
 
-module.exports = app
+module.exports = app;

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { useHistory, Link } from "react-router-dom";
-import './Navbar.css';
+import "./Navbar.css";
 import { logout } from "../../auth";
 
 const MenuItems = [
@@ -28,7 +28,11 @@ const Navbar = (props) => {
     props.changeIsLogged(false);
   }
 
-
+  /**
+   * Used a prop to force-render of the navigation bar after successful user login
+   * If user is logged in, replace login with logout in the navigation bar.
+   * Otherwise, replace logout with login in the navigation bar.
+   */
   let menuItem = null;
   props.isLogged ? menuItem = (
     <li>

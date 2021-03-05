@@ -21,6 +21,7 @@ import "./FormStyle.css";
 class InputCheckboxList extends Component {
   render() {
     const { twoColumns, label, options, onChange } = this.props;
+
     let listColumns = null;
     if (twoColumns) {
       let numOptions = options.length;
@@ -43,9 +44,14 @@ class InputCheckboxList extends Component {
       listColumns = <CheckboxColumn options={options} onChange={onChange} />;
     }
 
+    let labelItem = null;
+    if (label) {
+      labelItem = <label className="form-input-list-header">{label}</label>;
+    }
+
     return (
       <div className="form-input">
-        <label className="form-input-list-header">{label}</label>
+        {labelItem}
         {listColumns}
       </div>
     );

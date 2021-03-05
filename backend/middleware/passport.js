@@ -1,5 +1,5 @@
 /**
- * File is contains the middleware that will be used for every network request
+ * File contains the middleware that will be used for every network request
  * for passport authentication.
  */
 

@@ -37,12 +37,12 @@ class Calendar extends Component {
   }
 
   /**
-   * Creates a two-dimensional array of String in default date format 
+   * Creates a two-dimensional array of String in default date format
    * representing the calendar.
    *
    * @param {Object} todayMoment Moment object corresponding with today's date
-   * @returns Two-dimensional array of Strings in default date format 
-   * representing the calendar. Inner arrays represent individual weeks and 
+   * @returns Two-dimensional array of Strings in default date format
+   * representing the calendar. Inner arrays represent individual weeks and
    * contain Strings that represent individual dates.
    */
   buildCalendar = (todayMoment) => {

@@ -7,7 +7,7 @@ describe("AgencyProfileForm.render", () => {
     // snapshot (UI) test for an initially-blank form - basically to check that
     // nothing disappears or changes in the interface
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     );
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
@@ -19,7 +19,7 @@ describe("AgencyProfileForm.handleInputChange", () => {
     // calls handleInputChange() with various (known) keys and test values to
     // check that it updates AgencyProfileForm's state correctly
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
 
     // string value
@@ -88,7 +88,7 @@ describe("AgencyProfileForm.handleInputChange", () => {
     // calls handleInputChange() with an unknown key to check that it rejects
     // the change and doesn't add it to the state
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
 
     expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
@@ -102,7 +102,7 @@ describe("AgencyProfileForm.addAddress", () => {
     // checks that addAddress() does append an empty string to the string array
     // holding additional addresses in the state
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
 
     component.handleInputChange("additionalAddresses", ["address1"]);
@@ -121,7 +121,7 @@ describe("AgencyProfileForm.addContact", () => {
     // correct keys, mapped to empty strings) to the array holding contact info
     // in the state
     const component = TestRenderer.create(
-      <AgencyProfileForm agencyData={null} />
+      <AgencyProfileForm.WrappedComponent agencyData={null} />
     ).root.instance;
     const blankContact = {
       contact: "",

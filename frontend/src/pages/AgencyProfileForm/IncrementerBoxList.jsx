@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FormRow, FormCol } from "./FormLayout";
-import IncrementerBoxColumn from "./IncrementerBoxColumn";
-import "./FormStyle.css";
+import IncrementerBoxColumn from "../../components/FormComponents/IncrementerBoxColumn";
 
 /**
  * InputIncrementerBoxList is a container for a column or columns of incrementer
@@ -20,7 +19,7 @@ import "./FormStyle.css";
  * - {Boolean} twoColumns: whether the incrementer box group should be split
  * into two columns
  */
-class InputIncrementerBoxList extends Component {
+class IncrementerBoxList extends Component {
   /**
    * Callback for handling when the user changes a number. Passes it up to
    * the callback from the form page.
@@ -82,4 +81,4 @@ class InputIncrementerBoxList extends Component {
   }
 }
 
-export default InputIncrementerBoxList;
+export default IncrementerBoxList;

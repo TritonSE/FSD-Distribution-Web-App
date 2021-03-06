@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./FormStyle.css";
+import "./Checkboxes.css";
+import "./TextStyles.css";
 
 /**
  * Checkbox is a custom checkbox component, including a label. It replaces

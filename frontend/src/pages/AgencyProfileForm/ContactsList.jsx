@@ -1,7 +1,7 @@
 import React from "react";
 import { FormRow, FormCol } from "./FormLayout";
 import ExpandableList from "./ExpandableList";
-import InputText from "./InputText";
+import InputText from "../../components/FormComponents/InputText";
 import "./FormStyle.css";
 
 /**

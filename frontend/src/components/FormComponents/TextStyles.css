@@ -1,0 +1,31 @@
+* {
+  font-family: Roboto;
+  font-style: normal;
+  color: #000000;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.form-input-label {
+  font-weight: bold;
+  margin-left: -7px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.form-input-list-header {
+  font-style: italic;
+  font-weight: 500;
+  margin-left: -7px;
+  margin-bottom: 0px;
+}
+
+.form-input-list-subheader {
+  font-style: italic;
+  font-weight: 300;
+  display: inline;
+}
+
+.selection-choice {
+  font-weight: 400;
+}

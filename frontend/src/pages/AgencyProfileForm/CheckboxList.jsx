@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { FormRow, FormCol } from "./FormLayout";
-import CheckboxColumn from "./CheckboxColumn";
-import "./FormStyle.css";
+import CheckboxColumn from "../../components/FormComponents/CheckboxColumn";
 
 /**
  * InputCheckboxList is a container for a column or columns of checkboxes as one
@@ -19,7 +18,7 @@ import "./FormStyle.css";
  * - {Boolean} twoColumns: whether the checkbox group should be split into two
  * columns
  */
-class InputCheckboxList extends Component {
+class CheckboxList extends Component {
   /**
    * Callback for handling when the user toggles a checkbox. Passes it up to
    * the callback from the form page.
@@ -76,4 +75,4 @@ class InputCheckboxList extends Component {
   }
 }
 
-export default InputCheckboxList;
+export default CheckboxList;

@@ -1,0 +1,21 @@
+.form-input-box {
+  width: 289px;
+  height: 43px;
+  display: block;
+  background: #ffffff;
+  border: 2px solid #cdcbd4;
+  box-sizing: border-box;
+  border-radius: 7px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.form-input-box-wide {
+  width: 698px;
+  margin-right: 30px;
+}
+
+.form-input-box::placeholder {
+  font-style: italic;
+  color: #cdcbd4;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
-import "./FormStyle.css";
+import "./Checkboxes.css";
+import "./TextStyles.css";
 
 /**
  * CheckboxColumn is a container for Checkbox components in a single column.

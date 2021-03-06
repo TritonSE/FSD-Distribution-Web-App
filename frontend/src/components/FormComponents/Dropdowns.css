@@ -1,0 +1,51 @@
+@import "./Inputs.css";
+
+.inline-dropdown {
+  display: inline-block;
+  position: absolute;
+  top: -28px;
+}
+
+.dropdown-wrapper {
+  position: relative;
+}
+
+.icon-triangle {
+  position: absolute;
+  right: 15px;
+  top: 17px;
+}
+
+.icon-checkmark {
+  margin-left: 10px;
+  stroke: #54682f;
+}
+
+.dropdown-list {
+  position: absolute;
+  width: 289px;
+  background: #f4f4f4;
+  border: 1px solid #cdcbd4;
+  border-radius: 7px;
+  z-index: 10;
+}
+
+.dropdown-list-item {
+  width: 100%;
+  height: 43px;
+  display: block;
+  background: none;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.dropdown-list-item:hover {
+  background: #54682f;
+  color: #ffffff;
+}
+
+.dropdown-list-item:hover > .icon-checkmark {
+  stroke: #ffffff;
+}

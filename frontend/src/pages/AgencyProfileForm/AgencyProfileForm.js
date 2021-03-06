@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import FormSectionHeader from "./FormSectionHeader";
 import { FormRow, FormCol } from "./FormLayout";
-import InputText from "./InputText";
-import InputDate from "./InputDate";
-import InputDropdown from "./InputDropdown";
-import InputCheckboxList from "./InputCheckboxList";
-import InputIncrementerBoxList from "./InputIncrementerBoxList";
+import InputText from "../../components/FormComponents/InputText";
+import InputDate from "../../components/FormComponents/InputDate";
+import InputDropdown from "../../components/FormComponents/InputDropdown";
+import CheckboxList from "./CheckboxList";
+import IncrementerBoxList from "./IncrementerBoxList";
+import FormButton from "../../components/FormComponents/FormButton";
 import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
-import InlineDropdown from "./InlineDropdown";
+import InlineDropdown from "../../components/FormComponents/InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
 
@@ -242,7 +243,7 @@ class AgencyProfileForm extends Component {
               let errors = data.fields.filter((x) => x !== null);
               this.setState({ errors: errors });
               let message = `${errors.length} fields have errors!`;
-              if (errors.length == 1) {
+              if (errors.length === 1) {
                 message = "1 field has errors!";
               }
               alert(message);
@@ -635,7 +636,7 @@ class AgencyProfileForm extends Component {
 
             <FormRow>
               <FormCol>
-                <InputCheckboxList
+                <CheckboxList
                   label="Check Boxes if Available/Correct."
                   onChange={this.handleInputChange}
                   options={[
@@ -674,7 +675,7 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Capacity" />
             <FormRow>
               <FormCol>
-                <InputIncrementerBoxList
+                <IncrementerBoxList
                   label="Storage and Type:"
                   subLabel="Select Quantity if Storage Type is Available"
                   options={[
@@ -747,7 +748,7 @@ class AgencyProfileForm extends Component {
 
             <FormRow>
               <FormCol>
-                <InputIncrementerBoxList
+                <IncrementerBoxList
                   label="Transport and Type:"
                   subLabel="Select Quantity if Transport Type is Available"
                   options={[
@@ -775,7 +776,7 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <FormSectionHeader title="Retail Rescue" />
-            <InputCheckboxList
+            <CheckboxList
               label="Check Boxes if Available."
               options={[
                 {
@@ -800,7 +801,7 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <FormSectionHeader title="Demographics" />
-            <InputCheckboxList
+            <CheckboxList
               label="Check Boxes if Applicable."
               options={[
                 {
@@ -879,20 +880,18 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <div className="form-button-container">
-              <button
-                type="button"
-                className="form-button-submit"
+              <FormButton
+                title={
+                  this.props.editSection ? "Save Profile" : "Create Profile"
+                }
+                type="primary"
                 onClick={this.submitForm}
-              >
-                {this.props.editSection ? "Save Profile" : "Create Profile"}
-              </button>
-              <button
-                type="button"
-                className="form-button-cancel"
+              />
+              <FormButton
+                title="Cancel"
+                type="secondary"
                 onClick={this.cancelForm}
-              >
-                Cancel
-              </button>
+              />
             </div>
           </div>
         </form>

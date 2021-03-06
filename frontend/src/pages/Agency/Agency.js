@@ -9,11 +9,15 @@ import { isAuthenticated } from "../../auth";
  */
 class Agency extends Component {
   render() {
-    return ((!isAuthenticated()) ? <Redirect to='login' /> :
-      (<div>
+    if (!isAuthenticated()) {
+      return <Redirect to='login' />
+    }
+
+    return (
+      <div>
         <h2>Agency</h2>
         <CreateAgencyBtn />
-      </div>)
+      </div>
     );
   }
 }

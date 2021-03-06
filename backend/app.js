@@ -20,7 +20,7 @@ const app = express();
 
 // Middleware
 app.use(morgan('combined'));
-app.use(cors());
+app.use(cors({ methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,9 +36,9 @@ app.use('/login', require('./routes/login'));
 // Catch-all route
 app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, 'build/index.html'), (err) => {
-  if (err) {
-    next();
-  }
+    if (err) {
+      next();
+    }
   });
 });
 
@@ -49,7 +49,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
-  res.json({message: err.message});
+  res.json({ message: err.message });
 });
 
 const port = process.env.PORT || 8000

@@ -456,9 +456,10 @@ class AgencyProfileForm extends Component {
                 />
                 {this.state.additionalAddresses.length > 1 && (
                   <SmallButton
-                    text="Add Address"
-                    symbol="+"
-                    onClick={this.addAddress}
+                    text="Remove Address"
+                    symbol="-"
+                    alignRight
+                    onClick={this.removeAddress}
                   />
                 )}
               </span>
@@ -482,9 +483,10 @@ class AgencyProfileForm extends Component {
                 />
                 {this.state.contacts.length > 1 && (
                   <SmallButton
-                    text="Add Contact"
-                    symbol="+"
-                    onClick={this.addContact}
+                    text="Remove Contact"
+                    symbol="-"
+                    alignRight
+                    onClick={this.removeContact}
                   />
                 )}
               </span>

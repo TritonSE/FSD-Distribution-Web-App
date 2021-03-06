@@ -9,9 +9,11 @@ import { isAuthenticated } from "../../auth";
  */
 class AgencyForm extends Component {
   render() {
-    return !isAuthenticated() ? (
-      <Redirect to="login" />
-    ) : (
+    if (!isAuthenticated()) {
+      return <Redirect to="login" />
+    }
+
+    return (
       <div>
         <AgencyProfileForm />
       </div>

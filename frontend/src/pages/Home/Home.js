@@ -6,10 +6,14 @@ import { isAuthenticated } from '../../auth';
  */
 class Home extends Component {
   render() {
-    return ((!isAuthenticated()) ? <Redirect to="/login" /> :
-      (<div>
+    if (!isAuthenticated()) {
+      return <Redirect to="/login" />
+    }
+
+    return (
+      <div>
         <h2>Home</h2>
-      </div>)
+      </div>
     );
   }
 }

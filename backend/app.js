@@ -32,6 +32,7 @@ app.use(passport.initialize());
 // Routes
 app.use('/agency', require('./routes/agency'));
 app.use('/login', require('./routes/login'));
+app.use('/register', require('./routes/register'));
 
 // Catch-all route
 app.get('/*', (req, res, next) => {

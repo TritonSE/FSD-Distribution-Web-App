@@ -93,7 +93,7 @@ const Login = (props) => {
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField label='Email' variant='outlined' type='email' onChange={handleChange('email')} />
           <TextField label='Password' variant='outlined' type='password' onChange={handleChange('password')} />
-          <Link to="register" className="Child"><Typography>Register Account</Typography></Link>
+          <Link to="/register" className="Child" as={Link}><Typography>Register Account</Typography></Link>
           {/* <Link to="reset-password"><Typography>Reset Password</Typography></Link> */}
           <div className={classes.centered}>
             <Button variant="contained" type="submit" >Login</Button>

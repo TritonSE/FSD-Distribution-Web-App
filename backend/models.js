@@ -303,5 +303,6 @@ const AgencySchema = new Schema({
 
 const Agency = mongoose.model('Agency', AgencySchema);
 const User = mongoose.model('User', UserSchema);
+const PendingUser = mongoose.model('PendingUser', UserSchema);
 
-module.exports = { Agency, User }
+module.exports = { Agency, User, PendingUser };

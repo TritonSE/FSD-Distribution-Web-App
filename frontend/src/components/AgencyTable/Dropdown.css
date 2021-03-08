@@ -1,23 +1,51 @@
+ form{
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+} 
+.multiselect {
+  width: 88px;
+  height: 27px;
+  margin-right: 1em;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 2px;
+
+}
 .selectBox{
     position: relative;
+    width: 86px;
+    height: 26px;
   }
   
   .selectBox select{
     width: 100%;
-    font-weight: bold;
+    height: 26px;
   }
-  
+
+  option {
+    text-align: center;
+  }
   /* .overSelect {
     position: absolute;
   } */
   
   .checkboxes {
+    position: absolute;
     display: none;
     border: 1px #dadada solid;
+    width: 88px;
+    z-index: 200;
+    background-color: rgba(229, 229, 229, 0.6);
   }
   
   .checkboxes label{
     display: block;
+    font-size: 12px;
+    margin-left: 6px;
+  }
+
+  .checkboxes input{
+    margin-right: 0.2rem;
   }
   
   .checkboxes label:hover {

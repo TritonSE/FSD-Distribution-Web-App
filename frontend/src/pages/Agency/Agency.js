@@ -34,6 +34,7 @@ function AgencyTable() {
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(2);
+  const [selected, setSelected] = useState([]);
 
   //const[checkboxes, setCheckboxes] = useState();
 
@@ -121,12 +122,12 @@ const changeFilter = (newFilter) => setFilter(newFilter);
           <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "status" expanded ={false}/>
           <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "staff" expanded={false}/>
           <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" expanded={false}/>
-          <select name="storage">
+          {/* <select name="storage">
             <option value="">Storage</option>
           </select>
           <select name="transportation">
             <option value="">Transportation</option>
-          </select>
+          </select> */}
         </div>
         <button id="clearall">Clear All</button>
       </div>

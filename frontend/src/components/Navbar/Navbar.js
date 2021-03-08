@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import './Navbar.css';
+import "./Navbar.css";
 
 const MenuItems = [
   {
-    title: 'Home',
-    url: '/',
-    className: 'nav-links'
+    title: "Home",
+    url: "/",
+    className: "nav-links",
   },
   {
-    title: 'Agency',
-    url: '/agency',
-    className: 'nav-links'
+    title: "Agency",
+    url: "/agency",
+    className: "nav-links",
   },
 ];
 
@@ -20,21 +20,21 @@ const MenuItems = [
  */
 class Navbar extends Component {
   render() {
-    return(
+    return (
       <div>
         <div className="logo-container">
-          <img src = "fsd_logo300.png" alt="feedLogo" id="logo"></img>
+          <img src="/fsd_logo300.png" alt="feedLogo" id="logo"></img>
         </div>
         <nav className="NavbarItems">
-          <ul className='nav-menu'>
+          <ul className="nav-menu">
             {MenuItems.map((item, index) => {
               return (
-                <li key={index}> 
+                <li key={index}>
                   <Link className={item.className} as={Link} to={item.url}>
                     {item.title}
                   </Link>
                 </li>
-              )
+              );
             })}
           </ul>
         </nav>

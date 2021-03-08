@@ -81,10 +81,6 @@
   text-align: center;
 }
 
-.multiselect {
-  width: 200px;
-}
-
 .selectBox{
   position: relative;
 }
@@ -109,4 +105,9 @@
 
 #checkboxes label:hover {
   text-decoration: underline #1e90ff;
+}
+
+select[disabled] {
+  color: black;
+  text-decoration: none;
 }

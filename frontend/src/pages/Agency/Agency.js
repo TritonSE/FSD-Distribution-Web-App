@@ -6,13 +6,11 @@ import './Agency.css';
 
 let fOptions = {
   search: '',
-  status: [
-    {
+  status: {
     onboarding: false,
     active: false,
-    
-    },
-  ]
+  },
+
 };
 
 
@@ -41,12 +39,13 @@ function AgencyTable() {
       (row) => 
         (row.tableContent.name.toLowerCase().indexOf(filters.search) > -1 ||
         row.tableContent.agencyNumber.toString().toLowerCase().indexOf(filters.search) > -1) &&
-        checkstatuses(row, filters.status[0])
+        checkstatuses(row, filters.status)
         //row.tableContent.status.toLowerCase().indexOf(filters.status) > -1
     );
 };
 
 function checkstatuses(row, status){
+  console.log(status);
   let falseCount = 0;
   let runCount = 0;
   for(var key in status){
@@ -103,7 +102,7 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
           <form>
             <div className = "multiselect">
               <div className = "selectBox" onClick = {showCheckboxes}>
-                <select>
+                <select disabled="disabled" text-decoration="none">
                   <option>Status</option>
                 </select>
               </div>
@@ -111,9 +110,9 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
             </div>
             <div id="checkboxes">
               <label htmlFor="Onboarding">
-                <input type="checkbox" id="onboard" onChange={(e) => {let newStat = !(filters.status[0].onboarding); setFilter({...filters, status: [{onboarding: newStat, active: filters.status[0].active}],}); paginate(1)}}/>Onboarding</label>
+                <input type="checkbox" id="onboard" onChange={(e) => {let newStat = !(filters.status.onboarding); console.log(newStat); setFilter({...filters, status: {...filters.status, onboarding: newStat,},}); paginate(1)}}/>Onboarding</label>
               <label htmlFor="inactive">
-                <input type="checkbox" id="active" onChange={(e) => {let newStat = !(filters.status[0].active); setFilter({...filters, status:[{onboarding: filters.status[0].onboarding, active: newStat} ],}); paginate(1)}}/>Active
+                <input type="checkbox" id="active" onChange={(e) => {let newStat = !(filters.status.active); setFilter({...filters, status:{...filters.status, active: newStat},}); paginate(1)}}/>Active
               </label>
             </div>
           </form>

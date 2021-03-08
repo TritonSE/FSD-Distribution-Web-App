@@ -4,6 +4,7 @@ import Pagination from "../../components/AgencyTable/Pagination";
 import Dropdown from "../../components/AgencyTable/Dropdown";
 import DataTable from "../../components/AgencyTable/DataTable";
 import './Agency.css';
+import { isAuthenticated } from "../../auth";
 
 let fOptions = {
   search: '',
@@ -66,8 +67,12 @@ function AgencyTable() {
         checkOptions(row, filters)
         //row.tableContent.status.toLowerCase().indexOf(filters.status) > -1
     );
-};
+  };
 
+
+/**
+ * Page that contains a table that lists out all the agencies pulled from database
+ */
 function checkOptions(row, filters){
   for(let option in filters){
     if(option == "search") {
@@ -106,6 +111,10 @@ const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
 const filtered = search(data);
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 const changeFilter = (newFilter) => setFilter(newFilter);
+if (!isAuthenticated()) {
+  return <Redirect to='login' />
+}
+
   return (
     <div className="agency-table">
       <div className="search-container">

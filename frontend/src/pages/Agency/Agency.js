@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import CreateAgencyBtn from "../../components/CreateAgencyBtn/CreateAgencyBtn";
 import Pagination from "../../components/AgencyTable/Pagination";
+import Dropdown from "../../components/AgencyTable/Dropdown";
 import DataTable from "../../components/AgencyTable/DataTable";
 import './Agency.css';
 
 let fOptions = {
   search: '',
   status: {
-    onboarding: false,
-    active: false,
+    Onboarding: false,
+    Active: false,
+    Inactive: false,
+    "On hold": false,
   },
+
+  region: {
+    S: false,
+    NI: false,
+    E: false,
+    C: false,
+    NC: false,
+  },
+
+  staff: {},
+
+  "Joined In": {},
 
 };
 
@@ -25,10 +40,18 @@ function AgencyTable() {
   useEffect(() => {
     fetch('http://localhost:8000/agency/', { method: 'GET' })
     .then(res => res.json())
-    .then(data => setData(data.data))
+    .then(data => {
+      setData(data.data);
+      for(let dat of data.data){
+        if(!(filters.staff.hasOwnProperty(dat.tableContent.staff))){
+          filters.staff[dat.tableContent.staff] = false;
+        }
+    }; setFilter({...filters})})
     .catch(err => {
       console.log(err);
     });
+
+
 
     // setCheckboxes(document.getElementById("checkboxes"));
     // console.log(checkboxes);
@@ -39,19 +62,29 @@ function AgencyTable() {
       (row) => 
         (row.tableContent.name.toLowerCase().indexOf(filters.search) > -1 ||
         row.tableContent.agencyNumber.toString().toLowerCase().indexOf(filters.search) > -1) &&
-        checkstatuses(row, filters.status)
+        checkOptions(row, filters)
         //row.tableContent.status.toLowerCase().indexOf(filters.status) > -1
     );
 };
 
-function checkstatuses(row, status){
-  console.log(status);
+function checkOptions(row, filters){
+  for(let option in filters){
+    if(option == "search") {
+      continue;
+    }
+    if( !(checkStatuses(row, filters, option)) ){
+      return false;
+    }
+  }
+  return true;
+}
+function checkStatuses(row, filters, option){
   let falseCount = 0;
   let runCount = 0;
-  for(var key in status){
+  for(var key in filters[option]){
     runCount++;
-    if(status[key]){
-      if(row.tableContent.status.toLowerCase().indexOf(key) > -1){
+    if(filters[option][key]){
+      if(row.tableContent[option].toLowerCase().indexOf(key.toLowerCase()) > -1){
         return true;
       }
     }
@@ -65,24 +98,13 @@ function checkstatuses(row, status){
   return false;
 }
 
-var expanded = false;
-function showCheckboxes() {
-  var checkboxes = document.getElementById("checkboxes");
-  if(!expanded){
-    checkboxes.style.display = "block";
-    expanded = true;
-  }
-  else{
-    checkboxes.style.display = "none";
-    expanded = false;
-  }
-}
 
 const indexOfLastEntry = currentPage * entriesPerPage;
 const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
 //const currentPosts = data.slice(indexOfFirstEntry, indexOfLastEntry);
 const filtered = search(data);
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
+const changeFilter = (newFilter) => setFilter(newFilter);
   return (
     <div className="agency-table">
       <div className="search-container">
@@ -95,34 +117,10 @@ const paginate = (pageNumber) => setCurrentPage(pageNumber);
       <div className="filter-container">
         <h2>Sort By:</h2>
         <div className="selects-container">
-          <select name="region">
-            <option value="">Region</option>
-          </select>
-
-          <form>
-            <div className = "multiselect">
-              <div className = "selectBox" onClick = {showCheckboxes}>
-                <select disabled="disabled" text-decoration="none">
-                  <option>Status</option>
-                </select>
-              </div>
-              <div className ="overSelect"></div>
-            </div>
-            <div id="checkboxes">
-              <label htmlFor="Onboarding">
-                <input type="checkbox" id="onboard" onChange={(e) => {let newStat = !(filters.status.onboarding); console.log(newStat); setFilter({...filters, status: {...filters.status, onboarding: newStat,},}); paginate(1)}}/>Onboarding</label>
-              <label htmlFor="inactive">
-                <input type="checkbox" id="active" onChange={(e) => {let newStat = !(filters.status.active); setFilter({...filters, status:{...filters.status, active: newStat},}); paginate(1)}}/>Active
-              </label>
-            </div>
-          </form>
-
-          <select name="staff">
-            <option value="">Staff</option>
-          </select>
-          <select name="joined">
-            <option value="">Joined In</option>
-          </select>
+          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "region" expanded = {false} />
+          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "status" expanded ={false}/>
+          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "staff" expanded={false}/>
+          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" expanded={false}/>
           <select name="storage">
             <option value="">Storage</option>
           </select>

@@ -39,12 +39,12 @@
   font-size: 18px;
 }
 
-.selects-container {
+.selects-container > *{
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
 
-.selects-container select {
+.selects-container > *{
   margin-right: 1em;
   border: 2px solid #000000;
   box-sizing: border-box;
@@ -81,33 +81,3 @@
   text-align: center;
 }
 
-.selectBox{
-  position: relative;
-}
-
-.selectBox select{
-  width: 100%;
-  font-weight: bold;
-}
-
-/* .overSelect {
-  position: absolute;
-} */
-
-#checkboxes {
-  display: none;
-  border: 1px #dadada solid;
-}
-
-#checkboxes label{
-  display: block;
-}
-
-#checkboxes label:hover {
-  text-decoration: underline #1e90ff;
-}
-
-select[disabled] {
-  color: black;
-  text-decoration: none;
-}

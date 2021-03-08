@@ -8,6 +8,7 @@
   border-radius: 7px;
   padding-left: 10px;
   text-align: left;
+  position: relative;
 }
 
 .form-input-box-wide {

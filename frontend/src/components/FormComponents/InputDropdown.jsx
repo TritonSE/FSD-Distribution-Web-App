@@ -11,10 +11,8 @@ import "./TextStyles.css";
  *
  * Expected props:
  * - {String} label: text to display above the dropdown
- * - {Array<Object>} options: if a multi-select dropdown, a list of objects
- * containing data about each dropdown option (title, whether it is currently
- * selected, and the sub-key to use in the onChange callback); if a single-
- * select dropdown, a list of strings representing each option
+ * - {Array<String>} options: a list of strings representing each option
+ * - {String} value: the currently selected option (empty string if none)
  * - {String} stateKey: first part of the key to pass into the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
  * and a String or Boolean
@@ -74,7 +72,7 @@ class InputDropdown extends Component {
           options={this.props.options.map((optionName) => {
             return {
               title: optionName,
-              selected: optionName === this.props.initial,
+              selected: optionName === this.props.value,
             };
           })}
           onSelect={this.onSelect}

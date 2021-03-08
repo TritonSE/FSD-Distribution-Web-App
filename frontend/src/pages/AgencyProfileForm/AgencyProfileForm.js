@@ -333,7 +333,7 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
-                  initial={data.status}
+                  value={data.status}
                   stateKey="status"
                   onChange={this.handleInputChange}
                   leftmost
@@ -455,7 +455,7 @@ class AgencyProfileForm extends Component {
                   symbol="+"
                   onClick={this.addAddress}
                 />
-                {this.state.additionalAddresses.length > 1 && (
+                {data.additionalAddresses.length > 1 && (
                   <SmallButton
                     text="Remove Address"
                     symbol="-"
@@ -482,7 +482,7 @@ class AgencyProfileForm extends Component {
                   symbol="+"
                   onClick={this.addContact}
                 />
-                {this.state.contacts.length > 1 && (
+                {data.contacts.length > 1 && (
                   <SmallButton
                     text="Remove Contact"
                     symbol="-"
@@ -869,7 +869,7 @@ class AgencyProfileForm extends Component {
                 <InlineDropdown
                   label={null}
                   options={["Mia", "Charlie", "Eli", "Kate"]}
-                  initial={this.state.staff}
+                  value={data.staff}
                   stateKey="staff"
                   onChange={this.handleInputChange}
                   valid={this.isValid("staff")}

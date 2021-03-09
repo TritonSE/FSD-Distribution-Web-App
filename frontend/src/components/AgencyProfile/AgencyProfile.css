@@ -1,0 +1,10 @@
+* {
+  padding: 0;
+  margin: auto;
+}
+
+.agency-profile-header {
+  width: 100%;
+  background-color: #aace67;
+  margin-top: 3%;
+}

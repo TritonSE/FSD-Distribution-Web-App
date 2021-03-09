@@ -1,5 +1,6 @@
 import React from 'react';
 import './DataTable.css';
+import { Link } from "react-router-dom";
 
 function DataTable({ data }) {
   //console.log(data[0].tableContent);
@@ -19,6 +20,10 @@ function DataTable({ data }) {
       </thead>
        <tbody>
          { data.map(dat =>
+          /*<Link className="agency-link" as={Link} to={{
+            pathname: "/agency-profile",
+            data: dat._id
+          }}>*/
           <tr key={dat.tableContent._id}>
             <td>{dat.tableContent.agencyNumber}</td>
             <td>{dat.tableContent.name}</td>
@@ -27,7 +32,9 @@ function DataTable({ data }) {
             <td>{dat.tableContent.city}</td>
             <td>{dat.tableContent.phone}</td>
             <td>{dat.tableContent.staff}</td>
-          </tr>)}
+          </tr>
+          //</Link>
+          )}
       </tbody> 
     </table>
   );

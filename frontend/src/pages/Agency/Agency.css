@@ -86,3 +86,6 @@
   text-align: center;
 }
 
+.selected-filter{
+  display:flex;
+}

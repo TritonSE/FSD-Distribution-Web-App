@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import CreateAgencyBtn from "../../components/CreateAgencyBtn/CreateAgencyBtn";
 import Pagination from "../../components/AgencyTable/Pagination";
 import Dropdown from "../../components/AgencyTable/Dropdown";
+import Selected from "../../components/AgencyTable/Selected";
 import DataTable from "../../components/AgencyTable/DataTable";
 import './Agency.css';
 import { isAuthenticated } from "../../auth";
@@ -37,7 +38,7 @@ function AgencyTable() {
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
   const [entriesPerPage] = useState(2);
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState({});
 
   //const[checkboxes, setCheckboxes] = useState();
 
@@ -64,8 +65,6 @@ function AgencyTable() {
   function search(rows) {
     return rows.filter(
       (row) => 
-        (row.tableContent.name.toLowerCase().indexOf(filters.search) > -1 ||
-        row.tableContent.agencyNumber.toString().toLowerCase().indexOf(filters.search) > -1) &&
         checkOptions(row, filters)
         //row.tableContent.status.toLowerCase().indexOf(filters.status) > -1
     );
@@ -76,8 +75,20 @@ function AgencyTable() {
  * Page that contains a table that lists out all the agencies pulled from database
  */
 function checkOptions(row, filters){
+  console.log(filters);
   for(let option in filters){
     if(option == "search") {
+      let found = false;
+      let words = row.tableContent.name.toLowerCase().split(' ');
+      for(let word of words){
+        found = word.startsWith(filters.search)
+        if(found){
+          break;
+        }
+      }
+      if(!( found || (row.tableContent.agencyNumber.toString().toLowerCase().startsWith(filters.search)) )) {
+        return false;
+      }
       continue;
     }
     if( !(checkStatuses(row, filters, option)) ){
@@ -113,6 +124,8 @@ const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
 const filtered = search(data);
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 const changeFilter = (newFilter) => setFilter(newFilter);
+const changeSelected = (newSelected) => setSelected(newSelected);
+console.log(selected);
 if (!isAuthenticated()) {
   return <Redirect to='login' />
 }
@@ -129,18 +142,13 @@ if (!isAuthenticated()) {
       <div className="filter-container">
         <h2>Sort By:</h2>
         <div className="selects-container">
-          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "region" expanded = {false} />
-          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "status" expanded ={false}/>
-          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "staff" expanded={false}/>
-          <Dropdown filters= {filters} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" expanded={false}/>
-          {/* <select name="storage">
-            <option value="">Storage</option>
-          </select>
-          <select name="transportation">
-            <option value="">Transportation</option>
-          </select> */}
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "region" expanded = {false} />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "status" expanded ={false}/>
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "staff" expanded={false}/>
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" expanded={false}/>
         </div>
-        <button id="clearall">Clear All</button>
+
+        <Selected filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate}/>
       </div>
       <div className="data-table-container">
         <DataTable data={filtered.slice(indexOfFirstEntry, indexOfLastEntry)} />

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Dropdown.css';
 
-const Dropdown = ({filters, changeFilter, option, paginate, expanded}) => {
+const Dropdown = ({filters, selected, changeSelected, changeFilter, option, paginate, expanded}) => {
     function showCheckboxes() {
         var checkboxes = document.getElementById(option);
         if(!expanded){
@@ -27,7 +27,14 @@ return (
       {   
         Object.keys(filters[option]).map(key => (
           <label htmlFor={key} key = {key}>
-          <input type="checkbox" key={key} onChange={(e) => {let newStat = !(filters[option][key]); console.log(newStat); changeFilter({...filters, [option]: {...filters[option], [key]: newStat,},}); console.log(filters); paginate(1)}}/>{key}
+          <input type="checkbox" key={key} id={key} onChange={(e) => 
+            {let newStat = !(filters[option][key]); 
+            newStat ? selected[key] = option : delete selected[key]; 
+            changeSelected(selected); 
+            changeFilter({...filters, [option]: {...filters[option], [key]: newStat,},}); 
+            console.log(filters); 
+            paginate(1)}}/>
+            {key}
           </label> 
         ))
       }

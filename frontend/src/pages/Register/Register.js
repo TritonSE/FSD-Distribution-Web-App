@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     '& .MuiButton-root': {
       margin: theme.spacing(3),
       color: 'black',
-      background: '#F9CE1D',
+      background: '#54682f',
       width: '30%'
     }
   },
@@ -48,7 +48,7 @@ const Register = (props) => {
   const [state, setState] = React.useState({
     email: '',
     password: '',
-    passwordConfirmation: '',
+    passwordConfirmation: ''
   });
 
   // Updates given state with given value 
@@ -63,7 +63,7 @@ const Register = (props) => {
     event.preventDefault();
 
     const submission = {
-      email: state.email,
+      username: state.email,
       password: state.password,
     };
 
@@ -76,9 +76,9 @@ const Register = (props) => {
       });
       //Successful Registration
       if (response.ok) {
-        const json = await response.json();
+        // const json = await response.json();
+        console.log("account pending approval");
         history.push("/");
-        alert("account pending approval");
       }
     }
     catch (error) {

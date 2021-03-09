@@ -27,7 +27,7 @@ function App() {
               <Route exact path="/agency" component={Agency} />
               <Route exact path="/create-agency" component={AgencyProfileForm} />
               <Route exact path="/login" render={(...props) => (<Login {...props} changeIsLogged={changeIsLogged} />)} />
-              <Route exact path="/register" render={Register} />
+              <Route exact path="/register" component={Register} />
             </React.Fragment>
           </Switch>
         </div>

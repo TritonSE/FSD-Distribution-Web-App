@@ -26,7 +26,11 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/agency" component={Agency} />
               <Route exact path="/create-agency" component={AgencyProfileForm} />
+<<<<<<< HEAD
               <Route exact path="/agency-profile" component={(props) => <AgencyProfilePage {...props}/>} />
+=======
+              <Route exact path="/agency-profile" compoonent={AgencyProfilePage} />
+>>>>>>> 53af8f08663a99021f320198e96308894569d7c0
               <Route exact path="/login" render={(...props) => (<Login {...props} changeIsLogged={changeIsLogged} />)} />
             </React.Fragment>
           </Switch>

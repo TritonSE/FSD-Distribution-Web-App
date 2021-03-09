@@ -75,7 +75,7 @@ function AgencyTable() {
  * Page that contains a table that lists out all the agencies pulled from database
  */
 function checkOptions(row, filters){
-  console.log(filters);
+  //console.log(filters);
   for(let option in filters){
     if(option == "search") {
       let found = false;

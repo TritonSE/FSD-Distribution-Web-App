@@ -79,7 +79,7 @@ router.post('/:id', validationChain, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get('/:id', isAuthenticated, async (req, res, next) => {
+router.get('/:id'/*, isAuthenticated*/, async (req, res, next) => {
   Agency.findById(req.params.id).then((agency) => {
     res.status(200).json({ agency: agency });
   }).catch((err) => {
@@ -97,7 +97,7 @@ router.get('/:id', isAuthenticated, async (req, res, next) => {
  */
 router.get('/', async (req, res, next) => {
   try {
-    const agency = await Agency.find({}, {_id: 0}).select('tableContent');
+    const agency = await Agency.find({}).select('tableContent');
 
     return res.status(200).json({
         success: true,

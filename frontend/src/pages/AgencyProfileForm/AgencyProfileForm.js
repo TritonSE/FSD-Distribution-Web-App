@@ -142,6 +142,7 @@ class AgencyProfileForm extends Component {
       sunday: data.sunday,
     };
     let distributionStartTimes = {
+      // if the day isn't selected, ignore input value
       monday: data.monday ? data.mondayStartTime : "",
       tuesday: data.tuesday ? data.tuesdayStartTime : "",
       wednesday: data.wednesday ? data.wednesdayStartTime : "",

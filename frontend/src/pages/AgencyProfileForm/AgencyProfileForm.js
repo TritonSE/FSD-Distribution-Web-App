@@ -15,6 +15,7 @@ import Calendar from "./DistributionCalendar/Calendar";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
+import { getJWT } from "../../auth";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -251,6 +252,7 @@ class AgencyProfileForm extends Component {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
       },
       body: JSON.stringify(formData),
     })

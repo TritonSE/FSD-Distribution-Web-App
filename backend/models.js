@@ -47,7 +47,64 @@ const TableContentSchema = new Schema({
   staff: {
     type: String,
     required: true
-  }
+  },
+
+  // Transportation Type
+  pickUpTruck: {
+    type: Number
+  },
+  van: {
+    type: Number
+  },
+  car: {
+    type: Number
+  },
+
+  dateOfInitialPartnership: {
+    type: String,
+    required: true
+  },
+
+    /* Capacity Section */
+  // Storage Type
+  standAloneFreezer: {
+    type: Number
+  },
+  freezerFridge: {
+    type: Number
+  },
+  chestFreezer: {
+    type: Number
+  },
+  singleDoorFreezer: {
+    type: Number
+  },
+  freezerFridgeCombo: {
+    type: Number
+  },
+  walkInFreezer: {
+    type: Number
+  },
+  doubleDoorFridge: {
+    type: Number
+  },
+  sideBySideFridge: {
+    type: Number
+  },
+  singleDoorFridge: {
+    type: Number
+  },
+  walkInFridge: {
+    type: Number
+  },
+  dryStorageClimateControl: {
+    type: Number
+  },
+  dryStorageNonClimateControl: {
+    type: Number
+  },
+
+
 });
 
 const ContactSchema = new Schema({
@@ -164,10 +221,6 @@ const AgencySchema = new Schema({
     type: String,
     required: true
   },
-  dateOfInitialPartnership: {
-    type: String,
-    required: true
-  },
   fileAudit: {
     type: String
   },
@@ -208,56 +261,6 @@ const AgencySchema = new Schema({
   },
   residentialFacility: {
     type: Boolean
-  },
-
-  /* Capacity Section */
-  // Storage Type
-  standAloneFreezer: {
-    type: Number
-  },
-  freezerFridge: {
-    type: Number
-  },
-  chestFreezer: {
-    type: Number
-  },
-  singleDoorFreezer: {
-    type: Number
-  },
-  freezerFridgeCombo: {
-    type: Number
-  },
-  walkInFreezer: {
-    type: Number
-  },
-  doubleDoorFridge: {
-    type: Number
-  },
-  sideBySideFridge: {
-    type: Number
-  },
-  singleDoorFridge: {
-    type: Number
-  },
-  walkInFridge: {
-    type: Number
-  },
-  dryStorageClimateControl: {
-    type: Number
-  },
-  dryStorageNonClimateControl: {
-    type: Number
-  },
-
-  // Transportation Type
-  pickUpTruck: {
-    type: Number
-  },
-  van: {
-    type: Number
-  },
-  car: {
-    type: Number
   },
 
   /* Retail Rescue Section */

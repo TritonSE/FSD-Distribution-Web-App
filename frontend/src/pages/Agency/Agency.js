@@ -48,10 +48,16 @@ function AgencyTable() {
     .then(data => {
       setData(data.data);
       for(let dat of data.data){
+        console.log(dat.tableContent);
         if(!(filters.staff.hasOwnProperty(dat.tableContent.staff))){
           filters.staff[dat.tableContent.staff] = false;
         }
-    }; setFilter({...filters})})
+        if(!(filters.staff.hasOwnProperty(dat.tableContent.dateOfInitialPartnership))){
+          let year = dat.tableContent.dateOfInitialPartnership.substring(6);
+          filters["Joined In"][year] = false;
+        }
+
+    }; console.log(filters); setFilter({...filters})})
     .catch(err => {
       console.log(err);
     });

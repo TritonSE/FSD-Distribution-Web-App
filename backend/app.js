@@ -33,6 +33,7 @@ app.use(passport.initialize());
 app.use('/agency', require('./routes/agency'));
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
+app.use('/authorize', require('./routes/authorize'));
 
 // Catch-all route
 app.get('/*', (req, res, next) => {

@@ -14,9 +14,16 @@ const UserSchema = new Schema({
   }
 });
 
-// TODO: Hash passwords
-UserSchema.methods.verifyPassword = function (password) {
-  return password === this.password;
+UserSchema.pre('save', function(next) {
+  const user = this;
+  if (user.isModified('password')) {
+    user.password = bcrypt.hashSync(user.password, 10);
+  }
+  return next(); 
+});
+
+UserSchema.methods.verifyPassword = function(password) {
+  return bcrypt.compareSync(password, this.password);
 };
 
 const TableContentSchema = new Schema({

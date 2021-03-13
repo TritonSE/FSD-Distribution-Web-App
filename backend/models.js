@@ -48,60 +48,6 @@ const TableContentSchema = new Schema({
     type: String,
     required: true,
   },
-
-  // Transportation Type
-  pickUpTruck: {
-    type: Number,
-  },
-  van: {
-    type: Number,
-  },
-  car: {
-    type: Number,
-  },
-
-  dateOfInitialPartnership: {
-    type: String,
-    required: true,
-  },
-
-  // Storage Type
-  standAloneFreezer: {
-    type: Number,
-  },
-  freezerFridge: {
-    type: Number,
-  },
-  chestFreezer: {
-    type: Number,
-  },
-  singleDoorFreezer: {
-    type: Number,
-  },
-  freezerFridgeCombo: {
-    type: Number,
-  },
-  walkInFreezer: {
-    type: Number,
-  },
-  doubleDoorFridge: {
-    type: Number,
-  },
-  sideBySideFridge: {
-    type: Number,
-  },
-  singleDoorFridge: {
-    type: Number,
-  },
-  walkInFridge: {
-    type: Number,
-  },
-  dryStorageClimateControl: {
-    type: Number,
-  },
-  dryStorageNonClimateControl: {
-    type: Number,
-  },
 });
 
 const ContactSchema = new Schema({
@@ -115,6 +61,7 @@ const ContactSchema = new Schema({
   },
   phoneNumber: {
     type: String,
+    required: true,
   },
   email: {
     type: String,
@@ -150,6 +97,30 @@ const DistributionDaysSchema = new Schema({
   sunday: {
     type: Boolean,
     required: true,
+  },
+});
+
+const DistributionTimesSchema = new Schema({
+  monday: {
+    type: String,
+  },
+  tuesday: {
+    type: String,
+  },
+  wednesday: {
+    type: String,
+  },
+  thursday: {
+    type: String,
+  },
+  friday: {
+    type: String,
+  },
+  saturday: {
+    type: String,
+  },
+  sunday: {
+    type: String,
   },
 });
 
@@ -214,6 +185,10 @@ const AgencySchema = new Schema({
     type: String,
     required: true,
   },
+  dateOfInitialPartnership: {
+    type: String,
+    required: true,
+  },
   fileAudit: {
     type: String,
   },
@@ -231,12 +206,23 @@ const AgencySchema = new Schema({
     type: DistributionDaysSchema,
     required: true,
   },
-  distributionFrequency: {
+  distributionStartTimes: {
+    type: DistributionTimesSchema,
+    required: true,
+  },
+  distributionStartDate: {
     type: String,
     required: true,
   },
-  distributionHours: {
-    type: String,
+  distributionFrequency: {
+    type: Number,
+    required: true,
+  },
+  userSelectedDates: {
+    type: [String],
+  },
+  userExcludedDates: {
+    type: [String],
   },
 
   // Checkboxes for Distribution Section
@@ -256,14 +242,58 @@ const AgencySchema = new Schema({
     type: Boolean,
   },
 
+  /* Capacity Section */
+  // Storage Type
+  standAloneFreezer: {
+    type: Number,
+  },
+  freezerFridge: {
+    type: Number,
+  },
+  chestFreezer: {
+    type: Number,
+  },
+  singleDoorFreezer: {
+    type: Number,
+  },
+  freezerFridgeCombo: {
+    type: Number,
+  },
+  walkInFreezer: {
+    type: Number,
+  },
+  doubleDoorFridge: {
+    type: Number,
+  },
+  sideBySideFridge: {
+    type: Number,
+  },
+  singleDoorFridge: {
+    type: Number,
+  },
+  walkInFridge: {
+    type: Number,
+  },
+  dryStorageClimateControl: {
+    type: Number,
+  },
+  dryStorageNonClimateControl: {
+    type: Number,
+  },
+
+  // Transportation Type
+  pickUpTruck: {
+    type: Number,
+  },
+  van: {
+    type: Number,
+  },
+  car: {
+    type: Number,
+  },
+
   /* Retail Rescue Section */
-  retailRescue: {
-    type: Boolean,
-  },
-  preparedFoodCapacity: {
-    type: Boolean,
-  },
-  capacityWithRRD: {
+  retailRescueAvailable: {
     type: Boolean,
   },
 

@@ -9,11 +9,9 @@ import "./FormStyle.css";
  *
  * Expected props:
  * - {Array<Object>} options: list of objects containing data about each
- * numeric option (title and current value)
- * - {Number} indexBuffer: value to add to indices (accounts for multiple
- * columns)
+ * numeric option (title, current value, and state key)
  * - {Function} onChange: callback to handle input changes, should take a
- * Number and a Number
+ * String and a Number
  */
 class IncrementerBoxColumn extends Component {
   render() {
@@ -23,9 +21,9 @@ class IncrementerBoxColumn extends Component {
           return (
             <IncrementerBox
               key={index}
-              index={index + this.props.indexBuffer}
               label={item.title}
               value={item.value}
+              stateKey={item.stateKey}
               onChange={this.props.onChange}
             />
           );

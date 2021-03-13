@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import AgencyProfileForm from "../AgencyProfileForm/AgencyProfileForm";
+import AgencyProfileForm from "../../components/AgencyProfileForm/AgencyProfileForm";
 
 import { isAuthenticated } from "../../auth";
 
@@ -10,7 +10,7 @@ import { isAuthenticated } from "../../auth";
 class AgencyForm extends Component {
   render() {
     if (!isAuthenticated()) {
-      return <Redirect to="login" />
+      return <Redirect to="login" />;
     }
 
     return (

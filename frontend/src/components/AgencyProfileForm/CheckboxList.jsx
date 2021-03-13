@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { FormRow, FormCol } from "./FormLayout";
-import CheckboxColumn from "../../components/FormComponents/CheckboxColumn";
+import CheckboxColumn from "../FormComponents/CheckboxColumn";
 
 /**
  * CheckboxList is a container for a column or columns of checkboxes as one

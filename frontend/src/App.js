@@ -7,7 +7,7 @@ import Home from "./pages/Home/Home";
 import Agency from "./pages/Agency/Agency";
 import AgencyProfile from "./pages/AgencyProfile/AgencyProfile";
 import Login from "./pages/Login/Login";
-import AgencyProfileForm from "./pages/AgencyProfileForm/AgencyProfileForm";
+import AgencyForm from "./pages/AgencyForm/AgencyForm";
 import { isAuthenticated } from "./auth";
 import { useState } from 'react';
 
@@ -24,7 +24,7 @@ function App() {
               <Route exact path="/" component={Home} />
               <Route exact path="/agency" component={Agency} />
               <Route exact path="/agency/:id" component={AgencyProfile} />
-              <Route exact path="/create-agency" component={AgencyProfileForm} />
+              <Route exact path="/create-agency" component={AgencyForm} />
               <Route exact path="/login" render={(...props) => (<Login {...props} changeIsLogged={changeIsLogged} />)} />
             </React.Fragment>
           </Switch>

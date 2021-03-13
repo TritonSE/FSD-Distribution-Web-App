@@ -1,6 +1,6 @@
 import React from "react";
 import ExpandableList from "./ExpandableList";
-import InputText from "../../components/FormComponents/InputText";
+import InputText from "../FormComponents/InputText";
 import "./FormStyle.css";
 
 /**

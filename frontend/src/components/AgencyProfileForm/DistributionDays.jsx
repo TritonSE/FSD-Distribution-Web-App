@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Checkbox from "../../components/FormComponents/Checkbox";
-import TimeBox from "./TimeBox";
-import RequiredAsterisk from "../../components/FormComponents/RequiredAsterisk";
+import Checkbox from "../FormComponents/Checkbox";
+import TimeBox from "../FormComponents/TimeBox";
+import RequiredAsterisk from "../FormComponents/RequiredAsterisk";
 import "./FormStyle.css";
 
 /**

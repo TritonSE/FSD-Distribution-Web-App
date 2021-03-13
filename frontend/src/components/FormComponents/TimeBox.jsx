@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./FormStyle.css";
+import "./TimeBoxes.css";
 
 /**
  * TimeBox is a time input field (actually multiple boxes - hour, minute, and

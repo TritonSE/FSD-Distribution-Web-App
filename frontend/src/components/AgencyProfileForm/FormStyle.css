@@ -33,21 +33,15 @@
 /* * * * Text styles * * * */
 
 .form-title {
-  font-family: Roboto;
-  font-style: normal;
   font-weight: bold;
   font-size: 35px;
   line-height: 41px;
-  color: #000000;
 }
 
 .form-section-title {
-  font-family: Roboto;
-  font-style: normal;
   font-weight: bold;
   font-size: 25px;
   line-height: 29px;
-  color: #000000;
   display: inline-block;
 }
 
@@ -65,13 +59,11 @@
   border-color: #fc0808;
 }
 
-/* * * * Custom checkboxes * * * */
+/* * * * Input columns * * * */
 
 .checkbox-column {
   width: 624px;
 }
-
-/* * Incrementer Box * */
 
 .incrementer-box-column {
   width: 624px;
@@ -112,12 +104,9 @@ div.form-focus-gray {
 }
 
 .small-button-text {
-  font-family: Roboto;
-  font-style: normal;
   font-weight: 500;
   font-size: 18px;
   line-height: 21px;
-  color: #000000;
 }
 
 .small-button-span {

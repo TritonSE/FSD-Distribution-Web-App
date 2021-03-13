@@ -87,7 +87,7 @@ class TaskForm extends Component {
               />
             </div>
           </div>
-          <div className="form-button-container">
+          <div className="button-center">
             <FormButton
               title="Save Task"
               type="primary"

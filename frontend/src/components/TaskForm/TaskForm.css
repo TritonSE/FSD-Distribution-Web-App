@@ -13,7 +13,7 @@
   width: 727px;
   height: 414px;
   margin: 10% auto;
-  padding: 38px 0px 38px 55px;
+  padding: 38px 0px 0px 55px;
   background-color: #f5f7f7;
   border: 3px solid #cdcbd4;
 }
@@ -24,15 +24,14 @@
   margin-right: 22px;
 }
 
+.button-center {
+  margin-left: -55px;
+  margin-top: 62px;
+  text-align: center;
+}
+
 /* * * * Overrides * * * */
 
 .form-input-box-wide {
   width: 607px;
-}
-
-.form-button-container {
-  width: 614px;
-  margin: 0px;
-  margin-top: 62px;
-  text-align: center;
 }

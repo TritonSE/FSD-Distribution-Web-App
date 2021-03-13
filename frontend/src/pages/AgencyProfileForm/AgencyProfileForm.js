@@ -15,6 +15,7 @@ import Calendar from "./DistributionCalendar/Calendar";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
+import { getJWT } from "../../auth";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -141,6 +142,7 @@ class AgencyProfileForm extends Component {
       sunday: data.sunday,
     };
     let distributionStartTimes = {
+      // if the day isn't selected, ignore input value
       monday: data.monday ? data.mondayStartTime : "",
       tuesday: data.tuesday ? data.tuesdayStartTime : "",
       wednesday: data.wednesday ? data.wednesdayStartTime : "",
@@ -251,6 +253,7 @@ class AgencyProfileForm extends Component {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
       },
       body: JSON.stringify(formData),
     })

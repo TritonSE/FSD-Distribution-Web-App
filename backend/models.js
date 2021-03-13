@@ -1,5 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const bcrypt = require("bcrypt");
+
+const UserSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+// TODO: Hash passwords
+UserSchema.methods.verifyPassword = function (password) {
+  return password === this.password;
+};
 
 const TableContentSchema = new Schema({
   agencyNumber: {
@@ -310,5 +328,6 @@ const AgencySchema = new Schema({
 });
 
 const Agency = mongoose.model("Agency", AgencySchema);
+const User = mongoose.model("User", UserSchema);
 
-module.exports = { Agency };
+module.exports = { Agency, User };

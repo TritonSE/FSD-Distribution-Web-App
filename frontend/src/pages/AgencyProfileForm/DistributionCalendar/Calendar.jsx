@@ -12,7 +12,7 @@ const DEFAULT_DATE_FORMAT = "MM/DD/YYYY";
  * Expected props:
  * - {String} distributionStartDate: String in default date format representing
  * the starting distributiond date
- * - {Number} distributionFrequency: Number representing how often the agency
+ * - {String} distributionFrequency: Number representing how often the agency
  * distributes (in weeks)
  * - {Array<Boolean>} distributionDays: List of booleans indicating which days
  * of the week are valid distribution days
@@ -75,6 +75,11 @@ class Calendar extends Component {
     const { distributionDays, distributionFrequency } = this.props;
     const { startDateMoment } = this.state;
 
+    const frequency = parseInt(distributionFrequency);
+    if (isNaN(frequency)) {
+      return false;
+    }
+
     let currDateMoment = moment(date, DEFAULT_DATE_FORMAT);
 
     // Determine if the pertinent weekday is a valid distribution day
@@ -88,7 +93,7 @@ class Calendar extends Component {
     ) {
       // Verify day meet frequency requirements
       let weekDiff = currDateMoment.week() - startDateMoment.week();
-      let isOnWeek = weekDiff % distributionFrequency === 0;
+      let isOnWeek = weekDiff % frequency === 0;
       if (isOnWeek) {
         // Verify day is a valid distribution day
         if (isDistDate) {

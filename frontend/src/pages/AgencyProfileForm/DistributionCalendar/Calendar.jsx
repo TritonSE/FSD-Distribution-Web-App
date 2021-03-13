@@ -69,7 +69,7 @@ class Calendar extends Component {
    *
    * @param {String} date String in default date format to be assessed
    * @returns Boolean representing if the given date string is a valid
-   * distributiond ate
+   * distribution date
    */
   isDistributionDate = (date) => {
     const { distributionDays, distributionFrequency } = this.props;

@@ -1,3 +1,5 @@
+/* * * * Calendar * * * */
+
 .calendar-container {
   margin-left: 142px;
 }
@@ -24,6 +26,15 @@
   display: inline-block;
 }
 
+.calendar .body {
+  color: white;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+}
+
+/* * * * Header * * * */
+
 .calendar .header {
   text-align: center;
   min-height: 2rem;
@@ -42,13 +53,6 @@
   color: #6e7781;
   margin: 0 auto;
   align-items: center;
-}
-
-.calendar .body {
-  color: white;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-bottom: 5%;
 }
 
 .calendar .header .previous {
@@ -87,6 +91,8 @@
   cursor: pointer;
 }
 
+/* * * * Week * * * */
+
 .calendar .week {
   background-color: white;
   width: calc(100% / 7);
@@ -101,6 +107,8 @@
 .calendar .week div {
   width: 100%;
 }
+
+/* * * * Day * * * */
 
 .calendar .day {
   position: relative;

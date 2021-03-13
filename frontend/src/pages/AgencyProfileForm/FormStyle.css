@@ -2,6 +2,7 @@
 
 .form-body {
   margin: 62px 0px 64px 130px;
+  white-space: nowrap;
 }
 
 .form-section {
@@ -11,6 +12,7 @@
 .form-col {
   display: inline-block;
   position: relative;
+  vertical-align: top;
 }
 
 .form-input {
@@ -22,6 +24,10 @@
 
 .form-col-gutter {
   margin-left: 142px;
+}
+
+.form-col-width {
+  width: 296px;
 }
 
 /* * * * Text styles * * * */
@@ -61,13 +67,13 @@
 
 /* * * * Custom checkboxes * * * */
 
-.checkbox-list-column {
+.checkbox-column {
   width: 624px;
 }
 
 /* * Incrementer Box * */
 
-.incrementer-box-list-column {
+.incrementer-box-column {
   width: 624px;
 }
 
@@ -86,6 +92,41 @@ div.form-focus-gray {
   padding-bottom: 23px;
   background-color: #c4c4c4;
   border-top: 3px solid #a0a0a0;
+}
+
+/* * * * Time input * * * */
+
+.time-input {
+  display: block;
+  position: relative;
+  width: auto;
+  float: right;
+  margin-top: 9px;
+}
+
+.number-field {
+  position: relative;
+  height: 25px;
+  width: 35px;
+  display: inline-block;
+  padding: 0px;
+  padding-right: 3px;
+  margin: 0px 2px 0px 2px;
+  border-radius: 2px;
+  border: 1px solid #000000;
+  font-size: 15px;
+  text-align: right;
+}
+
+.number-field::placeholder {
+  color: #cdcbd4;
+}
+
+/* * * * Invalid input highlighting * * * */
+
+.form-invalid {
+  border-width: 2px;
+  border-color: #fc0808;
 }
 
 /* * * * Small button * * * */

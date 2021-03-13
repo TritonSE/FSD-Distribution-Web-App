@@ -2,6 +2,10 @@
   position: relative;
   margin-top: 9px;
   margin-bottom: 0px;
+  display: inline-block;
+}
+
+.checkbox-column > .custom-checkbox {
   display: table;
 }
 

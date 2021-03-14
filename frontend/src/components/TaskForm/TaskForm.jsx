@@ -6,7 +6,15 @@ import FormButton from "../FormComponents/FormButton";
 import "./TaskForm.css";
 
 /**
- * TaskForm is the task form
+ * TaskForm is the modal form for creating/editing a task for an agency.
+ *
+ * Expected props:
+ * - {Object} data: (if editing a task) existing data for the task (title,
+ * dueDate, status)
+ * - {Function} onSubmit: callback for when the submit button is pressed, should
+ * take an Object representing the task data
+ * - {Function} onCancel: callback for when the cancel button is pressed, should
+ * take no input
  */
 class TaskForm extends Component {
   constructor(props) {
@@ -43,6 +51,13 @@ class TaskForm extends Component {
    */
   submitForm = () => {
     alert("submit");
+  };
+
+  /**
+   * Handles form cancellation.
+   */
+  cancelForm = () => {
+    alert("cancel");
   };
 
   render() {
@@ -94,6 +109,16 @@ class TaskForm extends Component {
               onClick={this.submitForm}
             />
           </div>
+          <button
+            type="button"
+            className="task-form-cancel"
+            onClick={this.cancelForm}
+          >
+            <svg className="icon-x" width="20" height="20" viewBox="0 0 20 20">
+              <line x1="0" y1="0" x2="20" y2="20" strokeWidth="4" />
+              <line x1="20" y1="0" x2="0" y2="20" strokeWidth="4" />
+            </svg>
+          </button>
         </div>
       </div>
     );

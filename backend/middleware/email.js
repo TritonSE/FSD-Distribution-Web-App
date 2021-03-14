@@ -1,7 +1,11 @@
 const nodemailer = require("nodemailer");
 const Email = require('email-templates');
-
 require('dotenv').config();
+
+/**
+ * Email script that sends an accont approval link to a specified administrator. 
+ * Only fired on the creation of a pending user in /register. 
+ */
 
 const email = {
   user: process.env.EMAIL_USER,
@@ -9,6 +13,7 @@ const email = {
   to: process.env.EMAIL_TO
 }
 
+// Setup the account that is sending the email 
 const transporter = email.user === "" ? null : nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 465,
@@ -19,6 +24,7 @@ const transporter = email.user === "" ? null : nodemailer.createTransport({
   }
 });
 
+// If an email account is not proided, disable email service
 const mail = email.user === "" ? null : new Email({
   transport: transporter,
   send: true,
@@ -28,24 +34,22 @@ const mail = email.user === "" ? null : new Email({
 /**
  * Responsible for populating an email template and sending to a target email. 
  * 
- * @param template a string referring to one of four templates in the email folder
- * @param email the recipient's email 
  * @param params the template's parameters
  */
 async function sendEmail(params) {
   if (mail != null) {
     await mail.send({
-      template: 'user-approval',
+      template: "user-approval",
       message: {
         from: email.user,
         to: email.to,
       },
       locals: params,
     });
-    console.log(`Email has been sent`);
+    console.log("Email has been sent");
   }
   else {
-    console.log(`Email would have been sent but is disabled.`);
+    console.log("Email would have been sent but is disabled.");
   }
 }
 

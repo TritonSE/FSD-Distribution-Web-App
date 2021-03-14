@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button, Typography, makeStyles } from "@material-ui/core";
+import { TextField, Button, Typography, makeStyles, Snackbar } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
 import { setJWT, setUser } from "../../auth";
 import "./Login.css"
@@ -50,7 +50,16 @@ const Login = (props) => {
 
   const [state, setState] = React.useState({
     email: "",
-    password: ""
+    password: "",
+    snack: {
+      message: "",
+      open: false
+    },
+    errors: {
+      email: false,
+      password: false
+    },
+    form_disabled: false
   });
 
   const handleChange = (prop) => (event) => {
@@ -78,12 +87,23 @@ const Login = (props) => {
         setUser(json.user);
         history.push("/");
         props.changeIsLogged(true);
+      } else if (response.status === 401) {
+        document.body.style.cursor= null;
+        setState({...state, errors: {email: true, password: true}, form_disabled: false, snack: {message: 'Invalid Login: Email or password not recognized.', open: true}});
       }
     }
     catch (error) {
       console.log(error);
+      setState({...state, errors: {email: false, password: false}, form_disabled: false, snack: {message: `An error occurred: ${error.message}`, open: true}});
     }
   }
+
+  const handleSnackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setState({...state, snack: {...state.snack, open: false}});
+  };
 
   return (
     <div className="Main">
@@ -91,15 +111,15 @@ const Login = (props) => {
         <Typography variant="h4" className={classes.title} style={{ fontSize: "2.5rem" }} > Login </Typography>
         <p className={classes.centered} style={{ color: "#8d8d8d" }}> Sign-in into an existing account below </p>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField label='Email' variant='outlined' type='email' onChange={handleChange('email')} />
-          <TextField label='Password' variant='outlined' type='password' onChange={handleChange('password')} />
+          <TextField label='Email' variant='outlined' type='email' onChange={handleChange('email')} required={true} error={state.errors.email} />
+          <TextField label='Password' variant='outlined' type='password' onChange={handleChange('password')} required={true} error={state.errors.password} />
           <Link to="/register" className="Child" as={Link}><Typography>Register Account</Typography></Link>
-          {/* <Link to="reset-password"><Typography>Reset Password</Typography></Link> */}
           <div className={classes.centered}>
-            <Button variant="contained" type="submit" >Login</Button>
+            <Button variant="contained" type="submit" disabled={state.form_disabled}>Login</Button>
           </div>
         </form>
       </div>
+      <Snackbar open={state.snack.open} autoHideDuration={6000} onClose={handleSnackClose} message={state.snack.message}/>
     </div>
   );
 }

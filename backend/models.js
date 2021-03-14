@@ -14,7 +14,19 @@ const UserSchema = new Schema({
   }
 });
 
-UserSchema.pre('save', function(next) {
+const PendingUserSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true,
+  }
+});
+
+PendingUserSchema.pre('save', function(next) {
   const user = this;
   if (user.isModified('password')) {
     user.password = bcrypt.hashSync(user.password, 10);
@@ -310,6 +322,6 @@ const AgencySchema = new Schema({
 
 const Agency = mongoose.model('Agency', AgencySchema);
 const User = mongoose.model('User', UserSchema);
-const PendingUser = mongoose.model('PendingUser', UserSchema);
+const PendingUser = mongoose.model('PendingUser', PendingUserSchema);
 
 module.exports = { Agency, User, PendingUser };

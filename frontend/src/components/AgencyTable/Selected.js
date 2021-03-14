@@ -15,6 +15,7 @@ return (
                 delete selected[select];
                 changeSelected({...selected});
                 //paginate(1);
+                //clear the corresponding checkmark
                 const event = new MouseEvent('click', {
                     view: window,
                     bubbles: true,
@@ -26,6 +27,7 @@ return (
     }
     <button id="clearall" onClick = {(e) =>
     {
+        //clear all checkmarks
         for(let select in selected){
             filters[selected[select]][select] = false;
             delete selected[select];

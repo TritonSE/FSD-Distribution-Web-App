@@ -54,9 +54,43 @@ const TableContentSchema = new Schema({
     required: true,
   },
 
-  dateOfInitialPartnership: {
-    type: String,
-    required: true,
+  /* Capacity Section */
+  // Storage Type
+  standAloneFreezer: {
+    type: Number,
+  },
+  freezerFridge: {
+    type: Number,
+  },
+  chestFreezer: {
+    type: Number,
+  },
+  singleDoorFreezer: {
+    type: Number,
+  },
+  freezerFridgeCombo: {
+    type: Number,
+  },
+  walkInFreezer: {
+    type: Number,
+  },
+  doubleDoorFridge: {
+    type: Number,
+  },
+  sideBySideFridge: {
+    type: Number,
+  },
+  singleDoorFridge: {
+    type: Number,
+  },
+  walkInFridge: {
+    type: Number,
+  },
+  dryStorageClimateControl: {
+    type: Number,
+  },
+  dryStorageNonClimateControl: {
+    type: Number,
   },
 
   // Transportation Type

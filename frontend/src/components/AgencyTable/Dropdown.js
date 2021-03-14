@@ -6,7 +6,6 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
 
 
     function showCheckboxes() {
-      console.log(expanded);
         var checkboxes = document.getElementById(option);
         if(!expanded){
           checkboxes.style.display = "block";
@@ -36,7 +35,6 @@ return (
             newStat ? selected[key] = option : delete selected[key]; 
             changeSelected(selected); 
             changeFilter({...filters, [option]: {...filters[option], [key]: newStat,},}); 
-            console.log(filters); 
             paginate(1)}}/>
             {key}
           </label> 

@@ -11,65 +11,47 @@ import "./FormStyle.css";
  * Expected props:
  * - {String} label: label to display above the whole checkbox group
  * - {Array<Object>} options: list of objects containing data about each
- * checkbox option (title, whether it is currently selected, and the sub-key to
- * use in the onChange callback)
- * - {String} stateKey: first part of the key to pass into the onChange callback
+ * checkbox option (title, whether it is currently selected, and the state key
+ * to use in the onChange callback)
  * - {Function} onChange: callback to handle input changes, should take a String
  * and a Boolean
  * - {Boolean} twoColumns: whether the checkbox group should be split into two
  * columns
  */
 class InputCheckboxList extends Component {
-  /**
-   * Callback for handling when the user toggles a checkbox. Passes it up to
-   * the callback from the form page.
-   * @param {Number} index Index (in options) of the checkbox that was toggled
-   */
-  onSelect = (index) => {
-    const { options, onChange } = this.props;
-    onChange(options[index].stateKey, !options[index].selected);
-  };
-
   render() {
+    const { twoColumns, label, options, onChange } = this.props;
+
     let listColumns = null;
-    if (this.props.twoColumns) {
-      let numOptions = this.props.options.length;
+    if (twoColumns) {
+      let numOptions = options.length;
       let midIndex = numOptions / 2; // index of first thing in second column
       if (numOptions % 2 === 1) midIndex++;
 
-      let firstColumnOptions = this.props.options.slice(0, midIndex);
-      let secondColumnOptions = this.props.options.slice(midIndex); // to end
+      let firstColumnOptions = options.slice(0, midIndex);
+      let secondColumnOptions = options.slice(midIndex); // to end
       listColumns = (
         <FormRow>
           <FormCol>
-            <CheckboxColumn
-              indexBuffer={0}
-              options={firstColumnOptions}
-              onChange={this.onSelect}
-            />
+            <CheckboxColumn options={firstColumnOptions} onChange={onChange} />
           </FormCol>
           <FormCol>
-            <CheckboxColumn
-              indexBuffer={firstColumnOptions.length}
-              options={secondColumnOptions}
-              onChange={this.onSelect}
-            />
+            <CheckboxColumn options={secondColumnOptions} onChange={onChange} />
           </FormCol>
         </FormRow>
       );
     } else {
-      listColumns = (
-        <CheckboxColumn
-          indexBuffer={0}
-          options={this.props.options}
-          onChange={this.onSelect}
-        />
-      );
+      listColumns = <CheckboxColumn options={options} onChange={onChange} />;
+    }
+
+    let labelItem = null;
+    if (label) {
+      labelItem = <label className="form-input-list-header">{label}</label>;
     }
 
     return (
       <div className="form-input">
-        <label className="form-input-list-header">{this.props.label}</label>
+        {labelItem}
         {listColumns}
       </div>
     );

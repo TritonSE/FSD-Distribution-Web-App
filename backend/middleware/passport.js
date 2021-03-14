@@ -14,7 +14,7 @@ require('dotenv').config();
 const options = {
   /**
    * Expecting authorization header to follow the format...
-   * Authorization Header: bearer <token>
+   * Authorization: Bearer <token>
    */
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: process.env.SECRET_KEY

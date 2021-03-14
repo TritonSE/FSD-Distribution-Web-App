@@ -53,8 +53,8 @@ function AgencyTable() {
           filters.staff[dat.tableContent.staff] = false;
         }
         if(!(filters.staff.hasOwnProperty(dat.tableContent.dateOfInitialPartnership))){
-          let year = dat.tableContent.dateOfInitialPartnership.substring(6);
-          filters["Joined In"][year] = false;
+          //let year = dat.tableContent.dateOfInitialPartnership.substring(6);
+          //filters["Joined In"][year] = false;
         }
 
     }; console.log(filters); setFilter({...filters})})
@@ -81,7 +81,6 @@ function AgencyTable() {
  * Page that contains a table that lists out all the agencies pulled from database
  */
 function checkOptions(row, filters){
-  console.log(filters);
   for(let option in filters){
     if(option == "search") {
       let found = false;
@@ -131,7 +130,6 @@ const filtered = search(data);
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 const changeFilter = (newFilter) => setFilter(newFilter);
 const changeSelected = (newSelected) => setSelected(newSelected);
-console.log(selected);
 if (!isAuthenticated()) {
   return <Redirect to='login' />
 }

@@ -124,6 +124,21 @@ const DistributionTimesSchema = new Schema({
   },
 });
 
+const AgencyTaskSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  dueDate: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+});
+
 const AgencySchema = new Schema({
   /**
    * Accessing the TableContentSchema
@@ -325,9 +340,15 @@ const AgencySchema = new Schema({
   immigrant: {
     type: Boolean,
   },
+
+  /* Agency tasks */
+  tasks: {
+    type: [AgencyTaskSchema],
+  },
 });
 
 const Agency = mongoose.model("Agency", AgencySchema);
 const User = mongoose.model("User", UserSchema);
+const AgencyTask = mongoose.model("AgencyTask", AgencyTaskSchema);
 
-module.exports = { Agency, User };
+module.exports = { Agency, User, AgencyTask };

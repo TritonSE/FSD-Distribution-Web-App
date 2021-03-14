@@ -161,6 +161,9 @@ class AgencyProfileForm extends Component {
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 
+    // add empty list for agency tasks
+    data.tasks = [];
+
     return data;
   }
 

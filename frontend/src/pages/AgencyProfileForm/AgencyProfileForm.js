@@ -10,9 +10,12 @@ import InputIncrementerBoxList from "./InputIncrementerBoxList";
 import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
+import DistributionDays from "./DistributionDays";
+import Calendar from "./DistributionCalendar/Calendar";
 import InlineDropdown from "./InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
+import { getJWT } from "../../auth";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -64,8 +67,17 @@ class AgencyProfileForm extends Component {
         friday: false,
         saturday: false,
         sunday: false,
-        distributionFrequency: "",
-        distributionHours: "",
+        mondayStartTime: "",
+        tuesdayStartTime: "",
+        wednesdayStartTime: "",
+        thursdayStartTime: "",
+        fridayStartTime: "",
+        saturdayStartTime: "",
+        sundayStartTime: "",
+        distributionStartDate: "",
+        distributionFrequency: "1",
+        userSelectedDates: [],
+        userExcludedDates: [],
         pantry: false,
         mealProgram: false,
         homeboundDeliveryPartner: false,
@@ -86,9 +98,7 @@ class AgencyProfileForm extends Component {
         pickUpTruck: 0,
         van: 0,
         car: 0,
-        retailRescue: false,
-        preparedFoodCapacity: false,
-        capacityWithRRD: false,
+        retailRescueAvailable: false,
         youth: false,
         senior: false,
         homeless: false,
@@ -131,9 +141,20 @@ class AgencyProfileForm extends Component {
       saturday: data.saturday,
       sunday: data.sunday,
     };
+    let distributionStartTimes = {
+      // if the day isn't selected, ignore input value
+      monday: data.monday ? data.mondayStartTime : "",
+      tuesday: data.tuesday ? data.tuesdayStartTime : "",
+      wednesday: data.wednesday ? data.wednesdayStartTime : "",
+      thursday: data.thursday ? data.thursdayStartTime : "",
+      friday: data.friday ? data.fridayStartTime : "",
+      saturday: data.saturday ? data.saturdayStartTime : "",
+      sunday: data.sunday ? data.sundayStartTime : "",
+    };
 
     data.tableContent = tableContent;
     data.distributionDays = distributionDays;
+    data.distributionStartTimes = distributionStartTimes;
     // extra fields will be ignored by mongoose
 
     // Remove empty strings in additionalAddresses
@@ -232,6 +253,7 @@ class AgencyProfileForm extends Component {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
       },
       body: JSON.stringify(formData),
     })
@@ -242,7 +264,7 @@ class AgencyProfileForm extends Component {
               let errors = data.fields.filter((x) => x !== null);
               this.setState({ errors: errors });
               let message = `${errors.length} fields have errors!`;
-              if (errors.length == 1) {
+              if (errors.length === 1) {
                 message = "1 field has errors!";
               }
               alert(message);
@@ -567,55 +589,73 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Distribution" />
             <FormRow>
               <FormCol>
-                <InputDropdown
-                  label="Distribution Day(s)"
-                  options={[
+                <DistributionDays
+                  values={[
                     {
                       title: "Monday",
-                      //selected: data.monday,
-                      selected: true,
+                      selected: data.monday,
+                      time: data.mondayStartTime,
                       stateKey: "monday",
+                      timeStateKey: "mondayStartTime",
                     },
                     {
                       title: "Tuesday",
                       selected: data.tuesday,
+                      time: data.tuesdayStartTime,
                       stateKey: "tuesday",
+                      timeStateKey: "tuesdayStartTime",
                     },
                     {
                       title: "Wednesday",
                       selected: data.wednesday,
+                      time: data.wednesdayStartTime,
                       stateKey: "wednesday",
+                      timeStateKey: "wednesdayStartTime",
                     },
                     {
                       title: "Thursday",
                       selected: data.thursday,
+                      time: data.thursdayStartTime,
                       stateKey: "thursday",
+                      timeStateKey: "thursdayStartTime",
                     },
                     {
                       title: "Friday",
                       selected: data.friday,
+                      time: data.fridayStartTime,
                       stateKey: "friday",
+                      timeStateKey: "fridayStartTime",
                     },
                     {
                       title: "Saturday",
                       selected: data.saturday,
+                      time: data.saturdayStartTime,
                       stateKey: "saturday",
+                      timeStateKey: "saturdayStartTime",
                     },
                     {
                       title: "Sunday",
                       selected: data.sunday,
+                      time: data.sundayStartTime,
                       stateKey: "sunday",
+                      timeStateKey: "sundayStartTime",
                     },
                   ]}
                   onChange={this.handleInputChange}
-                  multiple
-                  leftmost
-                  required
+                  validCheck={this.isValid}
                 />
               </FormCol>
               <FormCol>
+                <InputDate
+                  label="Start Date"
+                  value={data.distributionStartDate}
+                  stateKey="distributionStartDate"
+                  onChange={this.handleInputChange}
+                  required
+                  valid={this.isValid("distributionStartDate")}
+                />
                 <InputText
-                  label="Distribution Frequency"
+                  label="Weekly Frequency"
                   value={data.distributionFrequency}
                   stateKey="distributionFrequency"
                   onChange={this.handleInputChange}
@@ -624,15 +664,25 @@ class AgencyProfileForm extends Component {
                 />
               </FormCol>
               <FormCol>
-                <InputText
-                  label="Distribution Hours"
-                  value={data.distributionHours}
-                  stateKey="distributionHours"
+                <Calendar
+                  label="Customize Distribution Schedule"
+                  distributionStartDate={data.distributionStartDate}
+                  distributionFrequency={data.distributionFrequency}
+                  distributionDays={[
+                    data.sunday,
+                    data.monday,
+                    data.tuesday,
+                    data.wednesday,
+                    data.thursday,
+                    data.friday,
+                    data.saturday,
+                  ]}
+                  userSelectedDates={data.userSelectedDates}
+                  userExcludedDates={data.userExcludedDates}
                   onChange={this.handleInputChange}
                 />
               </FormCol>
             </FormRow>
-
             <FormRow>
               <FormCol>
                 <InputCheckboxList
@@ -776,22 +826,12 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <FormSectionHeader title="Retail Rescue" />
             <InputCheckboxList
-              label="Check Boxes if Available."
+              label={null}
               options={[
                 {
-                  title: "Retail Rescue",
-                  selected: data.retailRescue,
-                  stateKey: "retailRescue",
-                },
-                {
-                  title: "Prepared Food Capacity",
-                  selected: data.preparedFoodCapacity,
-                  stateKey: "preparedFoodCapacity",
-                },
-                {
-                  title: "Capacity with RR with Delivery",
-                  selected: data.capacityWithRRD,
-                  stateKey: "capacityWithRRD",
+                  title: "Available",
+                  selected: data.retailRescueAvailable,
+                  stateKey: "retailRescueAvailable",
                 },
               ]}
               onChange={this.handleInputChange}

@@ -1,0 +1,162 @@
+/* * * * Calendar * * * */
+
+.calendar-container {
+  margin-left: 142px;
+}
+
+.calendar {
+  box-sizing: border-box;
+  font-size: 1rem;
+  width: 289px;
+  border: 2px solid #cdcbd4;
+  border-radius: 5%;
+  margin-left: 7px;
+}
+
+.calendar-label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  margin-left: -7px;
+  margin-bottom: 8px;
+  margin-top: 23px;
+  display: inline-block;
+}
+
+.calendar .body {
+  color: white;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 5%;
+}
+
+/* * * * Header * * * */
+
+.calendar .header {
+  text-align: center;
+  min-height: 2rem;
+  line-height: 2rem;
+  color: black;
+  font-family: Roboto;
+  font-size: 14px;
+  font-style: normal;
+  display: flex;
+}
+
+.calendar .day-names {
+  display: flex;
+  flex-wrap: wrap;
+  font-style: Roboto;
+  color: #6e7781;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.calendar .header .previous {
+  flex: 1;
+  text-align: left;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.calendar .header .previous .arrow {
+  position: relative;
+  float: left;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border-top: 5px solid transparent;
+  border-right: 10px solid #555;
+  border-bottom: 5px solid transparent;
+}
+
+.calendar .header .next .arrow {
+  position: relative;
+  float: right;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border-top: 5px solid transparent;
+  border-left: 10px solid #555;
+  border-bottom: 5px solid transparent;
+}
+
+.calendar .header .next {
+  flex: 1;
+  text-align: center;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+
+/* * * * Week * * * */
+
+.calendar .week {
+  background-color: white;
+  width: calc(100% / 7);
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+}
+.calendar .week div {
+  width: 100%;
+}
+
+/* * * * Day * * * */
+
+.calendar .day {
+  position: relative;
+  width: calc(100% / 7);
+  height: width;
+  display: inline-block;
+  background-color: white;
+  padding: 0;
+  font-family: Roboto;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.calendar .day div {
+  position: relative;
+  color: black;
+  border-radius: 25%;
+  line-height: 30px;
+  margin: 10%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.calendar .day div.extraneous {
+  color: lightgray;
+}
+
+.calendar .day div.selected {
+  background-color: #aace67;
+  color: black;
+}
+
+.calendar .day div.distribution {
+  background-color: #aace67;
+  color: black;
+}
+
+.calendar .day div.distribution-extraneous {
+  background-color: lightslategray;
+  color: lightgray;
+}
+
+.calendar .day div.selected-extraneous {
+  background-color: lightslategray;
+  color: lightgray;
+}
+
+.calendar .day div.today {
+  background-color: gray;
+}

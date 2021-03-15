@@ -8,8 +8,8 @@ import "./FormStyle.css";
  * Expected props:
  * - {String} label: text to display alongside the box
  * - {Number} value: current value in the box (limited to range [0,99])
- * - {Number} index: index to pass into the onChange callback
- * - {Function} onChange: callback to handle input changes, should take a Number
+ * - {String} stateKey: key to use in the onChange callback
+ * - {Function} onChange: callback to handle input changes, should take a String
  * and a Number
  */
 class IncrementerBox extends Component {
@@ -17,9 +17,9 @@ class IncrementerBox extends Component {
    * Event handler for when the increment button is clicked.
    */
   handleIncrement = () => {
-    const { onChange, index, value } = this.props;
+    const { onChange, stateKey, value } = this.props;
     if (value < 99) {
-      onChange(index, value + 1);
+      onChange(stateKey, value + 1);
     }
   };
 
@@ -27,9 +27,9 @@ class IncrementerBox extends Component {
    * Event handler for when the decrement button is clicked.
    */
   handleDecrement = () => {
-    const { onChange, index, value } = this.props;
+    const { onChange, stateKey, value } = this.props;
     if (value > 0) {
-      onChange(index, value - 1);
+      onChange(stateKey, value - 1);
     }
   };
 
@@ -39,14 +39,14 @@ class IncrementerBox extends Component {
    * @param {SyntheticEvent} event Event object to handle
    */
   handleInputChange = (event) => {
-    const { onChange, index } = this.props;
+    const { onChange, stateKey } = this.props;
     if (event.target.value === "") {
-      onChange(index, "");
+      onChange(stateKey, "");
     } else {
       const newNumber = parseInt(event.target.value);
       if (!isNaN(newNumber) && isFinite(newNumber)) {
         if (newNumber >= 0 && newNumber <= 99) {
-          onChange(index, newNumber);
+          onChange(stateKey, newNumber);
         }
       }
     }

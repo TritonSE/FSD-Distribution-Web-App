@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { TextField, Button, Grid, Typography, makeStyles, Snackbar } from '@material-ui/core';
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
+import { TextField, Button, Grid, Typography, makeStyles, Snackbar } from "@material-ui/core";
 import "./Register.css";
 const config = require("../../config");
 
@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: '100%'
     },
-
     '& .MuiButton-root': {
       margin: theme.spacing(3),
       color: 'black',
@@ -114,6 +113,8 @@ const Register = (props) => {
     }
   };
 
+  // Handles the closing of the Snackbar. Prevents Snackbar from closing when user clicks on the screen.
+  // Allows the Snackbar to persist for 6 seconds.
   const handleSnackClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

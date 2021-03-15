@@ -98,6 +98,8 @@ const Login = (props) => {
     }
   }
 
+  // Handles the closing of the Snackbar. Prevents Snackbar from closing when user clicks on the screen.
+  // Allows the Snackbar to persist for 6 seconds.
   const handleSnackClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

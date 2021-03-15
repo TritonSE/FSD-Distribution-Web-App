@@ -7,15 +7,13 @@ return (
     <div id="selected-filters">
     {
       Object.keys(selected).map(select =>
-        <div key = {select}>
-            {select}
-            <button onClick = {(e) =>
+        <div className ="select-boxes" key = {select}>
+            <p className="label-text">{select}</p>
+            <button className ="clear-button" onClick = {(e) =>
             {
-                //changeFilter({...filters, [selected[select]]: {...filters[selected[select]], [select]: false,},});
                 delete selected[select];
                 changeSelected({...selected});
-                //paginate(1);
-                //clear the corresponding checkmark
+                //call the change checkmark event
                 const event = new MouseEvent('click', {
                     view: window,
                     bubbles: true,

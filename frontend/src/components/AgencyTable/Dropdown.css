@@ -4,7 +4,7 @@
   margin-bottom: 0.5em;
 }
 .multiselect {
-  width: 88px;
+  width: 95px;
   height: 27px;
   margin-right: 1em;
   border: 2px solid #000000;
@@ -14,13 +14,13 @@
 }
 .selectBox{
     position: relative;
-    width: 86px;
-    height: 26px;
+    width: 91px;
+    height: 23px;
   }
   
   .selectBox select{
     width: 100%;
-    height: 26px;
+    height: 23px;
   }
 
   option {
@@ -34,7 +34,7 @@
     position: absolute;
     display: none;
     border: 1px #dadada solid;
-    width: 88px;
+    width: 95px;
     z-index: 200;
     background-color: #F5F7F7;
     user-select:none;

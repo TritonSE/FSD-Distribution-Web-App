@@ -30,25 +30,25 @@ let fOptions = {
 
   "Joined In": {},
 
-  "Transportation": {
+  "Transport": {
     Car: false,
     "Pickup Truck": false,
     Van: false,
   },
 
   "Storage":{
-    standAloneFreezer: false,
-    freezerFridge: false,
-    chestFreezer: false,
-    singleDoorFreezer: false,
-    freezerFridgeCombo: false,
-    walkInFreezer: false,
-    doubleDoorFridge: false, 
-    sideBySideFridge:false,
-    singleDoorFridge: false,
-    walkInFridge: false,
-    dryStorageClimateControl: false,
-    dryStorageNonClimateControl: false,
+    "Stand Alone Freezer": false,
+    "Freezer Fridge": false,
+    "Chest Freezer": false,
+    "Single Door Freezer": false,
+    "Freezer Fridge Combo": false,
+    "Walk In Freezer": false,
+    "Double Door Fridge": false, 
+    "Side By Side Fridge":false,
+    "Single Door Fridge": false,
+    "Walk In Fridge": false,
+    "Dry Storage Climate Control": false,
+    "Dry Storage Non Climate Control": false,
   }
 
 };
@@ -58,7 +58,7 @@ function AgencyTable() {
   const [data, setData] = useState([]);
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState(2);
+  const [entriesPerPage] = useState(5);
   const [selected, setSelected] = useState({});
 
   //const[checkboxes, setCheckboxes] = useState();
@@ -134,6 +134,19 @@ function checkStatuses(row, filters, option){
   for(var key in filters[option]){
     runCount++;
     if(filters[option][key] == true){
+      if(option == "Storage"){
+        //storage names are formatted differently in database
+        let storageKey = key;
+        storageKey = storageKey.charAt(0).toLowerCase() + storageKey.slice(1);
+        //regex to replace remove spaces between strings
+        storageKey = storageKey.replace(/ +/g, "");
+        console.log(storageKey);
+        console.log(row.tableContent[storageKey]);
+        if(row.tableContent[storageKey] > 0){
+          return true;
+        }
+        continue;
+      }
       if(option == "Transportation"){
         let transportKey = key.toLowerCase();
         //pickup truck displays differently in database
@@ -170,14 +183,16 @@ function checkStatuses(row, filters, option){
   return false;
 }
 
-
+//calculate indices for pagination
 const indexOfLastEntry = currentPage * entriesPerPage;
 const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-//const currentPosts = data.slice(indexOfFirstEntry, indexOfLastEntry);
+
 const filtered = search(data);
+
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 const changeFilter = (newFilter) => setFilter(newFilter);
 const changeSelected = (newSelected) => setSelected(newSelected);
+
 if (!isAuthenticated()) {
   return <Redirect to='login' />
 }
@@ -198,7 +213,9 @@ if (!isAuthenticated()) {
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "status" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "staff" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transportation" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transport" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Storage" />
+
 
         </div>
 

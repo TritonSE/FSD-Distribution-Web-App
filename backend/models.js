@@ -14,9 +14,28 @@ const UserSchema = new Schema({
   },
 });
 
-// TODO: Hash passwords
+const PendingUserSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+PendingUserSchema.pre("save", function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = bcrypt.hashSync(user.password, 10);
+  }
+  return next();
+});
+
 UserSchema.methods.verifyPassword = function (password) {
-  return password === this.password;
+  return bcrypt.compareSync(password, this.password);
 };
 
 const TableContentSchema = new Schema({
@@ -348,7 +367,8 @@ const AgencySchema = new Schema({
 });
 
 const Agency = mongoose.model("Agency", AgencySchema);
-const User = mongoose.model("User", UserSchema);
 const AgencyTask = mongoose.model("AgencyTask", AgencyTaskSchema);
+const User = mongoose.model("User", UserSchema);
+const PendingUser = mongoose.model("PendingUser", PendingUserSchema);
 
-module.exports = { Agency, User, AgencyTask };
+module.exports = { Agency, User, PendingUser, AgencyTask };

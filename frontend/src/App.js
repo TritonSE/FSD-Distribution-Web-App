@@ -6,8 +6,9 @@ import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Home from "./pages/Home/Home";
 import Agency from "./pages/Agency/Agency";
 import AgencyProfile from "./pages/AgencyProfile/AgencyProfile";
-import Login from "./pages/Login/Login";
 import AgencyForm from "./pages/AgencyForm/AgencyForm";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import { isAuthenticated } from "./auth";
 import { useState } from 'react';
 
@@ -26,6 +27,7 @@ function App() {
               <Route exact path="/agency/:id" component={AgencyProfile} />
               <Route exact path="/create-agency" component={AgencyForm} />
               <Route exact path="/login" render={(...props) => (<Login {...props} changeIsLogged={changeIsLogged} />)} />
+              <Route exact path="/register" component={Register} />
             </React.Fragment>
           </Switch>
         </div>

@@ -1,11 +1,11 @@
-const createError = require('http-errors');
-const express = require('express');
-const mongoose = require('mongoose');
-const path = require('path');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const cors = require('cors');
-const passport = require('passport');
+const createError = require("http-errors");
+const express = require("express");
+const mongoose = require("mongoose");
+const path = require("path");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const cors = require("cors");
+const passport = require("passport");
 require('dotenv').config();
 
 // Database
@@ -32,6 +32,8 @@ app.use(passport.initialize());
 // Routes
 app.use('/agency', require('./routes/agency'));
 app.use('/login', require('./routes/login'));
+app.use('/register', require('./routes/register'));
+app.use('/authorize', require('./routes/authorize'));
 
 // Catch-all route
 app.get('/*', (req, res, next) => {

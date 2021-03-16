@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Dropdown from "./Dropdown";
 import RequiredAsterisk from "./RequiredAsterisk";
+import "./Inputs.css";
 import "./Dropdowns.css";
 import "./TextStyles.css";
 

@@ -15,13 +15,6 @@
   vertical-align: top;
 }
 
-.form-input {
-  margin-top: 23px;
-  padding-left: 7px;
-  position: relative;
-  overflow: visible;
-}
-
 .form-col-gutter {
   margin-left: 142px;
 }
@@ -51,12 +44,6 @@
   border-radius: 1px;
   margin-top: 3px;
   margin-bottom: 8px;
-}
-
-/* * * * General input boxes * * * */
-
-.form-invalid {
-  border-color: #fc0808;
 }
 
 /* * * * Input columns * * * */

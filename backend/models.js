@@ -367,8 +367,7 @@ const AgencySchema = new Schema({
 });
 
 const Agency = mongoose.model("Agency", AgencySchema);
-const AgencyTask = mongoose.model("AgencyTask", AgencyTaskSchema);
 const User = mongoose.model("User", UserSchema);
 const PendingUser = mongoose.model("PendingUser", PendingUserSchema);
 
-module.exports = { Agency, User, PendingUser, AgencyTask };
+module.exports = { Agency, User, PendingUser };

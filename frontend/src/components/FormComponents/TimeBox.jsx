@@ -107,7 +107,7 @@ class TimeBox extends Component {
 
     let styleClass = "number-field";
     if (valid !== undefined && !valid) {
-      styleClass += " form-invalid";
+      styleClass += " number-field-invalid";
     }
     return (
       <span className="time-input">

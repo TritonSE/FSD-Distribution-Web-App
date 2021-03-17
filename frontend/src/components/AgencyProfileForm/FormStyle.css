@@ -73,13 +73,6 @@ div.form-focus-gray {
   border-top: 3px solid #a0a0a0;
 }
 
-/* * * * Invalid input highlighting * * * */
-
-.form-invalid {
-  border-width: 2px;
-  border-color: #fc0808;
-}
-
 /* * * * Small button * * * */
 
 .small-button {

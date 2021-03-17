@@ -31,3 +31,7 @@
   font-style: italic;
   color: #cdcbd4;
 }
+
+.form-invalid {
+  border: 2px solid #fc0808;
+}

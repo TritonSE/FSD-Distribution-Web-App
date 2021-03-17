@@ -267,9 +267,9 @@ class AgencyProfileForm extends Component {
             if (data.fields) {
               let errors = data.fields.filter((x) => x !== null);
               this.setState({ errors: errors });
-              let message = `${errors.length} fields have errors!`;
+              let message = `${errors.length} errors found!`;
               if (errors.length === 1) {
-                message = "1 field has errors!";
+                message = "1 error found!";
               }
               alert(message);
             }
@@ -312,7 +312,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
-                  valid={this.isValid("agencyNumber")}
+                  valid={this.isValid("tableContent.agencyNumber")}
                 />
               </FormCol>
               <FormCol>
@@ -323,7 +323,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   required
                   wide
-                  valid={this.isValid("name")}
+                  valid={this.isValid("tableContent.name")}
                 />
               </FormCol>
             </FormRow>
@@ -348,7 +348,7 @@ class AgencyProfileForm extends Component {
                   stateKey="city"
                   onChange={this.handleInputChange}
                   required
-                  valid={this.isValid("city")}
+                  valid={this.isValid("tableContent.city")}
                 />
               </FormCol>
             </FormRow>
@@ -363,7 +363,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
-                  valid={this.isValid("status")}
+                  valid={this.isValid("tableContent.status")}
                 />
               </FormCol>
             </FormRow>
@@ -380,7 +380,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
-                  valid={this.isValid("region")}
+                  valid={this.isValid("tableContent.region")}
                 />
               </FormCol>
             </FormRow>
@@ -915,7 +915,7 @@ class AgencyProfileForm extends Component {
                   value={data.staff}
                   stateKey="staff"
                   onChange={this.handleInputChange}
-                  valid={this.isValid("staff")}
+                  valid={this.isValid("tableContent.staff")}
                 />
               </FormCol>
             </FormRow>

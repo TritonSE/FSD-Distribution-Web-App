@@ -1,0 +1,38 @@
+.select-boxes{
+    background: #F5F5F5;
+    border: 0.3px solid #000000;
+    box-sizing: border-box;
+    border-radius: 4px;
+    width: 43px;
+    height: 14px;
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    font-size: 10px;
+    flex: 5px 3px;
+    vertical-align: middle;
+}
+
+
+.clear-button{
+    flex: 0 1 auto;
+    display: flex;
+    width: 10px;
+    height: 10px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    font-size: 8px;
+    background: #F5F5F5;
+    font-weight: 700;
+    margin-left: auto;
+}
+
+.label-text {
+    flex: 0 1 auto;
+    position: absolute;
+    flex: 0 1 auto;
+    position: absolute;             /* new */
+    left: 50%;
+    transform: translateX(-50%);
+}

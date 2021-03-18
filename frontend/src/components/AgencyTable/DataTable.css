@@ -1,0 +1,45 @@
+.table {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+.table thead {
+  margin-bottom: 10000px;
+  border-bottom: 3px solid #54682f;
+  box-shadow: 2px 3px 2px #696969c5;
+}
+
+tbody:before {
+  content: "-";
+  display: block;
+  line-height: 1px;
+  text-indent: -99999px;
+}
+
+.table th {
+  background: #ffffff;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 19px;
+  color: #54682f;
+  width: 1219px;
+  height: 30px;
+}
+
+.table tr {
+  background: #f5f7f7;
+  width: 1219px;
+  height: 30px;
+  text-align: center;
+  border-bottom: 1px solid #e8eced;
+}
+
+.table tr:hover {
+  background-color: #ddd;
+}

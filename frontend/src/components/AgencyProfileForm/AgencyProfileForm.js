@@ -2,17 +2,18 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import FormSectionHeader from "./FormSectionHeader";
 import { FormRow, FormCol } from "./FormLayout";
-import InputText from "./InputText";
-import InputDate from "./InputDate";
-import InputDropdown from "./InputDropdown";
-import InputCheckboxList from "./InputCheckboxList";
-import InputIncrementerBoxList from "./InputIncrementerBoxList";
+import InputText from "../FormComponents/InputText";
+import InputDate from "../FormComponents/InputDate";
+import InputDropdown from "../FormComponents/InputDropdown";
+import CheckboxList from "./CheckboxList";
+import IncrementerBoxList from "./IncrementerBoxList";
+import FormButton from "../FormComponents/FormButton";
 import SmallButton from "./SmallButton";
 import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import DistributionDays from "./DistributionDays";
 import Calendar from "./DistributionCalendar/Calendar";
-import InlineDropdown from "./InlineDropdown";
+import InlineDropdown from "../FormComponents/InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
 import { getJWT } from "../../auth";
@@ -160,6 +161,9 @@ class AgencyProfileForm extends Component {
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 
+    // add empty list for agency tasks
+    data.tasks = [];
+
     return data;
   }
 
@@ -263,9 +267,9 @@ class AgencyProfileForm extends Component {
             if (data.fields) {
               let errors = data.fields.filter((x) => x !== null);
               this.setState({ errors: errors });
-              let message = `${errors.length} fields have errors!`;
+              let message = `${errors.length} errors found!`;
               if (errors.length === 1) {
-                message = "1 field has errors!";
+                message = "1 error found!";
               }
               alert(message);
             }
@@ -308,7 +312,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
-                  valid={this.isValid("agencyNumber")}
+                  valid={this.isValid("tableContent.agencyNumber")}
                 />
               </FormCol>
               <FormCol>
@@ -319,7 +323,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   required
                   wide
-                  valid={this.isValid("name")}
+                  valid={this.isValid("tableContent.name")}
                 />
               </FormCol>
             </FormRow>
@@ -344,7 +348,7 @@ class AgencyProfileForm extends Component {
                   stateKey="city"
                   onChange={this.handleInputChange}
                   required
-                  valid={this.isValid("city")}
+                  valid={this.isValid("tableContent.city")}
                 />
               </FormCol>
             </FormRow>
@@ -354,12 +358,12 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
-                  initial={data.status}
+                  value={data.status}
                   stateKey="status"
                   onChange={this.handleInputChange}
                   leftmost
                   required
-                  valid={this.isValid("status")}
+                  valid={this.isValid("tableContent.status")}
                 />
               </FormCol>
             </FormRow>
@@ -376,7 +380,7 @@ class AgencyProfileForm extends Component {
                   onChange={this.handleInputChange}
                   leftmost
                   required
-                  valid={this.isValid("region")}
+                  valid={this.isValid("tableContent.region")}
                 />
               </FormCol>
             </FormRow>
@@ -476,7 +480,7 @@ class AgencyProfileForm extends Component {
                   symbol="+"
                   onClick={this.addAddress}
                 />
-                {this.state.additionalAddresses.length > 1 && (
+                {data.additionalAddresses.length > 1 && (
                   <SmallButton
                     text="Remove Address"
                     symbol="-"
@@ -503,7 +507,7 @@ class AgencyProfileForm extends Component {
                   symbol="+"
                   onClick={this.addContact}
                 />
-                {this.state.contacts.length > 1 && (
+                {data.contacts.length > 1 && (
                   <SmallButton
                     text="Remove Contact"
                     symbol="-"
@@ -685,7 +689,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
             <FormRow>
               <FormCol>
-                <InputCheckboxList
+                <CheckboxList
                   label="Check Boxes if Available/Correct."
                   onChange={this.handleInputChange}
                   options={[
@@ -724,7 +728,7 @@ class AgencyProfileForm extends Component {
             <FormSectionHeader title="Capacity" />
             <FormRow>
               <FormCol>
-                <InputIncrementerBoxList
+                <IncrementerBoxList
                   label="Storage and Type:"
                   subLabel="Select Quantity if Storage Type is Available"
                   options={[
@@ -797,7 +801,7 @@ class AgencyProfileForm extends Component {
 
             <FormRow>
               <FormCol>
-                <InputIncrementerBoxList
+                <IncrementerBoxList
                   label="Transport and Type:"
                   subLabel="Select Quantity if Transport Type is Available"
                   options={[
@@ -825,7 +829,7 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <FormSectionHeader title="Retail Rescue" />
-            <InputCheckboxList
+            <CheckboxList
               label={null}
               options={[
                 {
@@ -840,7 +844,7 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <FormSectionHeader title="Demographics" />
-            <InputCheckboxList
+            <CheckboxList
               label="Check Boxes if Applicable."
               options={[
                 {
@@ -908,10 +912,10 @@ class AgencyProfileForm extends Component {
                 <InlineDropdown
                   label={null}
                   options={["Mia", "Charlie", "Eli", "Kate"]}
-                  initial={this.state.staff}
+                  value={data.staff}
                   stateKey="staff"
                   onChange={this.handleInputChange}
-                  valid={this.isValid("staff")}
+                  valid={this.isValid("tableContent.staff")}
                 />
               </FormCol>
             </FormRow>
@@ -919,20 +923,18 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <div className="form-button-container">
-              <button
-                type="button"
-                className="form-button-submit"
+              <FormButton
+                title={
+                  this.props.editSection ? "Save Profile" : "Create Profile"
+                }
+                type="primary"
                 onClick={this.submitForm}
-              >
-                {this.props.editSection ? "Save Profile" : "Create Profile"}
-              </button>
-              <button
-                type="button"
-                className="form-button-cancel"
+              />
+              <FormButton
+                title="Cancel"
+                type="secondary"
                 onClick={this.cancelForm}
-              >
-                Cancel
-              </button>
+              />
             </div>
           </div>
         </form>

@@ -1,5 +1,4 @@
 import InputText from "./InputText";
-import "./FormStyle.css";
 
 /**
  * InputDate is a subclass of InputText that only accepts date strings in the

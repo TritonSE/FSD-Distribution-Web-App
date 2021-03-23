@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./FormStyle.css";
+import "./TimeBoxes.css";
 
 /**
  * TimeBox is a time input field (actually multiple boxes - hour, minute, and
@@ -107,7 +107,7 @@ class TimeBox extends Component {
 
     let styleClass = "number-field";
     if (valid !== undefined && !valid) {
-      styleClass += " form-invalid";
+      styleClass += " number-field-invalid";
     }
     return (
       <span className="time-input">

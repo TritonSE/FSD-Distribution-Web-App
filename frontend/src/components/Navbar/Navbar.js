@@ -5,14 +5,14 @@ import { logout } from "../../auth";
 
 const MenuItems = [
   {
-    title: 'Home',
-    url: '/',
-    className: 'nav-links'
+    title: "Home",
+    url: "/",
+    className: "nav-links",
   },
   {
-    title: 'Agency',
-    url: '/agency',
-    className: 'nav-links'
+    title: "Agency",
+    url: "/agency",
+    className: "nav-links",
   },
 ];
 
@@ -26,7 +26,7 @@ const Navbar = (props) => {
     logout();
     history.push("/");
     props.changeIsLogged(false);
-  }
+  };
 
   /**
    * Used a prop to force-render of the navigation bar after successful user login
@@ -34,27 +34,29 @@ const Navbar = (props) => {
    * Otherwise, replace logout with login in the navigation bar.
    */
   let menuItem = null;
-  props.isLogged ? menuItem = (
-    <li>
-      <Link className="nav-links" as={Link} to="#" onClick={handleLogout}>
-        Logout
-      </Link>
-    </li>
-  ) : menuItem = (
-    <li>
-      <Link className="nav-links" as={Link} to="/login">
-        Login
-      </Link>
-    </li>
-  );
+  props.isLogged
+    ? (menuItem = (
+        <li>
+          <Link className="nav-links" as={Link} to="#" onClick={handleLogout}>
+            Logout
+          </Link>
+        </li>
+      ))
+    : (menuItem = (
+        <li>
+          <Link className="nav-links" as={Link} to="/login">
+            Login
+          </Link>
+        </li>
+      ));
 
   return (
     <div>
       <div className="logo-container">
-        <img src="fsd_logo300.png" alt="feedLogo" id="logo"></img>
+        <img src="/fsd_logo300.png" alt="feedLogo" id="logo"></img>
       </div>
       <nav className="NavbarItems">
-        <ul className='nav-menu'>
+        <ul className="nav-menu">
           {MenuItems.map((item, index) => {
             return (
               <li key={index}>
@@ -62,13 +64,13 @@ const Navbar = (props) => {
                   {item.title}
                 </Link>
               </li>
-            )
+            );
           })}
           {menuItem}
         </ul>
       </nav>
     </div>
   );
-}
+};
 
 export default Navbar;

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { FormRow, FormCol } from "./FormLayout";
-import IncrementerBoxColumn from "./IncrementerBoxColumn";
+import IncrementerBoxColumn from "../FormComponents/IncrementerBoxColumn";
 import "./FormStyle.css";
 
 /**
- * InputIncrementerBoxList is a container for a column or columns of incrementer
+ * IncrementerBoxList is a container for a column or columns of incrementer
  * boxes as one group/set in the agency form. It handles changes made by the
  * user to any of its incrementer boxes, and passes those changes up to the form
  * page's callback.
@@ -20,7 +20,7 @@ import "./FormStyle.css";
  * - {Boolean} twoColumns: whether the incrementer box group should be split
  * into two columns
  */
-class InputIncrementerBoxList extends Component {
+class IncrementerBoxList extends Component {
   render() {
     const { twoColumns, label, subLabel, options, onChange } = this.props;
     let listColumns = null;
@@ -71,4 +71,4 @@ class InputIncrementerBoxList extends Component {
   }
 }
 
-export default InputIncrementerBoxList;
+export default IncrementerBoxList;

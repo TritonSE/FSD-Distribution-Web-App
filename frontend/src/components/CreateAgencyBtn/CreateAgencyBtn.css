@@ -6,28 +6,20 @@
   justify-content: space-between;
 }
 
-/* Remove button outline when clicked */
-.create-agency-btn:focus {
-  outline: none;
+/* Plus sign in circle icon */
+
+.icon-circle-plus {
+  margin-right: 3px;
 }
 
-/* Styling for circular div element and plus sign */
-.res-circle {
-  background: #ffffff;
-  border: 2px solid #54682f;
-  color: #54682f;
-  border-radius: 50%;
-  text-align: center;
-  width: 25px;
-  height: 25px;
-  font-size: 2em;
-  margin-right: 6.35px;
-  position: relative;
-  line-height: 20px;
+.icon-circle-plus > * {
+  stroke: #54682f;
+  stroke-width: 3px;
+  fill-opacity: 0;
 }
 
 /* Styling for button text */
-button span {
+.create-agency-btn > span {
   font-family: Roboto;
   font-style: normal;
   font-weight: 500;

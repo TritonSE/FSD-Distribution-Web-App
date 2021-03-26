@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./FormStyle.css";
+import "./Checkboxes.css";
+import "./TextStyles.css";
 
 /**
  * Checkbox is a custom checkbox component, including a label. It replaces
@@ -8,18 +9,18 @@ import "./FormStyle.css";
  * Expected props:
  * - {Boolean} isChecked: whether it should be currently checked
  * - {String} label: text to display next to the checkbox
- * - {Number} index: index to pass into the onChange callback
+ * - {String} stateKey: key to use in the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a
- * Number
+ * String and a Boolean
  */
 class Checkbox extends Component {
   /**
-   * Callback function to handle toggling the checkbox. Passes the index prop
-   * up to the onChange callback.
+   * Callback function to handle toggling the checkbox. Calls onChange with
+   * new boolean value.
    */
   onChange = () => {
-    const { index, onChange } = this.props;
-    onChange(index);
+    const { isChecked, stateKey, onChange } = this.props;
+    onChange(stateKey, !isChecked);
   };
 
   render() {

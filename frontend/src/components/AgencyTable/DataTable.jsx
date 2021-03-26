@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './DataTable.css';
-import { Link } from "react-router-dom";
 
 function DataTable({ data }) {
   //console.log(data[0].tableContent);

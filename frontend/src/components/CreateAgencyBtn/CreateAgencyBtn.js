@@ -14,9 +14,18 @@ function CreateAgencyBtn() {
 
   return (
     <button type="button" className="create-agency-btn" onClick={handleClick}>
-      <div className="res-circle">
-        <strong>+</strong>
-      </div>
+      <svg
+        className="icon-circle-plus"
+        width="25"
+        height="25"
+        viewBox="0 0 25 25"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="12" cy="12" r="11" />
+        <line x1="4" y1="12" x2="20" y2="12" />
+        <line x1="12" y1="4" x2="12" y2="20" />
+      </svg>
       <span>Create New Agency Profile</span>
     </button>
   );

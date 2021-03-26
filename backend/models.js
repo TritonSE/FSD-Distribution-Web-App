@@ -1,307 +1,373 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-  }
+  },
 });
 
-// TODO: Hash passwords
+const PendingUserSchema = new Schema({
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+PendingUserSchema.pre("save", function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = bcrypt.hashSync(user.password, 10);
+  }
+  return next();
+});
+
 UserSchema.methods.verifyPassword = function (password) {
-  return password === this.password;
+  return bcrypt.compareSync(password, this.password);
 };
 
 const TableContentSchema = new Schema({
   agencyNumber: {
     type: Number,
-    required: true
+    required: true,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   status: {
     type: String,
-    required: true
+    required: true,
   },
   region: {
     type: String,
-    required: true
+    required: true,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   phone: {
     type: String,
-    required: true
+    required: true,
   },
   staff: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const ContactSchema = new Schema({
   contact: {
     type: String,
-    required: true
+    required: true,
   },
   position: {
     type: String,
-    required: true
+    required: true,
   },
   phoneNumber: {
-    type: String
+    type: String,
+    required: true,
   },
   email: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const DistributionDaysSchema = new Schema({
   monday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   tuesday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   wednesday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   thursday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   friday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   saturday: {
     type: Boolean,
-    required: true
+    required: true,
   },
   sunday: {
     type: Boolean,
-    required: true
-  }
+    required: true,
+  },
+});
+
+const DistributionTimesSchema = new Schema({
+  monday: {
+    type: String,
+  },
+  tuesday: {
+    type: String,
+  },
+  wednesday: {
+    type: String,
+  },
+  thursday: {
+    type: String,
+  },
+  friday: {
+    type: String,
+  },
+  saturday: {
+    type: String,
+  },
+  sunday: {
+    type: String,
+  },
+});
+
+const AgencyTaskSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  dueDate: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
 });
 
 const AgencySchema = new Schema({
   /**
    * Accessing the TableContentSchema
-   * 
+   *
    * Ex. tableContent.name
    */
   tableContent: {
     type: TableContentSchema,
-    required: true
-  },
-  primaryContact: {
-    type: String,
-    required: true
+    required: true,
   },
   mainSiteAddress: {
     type: String,
-    required: true
+    required: true,
   },
   sanDiegoDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   countyDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   stateAssemblyDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   stateSenateDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   federalCongressionalDistrict: {
     type: String,
-    required: true
+    required: true,
   },
   additionalAddresses: {
     type: [String],
   },
   billingAddress: {
     type: String,
-    required: true
+    required: true,
   },
   billingZipcode: {
     type: String,
-    required: true
+    required: true,
   },
 
   /* Contacts Section */
   contacts: {
     type: [ContactSchema],
-    required: true
+    required: true,
   },
 
   /* Compliance Section */
   scheduledNextVisit: {
     type: String,
-    required: true
+    required: true,
   },
   dateOfMostRecentAgreement: {
     type: String,
-    required: true
+    required: true,
   },
   dateOfInitialPartnership: {
     type: String,
-    required: true
+    required: true,
   },
   fileAudit: {
-    type: String
+    type: String,
   },
   monitored: {
     type: String,
-    required: true
+    required: true,
   },
   foodSafetyCertification: {
     type: String,
-    required: true
+    required: true,
   },
 
   /* Distribution Section */
   distributionDays: {
     type: DistributionDaysSchema,
-    required: true
+    required: true,
+  },
+  distributionStartTimes: {
+    type: DistributionTimesSchema,
+    required: true,
+  },
+  distributionStartDate: {
+    type: String,
+    required: true,
   },
   distributionFrequency: {
-    type: String,
-    required: true
+    type: Number,
+    required: true,
   },
-  distributionHours: {
-    type: String
+  userSelectedDates: {
+    type: [String],
+  },
+  userExcludedDates: {
+    type: [String],
   },
 
   // Checkboxes for Distribution Section
   pantry: {
-    type: Boolean
+    type: Boolean,
   },
   mealProgram: {
-    type: Boolean
+    type: Boolean,
   },
   homeboundDeliveryPartner: {
-    type: Boolean
+    type: Boolean,
   },
   largeScaleDistributionSite: {
-    type: Boolean
+    type: Boolean,
   },
   residentialFacility: {
-    type: Boolean
+    type: Boolean,
   },
 
   /* Capacity Section */
   // Storage Type
   standAloneFreezer: {
-    type: Number
+    type: Number,
   },
   freezerFridge: {
-    type: Number
+    type: Number,
   },
   chestFreezer: {
-    type: Number
+    type: Number,
   },
   singleDoorFreezer: {
-    type: Number
+    type: Number,
   },
   freezerFridgeCombo: {
-    type: Number
+    type: Number,
   },
   walkInFreezer: {
-    type: Number
+    type: Number,
   },
   doubleDoorFridge: {
-    type: Number
+    type: Number,
   },
   sideBySideFridge: {
-    type: Number
+    type: Number,
   },
   singleDoorFridge: {
-    type: Number
+    type: Number,
   },
   walkInFridge: {
-    type: Number
+    type: Number,
   },
   dryStorageClimateControl: {
-    type: Number
+    type: Number,
   },
   dryStorageNonClimateControl: {
-    type: Number
+    type: Number,
   },
 
   // Transportation Type
   pickUpTruck: {
-    type: Number
+    type: Number,
   },
   van: {
-    type: Number
+    type: Number,
   },
   car: {
-    type: Number
+    type: Number,
   },
 
   /* Retail Rescue Section */
-  retailRescue: {
-    type: Boolean
-  },
-  preparedFoodCapacity: {
-    type: Boolean
-  },
-  capacityWithRRD: {
-    type: Boolean
+  retailRescueAvailable: {
+    type: Boolean,
   },
 
   /* Demographics Section */
   youth: {
-    type: Boolean
+    type: Boolean,
   },
   senior: {
-    type: Boolean
+    type: Boolean,
   },
   homeless: {
-    type: Boolean
+    type: Boolean,
   },
   veteran: {
-    type: Boolean
+    type: Boolean,
   },
   healthcare: {
-    type: Boolean
+    type: Boolean,
   },
   college: {
-    type: Boolean
+    type: Boolean,
   },
   disabilitySpecific: {
-    type: Boolean
+    type: Boolean,
   },
   residential: {
-    type: Boolean
+    type: Boolean,
   },
   immigrant: {
-    type: Boolean
-  }
+    type: Boolean,
+  },
+
+  /* Agency tasks */
+  tasks: {
+    type: [AgencyTaskSchema],
+  },
 });
 
-const Agency = mongoose.model('Agency', AgencySchema);
-const User = mongoose.model('User', UserSchema);
+const Agency = mongoose.model("Agency", AgencySchema);
+const User = mongoose.model("User", UserSchema);
+const PendingUser = mongoose.model("PendingUser", PendingUserSchema);
 
-module.exports = { Agency, User }
+module.exports = { Agency, User, PendingUser };

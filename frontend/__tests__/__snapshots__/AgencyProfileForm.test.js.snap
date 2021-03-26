@@ -35,7 +35,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Agency Number
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -60,7 +60,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Agency Name
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -89,7 +89,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Main Site Address
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -114,7 +114,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               City
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -143,7 +143,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Agency Status
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -202,7 +202,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Region
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -231,7 +231,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               San Diego District
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -256,7 +256,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               County District
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -281,7 +281,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               State Assembly District
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -310,7 +310,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               State Senate District
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -335,7 +335,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Federal Congressional District
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -384,7 +384,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Billing Address
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -409,7 +409,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Billing Zipcode
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -477,7 +477,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               >
                 Contact
                 <h3
-                  className="form-input-label asterisk"
+                  className="asterisk"
                 >
                    *
                 </h3>
@@ -502,7 +502,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               >
                 Position
                 <h3
-                  className="form-input-label asterisk"
+                  className="asterisk"
                 >
                    *
                 </h3>
@@ -527,7 +527,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               >
                 Phone #
                 <h3
-                  className="form-input-label asterisk"
+                  className="asterisk"
                 >
                    *
                 </h3>
@@ -556,7 +556,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               >
                 Email
                 <h3
-                  className="form-input-label asterisk"
+                  className="asterisk"
                 >
                    *
                 </h3>
@@ -622,7 +622,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Scheduled Next Visit
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -647,7 +647,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Date of Most Recent Agreement
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -672,7 +672,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Date of Initial Partnership
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -721,7 +721,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Monitored
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -746,7 +746,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             >
               Food Safety Certification
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
@@ -780,42 +780,535 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           className="form-col"
         >
           <div
-            className="form-input"
+            className="form-input selection-choice form-col-width"
           >
             <label
               className="form-input-label"
             >
-              Distribution Day(s)
+              Distribution Days and Start Times
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
               >
                  *
               </h3>
             </label>
-            <div
-              className="dropdown-wrapper"
-            >
-              <button
-                className="form-input-box selection-choice"
-                onClick={[Function]}
-                type="button"
+            <div>
+              <label
+                className="custom-checkbox"
               >
-                1 selected
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
                 <svg
                   aria-hidden="true"
-                  className="icon-triangle"
                   focusable="false"
-                  height="10"
-                  viewBox="0 0 12 10"
-                  width="12"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
                 >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
                   <polyline
-                    fill="#545252"
-                    points="0,0 12,0 6,10"
-                    stroke="none"
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
                   />
                 </svg>
-              </button>
+                <span>
+                  Monday
+                </span>
+              </label>
+              <span
+                className="time-input"
+              >
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                :
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                 
+                <select
+                  onChange={[Function]}
+                  value="AM"
+                >
+                  <option>
+                    AM
+                  </option>
+                  <option>
+                    PM
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Tuesday
+                </span>
+              </label>
+              <span
+                className="time-input"
+              >
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                :
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                 
+                <select
+                  onChange={[Function]}
+                  value="AM"
+                >
+                  <option>
+                    AM
+                  </option>
+                  <option>
+                    PM
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Wednesday
+                </span>
+              </label>
+              <span
+                className="time-input"
+              >
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                :
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                 
+                <select
+                  onChange={[Function]}
+                  value="AM"
+                >
+                  <option>
+                    AM
+                  </option>
+                  <option>
+                    PM
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Thursday
+                </span>
+              </label>
+              <span
+                className="time-input"
+              >
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                :
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                 
+                <select
+                  onChange={[Function]}
+                  value="AM"
+                >
+                  <option>
+                    AM
+                  </option>
+                  <option>
+                    PM
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Friday
+                </span>
+              </label>
+              <span
+                className="time-input"
+              >
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                :
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                 
+                <select
+                  onChange={[Function]}
+                  value="AM"
+                >
+                  <option>
+                    AM
+                  </option>
+                  <option>
+                    PM
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Saturday
+                </span>
+              </label>
+              <span
+                className="time-input"
+              >
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                :
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                 
+                <select
+                  onChange={[Function]}
+                  value="AM"
+                >
+                  <option>
+                    AM
+                  </option>
+                  <option>
+                    PM
+                  </option>
+                </select>
+              </span>
+            </div>
+            <div>
+              <label
+                className="custom-checkbox"
+              >
+                <input
+                  checked={false}
+                  onChange={[Function]}
+                  type="checkbox"
+                />
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  height="23"
+                  viewBox="0 0 23 23"
+                  width="23"
+                >
+                  <rect
+                    className="custom-checkbox-bg"
+                    fill="none"
+                    height="23"
+                    rx="2"
+                    ry="2"
+                    stroke="#000000"
+                    strokeWidth="1"
+                    width="23"
+                    x="0"
+                    y="0"
+                  />
+                  <polyline
+                    className="custom-checkbox-checkmark"
+                    fill="none"
+                    points="4,12 10,17 20,5"
+                    stroke="transparent"
+                    strokeWidth="4"
+                  />
+                </svg>
+                <span>
+                  Sunday
+                </span>
+              </label>
+              <span
+                className="time-input"
+              >
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                :
+                <input
+                  className="number-field"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  placeholder="00"
+                  type="text"
+                  value=""
+                />
+                 
+                <select
+                  onChange={[Function]}
+                  value="AM"
+                >
+                  <option>
+                    AM
+                  </option>
+                  <option>
+                    PM
+                  </option>
+                </select>
+              </span>
             </div>
           </div>
         </div>
@@ -828,9 +1321,30 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             <label
               className="form-input-label"
             >
-              Distribution Frequency
+              Start Date
               <h3
-                className="form-input-label asterisk"
+                className="asterisk"
+              >
+                 *
+              </h3>
+            </label>
+            <input
+              className="form-input-box selection-choice"
+              onChange={[Function]}
+              placeholder="MM/DD/YYYY"
+              type="text"
+              value=""
+            />
+          </div>
+          <div
+            className="form-input form-col-gutter"
+          >
+            <label
+              className="form-input-label"
+            >
+              Weekly Frequency
+              <h3
+                className="asterisk"
               >
                  *
               </h3>
@@ -840,7 +1354,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               onChange={[Function]}
               placeholder={null}
               type="text"
-              value=""
+              value="1"
             />
           </div>
         </div>
@@ -848,20 +1362,441 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
           className="form-col"
         >
           <div
-            className="form-input form-col-gutter"
+            className="calendar-container"
           >
             <label
-              className="form-input-label"
+              className="calendar-label"
             >
-              Distribution Hours
+              Customize Distribution Schedule
             </label>
-            <input
-              className="form-input-box selection-choice"
-              onChange={[Function]}
-              placeholder={null}
-              type="text"
-              value=""
-            />
+            <div
+              className="calendar"
+            >
+              <div
+                className="header"
+              >
+                <div
+                  className="previous"
+                  onClick={null}
+                />
+                <div
+                  className="current"
+                >
+                  March
+                </div>
+                <div
+                  className="next"
+                  onClick={[Function]}
+                >
+                  <div
+                    className="arrow"
+                  />
+                </div>
+              </div>
+              <div
+                className="body"
+              >
+                <div
+                  className="day-names"
+                >
+                  <div
+                    className="week"
+                  >
+                    SUN
+                  </div>
+                  <div
+                    className="week"
+                  >
+                    MON
+                  </div>
+                  <div
+                    className="week"
+                  >
+                    TUE
+                  </div>
+                  <div
+                    className="week"
+                  >
+                    WED
+                  </div>
+                  <div
+                    className="week"
+                  >
+                    THU
+                  </div>
+                  <div
+                    className="week"
+                  >
+                    FRI
+                  </div>
+                  <div
+                    className="week"
+                  >
+                    SAT
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className="extraneous"
+                      onClick={[Function]}
+                    >
+                      28
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      01
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      02
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      03
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      04
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      05
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      06
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      07
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      08
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      09
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      10
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      11
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      12
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      13
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      14
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      15
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      16
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      17
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      18
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      19
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      20
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      21
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      22
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      23
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      24
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      25
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      26
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      27
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      28
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      29
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      30
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className=""
+                      onClick={[Function]}
+                    >
+                      31
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className="extraneous"
+                      onClick={[Function]}
+                    >
+                      01
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className="extraneous"
+                      onClick={[Function]}
+                    >
+                      02
+                    </div>
+                  </div>
+                  <div
+                    className="day"
+                  >
+                    <div
+                      className="extraneous"
+                      onClick={[Function]}
+                    >
+                      03
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -880,7 +1815,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               Check Boxes if Available/Correct.
             </label>
             <div
-              className="checkbox-list-column selection-choice"
+              className="checkbox-column selection-choice"
             >
               <label
                 className="custom-checkbox"
@@ -1121,7 +2056,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
                 className="form-col"
               >
                 <div
-                  className="incrementer-box-list-column selection-choice"
+                  className="incrementer-box-column selection-choice"
                 >
                   <label
                     className="incrementer-box"
@@ -1357,7 +2292,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
                 className="form-col"
               >
                 <div
-                  className="incrementer-box-list-column selection-choice"
+                  className="incrementer-box-column selection-choice"
                 >
                   <label
                     className="incrementer-box"
@@ -1615,7 +2550,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               </span>
             </label>
             <div
-              className="incrementer-box-list-column selection-choice"
+              className="incrementer-box-column selection-choice"
             >
               <label
                 className="incrementer-box"
@@ -1750,13 +2685,8 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
       <div
         className="form-input"
       >
-        <label
-          className="form-input-list-header"
-        >
-          Check Boxes if Available.
-        </label>
         <div
-          className="checkbox-list-column selection-choice"
+          className="checkbox-column selection-choice"
         >
           <label
             className="custom-checkbox"
@@ -1794,85 +2724,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
               />
             </svg>
             <span>
-              Retail Rescue
-            </span>
-          </label>
-          <label
-            className="custom-checkbox"
-          >
-            <input
-              checked={false}
-              onChange={[Function]}
-              type="checkbox"
-            />
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="23"
-              viewBox="0 0 23 23"
-              width="23"
-            >
-              <rect
-                className="custom-checkbox-bg"
-                fill="none"
-                height="23"
-                rx="2"
-                ry="2"
-                stroke="#000000"
-                strokeWidth="1"
-                width="23"
-                x="0"
-                y="0"
-              />
-              <polyline
-                className="custom-checkbox-checkmark"
-                fill="none"
-                points="4,12 10,17 20,5"
-                stroke="transparent"
-                strokeWidth="4"
-              />
-            </svg>
-            <span>
-              Prepared Food Capacity
-            </span>
-          </label>
-          <label
-            className="custom-checkbox"
-          >
-            <input
-              checked={false}
-              onChange={[Function]}
-              type="checkbox"
-            />
-            <svg
-              aria-hidden="true"
-              focusable="false"
-              height="23"
-              viewBox="0 0 23 23"
-              width="23"
-            >
-              <rect
-                className="custom-checkbox-bg"
-                fill="none"
-                height="23"
-                rx="2"
-                ry="2"
-                stroke="#000000"
-                strokeWidth="1"
-                width="23"
-                x="0"
-                y="0"
-              />
-              <polyline
-                className="custom-checkbox-checkmark"
-                fill="none"
-                points="4,12 10,17 20,5"
-                stroke="transparent"
-                strokeWidth="4"
-              />
-            </svg>
-            <span>
-              Capacity with RR with Delivery
+              Available
             </span>
           </label>
         </div>
@@ -1904,7 +2756,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             className="form-col"
           >
             <div
-              className="checkbox-list-column selection-choice"
+              className="checkbox-column selection-choice"
             >
               <label
                 className="custom-checkbox"
@@ -2107,7 +2959,7 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
             className="form-col"
           >
             <div
-              className="checkbox-list-column selection-choice"
+              className="checkbox-column selection-choice"
             >
               <label
                 className="custom-checkbox"
@@ -2333,14 +3185,14 @@ exports[`AgencyProfileForm.render renders correctly for adding a new agency 1`] 
         className="form-button-container"
       >
         <button
-          className="form-button-submit"
+          className="form-button-primary"
           onClick={[Function]}
           type="button"
         >
           Create Profile
         </button>
         <button
-          className="form-button-cancel"
+          className="form-button-secondary"
           onClick={[Function]}
           type="button"
         >

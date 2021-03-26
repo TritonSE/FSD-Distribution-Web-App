@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
-import "./FormStyle.css";
+import "./Checkboxes.css";
+import "./TextStyles.css";
 
 /**
  * CheckboxColumn is a container for Checkbox components in a single column.
@@ -9,25 +10,23 @@ import "./FormStyle.css";
  *
  * Expected props:
  * - {Array<Object>} options: list of objects containing data about each
- * checkbox option (title and whether it is currently selected)
- * - {Number} indexBuffer: value to add to indices (accounts for multiple
- * columns)
+ * checkbox option (title, whether it is currently selected, and state key)
  * - {Function} onChange: callback to handle input changes, should take a
- * Number
+ * String and a Boolean
  */
 
 class CheckboxColumn extends Component {
   render() {
-    const { indexBuffer, onChange, options } = this.props;
+    const { onChange, options } = this.props;
     return (
-      <div className="checkbox-list-column selection-choice">
+      <div className="checkbox-column selection-choice">
         {options.map((item, index) => {
           return (
             <Checkbox
               key={index}
               label={item.title}
-              index={index + indexBuffer}
               isChecked={item.selected}
+              stateKey={item.stateKey}
               onChange={onChange}
             />
           );

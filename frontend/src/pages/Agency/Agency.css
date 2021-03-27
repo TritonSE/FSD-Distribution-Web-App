@@ -51,10 +51,9 @@
   border-radius: 2px;
   width: 200px;
 } */
-.selects-container{
+.selects-container {
   display: flex;
 }
-
 
 #clearall {
   background: none;
@@ -73,6 +72,10 @@
   outline: none;
 }
 
+.agency-table {
+  padding-bottom: 10vh;
+}
+
 .data-table-container {
   margin: auto;
   width: 80%;
@@ -86,6 +89,6 @@
   text-align: center;
 }
 
-.selected-filter{
-  display:flex;
+.selected-filter {
+  display: flex;
 }

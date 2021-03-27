@@ -215,8 +215,6 @@ if (!isAuthenticated()) {
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transport" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Storage" />
-
-
         </div>
 
         <Selected filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate}/>

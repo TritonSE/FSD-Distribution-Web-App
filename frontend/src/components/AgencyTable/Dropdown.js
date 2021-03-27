@@ -30,7 +30,7 @@ return (
       {   
         Object.keys(filters[option]).map(key => (
           <label htmlFor={key} key = {key}>
-          <input type="checkbox" key={key} id={key} onChange={(e) => 
+            <input type="checkbox" key={key} id={key} onChange={(e) => 
             {let newStat = !(filters[option][key]); 
             newStat ? selected[key] = option : delete selected[key]; 
             changeSelected(selected); 

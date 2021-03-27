@@ -1,68 +1,87 @@
-
- form{
+form {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
 .multiselect {
-  width: 95px;
-  height: 27px;
+  /*width: 95px;*/
+  /*height: 27px;*/
   margin-right: 1em;
-  border: 2px solid #000000;
   box-sizing: border-box;
   border-radius: 2px;
-
 }
-.selectBox{
-    position: relative;
-    width: 91px;
-    height: 23px;
-  }
-  
-  .selectBox select{
-    width: 100%;
-    height: 23px;
-  }
+.selectBox {
+  position: relative;
+  width: 91px;
+  height: 23px;
+}
 
-  option {
-    text-align: center;
-  }
-  /* .overSelect {
+.selectBox select {
+  border: 2.5px solid #666464;
+  border-radius: 2px;
+}
+
+.selectBox select {
+  width: 100%;
+  height: 23px;
+}
+
+option {
+  text-align: center;
+}
+/* .overSelect {
     position: absolute;
   } */
-  
-  .checkboxes {
-    position: absolute;
-    display: none;
-    border: 1px #dadada solid;
-    width: 95px;
-    z-index: 200;
-    background-color: #F5F7F7;
-    user-select:none;
-  }
-  
-  .checkboxes label{
-    display: block;
-    font-size: 12px;
-    margin-left: 6px;
-  }
 
-  .checkboxes input{
-    margin-right: 0.2rem;
-  }
-  
-  .checkboxes label:hover {
-    text-decoration: underline #1e90ff;
-  }
-  
-  select[disabled] {
-    color: black;
-    text-decoration: none;
-  }
+.checkboxes {
+  position: absolute;
+  display: none;
+  min-width: 90px;
+  width: auto;
+  z-index: 200;
+  background: #f3f3f3;
+  user-select: none;
+  padding: 0.5em;
+}
 
-  .overSelect {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-  }
+.checkboxes label {
+  display: block;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+.checkboxes input {
+  margin-right: 0.5rem;
+  appearance: none;
+  width: 7px;
+  height: 7px;
+  outline: 0.5px solid black;
+  background: #ffffff;
+  outline-offset: 1px;
+}
+
+.checkboxes input:focus {
+  outline: 1px solid black;
+}
+
+.checkboxes input:active,
+.checkboxes input:checked {
+  background: #545252;
+  outline: 1px solid black;
+}
+
+.checkboxes label:hover {
+  text-decoration: underline #1e90ff;
+}
+
+select[disabled] {
+  color: black;
+  text-decoration: none;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

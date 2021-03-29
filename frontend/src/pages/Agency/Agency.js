@@ -30,6 +30,27 @@ let fOptions = {
 
   "Joined In": {},
 
+  "Transport": {
+    Car: false,
+    "Pickup Truck": false,
+    Van: false,
+  },
+
+  "Storage":{
+    "Stand Alone Freezer": false,
+    "Freezer Fridge": false,
+    "Chest Freezer": false,
+    "Single Door Freezer": false,
+    "Freezer Fridge Combo": false,
+    "Walk In Freezer": false,
+    "Double Door Fridge": false, 
+    "Side By Side Fridge":false,
+    "Single Door Fridge": false,
+    "Walk In Fridge": false,
+    "Dry Storage Climate Control": false,
+    "Dry Storage Non Climate Control": false,
+  }
+
 };
 
 
@@ -37,7 +58,7 @@ function AgencyTable() {
   const [data, setData] = useState([]);
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState(2);
+  const [entriesPerPage] = useState(5);
   const [selected, setSelected] = useState({});
 
   //const[checkboxes, setCheckboxes] = useState();
@@ -47,11 +68,22 @@ function AgencyTable() {
     .then(res => res.json())
     .then(data => {
       setData(data.data);
+      //fill in the filter options
       for(let dat of data.data){
+        console.log(dat);
         if(!(filters.staff.hasOwnProperty(dat.tableContent.staff))){
           filters.staff[dat.tableContent.staff] = false;
         }
-    }; setFilter({...filters})})
+        if(dat.tableContent.dateOfInitialPartnership){
+        if(!(filters["Joined In"].hasOwnProperty(dat.tableContent.dateOfInitialPartnership.substring(6)))){
+  
+            let year = dat.tableContent.dateOfInitialPartnership.substring(6);
+            filters["Joined In"][year] = false;
+          console.log(filters);
+        }
+      }
+
+    }; console.log(filters); setFilter({...filters})})
     .catch(err => {
       console.log(err);
     });
@@ -75,7 +107,6 @@ function AgencyTable() {
  * Page that contains a table that lists out all the agencies pulled from database
  */
 function checkOptions(row, filters){
-  //console.log(filters);
   for(let option in filters){
     if(option == "search") {
       let found = false;
@@ -102,8 +133,41 @@ function checkStatuses(row, filters, option){
   let runCount = 0;
   for(var key in filters[option]){
     runCount++;
-    if(filters[option][key]){
-      if(row.tableContent[option].toLowerCase().indexOf(key.toLowerCase()) > -1){
+    if(filters[option][key] == true){
+      if(option == "Storage"){
+        //storage names are formatted differently in database
+        let storageKey = key;
+        storageKey = storageKey.charAt(0).toLowerCase() + storageKey.slice(1);
+        //regex to replace remove spaces between strings
+        storageKey = storageKey.replace(/ +/g, "");
+        console.log(storageKey);
+        console.log(row.tableContent[storageKey]);
+        if(row.tableContent[storageKey] > 0){
+          return true;
+        }
+        continue;
+      }
+      if(option == "Transportation"){
+        let transportKey = key.toLowerCase();
+        //pickup truck displays differently in database
+        if(key == "Pickup Truck"){
+          transportKey = "pickUpTruck"
+        }
+        if(row.tableContent[transportKey] > 0){
+          return true;
+        }
+        continue;
+      }
+      if(option == "Joined In"){
+        if(!row.tableContent["dateOfInitialPartnership"]){
+          return false;
+        }
+        if(row.tableContent["dateOfInitialPartnership"].substring(6).toLowerCase().indexOf(key.toLowerCase()) > -1){
+          return true;
+        }
+        continue;
+      }
+      if(row.tableContent[option].toString().toLowerCase().indexOf(key.toLowerCase()) > -1){
         return true;
       }
     }
@@ -111,17 +175,20 @@ function checkStatuses(row, filters, option){
       falseCount++;
     }
   }
+  
+  //no filter options were set
   if(falseCount == runCount){
     return true;
   }
   return false;
 }
 
-
+//calculate indices for pagination
 const indexOfLastEntry = currentPage * entriesPerPage;
 const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
-//const currentPosts = data.slice(indexOfFirstEntry, indexOfLastEntry);
+
 const filtered = search(data);
+
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 const changeFilter = (newFilter) => setFilter(newFilter);
 const changeSelected = (newSelected) => setSelected(newSelected);
@@ -141,10 +208,12 @@ if (!isAuthenticated()) {
       <div className="filter-container">
         <h2>Sort By:</h2>
         <div className="selects-container">
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "region" expanded = {false} />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "status" expanded ={false}/>
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "staff" expanded={false}/>
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" expanded={false}/>
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "region"  />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "status" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "staff" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transport" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Storage" />
         </div>
 
         <Selected filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate}/>

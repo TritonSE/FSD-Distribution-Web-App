@@ -11,14 +11,14 @@ import { Redirect } from 'react-router-dom';
 
 let fOptions = {
   search: '',
-  status: {
+  Status: {
     Onboarding: false,
     Active: false,
     Inactive: false,
     "On hold": false,
   },
 
-  region: {
+  Region: {
     S: false,
     NI: false,
     E: false,
@@ -26,11 +26,11 @@ let fOptions = {
     NC: false,
   },
 
-  staff: {},
+  Staff: {},
 
   "Joined In": {},
 
-  "Transport": {
+  "Transportation": {
     Car: false,
     "Pickup Truck": false,
     Van: false,
@@ -61,7 +61,6 @@ function AgencyTable() {
   const [entriesPerPage] = useState(5);
   const [selected, setSelected] = useState({});
 
-  //const[checkboxes, setCheckboxes] = useState();
 
   useEffect(() => {
     fetch('http://localhost:8000/agency/', { method: 'GET' })
@@ -70,9 +69,8 @@ function AgencyTable() {
       setData(data.data);
       //fill in the filter options
       for(let dat of data.data){
-        console.log(dat);
-        if(!(filters.staff.hasOwnProperty(dat.tableContent.staff))){
-          filters.staff[dat.tableContent.staff] = false;
+        if(!(filters.Staff.hasOwnProperty(dat.tableContent.staff))){
+          filters.Staff[dat.tableContent.staff] = false;
         }
         if(dat.tableContent.dateOfInitialPartnership){
         if(!(filters["Joined In"].hasOwnProperty(dat.tableContent.dateOfInitialPartnership.substring(6)))){
@@ -90,21 +88,22 @@ function AgencyTable() {
 
 
 
-    // setCheckboxes(document.getElementById("checkboxes"));
-    // console.log(checkboxes);
+
   }, []);
 
+  /**
+   * main filtering method
+   */
   function search(rows) {
     return rows.filter(
       (row) => 
         checkOptions(row, filters)
-        //row.tableContent.status.toLowerCase().indexOf(filters.status) > -1
     );
   };
 
 
 /**
- * Page that contains a table that lists out all the agencies pulled from database
+ * Perform search then call filter method to filter based on options
  */
 function checkOptions(row, filters){
   for(let option in filters){
@@ -126,8 +125,11 @@ function checkOptions(row, filters){
       return false;
     }
   }
+  
   return true;
 }
+
+//filter based on select optiosn
 function checkStatuses(row, filters, option){
   let falseCount = 0;
   let runCount = 0;
@@ -147,6 +149,7 @@ function checkStatuses(row, filters, option){
         }
         continue;
       }
+      console.log(option);
       if(option == "Transportation"){
         let transportKey = key.toLowerCase();
         //pickup truck displays differently in database
@@ -167,7 +170,7 @@ function checkStatuses(row, filters, option){
         }
         continue;
       }
-      if(row.tableContent[option].toString().toLowerCase().indexOf(key.toLowerCase()) > -1){
+      if(row.tableContent[option.toLowerCase()].toString().toLowerCase().indexOf(key.toLowerCase()) > -1){
         return true;
       }
     }
@@ -192,6 +195,7 @@ const filtered = search(data);
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 const changeFilter = (newFilter) => setFilter(newFilter);
 const changeSelected = (newSelected) => setSelected(newSelected);
+
 if (!isAuthenticated()) {
   return <Redirect to='login' />
 }
@@ -208,11 +212,11 @@ if (!isAuthenticated()) {
       <div className="filter-container">
         <h2>Sort By:</h2>
         <div className="selects-container">
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "region"  />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "status" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "staff" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Region"  />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Status" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Staff" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transport" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transportation" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Storage" />
         </div>
 

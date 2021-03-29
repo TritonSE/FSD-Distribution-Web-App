@@ -13,7 +13,7 @@ return (
             {
                 delete selected[select];
                 changeSelected({...selected});
-                //call the change checkmark event
+                //call the change checkmark event to simulate clicking checkbox
                 const event = new MouseEvent('click', {
                     view: window,
                     bubbles: true,
@@ -33,6 +33,7 @@ return (
             document.getElementById(select).checked = false;
             
         }
+        //filter
         changeFilter({...filters});
         
     }}>Clear All</button>

@@ -1,7 +1,9 @@
 import React from 'react';
 import './Selected.css';
 
-//custom component for filter labels that appear when a filter option is selected
+/**
+ * Custom component for filter labels that appear when a filter option is selected
+ */
 const Selected = ({filters, selected, changeSelected, changeFilter, paginate}) => {
 
 return (
@@ -14,7 +16,7 @@ return (
             {
                 delete selected[select];
                 changeSelected({...selected});
-                //call the change checkmark event to simulate clicking checkbox
+                //create and dispatch custom event to simulate clicking checkbox
                 const event = new MouseEvent('click', {
                     view: window,
                     bubbles: true,
@@ -34,7 +36,6 @@ return (
             document.getElementById(select).checked = false;
             
         }
-        //filter and paginate
         changeFilter({...filters});
         paginate(1);
     }}>Clear All</button>

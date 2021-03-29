@@ -5,17 +5,32 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
   const [expanded, setExpanded] = useState(false);
 
 
-    function showCheckboxes() {
-        var checkboxes = document.getElementById(option);
-        if(!expanded){
-          checkboxes.style.display = "block";
-          setExpanded(true);
-        }
-        else{
-          checkboxes.style.display = "none";
-          setExpanded(false);
-        }
+  function showCheckboxes() {
+    var checkboxes = document.getElementById(option);
+    console.log(expanded);
+    if(!expanded){
+      console.log(expanded);
+      checkboxes.style.display = "block";
+      setExpanded(true);
+    }
+    else{
+      checkboxes.style.display = "none";
+      setExpanded(false);
+    }
+  }
+
+  /**
+   * close dropdown if user clicks outside
+   */
+  window.addEventListener("click", function(event) {
+    if (event.target.closest("form") == null 
+        || event.target.closest("form").parentElement != document.getElementsByClassName("selects-container")[0]) {
+      if(expanded){
+        showCheckboxes();
       }
+    }
+  });
+
 return (
     <form>
     <div className = "multiselect">

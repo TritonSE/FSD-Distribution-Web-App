@@ -8,7 +8,7 @@ import './Agency.css';
 import { isAuthenticated } from "../../auth";
 import { Redirect } from 'react-router-dom';
 
-
+//JSON object storing all filtering options
 let fOptions = {
   search: '',
   Status: {
@@ -110,14 +110,16 @@ function checkOptions(row, filters){
     //perform search
     if(option === "search") {
       let found = false;
+      //search based on each word in the name
       let words = row.tableContent.name.toLowerCase().split(' ');
+      let searched = filters.search.toLowerCase();
       for(let word of words){
-        found = word.startsWith(filters.search)
+        found = word.startsWith(searched);
         if(found){
           break;
         }
       }
-      if(!( found || (row.tableContent.agencyNumber.toString().toLowerCase().startsWith(filters.search)) )) {
+      if(!( found || (row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched)) )) {
         return false;
       }
       continue;
@@ -130,7 +132,9 @@ function checkOptions(row, filters){
   return true;
 }
 
-//filter based on select options
+/**
+ * filters based on dropdown options 
+ */
 function checkStatuses(row, filters, option){
   let falseCount = 0;
   let runCount = 0;
@@ -153,7 +157,7 @@ function checkStatuses(row, filters, option){
       console.log(option);
       if(option === "Transportation"){
         let transportKey = key.toLowerCase();
-        //pickup truck displays differently in database
+        //pickup truck key is different in database
         if(key === "Pickup Truck"){
           transportKey = "pickUpTruck"
         }
@@ -210,7 +214,7 @@ if (!isAuthenticated()) {
       <label htmlFor="search" id="searchLabel">Search:</label>
         <input id="search" type="text" value={filters.search} onChange={(e) => {setFilter({
           ...filters,
-          search: e.target.value.toLowerCase(),
+          search: e.target.value,
         }); paginate(1)}} />
       </div>
       <div className="filter-container">

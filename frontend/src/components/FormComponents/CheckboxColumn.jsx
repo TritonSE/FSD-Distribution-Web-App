@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Checkbox from "./Checkbox";
-import "./FormStyle.css";
+import "./Checkboxes.css";
+import "./TextStyles.css";
 
 /**
  * CheckboxColumn is a container for Checkbox components in a single column.
@@ -18,7 +19,7 @@ class CheckboxColumn extends Component {
   render() {
     const { onChange, options } = this.props;
     return (
-      <div className="checkbox-list-column selection-choice">
+      <div className="checkbox-column selection-choice">
         {options.map((item, index) => {
           return (
             <Checkbox

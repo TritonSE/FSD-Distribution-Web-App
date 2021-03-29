@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./FormStyle.css";
+import "./RequiredAsterisks.css";
+import "./TextStyles.css";
 
 /**
  * RequiredAsterisk is the indicator for form inputs that are required. It
@@ -9,7 +10,7 @@ import "./FormStyle.css";
 class RequiredAsterisk extends Component {
   render() {
     if (this.props.required) {
-      return <h3 className="form-input-label asterisk"> *</h3>;
+      return <h3 className="asterisk"> *</h3>;
     }
     return null;
   }

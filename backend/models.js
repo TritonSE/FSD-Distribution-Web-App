@@ -18,23 +18,23 @@ const PendingUserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-  }
+  },
 });
 
-PendingUserSchema.pre('save', function(next) {
+PendingUserSchema.pre("save", function (next) {
   const user = this;
-  if (user.isModified('password')) {
+  if (user.isModified("password")) {
     user.password = bcrypt.hashSync(user.password, 10);
   }
-  return next(); 
+  return next();
 });
 
-UserSchema.methods.verifyPassword = function(password) {
+UserSchema.methods.verifyPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
@@ -199,6 +199,21 @@ const DistributionTimesSchema = new Schema({
   },
 });
 
+const AgencyTaskSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  dueDate: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+});
+
 const AgencySchema = new Schema({
   /**
    * Accessing the TableContentSchema
@@ -346,6 +361,11 @@ const AgencySchema = new Schema({
   },
   immigrant: {
     type: Boolean,
+  },
+
+  /* Agency tasks */
+  tasks: {
+    type: [AgencyTaskSchema],
   },
 });
 

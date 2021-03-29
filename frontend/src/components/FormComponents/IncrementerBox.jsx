@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import "./FormStyle.css";
+import "./IncrementerBoxes.css";
+import "./TextStyles.css";
 
 /**
  * IncrementerBox is a custom text field for numerical inputs, with increment/

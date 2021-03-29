@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import AgencyBar from './AgencyBar';
 import './AgencyProfile.css';
 import AgencySideBar from './AgencySideBar';
-import edit from './imgs/edit-icon.png';
+import LocationAndDistributions from './LocationAndDistributions';
 
 function AgencyProfile({ data }) {
   const [agency, setAgency] = useState(undefined);
@@ -20,7 +20,7 @@ function AgencyProfile({ data }) {
       console.log(err);
     });
   }, []);
-  
+
   if (!data) {
     history.push("/agency");
   }
@@ -32,12 +32,7 @@ function AgencyProfile({ data }) {
         <div className="agency-profile-container">
           <AgencySideBar />
           <div className="agency-profile-info">
-            <div className="agency-category">
-              <img id="edit-icon" src={edit} alt="edit"></img>
-              <h1 className="category-title">
-                LOCATION AND DISTRIBUTION HOURS
-              </h1>
-            </div>
+            <LocationAndDistributions agency={agency} />
           </div>
         </div>
       </>

@@ -15,6 +15,12 @@ form {
   height: 23px;
 }
 
+#Tran{
+  position: relative;
+  width: 127px;
+  height: 23px;
+}
+
 .selectBox select {
   border: 2.5px solid #666464;
   border-radius: 2px;

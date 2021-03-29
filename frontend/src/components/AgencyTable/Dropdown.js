@@ -19,7 +19,7 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
 return (
     <form>
     <div className = "multiselect">
-      <div className = "selectBox" onClick = {showCheckboxes}>
+      <div className = "selectBox" onClick = {showCheckboxes} id = {option.substring(0, 4)}>
         <select textDecoration="none">
           <option>{option}</option>
         </select>

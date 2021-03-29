@@ -4,12 +4,9 @@ import './Dropdown.css';
 const Dropdown = ({filters, selected, changeSelected, changeFilter, option, paginate}) => {
   const [expanded, setExpanded] = useState(false);
 
-
   function showCheckboxes() {
     var checkboxes = document.getElementById(option);
-    console.log(expanded);
     if(!expanded){
-      console.log(expanded);
       checkboxes.style.display = "block";
       setExpanded(true);
     }
@@ -23,15 +20,15 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
    * close dropdown if user clicks outside
    */
   window.addEventListener("click", function(event) {
-    if (event.target.closest("form") == null 
-        || event.target.closest("form").parentElement != document.getElementsByClassName("selects-container")[0]) {
+    if (event.target.closest("form") === null 
+        || event.target.closest("form").parentElement !== document.getElementsByClassName("selects-container")[0]) {
       if(expanded){
         showCheckboxes();
       }
     }
   });
 
-return (
+  return (
     <form>
     <div className = "multiselect">
       <div className = "selectBox" onClick = {showCheckboxes} id = {option.substring(0, 4)}>
@@ -61,4 +58,4 @@ return (
   )
 }
 
-export default Dropdown
+export default Dropdown;

@@ -4,8 +4,8 @@ import './Pagination.css';
 const Pagination = ({currentPage, totalEntries, entriesPerPage, paginate}) => {
   const previousPageText = '<';
   const nextPageText = '>';
-  
   const totalPages = Math.ceil(totalEntries/entriesPerPage);
+
   return (
     <div className="pagination">
       <button onClick = {() => paginate(1)} disabled = {currentPage <= 1}><img src ="firstPage.png" alt="firstPage"/> </button>
@@ -17,4 +17,4 @@ const Pagination = ({currentPage, totalEntries, entriesPerPage, paginate}) => {
   )
 }
 
-export default Pagination
+export default Pagination;

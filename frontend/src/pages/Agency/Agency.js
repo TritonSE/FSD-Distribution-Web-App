@@ -11,6 +11,7 @@ import { Redirect } from 'react-router-dom';
 //JSON object storing all filtering options
 let fOptions = {
   search: '',
+
   Status: {
     Onboarding: false,
     Active: false,
@@ -61,34 +62,26 @@ function AgencyTable() {
   const [entriesPerPage] = useState(20);
   const [selected, setSelected] = useState({});
 
-
   useEffect(() => {
     fetch('http://localhost:8000/agency/', { method: 'GET' })
     .then(res => res.json())
     .then(data => {
       setData(data.data);
-      //fill in the filter options
+      //fill in dynamic filter options from database
       for(let dat of data.data){
         if(!(filters.Staff.hasOwnProperty(dat.tableContent.staff))){
           filters.Staff[dat.tableContent.staff] = false;
         }
         if(dat.tableContent.dateOfInitialPartnership){
         if(!(filters["Joined In"].hasOwnProperty(dat.tableContent.dateOfInitialPartnership.substring(6)))){
-  
-            let year = dat.tableContent.dateOfInitialPartnership.substring(6);
-            filters["Joined In"][year] = false;
-          console.log(filters);
+          let year = dat.tableContent.dateOfInitialPartnership.substring(6);
+          filters["Joined In"][year] = false;
         }
       }
-
-    }; console.log(filters); setFilter({...filters})})
+    }; setFilter({...filters})})
     .catch(err => {
       console.log(err);
     });
-
-
-
-
   }, []);
 
   /**
@@ -119,7 +112,7 @@ function checkOptions(row, filters){
           break;
         }
       }
-      if(!( found || (row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched)) )) {
+      if(!(found || (row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched)))) {
         return false;
       }
       continue;
@@ -147,14 +140,11 @@ function checkStatuses(row, filters, option){
         storageKey = storageKey.charAt(0).toLowerCase() + storageKey.slice(1);
         //regex to replace remove spaces between strings
         storageKey = storageKey.replace(/ +/g, "");
-        console.log(storageKey);
-        console.log(row.tableContent[storageKey]);
         if(row.tableContent[storageKey] > 0){
           return true;
         }
         continue;
       }
-      console.log(option);
       if(option === "Transportation"){
         let transportKey = key.toLowerCase();
         //pickup truck key is different in database

@@ -40,6 +40,12 @@ tbody:before {
   border-bottom: 1px solid #e8eced;
 }
 
+.table td {
+  font-size: 15px;
+  font-family: Roboto;
+  font-weight: 400;
+}
+
 .table tr:hover {
   background-color: #ddd;
 }

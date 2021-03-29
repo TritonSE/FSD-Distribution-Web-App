@@ -150,4 +150,22 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
     });
 });
 
+/**
+ * Route for Get request to read all Agencies
+ * 
+ * Ex: Get request with localhost:8000/agency/
+ * 
+ * @params - the object id of the Agency
+ * @returns the fetched Agency object in Json
+ */
+ router.get('/', isAuthenticated, async (req, res, next) => {
+  Agency.find({}, 'tableContent userSelectedDates userExcludedDates distributionDays distributionStartTimes distributionStartDate distributionFrequency pantry mealProgram homeboundDeliveryPartner largeScaleDistributionSite residentialFacility')
+    .then((agencies) => {
+      res.status(200).json({ agencies });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
 module.exports = router;

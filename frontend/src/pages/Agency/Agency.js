@@ -107,6 +107,7 @@ function AgencyTable() {
  */
 function checkOptions(row, filters){
   for(let option in filters){
+    //perform search
     if(option == "search") {
       let found = false;
       let words = row.tableContent.name.toLowerCase().split(' ');
@@ -192,8 +193,11 @@ const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
 
 const filtered = search(data);
 
+//change page
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
+//change filter options
 const changeFilter = (newFilter) => setFilter(newFilter);
+//change array of selected filter options
 const changeSelected = (newSelected) => setSelected(newSelected);
 
 if (!isAuthenticated()) {

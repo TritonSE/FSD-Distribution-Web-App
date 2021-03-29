@@ -39,18 +39,6 @@
   font-size: 18px;
 }
 
-/* form{
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-} */
-
-/* .multiselect {
-  margin-right: 1em;
-  border: 2px solid #000000;
-  box-sizing: border-box;
-  border-radius: 2px;
-  width: 200px;
-} */
 .selects-container {
   display: flex;
 }

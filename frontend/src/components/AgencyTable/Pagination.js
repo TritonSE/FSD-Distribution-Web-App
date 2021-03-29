@@ -6,9 +6,7 @@ const Pagination = ({currentPage, totalEntries, entriesPerPage, paginate}) => {
   const nextPageText = '>';
   const firstPageText = '|<';
   const lastPageText = '>|'
-  // for(let i = 1; i <= Math.ceil(totalEntries / entriesPerPage); ++i){
-  //     pageNumbers.push(i);
-  // }
+
   const totalPages = Math.ceil(totalEntries/entriesPerPage);
   return (
     <div className="pagination">

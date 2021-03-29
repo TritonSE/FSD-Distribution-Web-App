@@ -33,6 +33,7 @@ return (
             document.getElementById(select).checked = false;
             
         }
+        //filter
         changeFilter({...filters});
         
     }}>Clear All</button>

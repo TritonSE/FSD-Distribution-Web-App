@@ -2,13 +2,13 @@ form {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
+
 .multiselect {
-  /*width: 95px;*/
-  /*height: 27px;*/
   margin-right: 1em;
   box-sizing: border-box;
   border-radius: 2px;
 }
+
 .selectBox {
   position: relative;
   width: 91px;
@@ -28,9 +28,6 @@ form {
 option {
   text-align: center;
 }
-/* .overSelect {
-    position: absolute;
-  } */
 
 .checkboxes {
   position: absolute;

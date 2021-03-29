@@ -30,7 +30,7 @@ let fOptions = {
 
   "Joined In": {},
 
-  "Transport": {
+  "Transportation": {
     Car: false,
     "Pickup Truck": false,
     Van: false,
@@ -149,6 +149,7 @@ function checkStatuses(row, filters, option){
         }
         continue;
       }
+      console.log(option);
       if(option == "Transportation"){
         let transportKey = key.toLowerCase();
         //pickup truck displays differently in database
@@ -215,7 +216,7 @@ if (!isAuthenticated()) {
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Status" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Staff" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transport" />
+          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transportation" />
           <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Storage" />
         </div>
 

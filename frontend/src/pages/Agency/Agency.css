@@ -52,7 +52,7 @@
   width: 200px;
 } */
 .selects-container {
-  display: flex;
+  display: inline-flex;
 }
 
 #clearall {
@@ -77,16 +77,16 @@
 }
 
 .data-table-container {
-  margin: auto;
   width: 80%;
-  text-align: center;
 }
 
 .create-btn-container {
-  margin: auto;
-  margin-top: 1em;
+  margin-top: 1.5em;
   width: 80%;
-  text-align: center;
+}
+
+.create-btn-container > * {
+  float: left;
 }
 
 .selected-filter {

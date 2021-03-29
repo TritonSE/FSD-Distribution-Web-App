@@ -59,7 +59,7 @@ function AgencyTable() {
   const [data, setData] = useState([]);
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState(2);
+  const [entriesPerPage] = useState(20);
   const [selected, setSelected] = useState({});
 
   useEffect(() => {

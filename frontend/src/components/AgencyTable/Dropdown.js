@@ -19,7 +19,7 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
 return (
     <form>
     <div className = "multiselect">
-      <div className = "selectBox" onClick = {showCheckboxes}>
+      <div className = "selectBox" onClick = {showCheckboxes} id = {option.substring(0, 4)}>
         <select textDecoration="none">
           <option>{option}</option>
         </select>
@@ -30,7 +30,8 @@ return (
       {   
         Object.keys(filters[option]).map(key => (
           <label htmlFor={key} key = {key}>
-            <input type="checkbox" key={key} id={key} onChange={(e) => 
+            <input type="checkbox" key={key} id={key} onChange={(e) =>
+            //when checkbox is clicked, add select label, filter, and paginate
             {let newStat = !(filters[option][key]); 
             newStat ? selected[key] = option : delete selected[key]; 
             changeSelected(selected); 

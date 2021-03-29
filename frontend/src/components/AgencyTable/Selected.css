@@ -20,6 +20,7 @@
   line-height: normal;
 }
 
+/* styling for x button that is on each label */
 .clear-button {
   border: none;
   background-color: transparent;

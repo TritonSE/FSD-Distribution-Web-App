@@ -1,6 +1,7 @@
 import React from 'react';
 import './Selected.css';
 
+//custom component for filter labels that appear when a filter option is selected
 const Selected = ({filters, selected, changeSelected, changeFilter, paginate}) => {
 
 return (

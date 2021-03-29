@@ -125,7 +125,6 @@ const filtered = search(data);
 const paginate = (pageNumber) => setCurrentPage(pageNumber);
 const changeFilter = (newFilter) => setFilter(newFilter);
 const changeSelected = (newSelected) => setSelected(newSelected);
-console.log(selected);
 if (!isAuthenticated()) {
   return <Redirect to='login' />
 }

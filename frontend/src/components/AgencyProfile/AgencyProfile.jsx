@@ -13,7 +13,6 @@ function AgencyProfile({ data }) {
       console.log(err);
     });
   }, []);
-
   console.log(agency);
   return (
     <div>

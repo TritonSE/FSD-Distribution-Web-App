@@ -4,6 +4,7 @@ import AgencyProfile from "../../components/AgencyProfile/AgencyProfile";
 class AgencyProfilePage extends Component {
   render() {
     const { data } = this.props.location;
+    console.log(data);
     return (
       <div>
         <AgencyProfile data={data} />

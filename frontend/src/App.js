@@ -24,7 +24,7 @@ function App() {
             <React.Fragment>
               <Route exact path="/" component={Home} />
               <Route exact path="/agency" component={Agency} />
-              <Route exact path="/agency/:id" component={(props) => <AgencyProfilePage {...props}/>} />
+              <Route exact path="/agency-profile" component={(props) => <AgencyProfilePage {...props}/>} />
               <Route exact path="/create-agency" component={AgencyForm} />
               <Route exact path="/login" render={(...props) => (<Login {...props} changeIsLogged={changeIsLogged} />)} />
               <Route exact path="/register" component={Register} />

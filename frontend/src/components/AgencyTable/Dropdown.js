@@ -30,18 +30,18 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
 
   return (
     <form>
-    <div className = "multiselect">
-      <div className = "selectBox" onClick = {showCheckboxes} id = {option.substring(0, 4)}>
+    <div className="multiselect">
+      <div className="selectBox" onClick={showCheckboxes} id={option.substring(0, 4)}>
         <select textDecoration="none">
           <option>{option}</option>
         </select>
-        <div unselectable = "on" className="overSelect"></div>
+        <div unselectable="on" className="overSelect"></div>
       </div>
     </div>
-    <div className = "checkboxes" id={option}>
+    <div className="checkboxes" id={option}>
       {   
         Object.keys(filters[option]).map(key => (
-          <label htmlFor={key} key = {key}>
+          <label htmlFor={key} key={key}>
             <input type="checkbox" key={key} id={key} onChange={(e) =>
             //when checkbox is clicked, add select label, filter, and paginate
             {let newStat = !(filters[option][key]); 

@@ -59,7 +59,7 @@ function AgencyTable() {
   const [data, setData] = useState([]);
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState(20);
+  const [entriesPerPage] = useState(2);
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
@@ -82,6 +82,7 @@ function AgencyTable() {
     .catch(err => {
       console.log(err);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /**
@@ -210,19 +211,19 @@ if (!isAuthenticated()) {
       <div className="filter-container">
         <h2>Sort By:</h2>
         <div className="selects-container">
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Region"  />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Status" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Staff" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Joined In" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Transportation" />
-          <Dropdown filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate} option = "Storage" />
+          <Dropdown filters={filters} selected={selected} changeSelected={changeSelected} changeFilter={changeFilter} paginate={paginate} option="Region"  />
+          <Dropdown filters={filters} selected={selected} changeSelected={changeSelected} changeFilter={changeFilter} paginate={paginate} option="Status" />
+          <Dropdown filters={filters} selected={selected} changeSelected={changeSelected} changeFilter={changeFilter} paginate={paginate} option="Staff" />
+          <Dropdown filters={filters} selected={selected} changeSelected={changeSelected} changeFilter={changeFilter} paginate={paginate} option="Joined In" />
+          <Dropdown filters={filters} selected={selected} changeSelected={changeSelected} changeFilter={changeFilter} paginate={paginate} option= "Transportation" />
+          <Dropdown filters={filters} selected={selected} changeSelected={changeSelected} changeFilter={changeFilter} paginate={paginate} option="Storage" />
         </div>
 
-        <Selected filters= {filters} selected = {selected} changeSelected = {changeSelected} changeFilter = {changeFilter} paginate={paginate}/>
+        <Selected filters={filters} selected={selected} changeSelected={changeSelected} changeFilter={changeFilter} paginate={paginate}/>
       </div>
       <div className="data-table-container">
         <DataTable data={filtered.slice(indexOfFirstEntry, indexOfLastEntry)} />
-        <Pagination currentPage = {currentPage} totalEntries = {filtered.length} entriesPerPage = {entriesPerPage} paginate={paginate}></Pagination>
+        <Pagination currentPage={currentPage} totalEntries={filtered.length} entriesPerPage={entriesPerPage} paginate={paginate}></Pagination>
       </div>
       <div className="create-btn-container">
         <CreateAgencyBtn />

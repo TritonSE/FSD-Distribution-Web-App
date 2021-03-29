@@ -33,9 +33,9 @@ return (
             document.getElementById(select).checked = false;
             
         }
-        //filter
+        //filter and paginate
         changeFilter({...filters});
-        
+        paginate(1);
     }}>Clear All</button>
   </div>
   )

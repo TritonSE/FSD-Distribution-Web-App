@@ -4,9 +4,7 @@ import './Pagination.css';
 const Pagination = ({currentPage, totalEntries, entriesPerPage, paginate}) => {
   const previousPageText = '<';
   const nextPageText = '>';
-  const firstPageText = '|<';
-  const lastPageText = '>|'
-
+  
   const totalPages = Math.ceil(totalEntries/entriesPerPage);
   return (
     <div className="pagination">

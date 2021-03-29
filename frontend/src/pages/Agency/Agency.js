@@ -58,7 +58,7 @@ function AgencyTable() {
   const [data, setData] = useState([]);
   const [filters, setFilter] = useState(fOptions);
   const [currentPage, setCurrentPage] = useState(1);
-  const [entriesPerPage] = useState(5);
+  const [entriesPerPage] = useState(20);
   const [selected, setSelected] = useState({});
 
 
@@ -130,7 +130,7 @@ function checkOptions(row, filters){
   return true;
 }
 
-//filter based on select optiosn
+//filter based on select options
 function checkStatuses(row, filters, option){
   let falseCount = 0;
   let runCount = 0;

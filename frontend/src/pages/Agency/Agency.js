@@ -108,7 +108,7 @@ function AgencyTable() {
 function checkOptions(row, filters){
   for(let option in filters){
     //perform search
-    if(option == "search") {
+    if(option === "search") {
       let found = false;
       let words = row.tableContent.name.toLowerCase().split(' ');
       for(let word of words){
@@ -136,8 +136,8 @@ function checkStatuses(row, filters, option){
   let runCount = 0;
   for(var key in filters[option]){
     runCount++;
-    if(filters[option][key] == true){
-      if(option == "Storage"){
+    if(filters[option][key] === true){
+      if(option === "Storage"){
         //storage names are formatted differently in database
         let storageKey = key;
         storageKey = storageKey.charAt(0).toLowerCase() + storageKey.slice(1);
@@ -151,10 +151,10 @@ function checkStatuses(row, filters, option){
         continue;
       }
       console.log(option);
-      if(option == "Transportation"){
+      if(option === "Transportation"){
         let transportKey = key.toLowerCase();
         //pickup truck displays differently in database
-        if(key == "Pickup Truck"){
+        if(key === "Pickup Truck"){
           transportKey = "pickUpTruck"
         }
         if(row.tableContent[transportKey] > 0){
@@ -162,7 +162,7 @@ function checkStatuses(row, filters, option){
         }
         continue;
       }
-      if(option == "Joined In"){
+      if(option === "Joined In"){
         if(!row.tableContent["dateOfInitialPartnership"]){
           return false;
         }
@@ -181,7 +181,7 @@ function checkStatuses(row, filters, option){
   }
   
   //no filter options were set
-  if(falseCount == runCount){
+  if(falseCount === runCount){
     return true;
   }
   return false;

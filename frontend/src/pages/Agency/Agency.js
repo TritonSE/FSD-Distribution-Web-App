@@ -77,11 +77,11 @@ function AgencyTable() {
   
             let year = dat.tableContent.dateOfInitialPartnership.substring(6);
             filters["Joined In"][year] = false;
-          console.log(filters);
         }
       }
 
-    }; console.log(filters); setFilter({...filters})})
+    };
+    setFilter({...filters})})
     .catch(err => {
       console.log(err);
     });
@@ -199,7 +199,7 @@ const changeSelected = (newSelected) => setSelected(newSelected);
 if (!isAuthenticated()) {
   return <Redirect to='login' />
 }
-
+  
   return (
     <div className="agency-table">
       <div className="search-container">

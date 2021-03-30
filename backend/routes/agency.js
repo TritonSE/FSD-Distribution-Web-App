@@ -174,4 +174,13 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  Agency.findByIdAndDelete(req.params.id)
+    .then((agency) => {
+      res.status(200).json({ agency: agency }); 
+    })
+    .catch((err) => {
+      next(err);
+    });
+})
 module.exports = router;

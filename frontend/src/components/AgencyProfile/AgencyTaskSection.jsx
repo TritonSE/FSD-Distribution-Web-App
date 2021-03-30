@@ -1,12 +1,17 @@
 import React from "react";
 import AgencyTaskColumn from "./AgencyTaskColumn";
+import "./AgencyProfile.css";
 
-function AgencyTaskSection({ taskList }) {
+function AgencyTaskSection({ taskList, onEditTask, onCreateTask }) {
   let pendingTasks = [];
   let inProgressTasks = [];
   let reviewTasks = [];
   let completedTasks = [];
-  for (let task of taskList) {
+  for (let i = 0; i < taskList.length; i++) {
+    let task = {
+      ...taskList[i],
+      index: i,
+    };
     switch (task.status) {
       case "Pending Assignment":
         pendingTasks.push(task);
@@ -24,30 +29,34 @@ function AgencyTaskSection({ taskList }) {
   }
 
   return (
-    <div className="">
+    <div className="tasks-wrapper">
       <AgencyTaskColumn
         header="Pending Assignment"
         tasks={pendingTasks}
-        onEditTask={}
-        onCreateTask={}
+        color="#e98300"
+        onEditTask={onEditTask}
+        onCreateTask={onCreateTask}
       />
       <AgencyTaskColumn
         header="In Progress"
         tasks={inProgressTasks}
-        onEditTask={}
-        onCreateTask={}
+        color="#0377ff"
+        onEditTask={onEditTask}
+        onCreateTask={onCreateTask}
       />
       <AgencyTaskColumn
         header="Under Review"
         tasks={reviewTasks}
-        onEditTask={}
-        onCreateTask={}
+        color="#b90651"
+        onEditTask={onEditTask}
+        onCreateTask={onCreateTask}
       />
       <AgencyTaskColumn
         header="Completed"
         tasks={completedTasks}
-        onEditTask={}
-        onCreateTask={}
+        color="#a40fff"
+        onEditTask={onEditTask}
+        onCreateTask={onCreateTask}
       />
     </div>
   );

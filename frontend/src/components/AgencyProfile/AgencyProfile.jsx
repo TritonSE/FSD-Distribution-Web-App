@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import AgencyBar from './AgencyBar';
-import './AgencyProfile.css';
-import AgencySideBar from './AgencySideBar';
-import edit from './imgs/edit-icon.png';
+import AgencyBar from "./AgencyBar";
+import "./AgencyProfile.css";
+import AgencySideBar from "./AgencySideBar";
+import AgencyTaskSection from "./AgencyTaskSection";
+import edit from "./imgs/edit-icon.png";
 
 function AgencyProfile({ data }) {
   const [agency, setAgency] = useState(undefined);
@@ -11,21 +12,21 @@ function AgencyProfile({ data }) {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/agency/${data}`, { method: 'GET' })
-    .then(res => res.json())
-    .then(agency => {
-      setAgency(agency.agency);
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    fetch(`http://localhost:8000/agency/${data}`, { method: "GET" })
+      .then((res) => res.json())
+      .then((agency) => {
+        setAgency(agency.agency);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
-  
+
   if (!data) {
     history.push("/agency");
   }
-  
-  if(agency) {
+
+  if (agency) {
     return (
       <>
         <AgencyBar agency={agency} />
@@ -38,14 +39,18 @@ function AgencyProfile({ data }) {
                 LOCATION AND DISTRIBUTION HOURS
               </h1>
             </div>
+            <AgencyTaskSection
+              taskList={agency.tasks}
+              onEditTask={(index) => console.log(index)}
+              onCreateTask={(status) => console.log(status)}
+            />
           </div>
         </div>
       </>
-    )
+    );
   } else {
     return null;
   }
-
 }
 
 export default AgencyProfile;

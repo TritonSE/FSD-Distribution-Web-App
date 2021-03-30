@@ -1,5 +1,12 @@
-.search-container {
+.agency-table {
+  padding-bottom: 10vh;
+}
+
+.agency-table > * {
   margin: auto;
+}
+
+.search-container {
   width: 80%;
   margin-bottom: 3em;
   margin-top: 3em;
@@ -70,10 +77,6 @@
 
 #clearall:focus {
   outline: none;
-}
-
-.agency-table {
-  padding-bottom: 10vh;
 }
 
 .data-table-container {

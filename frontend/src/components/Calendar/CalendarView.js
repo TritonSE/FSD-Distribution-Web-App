@@ -36,9 +36,15 @@ const testEvents = [
 ];
 
 class CalendarView extends Component {
-  state = {
-    events: testEvents,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      events: testEvents,
+
+    };
+
+  }
+  
 
   handleRender(info) {
     // render background color of event

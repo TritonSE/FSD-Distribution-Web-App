@@ -4,10 +4,31 @@ import AgencyBar from "./AgencyBar";
 import "./AgencyProfile.css";
 import AgencySideBar from "./AgencySideBar";
 import AgencyTaskSection from "./AgencyTaskSection";
+import TaskForm from "../TaskForm/TaskForm";
 import edit from "./imgs/edit-icon.png";
 
 function AgencyProfile({ data }) {
   const [agency, setAgency] = useState(undefined);
+  const [selectedTask, setSelectedTask] = useState(null);
+
+  const handleTaskFormSubmit = (task, index) => {
+    let updatedTaskList = agency.tasks.slice(); // shallow copy
+    if (index === undefined) {
+      // creating a new task
+      updatedTaskList.push(task);
+    } else {
+      // modifying an existing task
+      updatedTaskList[index] = task;
+    }
+    let updatedAgency = { ...agency };
+    updatedAgency.tasks = updatedTaskList;
+    // TODO: send POST request to server with updatedAgency
+    // --> if successful, call setSelectedTask(null) to close the task form
+    //     and setAgency(updatedAgency) to re-render this page
+    // --> otherwise, handle the error somehow
+    setSelectedTask(null);
+    setAgency(updatedAgency);
+  };
 
   let history = useHistory();
 
@@ -41,11 +62,23 @@ function AgencyProfile({ data }) {
             </div>
             <AgencyTaskSection
               taskList={agency.tasks}
-              onEditTask={(index) => console.log(index)}
-              onCreateTask={(status) => console.log(status)}
+              onEditTask={(index) =>
+                setSelectedTask({ ...agency.tasks[index], index: index })
+              }
+              onCreateTask={(status) =>
+                setSelectedTask({ title: "", dueDate: "", status: status })
+              }
             />
           </div>
         </div>
+        {selectedTask && (
+          <TaskForm
+            data={selectedTask}
+            editIndex={selectedTask.index}
+            onSubmit={handleTaskFormSubmit}
+            onCancel={() => setSelectedTask(null)}
+          />
+        )}
       </>
     );
   } else {

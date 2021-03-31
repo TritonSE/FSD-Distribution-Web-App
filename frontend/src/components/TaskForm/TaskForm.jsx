@@ -11,8 +11,10 @@ import "./TaskForm.css";
  * Expected props:
  * - {Object} data: (if editing a task) existing data for the task (title,
  * dueDate, status)
+ * - {Number} editIndex: (if editing a task) index of the task being edited
  * - {Function} onSubmit: callback for when the submit button is pressed, should
- * take an Object representing the task data
+ * take an Object representing the task data and a Number, possibly undefined,
+ * representing the edit index
  * - {Function} onCancel: callback for when the cancel button is pressed, should
  * take no input
  */
@@ -50,14 +52,21 @@ class TaskForm extends Component {
    * Handles form submission.
    */
   submitForm = () => {
-    alert("submit");
+    const { editIndex, onSubmit } = this.props;
+    const { title, dueDate, status } = this.state;
+    let task = {
+      title: title,
+      dueDate: dueDate,
+      status: status,
+    };
+    onSubmit(task, editIndex);
   };
 
   /**
    * Handles form cancellation.
    */
   cancelForm = () => {
-    alert("cancel");
+    this.props.onCancel();
   };
 
   render() {

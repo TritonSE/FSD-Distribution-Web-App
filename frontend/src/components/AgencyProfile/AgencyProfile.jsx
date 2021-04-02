@@ -6,6 +6,7 @@ import AgencySideBar from "./AgencySideBar";
 import AgencyTaskSection from "./AgencyTaskSection";
 import TaskForm from "../TaskForm/TaskForm";
 import edit from "./imgs/edit-icon.png";
+import { getJWT } from "../../auth";
 
 function AgencyProfile({ data }) {
   const [agency, setAgency] = useState(undefined);
@@ -22,12 +23,37 @@ function AgencyProfile({ data }) {
     }
     let updatedAgency = { ...agency };
     updatedAgency.tasks = updatedTaskList;
-    // TODO: send POST request to server with updatedAgency
-    // --> if successful, call setSelectedTask(null) to close the task form
-    //     and setAgency(updatedAgency) to re-render this page
-    // --> otherwise, handle the error somehow
-    setSelectedTask(null);
-    setAgency(updatedAgency);
+
+    // Update database with new task data
+    fetch(`http://localhost:8000/agency/${data}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
+      },
+      body: JSON.stringify(updatedAgency),
+    })
+    .then((response) => {
+      response.json().then((data) => {
+        // Check for valid response
+        if (!response.ok) {
+          // Indicate number of invalid fields
+          if (data.fields) {
+            let errors = data.fields.filter((x) => x !== null);
+            let message = `${errors.length} error(s) found!`;
+            alert(message);
+            console.log(errors)
+          }
+        } 
+        // If valid response, reset state and rerender page
+        else {
+          setSelectedTask(null)
+          setAgency(updatedAgency)
+
+        }
+      });
+    })
+    .catch((error) => console.error(error));
   };
 
   let history = useHistory();

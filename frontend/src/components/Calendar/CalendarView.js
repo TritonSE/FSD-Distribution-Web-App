@@ -58,6 +58,11 @@ class CalendarView extends Component {
     return (
       <FullCalendar 
         plugins={[ rrulePlugin, dayGridPlugin ]}
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,dayGridWeek,dayGridDay'
+        }}
         initialView="dayGridMonth"
         events={ this.state.events }
         eventRender={ this.handleRender }

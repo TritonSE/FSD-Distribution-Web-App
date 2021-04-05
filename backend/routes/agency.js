@@ -160,7 +160,7 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
  */
 router.get("/table/all", async (req, res, next) => {
   try {
-    const agency = await Agency.find({}).select('tableContent');
+    const agency = await Agency.find({}, {_id: 0}).select('tableContent');
     return res.status(200).json({
         success: true,
         data: agency

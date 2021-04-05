@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import './Dropdown.css';
 
+/**
+ * Dropdown is a component that creates a custom dropdown menu for the filter options. 
+ * The menu consists of checkboxes and uses the select tag for main functionality.
+ * Expected props:
+ * - {Object} filters: JSON object that holds all the filter options
+ * - {Function} changeFilter: Function that sets filter, a state of the parent component (AgencyTable)
+ * - {Array} selected: Array holding all filter options that have been selected thus far
+ * - {Function} changeSelected: Function that sets selected, a state of the parent component
+ * - {String} The dropdown option for the current multiselect. Ex: Staff
+ * - {Function} paginate: Function that changes the page, should execute after filtering
+ */
 const Dropdown = ({filters, selected, changeSelected, changeFilter, option, paginate}) => {
   const [expanded, setExpanded] = useState(false);
 

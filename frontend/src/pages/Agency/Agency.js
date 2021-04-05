@@ -9,6 +9,18 @@ import { isAuthenticated } from "../../auth";
 import { Redirect } from "react-router-dom";
 import { getJWT } from "../../auth";
 
+/**
+ * The AgencyTable component is the main component for the talbe and contains the filtering
+ * functions. It renders each part of the agency page. 
+ * - {Object} foptions : global object that contains the all filtering options
+ * State:
+ * - {Object} data: A JSON object holding the table content for all agencies
+ * - {Object} filters: JSON object that holds all the filter options, initially set to foptions
+ * - {Number} currentPage: Holds the current page of the table
+ * - {Number} entriesPerPage: Determines the number of entries displayed on each table page.
+ * - {Array} selected: Array of currently selected filter options for the select labels. 
+ */
+
 //JSON object storing all filtering options
 let fOptions = {
   search: '',
@@ -99,7 +111,7 @@ function AgencyTable() {
   function search(rows) {
     return rows.filter(
       (row) => 
-        checkOptions(row, filters)
+        checkOptions(row)
     );
   };
 
@@ -107,10 +119,9 @@ function AgencyTable() {
    * Filters the current row of the table based on the options set in the filters object. First performs the search based on
    * the currently set search query. Then, the row is filtered based on each dropdown option by calling the helper checkStatuses
    * @param {Object} row JSON object that contains the data for the current row being checked against the set filter options
-   * @param {Object} filters JSON object containing all filter options, options that are currently set are mapped to true
    * @returns Boolean value, true if the current row's data matches the filter options and false otherwise
    */
-  function checkOptions(row, filters){
+  function checkOptions(row){
     for(let option in filters){
       //perform search
       if(option === "search") {
@@ -130,7 +141,7 @@ function AgencyTable() {
         continue;
       }
       //call checkStatus to check non-search filters
-      if(!(checkStatuses(row, filters, option))){
+      if(!(checkStatuses(row, option))){
         return false;
       }
     }
@@ -142,13 +153,12 @@ function AgencyTable() {
    * Filters the passed in row based on the passed in option, ex: Staff is an option. The options Storage, Transportation, and
    * Joined In need special cases since they have different capitilization/spelling in the database than they do in the dropdown menus. 
    * @param {Object} row JSON object that contains the data for the current row being checked against the set filter options
-   * @param {Object} filters JSON object containing all filter options, options that are currently set are mapped to true
    * @param {Object} option The current dropdown option being checked, ex: Staff. The option is itself a JSON object with
    * each choice set to true if the user has selected it and false otherwise, ex: a choice would be Mia if option is staff.
    * If the choice is set to true, then the row is checked. 
    * @returns A boolean, true if the current agency's data matches the currently set option, and false otherwise.
    */
-  function checkStatuses(row, filters, option){
+  function checkStatuses(row, option){
     let falseCount = 0;
     let runCount = 0;
     for(var key in filters[option]){

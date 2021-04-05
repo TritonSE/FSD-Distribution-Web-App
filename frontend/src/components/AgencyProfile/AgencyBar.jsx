@@ -1,7 +1,13 @@
 import React from 'react';
 import "./AgencyProfile.css";
 
+
+
 function AgencyBar({agency}) {
+  function deleteAgency(){
+    console.log(agency._id);
+    fetch(`http://localhost:8000/agency/${agency._id}`, { method: 'DELETE' }).then(response => response.json()).catch(err => { console.log(err);})
+  }
   return (
     <div className="agency-bar">
       <div className="agency-bar-info">
@@ -26,7 +32,7 @@ function AgencyBar({agency}) {
           &nbsp;{agency.tableContent.staff}
         </p>
       </div>
-      <button id="agency-delete">Delete Agency</button>
+      <button id="agency-delete" onClick={deleteAgency}>Delete Agency</button>
     </div>
   )
 }

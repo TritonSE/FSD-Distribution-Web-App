@@ -11,8 +11,10 @@ import "./TaskForm.css";
  * Expected props:
  * - {Object} data: (if editing a task) existing data for the task (title,
  * dueDate, status)
+ * - {Number} editIndex: (if editing a task) index of the task being edited
  * - {Function} onSubmit: callback for when the submit button is pressed, should
- * take an Object representing the task data
+ * take an Object representing the task data and a Number, possibly undefined,
+ * representing the edit index
  * - {Function} onCancel: callback for when the cancel button is pressed, should
  * take no input
  */
@@ -47,17 +49,59 @@ class TaskForm extends Component {
   };
 
   /**
+   * Returns whether the input field corresponding to the given key passed
+   * validation (or has not been validated yet).
+   * @param {String} key The key of the field to check
+   */
+  isValid = (key) => {
+    const { errors } = this.state;
+    return !errors || !this.state.errors.includes(key);
+  };
+
+  /**
    * Handles form submission.
    */
   submitForm = () => {
-    alert("submit");
+    const { editIndex, onSubmit } = this.props;
+    const { title, dueDate, status } = this.state;
+
+    const titleTrim = title.trim();
+    const dueDateTrim = dueDate.trim();
+    const statusTrim = status.trim();
+
+    let errors = [];
+    if (titleTrim.length === 0) {
+      errors.push("title");
+    }
+    if (
+      !dueDateTrim.match(
+        /^(?:0[1-9]|1[0-2])\/(?:0[1-9]|[1-2][0-9]|3[01])\/[0-9]{4}$/
+      )
+    ) {
+      errors.push("dueDate");
+    }
+    if (statusTrim.length === 0) {
+      errors.push("status");
+    }
+
+    if (errors.length === 0) {
+      // all inputs valid
+      let task = {
+        title: titleTrim,
+        dueDate: dueDateTrim,
+        status: statusTrim,
+      };
+      onSubmit(task, editIndex);
+    } else {
+      this.setState({ errors: errors });
+    }
   };
 
   /**
    * Handles form cancellation.
    */
   cancelForm = () => {
-    alert("cancel");
+    this.props.onCancel();
   };
 
   render() {
@@ -74,6 +118,7 @@ class TaskForm extends Component {
               onChange={this.handleInputChange}
               leftmost
               wide
+              valid={this.isValid("title")}
             />
           </div>
           <div className="task-form-row">
@@ -84,6 +129,7 @@ class TaskForm extends Component {
                 stateKey={"dueDate"}
                 onChange={this.handleInputChange}
                 leftmost
+                valid={this.isValid("dueDate")}
               />
             </div>
             <div className="task-form-col">
@@ -99,6 +145,7 @@ class TaskForm extends Component {
                 stateKey={"status"}
                 onChange={this.handleInputChange}
                 leftmost
+                valid={this.isValid("status")}
               />
             </div>
           </div>

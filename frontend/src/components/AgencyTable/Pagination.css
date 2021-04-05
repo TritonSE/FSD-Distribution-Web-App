@@ -1,9 +1,11 @@
+/* Dimensional styling for pagination buttons */
 .pagination {
   display: flex;
   justify-content: center;
   gap: 1em;
 }
 
+/* Styling for the pagination buttons */
 .pagination button {
   background: none;
   background-color: none;
@@ -13,18 +15,17 @@
   font-weight: bold;
   font-size: 18px;
   line-height: 21px;
+  outline: none;
 }
 
+/* Styling for page number */
 .pagination p {
   font-family: Roboto;
   font-style: normal;
   font-weight: bold;
 }
 
-.pagination button:focus {
-  outline: none;
-}
-
+/* Styling for pagination button when it is disabled */
 .pagination button[disabled] {
   color: #5f5f5f5b;
 }

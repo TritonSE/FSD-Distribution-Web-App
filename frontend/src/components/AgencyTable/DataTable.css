@@ -1,3 +1,4 @@
+/* General styling and font setup for the table */
 .table {
   font-family: Roboto;
   font-style: normal;
@@ -7,12 +8,14 @@
   margin-bottom: 1em;
 }
 
+/* Styling for table headers */
 .table thead {
   margin-bottom: 10000px;
   border-bottom: 3px solid #54682f;
   box-shadow: 2px 3px 2px #696969c5;
 }
 
+/* Added white space between the table header and table body */
 tbody:before {
   content: "-";
   display: block;
@@ -20,6 +23,7 @@ tbody:before {
   text-indent: -99999px;
 }
 
+/* Styling of individual table headers */
 .table th {
   background: #ffffff;
   font-family: Roboto;
@@ -32,6 +36,7 @@ tbody:before {
   height: 30px;
 }
 
+/* Stylng for each individual table row */
 .table tr {
   background: #f5f7f7;
   width: 1219px;
@@ -40,12 +45,14 @@ tbody:before {
   border-bottom: 1px solid #e8eced;
 }
 
+/* Hover effect for table rows */
+.table tr:hover {
+  background-color: #ddd;
+}
+
+/* Styling for the text within each table data cell */
 .table td {
   font-size: 15px;
   font-family: Roboto;
   font-weight: 400;
-}
-
-.table tr:hover {
-  background-color: #ddd;
 }

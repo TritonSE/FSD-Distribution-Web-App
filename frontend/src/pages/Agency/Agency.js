@@ -67,7 +67,6 @@ function AgencyTable() {
     fetch('http://localhost:8000/agency/all/', { 
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
         Authorization: "Bearer " + getJWT(),
       } 
     })

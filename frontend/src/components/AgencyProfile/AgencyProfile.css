@@ -137,6 +137,11 @@
   margin-bottom: 1em;
 }
 
+.address-container,
+.region-container {
+  margin-bottom: 1em;
+}
+
 #edit-icon {
   position: absolute;
   top: 1em;

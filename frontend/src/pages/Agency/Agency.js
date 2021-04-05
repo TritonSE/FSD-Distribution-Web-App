@@ -64,7 +64,7 @@ function AgencyTable() {
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:8000/agency/all/', { 
+    fetch('http://localhost:8000/agency/', { 
       method: "GET",
       headers: {
         Authorization: "Bearer " + getJWT(),
@@ -92,18 +92,24 @@ function AgencyTable() {
   }, []);
 
   /**
-   * main filtering method
+   * Main filter function that passes the data for each agency (each row in the table) to a helper filtering method
+   * @param {Array} rows The unfiltered data that is an array of each row of the table, i.e. each
+   * entry of the array contains the information corresponding to each agency in the table
    */
   function search(rows) {
+    console.log(typeof rows);
     return rows.filter(
       (row) => 
         checkOptions(row, filters)
     );
   };
 
-
   /**
-   * Perform search then call filter method to filter based on options
+   * Filters the current row of the table based on the options set in the filters object. First performs the search based on
+   * the currently set search query. Then, the row is filtered based on each dropdown option by calling the helper checkStatuses
+   * @param {Object} row JSON object that contains the data for the current row being checked against the set filter options
+   * @param {Object} filters JSON object containing all filter options, options that are currently set are mapped to true
+   * @returns Boolean value, true if the current row's data matches the filter options and false otherwise
    */
   function checkOptions(row, filters){
     for(let option in filters){
@@ -124,7 +130,8 @@ function AgencyTable() {
         }
         continue;
       }
-      if( !(checkStatuses(row, filters, option)) ){
+      //call checkStatus to check non-search filters
+      if(!(checkStatuses(row, filters, option))){
         return false;
       }
     }
@@ -133,7 +140,14 @@ function AgencyTable() {
   }
 
   /**
-   * filters based on dropdown options 
+   * Filters the passed in row based on the passed in option, ex: Staff is an option. The options Storage, Transportation, and
+   * Joined In need special cases since they have different capitilization/spelling in the database than they do in the dropdown menus. 
+   * @param {Object} row JSON object that contains the data for the current row being checked against the set filter options
+   * @param {Object} filters JSON object containing all filter options, options that are currently set are mapped to true
+   * @param {Object} option The current dropdown option being checked, ex: Staff. The option is itself a JSON object with
+   * each choice set to true if the user has selected it and false otherwise, ex: a choice would be Mia if option is staff.
+   * If the choice is set to true, then the row is checked. 
+   * @returns A boolean, true if the current agency's data matches the currently set option, and false otherwise.
    */
   function checkStatuses(row, filters, option){
     let falseCount = 0;
@@ -152,6 +166,7 @@ function AgencyTable() {
           }
           continue;
         }
+
         if(option === "Transportation"){
           let transportKey = key.toLowerCase();
           //pickup truck key is different in database
@@ -163,6 +178,7 @@ function AgencyTable() {
           }
           continue;
         }
+
         if(option === "Joined In"){
           if(!row.tableContent["dateOfInitialPartnership"]){
             return false;
@@ -172,6 +188,7 @@ function AgencyTable() {
           }
           continue;
         }
+        //for all filter options that are not transport, join date, or storage
         if(row.tableContent[option.toLowerCase()].toString().toLowerCase().indexOf(key.toLowerCase()) > -1){
           return true;
         }
@@ -181,7 +198,7 @@ function AgencyTable() {
       }
     }
     
-    //no filter options were set
+    //no filter options were set, so simply return true
     if(falseCount === runCount){
       return true;
     }

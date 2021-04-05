@@ -1,5 +1,5 @@
-import React from 'react';
-import './DataTable.css';
+import React from "react";
+import "./DataTable.css";
 
 function DataTable({ data }) {
   return (

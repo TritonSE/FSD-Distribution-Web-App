@@ -11,7 +11,7 @@ const MenuItems = [
   },
   {
     title: "Agency",
-    url: "/agency/all",
+    url: "/agency/",
     className: "nav-links",
   },
 ];

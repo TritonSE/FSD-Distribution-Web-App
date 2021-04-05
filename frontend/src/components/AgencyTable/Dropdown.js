@@ -30,31 +30,32 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
 
   return (
     <form>
-    <div className="multiselect">
-      <div className="selectBox" onClick={showCheckboxes} id={option.substring(0, 4)}>
-        <select textDecoration="none">
-          <option>{option}</option>
-        </select>
-        <div unselectable="on" className="overSelect"></div>
+      <div className="multiselect">
+        <div className="selectBox" onClick={showCheckboxes} id={option.substring(0, 4)}>
+          <select textDecoration="none">
+            <option>{option}</option>
+          </select>
+          <div unselectable="on" className="overSelect"></div>
+        </div>
       </div>
-    </div>
-    <div className="checkboxes" id={option}>
-      {   
-        Object.keys(filters[option]).map(key => (
-          <label htmlFor={key} key={key}>
-            <input type="checkbox" key={key} id={key} onChange={(e) =>
-            //when checkbox is clicked, add select label, filter, and paginate
-            {let newStat = !(filters[option][key]); 
-            newStat ? selected[key] = option : delete selected[key]; 
-            changeSelected(selected); 
-            changeFilter({...filters, [option]: {...filters[option], [key]: newStat,},}); 
-            paginate(1)}}/>
-            {key}
-          </label> 
-        ))
-      }
-    </div>
-  </form>
+      <div className="checkboxes" id={option}>
+        {   
+          Object.keys(filters[option]).map(key => (
+            <label htmlFor={key} key={key}>
+              <input type="checkbox" key={key} id={key} onChange={(e) =>
+                //when checkbox is clicked, add select label, filter, and paginate
+                {let newStat = !(filters[option][key]); 
+                newStat ? selected[key] = option : delete selected[key]; 
+                changeSelected(selected); 
+                changeFilter({...filters, [option]: {...filters[option], [key]: newStat,},}); 
+                paginate(1)}
+              }/>
+              {key}
+            </label> 
+          ))
+        }
+      </div>
+    </form>
   )
 }
 

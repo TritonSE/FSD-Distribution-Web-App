@@ -2,18 +2,6 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import AgencyProfileForm from "../src/components/AgencyProfileForm/AgencyProfileForm";
 
-describe("AgencyProfileForm.render", () => {
-  it("renders correctly for adding a new agency", () => {
-    // snapshot (UI) test for an initially-blank form - basically to check that
-    // nothing disappears or changes in the interface
-    const component = TestRenderer.create(
-      <AgencyProfileForm.WrappedComponent agencyData={null} />
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
-
 describe("AgencyProfileForm.handleInputChange", () => {
   it("updates state for existing keys", () => {
     // calls handleInputChange() with various (known) keys and test values to

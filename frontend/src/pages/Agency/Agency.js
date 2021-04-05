@@ -7,6 +7,7 @@ import DataTable from "../../components/AgencyTable/DataTable";
 import "./Agency.css";
 import { isAuthenticated } from "../../auth";
 import { Redirect } from "react-router-dom";
+import { getJWT } from "../../auth";
 
 //JSON object storing all filtering options
 let fOptions = {
@@ -63,7 +64,13 @@ function AgencyTable() {
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:8000/agency/', { method: 'GET' })
+    fetch('http://localhost:8000/agency/all/', { 
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
+      } 
+    })
     .then(res => res.json())
     .then(data => {
       setData(data.data);

@@ -1,3 +1,4 @@
+/* Dimensional styling for the search container */
 .search-container {
   margin: auto;
   width: 80%;
@@ -5,6 +6,7 @@
   margin-top: 3em;
 }
 
+/* Styling of the search bar */
 #search {
   background: #ffffff;
   border: 2px solid #545252;
@@ -14,6 +16,7 @@
   width: 246px;
 }
 
+/* Styling of the search bar label */
 #searchLabel {
   font-family: Roboto;
   font-style: normal;
@@ -23,6 +26,7 @@
   margin-right: 1em;
 }
 
+/* Dimensional and general styling for the filter container */
 .filter-container {
   margin: auto;
   width: 80%;
@@ -35,14 +39,17 @@
   padding-left: 1%;
 }
 
+/* Styling for h2 elems within the filter container */
 .filter-container h2 {
   font-size: 18px;
 }
 
+/* Align select options horizontally */
 .selects-container {
   display: flex;
 }
 
+/* Styling for the clear all button */
 #clearall {
   background: none;
   background-color: none;
@@ -54,22 +61,22 @@
   font-size: 15px;
   line-height: 18px;
   color: #000000;
-}
-
-#clearall:focus {
   outline: none;
 }
 
+/* Added white space at the bottom of the page */
 .agency-table {
   padding-bottom: 10vh;
 }
 
+/* Dimensional styling for the data table container */
 .data-table-container {
   margin: auto;
   width: 80%;
   text-align: center;
 }
 
+/* Dimensional styling for the CreateBtn Container */
 .create-btn-container {
   margin: auto;
   margin-top: 1em;
@@ -77,6 +84,7 @@
   text-align: center;
 }
 
+/* Align selected filters horizontally */
 .selected-filter {
   display: flex;
 }

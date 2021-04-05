@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import CreateAgencyBtn from "../../components/CreateAgencyBtn/CreateAgencyBtn";
 import Pagination from "../../components/AgencyTable/Pagination";
 import Dropdown from "../../components/AgencyTable/Dropdown";
 import Selected from "../../components/AgencyTable/Selected";
 import DataTable from "../../components/AgencyTable/DataTable";
-import './Agency.css';
+import "./Agency.css";
 import { isAuthenticated } from "../../auth";
-import { Redirect } from 'react-router-dom';
+import { Redirect } from "react-router-dom";
 
 //JSON object storing all filtering options
 let fOptions = {
@@ -96,108 +96,108 @@ function AgencyTable() {
   };
 
 
-/**
- * Perform search then call filter method to filter based on options
- */
-function checkOptions(row, filters){
-  for(let option in filters){
-    //perform search
-    if(option === "search") {
-      let found = false;
-      //search based on each word in the name
-      let words = row.tableContent.name.toLowerCase().split(' ');
-      let searched = filters.search.toLowerCase();
-      for(let word of words){
-        found = word.startsWith(searched);
-        if(found){
-          break;
+  /**
+   * Perform search then call filter method to filter based on options
+   */
+  function checkOptions(row, filters){
+    for(let option in filters){
+      //perform search
+      if(option === "search") {
+        let found = false;
+        //search based on each word in the name
+        let words = row.tableContent.name.toLowerCase().split(' ');
+        let searched = filters.search.toLowerCase();
+        for(let word of words){
+          found = word.startsWith(searched);
+          if(found){
+            break;
+          }
         }
-      }
-      if(!(found || (row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched)))) {
-        return false;
-      }
-      continue;
-    }
-    if( !(checkStatuses(row, filters, option)) ){
-      return false;
-    }
-  }
-  
-  return true;
-}
-
-/**
- * filters based on dropdown options 
- */
-function checkStatuses(row, filters, option){
-  let falseCount = 0;
-  let runCount = 0;
-  for(var key in filters[option]){
-    runCount++;
-    if(filters[option][key] === true){
-      if(option === "Storage"){
-        //storage names are formatted differently in database
-        let storageKey = key;
-        storageKey = storageKey.charAt(0).toLowerCase() + storageKey.slice(1);
-        //regex to replace remove spaces between strings
-        storageKey = storageKey.replace(/ +/g, "");
-        if(row.tableContent[storageKey] > 0){
-          return true;
-        }
-        continue;
-      }
-      if(option === "Transportation"){
-        let transportKey = key.toLowerCase();
-        //pickup truck key is different in database
-        if(key === "Pickup Truck"){
-          transportKey = "pickUpTruck"
-        }
-        if(row.tableContent[transportKey] > 0){
-          return true;
-        }
-        continue;
-      }
-      if(option === "Joined In"){
-        if(!row.tableContent["dateOfInitialPartnership"]){
+        if(!(found || (row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched)))) {
           return false;
         }
-        if(row.tableContent["dateOfInitialPartnership"].substring(6).toLowerCase().indexOf(key.toLowerCase()) > -1){
-          return true;
-        }
         continue;
       }
-      if(row.tableContent[option.toLowerCase()].toString().toLowerCase().indexOf(key.toLowerCase()) > -1){
-        return true;
+      if( !(checkStatuses(row, filters, option)) ){
+        return false;
       }
     }
-    else{
-      falseCount++;
-    }
-  }
-  
-  //no filter options were set
-  if(falseCount === runCount){
+
     return true;
   }
-  return false;
-}
 
-//calculate indices for pagination
-const indexOfLastEntry = currentPage * entriesPerPage;
-const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
+  /**
+   * filters based on dropdown options 
+   */
+  function checkStatuses(row, filters, option){
+    let falseCount = 0;
+    let runCount = 0;
+    for(var key in filters[option]){
+      runCount++;
+      if(filters[option][key] === true){
+        if(option === "Storage"){
+          //storage names are formatted differently in database
+          let storageKey = key;
+          storageKey = storageKey.charAt(0).toLowerCase() + storageKey.slice(1);
+          //regex to replace remove spaces between strings
+          storageKey = storageKey.replace(/ +/g, "");
+          if(row.tableContent[storageKey] > 0){
+            return true;
+          }
+          continue;
+        }
+        if(option === "Transportation"){
+          let transportKey = key.toLowerCase();
+          //pickup truck key is different in database
+          if(key === "Pickup Truck"){
+            transportKey = "pickUpTruck"
+          }
+          if(row.tableContent[transportKey] > 0){
+            return true;
+          }
+          continue;
+        }
+        if(option === "Joined In"){
+          if(!row.tableContent["dateOfInitialPartnership"]){
+            return false;
+          }
+          if(row.tableContent["dateOfInitialPartnership"].substring(6).toLowerCase().indexOf(key.toLowerCase()) > -1){
+            return true;
+          }
+          continue;
+        }
+        if(row.tableContent[option.toLowerCase()].toString().toLowerCase().indexOf(key.toLowerCase()) > -1){
+          return true;
+        }
+      }
+      else{
+        falseCount++;
+      }
+    }
+    
+    //no filter options were set
+    if(falseCount === runCount){
+      return true;
+    }
+    return false;
+  }
 
-const filtered = search(data);
+  //calculate indices for pagination
+  const indexOfLastEntry = currentPage * entriesPerPage;
+  const indexOfFirstEntry = indexOfLastEntry - entriesPerPage;
 
-//change page
-const paginate = (pageNumber) => setCurrentPage(pageNumber);
-//change filter options
-const changeFilter = (newFilter) => setFilter(newFilter);
-//change array of selected filter options
-const changeSelected = (newSelected) => setSelected(newSelected);
+  const filtered = search(data);
 
-if (!isAuthenticated()) {
-  return <Redirect to='login' />
-}
+  //change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //change filter options
+  const changeFilter = (newFilter) => setFilter(newFilter);
+  //change array of selected filter options
+  const changeSelected = (newSelected) => setSelected(newSelected);
+
+  if (!isAuthenticated()) {
+    return <Redirect to='login' />
+  }
 
   return (
     <div className="agency-table">

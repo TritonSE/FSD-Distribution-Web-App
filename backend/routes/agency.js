@@ -158,7 +158,7 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get('/', async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const agency = await Agency.find({}, {_id: 0}).select('tableContent');
 

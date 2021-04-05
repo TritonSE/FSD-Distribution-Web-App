@@ -49,17 +49,52 @@ class TaskForm extends Component {
   };
 
   /**
+   * Returns whether the input field corresponding to the given key passed
+   * validation (or has not been validated yet).
+   * @param {String} key The key of the field to check
+   */
+  isValid = (key) => {
+    const { errors } = this.state;
+    return !errors || !this.state.errors.includes(key);
+  };
+
+  /**
    * Handles form submission.
    */
   submitForm = () => {
     const { editIndex, onSubmit } = this.props;
     const { title, dueDate, status } = this.state;
-    let task = {
-      title: title,
-      dueDate: dueDate,
-      status: status,
-    };
-    onSubmit(task, editIndex);
+
+    const titleTrim = title.trim();
+    const dueDateTrim = dueDate.trim();
+    const statusTrim = status.trim();
+
+    let errors = [];
+    if (titleTrim.length === 0) {
+      errors.push("title");
+    }
+    if (
+      !dueDateTrim.match(
+        /^(?:0[1-9]|1[0-2])\/(?:0[1-9]|[1-2][0-9]|3[01])\/[0-9]{4}$/
+      )
+    ) {
+      errors.push("dueDate");
+    }
+    if (statusTrim.length === 0) {
+      errors.push("status");
+    }
+
+    if (errors.length === 0) {
+      // all inputs valid
+      let task = {
+        title: titleTrim,
+        dueDate: dueDateTrim,
+        status: statusTrim,
+      };
+      onSubmit(task, editIndex);
+    } else {
+      this.setState({ errors: errors });
+    }
   };
 
   /**
@@ -83,6 +118,7 @@ class TaskForm extends Component {
               onChange={this.handleInputChange}
               leftmost
               wide
+              valid={this.isValid("title")}
             />
           </div>
           <div className="task-form-row">
@@ -93,6 +129,7 @@ class TaskForm extends Component {
                 stateKey={"dueDate"}
                 onChange={this.handleInputChange}
                 leftmost
+                valid={this.isValid("dueDate")}
               />
             </div>
             <div className="task-form-col">
@@ -108,6 +145,7 @@ class TaskForm extends Component {
                 stateKey={"status"}
                 onChange={this.handleInputChange}
                 leftmost
+                valid={this.isValid("status")}
               />
             </div>
           </div>

@@ -33,27 +33,25 @@ function AgencyProfile({ data }) {
       },
       body: JSON.stringify(updatedAgency),
     })
-    .then((response) => {
-      response.json().then((data) => {
-        // Check for valid response
-        if (!response.ok) {
-          // Indicate number of invalid fields
-          if (data.fields) {
-            let errors = data.fields.filter((x) => x !== null);
-            let message = `${errors.length} error(s) found!`;
-            alert(message);
-            console.log(errors)
+      .then((response) => {
+        response.json().then((data) => {
+          // Check for valid response
+          if (!response.ok) {
+            // Indicate number of invalid fields
+            if (data.fields) {
+              let errors = data.fields.filter((x) => x !== null);
+              let message = `${errors.length} error(s) found!`;
+              alert(message);
+            }
           }
-        } 
-        // If valid response, reset state and rerender page
-        else {
-          setSelectedTask(null)
-          setAgency(updatedAgency)
-
-        }
-      });
-    })
-    .catch((error) => console.error(error));
+          // If valid response, reset state and rerender page
+          else {
+            setSelectedTask(null);
+            setAgency(updatedAgency);
+          }
+        });
+      })
+      .catch((error) => console.error(error));
   };
 
   let history = useHistory();

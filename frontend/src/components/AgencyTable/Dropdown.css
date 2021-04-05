@@ -1,3 +1,5 @@
+/* Position the multiselect box that is composed 
+of the form, multiselect, and selectBox divs*/
 form {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -14,11 +16,13 @@ form {
   width: 91px;
 }
 
+/* Widen the transportation box */
 #Tran{
   position: relative;
   width: 127px;
 }
 
+/* Style the select box text*/
 .selectBox select {
   border: 2.5px solid #666464;
   border-radius: 2px;
@@ -33,16 +37,18 @@ form {
   height: 27px;
 }
 
+/* Center the select box text */
 option {
   text-align: center;
 }
 
-/* styling for menu containing checkboxes */
+/* styling for dropwdown menu containing checkboxes */
 .checkboxes {
   position: absolute;
   display: none;
   min-width: 90px;
   width: auto;
+  /* Dropdown menu should appear over all other elements */
   z-index: 200;
   background: #f3f3f3;
   user-select: none;
@@ -55,6 +61,7 @@ option {
   margin-left: 6px;
 }
 
+/* Style checkboxes to be smaller rectangular boxes  */
 .checkboxes input {
   margin-right: 0.5rem;
   appearance: none;
@@ -84,6 +91,7 @@ select[disabled] {
   text-decoration: none;
 }
 
+/* Hide the default select behavior */
 .overSelect {
   position: absolute;
   left: 0;

@@ -1,3 +1,4 @@
+/* Search box positioning and styling */
 .search-container {
   margin: auto;
   width: 80%;
@@ -23,6 +24,7 @@
   margin-right: 1em;
 }
 
+/* Positioning and size of box containing filter dropdowns */
 .filter-container {
   margin: auto;
   width: 80%;
@@ -43,6 +45,7 @@
   display: flex;
 }
 
+/* Styling for Clear All button */
 #clearall {
   background: none;
   background-color: none;
@@ -60,6 +63,7 @@
   outline: none;
 }
 
+/* Table and button styling */
 .agency-table {
   padding-bottom: 10vh;
 }

@@ -64,7 +64,7 @@ function AgencyTable() {
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
-    fetch('http://localhost:8000/agency/', { 
+    fetch('http://localhost:8000/agency/table/all', { 
       method: "GET",
       headers: {
         Authorization: "Bearer " + getJWT(),
@@ -97,7 +97,6 @@ function AgencyTable() {
    * entry of the array contains the information corresponding to each agency in the table
    */
   function search(rows) {
-    console.log(typeof rows);
     return rows.filter(
       (row) => 
         checkOptions(row, filters)

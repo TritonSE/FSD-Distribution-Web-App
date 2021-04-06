@@ -11,7 +11,8 @@ class CalendarToolbar extends Component {
       showRescue: false,
     };
 
-    this.handleShowAgencies = this.handleShowAgencies.bind(this)
+    this.handleShowAgencies = this.handleShowAgencies.bind(this);
+    this.handleCheck = this.handleCheck.bind(this);
   }
 
   handleShowAgencies(event) {
@@ -29,6 +30,7 @@ class CalendarToolbar extends Component {
       default:
         this.setState({
           showDistribution: !this.state.showDistribution,
+
           showRescue: !this.state.showRescue,
         });
         break;
@@ -36,8 +38,7 @@ class CalendarToolbar extends Component {
   }
 
   handleCheck(event) {
-    console.log(event.target.checked);
-    this.props.updateCalendar(event.target.name, event.target.checked);
+    this.props.updateCalendar(event.target.value, event.target.checked);
   }
 
   render() {
@@ -65,7 +66,7 @@ class CalendarToolbar extends Component {
             <br />
             {this.props.distribution.map((agency, index) => {
               return (
-                <div>
+                <div key={index}>
                   <label style={{ backgroundColor: agency.color }}>
                     <input
                       type="checkbox"
@@ -100,7 +101,7 @@ class CalendarToolbar extends Component {
             <br />
             {this.props.rescue.map((agency, index) => {
               return (
-                <div>
+                <div key={index}>
                   <label style={{ backgroundColor: agency.color }}>
                     <input
                       type="checkbox"

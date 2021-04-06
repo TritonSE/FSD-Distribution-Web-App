@@ -110,7 +110,6 @@ class AgencyProfileForm extends Component {
         residential: false,
         immigrant: false,
         staff: "",
-        errors: [],
       };
     }
     this.state = data;
@@ -188,7 +187,8 @@ class AgencyProfileForm extends Component {
    * @param {String} key The key of the field to check
    */
   isValid = (key) => {
-    return !this.state.errors.includes(key);
+    const { errors } = this.state;
+    return errors === undefined || !errors.includes(key);
   };
 
   /**
@@ -550,7 +550,7 @@ class AgencyProfileForm extends Component {
                   stateKey="dateOfInitialPartnership"
                   onChange={this.handleInputChange}
                   required
-                  valid={this.isValid("dateOfInitialPartnership")}
+                  valid={this.isValid("tableContent.dateOfInitialPartnership")}
                 />
               </FormCol>
             </FormRow>

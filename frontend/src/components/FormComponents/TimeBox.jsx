@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import "./TimeBoxes.css";
 
 /**
- * TimeBox is a time input field (actually multiple boxes - hour, minute, and
- * AM/PM selection).
+ * TimeBox is a 24-hour time input field (comprised of hour box and minute box).
  *
  * Expected props:
- * - {String} value: current time value of the input (format: "HH:MM AM")
+ * - {String} value: current time value of the input (format: "hh:mm")
  * - {String} stateKey: key to use in the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
  * and a String
@@ -23,28 +22,26 @@ class TimeBox extends Component {
   }
 
   /**
-   * Returns an object containing the hour, minute, and AM/PM strings from the
-   * given time string.
-   * @param {String} timeString Time string of format "HH:MM AM"
+   * Returns an object containing the hour and minute strings from the given
+   * time string.
+   * @param {String} timeString Time string of format "hh:mm"
    */
   buildTimeObject(timeString) {
-    const index1 = timeString.indexOf(":");
-    const index2 = timeString.indexOf(" ");
+    const index = timeString.indexOf(":");
     return {
-      hour: timeString.slice(0, index1),
-      minute: timeString.slice(index1 + 1, index2),
-      ampm: timeString.slice(index2 + 1) === "PM" ? "PM" : "AM",
+      hour: timeString.slice(0, index),
+      minute: timeString.slice(index + 1),
     };
   }
 
   /**
-   * Returns a time string of format "HH:MM AM" using the data from the given
+   * Returns a time string of format "hh:mm" using the data from the given
    * object.
    * @param {Object} timeObject Time object like that returned from
    * buildTimeObject()
    */
   buildTimeString(timeObject) {
-    return timeObject.hour + ":" + timeObject.minute + " " + timeObject.ampm;
+    return timeObject.hour + ":" + timeObject.minute;
   }
 
   /**
@@ -66,10 +63,26 @@ class TimeBox extends Component {
    */
   handleChange = (key, value) => {
     const { stateKey, onChange } = this.props;
-    if (value.length > 2) {
-      value = value.slice(-2); // last 2 chars
+
+    if (value !== "") {
+      // get up to first 2 digits at the beginning of value
+      let match = value.match(/^[0-9]{1,2}/);
+      if (!match) {
+        return;
+      } // else, match is an array of strings
+      value = match[0];
+
+      // make sure numerical value is in range
+      let numVal = parseInt(value);
+      if (
+        (key === "hour" && numVal > 23) ||
+        (key === "minute" && numVal > 59)
+      ) {
+        return;
+      }
     }
 
+    // update
     let time = { ...this.state };
     time[key] = value;
     onChange(stateKey, this.buildTimeString(time));
@@ -79,7 +92,6 @@ class TimeBox extends Component {
    * Handler for losing focus in either of the numerical inputs in this TimeBox.
    * Processes the value to ensure it is either empty or a two-digit numerical
    * string. If the value is updated, calls the onChange callback.
-   * Note: Do not use this for the AM/PM selection.
    * @param {String} key Which part of the time input lost focus
    * @param {String} value Current value of the input
    */
@@ -87,8 +99,10 @@ class TimeBox extends Component {
     if (value === "") {
       return;
     }
+
     const { stateKey, onChange } = this.props;
     const numVal = parseInt(value);
+
     if (isNaN(numVal)) {
       // reject values that are not numbers
       onChange(stateKey, "");
@@ -102,7 +116,7 @@ class TimeBox extends Component {
   };
 
   render() {
-    const { hour, minute, ampm } = this.state;
+    const { hour, minute } = this.state;
     const { valid } = this.props;
 
     let styleClass = "number-field";
@@ -127,14 +141,7 @@ class TimeBox extends Component {
           value={minute}
           onChange={(event) => this.handleChange("minute", event.target.value)}
           onBlur={(event) => this.handleBlur("minute", event.target.value)}
-        />{" "}
-        <select
-          value={ampm}
-          onChange={(event) => this.handleChange("ampm", event.target.value)}
-        >
-          <option>AM</option>
-          <option>PM</option>
-        </select>
+        />
       </span>
     );
   }

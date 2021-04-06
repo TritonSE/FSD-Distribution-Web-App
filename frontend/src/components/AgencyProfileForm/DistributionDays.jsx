@@ -23,7 +23,7 @@ class DistributionDays extends Component {
     return (
       <div className="form-input selection-choice form-col-width">
         <label className="form-input-label">
-          Distribution Days and Start Times
+          Distribution Days and Start Times (24-Hour)
           <RequiredAsterisk required={true} />
         </label>
         {values.map((item, index) => (

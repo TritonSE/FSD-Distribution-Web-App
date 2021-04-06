@@ -1,16 +1,15 @@
-import React from 'react';
-import './Pagination.css';
+import React from "react";
+import "./Pagination.css";
 
 /**
  * Component for handling the different pages of the table. Has buttons for next and previous page
- * and for going to last and first page. Calls the paginate fuinction to change the current page state
+ * and for going to last and first page. Calls the paginate function to change the current page state
  * in the parent component (AgencyTable)
  * Expected props:
  * - {Number} currentPage: holds the current page, passed from AgencyTable component
  * - {Number} totalEntries: total number of agencies in the table
  * - {Number} entriesPerPage: number of entries in each table page, passed from parent component
- *  - {Function} paginate: Function that changes the current page state, passed from parent.
- * @param {*} param0 
+ * - {Function} paginate: Function that changes the current page state, passed from parent.
  */
 const Pagination = ({currentPage, totalEntries, entriesPerPage, paginate}) => {
   const previousPageText = '<';

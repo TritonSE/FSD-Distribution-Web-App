@@ -3,7 +3,7 @@ import "./DataTable.css";
 
 /**
  * DataTable is a component for the table that displays on the page.
- * Each row of the table dsiaplys the number, name, etc. and, when clicked, 
+ * Each row of the table displays the number, name, etc. and, when clicked, 
  * links to the agency's profile.
  * Expected props:
  * - {Object} data: A JSON object holding the table content for all agencies

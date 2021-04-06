@@ -1,5 +1,5 @@
-import React from 'react';
-import './Selected.css';
+import React from "react";
+import "./Selected.css";
 
 /**
  * Custom component for filter labels that appear when a filter option is selected. Same

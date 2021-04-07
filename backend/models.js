@@ -88,7 +88,7 @@ const ContactSchema = new Schema({
   },
 });
 
-const DistributionDaysSchema = new Schema({
+const DaySelectionsSchema = new Schema({
   monday: {
     type: Boolean,
     required: true,
@@ -119,7 +119,7 @@ const DistributionDaysSchema = new Schema({
   },
 });
 
-const DistributionTimesSchema = new Schema({
+const DayValuesSchema = new Schema({
   monday: {
     type: String,
   },
@@ -237,11 +237,11 @@ const AgencySchema = new Schema({
 
   /* Distribution Section */
   distributionDays: {
-    type: DistributionDaysSchema,
+    type: DaySelectionsSchema,
     required: true,
   },
   distributionStartTimes: {
-    type: DistributionTimesSchema,
+    type: DayValuesSchema,
     required: true,
   },
   distributionStartDate: {
@@ -327,8 +327,17 @@ const AgencySchema = new Schema({
   },
 
   /* Retail Rescue Section */
-  retailRescueAvailable: {
-    type: Boolean,
+  retailRescueDays: {
+    type: DaySelectionsSchema,
+    required: true,
+  },
+  retailRescueStartTimes: {
+    type: DayValuesSchema,
+    required: true,
+  },
+  retailRescueLocations: {
+    type: DayValuesSchema,
+    required: true,
   },
 
   /* Demographics Section */

@@ -20,6 +20,30 @@ const validateDistributionStartTime = (day) =>
     .isEmpty();
 
 /**
+ * Checks that the retail rescue start time for the given day exists, if the day
+ * is selected, using express-validator.
+ * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
+ */
+const validateRetailRescueStartTime = (day) =>
+  body(`retailRescueStartTimes.${day}`)
+    .trim()
+    .if((value, { req }) => req.body.retailRescueDays[day])
+    .not()
+    .isEmpty();
+
+/**
+ * Checks that the retail rescue location for the given day exists, if the day
+ * is selected, using express-validator.
+ * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
+ */
+const validateRetailRescueLocation = (day) =>
+  body(`retailRescueLocations.${day}`)
+    .trim()
+    .if((value, { req }) => req.body.retailRescueDays[day])
+    .not()
+    .isEmpty();
+
+/**
  * Form Validation: validationChain is an array of expected formats for the
  * specified model fields.
  */
@@ -54,6 +78,20 @@ const validationChain = [
   body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
   body("userSelectedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
   body("userExcludedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
+  validateRetailRescueStartTime("monday"),
+  validateRetailRescueStartTime("tuesday"),
+  validateRetailRescueStartTime("wednesday"),
+  validateRetailRescueStartTime("thursday"),
+  validateRetailRescueStartTime("friday"),
+  validateRetailRescueStartTime("saturday"),
+  validateRetailRescueStartTime("sunday"),
+  validateRetailRescueLocation("monday"),
+  validateRetailRescueLocation("tuesday"),
+  validateRetailRescueLocation("wednesday"),
+  validateRetailRescueLocation("thursday"),
+  validateRetailRescueLocation("friday"),
+  validateRetailRescueLocation("saturday"),
+  validateRetailRescueLocation("sunday"),
   body("tasks.*.title").trim().not().isEmpty(),
   body("tasks.*.dueDate").trim().isDate({ format: "MM/DD/YYYY" }),
   body("tasks.*.status").trim().not().isEmpty(),

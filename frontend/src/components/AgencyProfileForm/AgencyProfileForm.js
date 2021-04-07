@@ -197,7 +197,10 @@ class AgencyProfileForm extends Component {
     if (index !== -1) {
       let key1 = key.slice(0, index);
       let key2 = key.slice(index + 1);
-      if (this.state.hasOwnProperty(key1)) {
+      if (
+        this.state.hasOwnProperty(key1) &&
+        this.state[key1].hasOwnProperty(key2)
+      ) {
         let updated = { ...this.state[key1] };
         updated[key2] = newValue;
         this.setState({ [key1]: updated });

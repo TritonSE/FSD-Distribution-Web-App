@@ -33,7 +33,7 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
   window.addEventListener("click", function(event) {
     if (event.target.closest("form") === null 
         || event.target.closest("form").parentElement !== document.getElementsByClassName("selects-container")[0]) {
-      if(expanded){
+      if(expanded) {
         showCheckboxes();
       }
     }

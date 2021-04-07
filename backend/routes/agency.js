@@ -8,18 +8,16 @@ const { Agency } = require("../models");
 const router = express.Router();
 
 /**
- * Validates the distribution start time for the given day if the day is
- * selected, using express-validator. Expects the format "HH:mm AM".
+ * Checks that the distribution start time for the given day exists, if the day
+ * is selected, using express-validator.
  * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
  */
 const validateDistributionStartTime = (day) =>
   body(`distributionStartTimes.${day}`)
     .trim()
     .if((value, { req }) => req.body.distributionDays[day])
-    .custom((value) => {
-      // custom time format
-      return value.match(/^(0[1-9]|1[0-2]):([0-5][0-9]) [AP]M$/);
-    });
+    .not()
+    .isEmpty();
 
 /**
  * Form Validation: validationChain is an array of expected formats for the

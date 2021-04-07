@@ -32,12 +32,31 @@ class AgencyProfileForm extends Component {
     let data = props.agencyData;
     if (!data) {
       data = {
-        agencyNumber: "",
-        name: "",
+        tableContent: {
+          agencyNumber: "",
+          name: "",
+          status: "",
+          region: "",
+          city: "",
+          staff: "",
+          dateOfInitialPartnership: "",
+          standAloneFreezer: 0,
+          freezerFridge: 0,
+          chestFreezer: 0,
+          singleDoorFreezer: 0,
+          freezerFridgeCombo: 0,
+          walkInFreezer: 0,
+          doubleDoorFridge: 0,
+          sideBySideFridge: 0,
+          singleDoorFridge: 0,
+          walkInFridge: 0,
+          dryStorageClimateControl: 0,
+          dryStorageNonClimateControl: 0,
+          pickUpTruck: 0,
+          van: 0,
+          car: 0,
+        },
         mainSiteAddress: "",
-        city: "",
-        status: "",
-        region: "",
         sanDiegoDistrict: "",
         countyDistrict: "",
         stateAssemblyDistrict: "",
@@ -56,25 +75,27 @@ class AgencyProfileForm extends Component {
         ],
         scheduledNextVisit: "",
         dateOfMostRecentAgreement: "",
-        dateOfInitialPartnership: "",
         fileAudit: "",
         monitored: "",
         foodSafetyCertification: "",
-        mainSitePhoneNumber: "",
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-        sunday: false,
-        mondayStartTime: "",
-        tuesdayStartTime: "",
-        wednesdayStartTime: "",
-        thursdayStartTime: "",
-        fridayStartTime: "",
-        saturdayStartTime: "",
-        sundayStartTime: "",
+        distributionDays: {
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+          saturday: false,
+          sunday: false,
+        },
+        distributionStartTimes: {
+          monday: "",
+          tuesday: "",
+          wednesday: "",
+          thursday: "",
+          friday: "",
+          saturday: "",
+          sunday: "",
+        },
         distributionStartDate: "",
         distributionFrequency: "1",
         userSelectedDates: [],
@@ -84,22 +105,33 @@ class AgencyProfileForm extends Component {
         homeboundDeliveryPartner: false,
         largeScaleDistributionSite: false,
         residentialFacility: false,
-        standAloneFreezer: 0,
-        freezerFridge: 0,
-        chestFreezer: 0,
-        singleDoorFreezer: 0,
-        freezerFridgeCombo: 0,
-        walkInFreezer: 0,
-        doubleDoorFridge: 0,
-        sideBySideFridge: 0,
-        singleDoorFridge: 0,
-        walkInFridge: 0,
-        dryStorageClimateControl: 0,
-        dryStorageNonClimateControl: 0,
-        pickUpTruck: 0,
-        van: 0,
-        car: 0,
-        retailRescueAvailable: false,
+        retailRescueDays: {
+          monday: false,
+          tuesday: false,
+          wednesday: false,
+          thursday: false,
+          friday: false,
+          saturday: false,
+          sunday: false,
+        },
+        retailRescueStartTimes: {
+          monday: "",
+          tuesday: "",
+          wednesday: "",
+          thursday: "",
+          friday: "",
+          saturday: "",
+          sunday: "",
+        },
+        retailRescueLocations: {
+          monday: "",
+          tuesday: "",
+          wednesday: "",
+          thursday: "",
+          friday: "",
+          saturday: "",
+          sunday: "",
+        },
         youth: false,
         senior: false,
         homeless: false,
@@ -109,7 +141,7 @@ class AgencyProfileForm extends Component {
         disabilitySpecific: false,
         residential: false,
         immigrant: false,
-        staff: "",
+        tasks: [],
       };
     }
     this.state = data;
@@ -123,46 +155,33 @@ class AgencyProfileForm extends Component {
    */
   prepareData() {
     let data = { ...this.state };
-    let tableContent = {
-      agencyNumber: data.agencyNumber,
-      name: data.name,
-      status: data.status,
-      region: data.region,
-      city: data.city,
-      phone: data.contacts[0].phoneNumber,
-      staff: data.staff,
-    };
-    let distributionDays = {
-      monday: data.monday,
-      tuesday: data.tuesday,
-      wednesday: data.wednesday,
-      thursday: data.thursday,
-      friday: data.friday,
-      saturday: data.saturday,
-      sunday: data.sunday,
-    };
-    let distributionStartTimes = {
-      // if the day isn't selected, ignore input value
-      monday: data.monday ? data.mondayStartTime : "",
-      tuesday: data.tuesday ? data.tuesdayStartTime : "",
-      wednesday: data.wednesday ? data.wednesdayStartTime : "",
-      thursday: data.thursday ? data.thursdayStartTime : "",
-      friday: data.friday ? data.fridayStartTime : "",
-      saturday: data.saturday ? data.saturdayStartTime : "",
-      sunday: data.sunday ? data.sundayStartTime : "",
-    };
 
-    data.tableContent = tableContent;
-    data.distributionDays = distributionDays;
-    data.distributionStartTimes = distributionStartTimes;
-    // extra fields will be ignored by mongoose
+    data.tableContent.phone = data.contacts[0].phoneNumber;
+
+    // ignore any secondary input values for days that are not selected
+    const days = [
+      "monday",
+      "tuesday",
+      "wednesday",
+      "thursday",
+      "friday",
+      "saturday",
+      "sunday",
+    ];
+    for (let day of days) {
+      if (!data.distributionDays[day]) {
+        data.distributionStartTimes[day] = "";
+      }
+      if (!data.retailRescueDays[day]) {
+        data.retailRescueStartTimes[day] = "";
+        data.retailRescueLocations[day] = "";
+      }
+    }
 
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 
-    // add empty list for agency tasks
-    data.tasks = [];
-
+    // extra fields will be ignored by mongoose
     return data;
   }
 
@@ -174,10 +193,17 @@ class AgencyProfileForm extends Component {
    * @param {Any} newValue The new value to set for the key
    */
   handleInputChange = (key, newValue) => {
-    if (this.state.hasOwnProperty(key)) {
-      this.setState({
-        [key]: newValue,
-      });
+    let index = key.indexOf(".");
+    if (index !== -1) {
+      let key1 = key.slice(0, index);
+      let key2 = key.slice(index + 1);
+      if (this.state.hasOwnProperty(key1)) {
+        let updated = { ...this.state[key1] };
+        updated[key2] = newValue;
+        this.setState({ [key1]: updated });
+      }
+    } else if (this.state.hasOwnProperty(key)) {
+      this.setState({ [key]: newValue });
     }
   };
 
@@ -267,10 +293,7 @@ class AgencyProfileForm extends Component {
             if (data.fields) {
               let errors = data.fields.filter((x) => x !== null);
               this.setState({ errors: errors });
-              let message = `${errors.length} errors found!`;
-              if (errors.length === 1) {
-                message = "1 error found!";
-              }
+              let message = `${errors.length} error(s) found!`;
               alert(message);
             }
           } else {
@@ -307,8 +330,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputText
                   label="Agency Number"
-                  value={data.agencyNumber}
-                  stateKey="agencyNumber"
+                  value={data.tableContent.agencyNumber}
+                  stateKey="tableContent.agencyNumber"
                   onChange={this.handleInputChange}
                   leftmost
                   required
@@ -318,8 +341,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputText
                   label="Agency Name"
-                  value={data.name}
-                  stateKey="name"
+                  value={data.tableContent.name}
+                  stateKey="tableContent.name"
                   onChange={this.handleInputChange}
                   required
                   wide
@@ -344,8 +367,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputText
                   label="City"
-                  value={data.city}
-                  stateKey="city"
+                  value={data.tableContent.city}
+                  stateKey="tableContent.city"
                   onChange={this.handleInputChange}
                   required
                   valid={this.isValid("tableContent.city")}
@@ -358,8 +381,8 @@ class AgencyProfileForm extends Component {
                 <InputDropdown
                   label="Agency Status"
                   options={["Onboarding", "Active", "Inactive", "On Hold"]}
-                  value={data.status}
-                  stateKey="status"
+                  value={data.tableContent.status}
+                  stateKey="tableContent.status"
                   onChange={this.handleInputChange}
                   leftmost
                   required
@@ -375,8 +398,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputText
                   label="Region"
-                  value={data.region}
-                  stateKey="region"
+                  value={data.tableContent.region}
+                  stateKey="tableContent.region"
                   onChange={this.handleInputChange}
                   leftmost
                   required
@@ -546,8 +569,8 @@ class AgencyProfileForm extends Component {
               <FormCol>
                 <InputDate
                   label="Date of Initial Partnership"
-                  value={data.dateOfInitialPartnership}
-                  stateKey="dateOfInitialPartnership"
+                  value={data.tableContent.dateOfInitialPartnership}
+                  stateKey="tableContent.dateOfInitialPartnership"
                   onChange={this.handleInputChange}
                   required
                   valid={this.isValid("tableContent.dateOfInitialPartnership")}
@@ -597,52 +620,52 @@ class AgencyProfileForm extends Component {
                   values={[
                     {
                       title: "Monday",
-                      selected: data.monday,
-                      time: data.mondayStartTime,
-                      stateKey: "monday",
-                      timeStateKey: "mondayStartTime",
+                      selected: data.distributionDays.monday,
+                      time: data.distributionStartTimes.monday,
+                      stateKey: "distributionDays.monday",
+                      timeStateKey: "distributionStartTimes.monday",
                     },
                     {
                       title: "Tuesday",
-                      selected: data.tuesday,
-                      time: data.tuesdayStartTime,
-                      stateKey: "tuesday",
-                      timeStateKey: "tuesdayStartTime",
+                      selected: data.distributionDays.tuesday,
+                      time: data.distributionStartTimes.tuesday,
+                      stateKey: "distributionDays.tuesday",
+                      timeStateKey: "distributionStartTimes.tuesday",
                     },
                     {
                       title: "Wednesday",
-                      selected: data.wednesday,
-                      time: data.wednesdayStartTime,
-                      stateKey: "wednesday",
-                      timeStateKey: "wednesdayStartTime",
+                      selected: data.distributionDays.wednesday,
+                      time: data.distributionStartTimes.wednesday,
+                      stateKey: "distributionDays.wednesday",
+                      timeStateKey: "distributionStartTimes.wednesday",
                     },
                     {
                       title: "Thursday",
-                      selected: data.thursday,
-                      time: data.thursdayStartTime,
-                      stateKey: "thursday",
-                      timeStateKey: "thursdayStartTime",
+                      selected: data.distributionDays.thursday,
+                      time: data.distributionStartTimes.thursday,
+                      stateKey: "distributionDays.thursday",
+                      timeStateKey: "distributionStartTimes.thursday",
                     },
                     {
                       title: "Friday",
-                      selected: data.friday,
-                      time: data.fridayStartTime,
-                      stateKey: "friday",
-                      timeStateKey: "fridayStartTime",
+                      selected: data.distributionDays.friday,
+                      time: data.distributionStartTimes.friday,
+                      stateKey: "distributionDays.friday",
+                      timeStateKey: "distributionStartTimes.friday",
                     },
                     {
                       title: "Saturday",
-                      selected: data.saturday,
-                      time: data.saturdayStartTime,
-                      stateKey: "saturday",
-                      timeStateKey: "saturdayStartTime",
+                      selected: data.distributionDays.saturday,
+                      time: data.distributionStartTimes.saturday,
+                      stateKey: "distributionDays.saturday",
+                      timeStateKey: "distributionStartTimes.saturday",
                     },
                     {
                       title: "Sunday",
-                      selected: data.sunday,
-                      time: data.sundayStartTime,
-                      stateKey: "sunday",
-                      timeStateKey: "sundayStartTime",
+                      selected: data.distributionDays.sunday,
+                      time: data.distributionStartTimes.sunday,
+                      stateKey: "distributionDays.sunday",
+                      timeStateKey: "distributionStartTimes.sunday",
                     },
                   ]}
                   onChange={this.handleInputChange}
@@ -673,13 +696,13 @@ class AgencyProfileForm extends Component {
                   distributionStartDate={data.distributionStartDate}
                   distributionFrequency={data.distributionFrequency}
                   distributionDays={[
-                    data.sunday,
-                    data.monday,
-                    data.tuesday,
-                    data.wednesday,
-                    data.thursday,
-                    data.friday,
-                    data.saturday,
+                    data.distributionDays.sunday,
+                    data.distributionDays.monday,
+                    data.distributionDays.tuesday,
+                    data.distributionDays.wednesday,
+                    data.distributionDays.thursday,
+                    data.distributionDays.friday,
+                    data.distributionDays.saturday,
                   ]}
                   userSelectedDates={data.userSelectedDates}
                   userExcludedDates={data.userExcludedDates}
@@ -734,63 +757,63 @@ class AgencyProfileForm extends Component {
                   options={[
                     {
                       title: "Stand Alone Freezer",
-                      value: data.standAloneFreezer,
-                      stateKey: "standAloneFreezer",
+                      value: data.tableContent.standAloneFreezer,
+                      stateKey: "tableContent.standAloneFreezer",
                     },
                     {
                       title: "Freezer Fridge",
-                      value: data.freezerFridge,
-                      stateKey: "freezerFridge",
+                      value: data.tableContent.freezerFridge,
+                      stateKey: "tableContent.freezerFridge",
                     },
                     {
                       title: "Chest Freezer",
-                      value: data.chestFreezer,
-                      stateKey: "chestFreezer",
+                      value: data.tableContent.chestFreezer,
+                      stateKey: "tableContent.chestFreezer",
                     },
                     {
                       title: "Single-Door Stand Alone Freezer",
-                      value: data.singleDoorFreezer,
-                      stateKey: "singleDoorFreezer",
+                      value: data.tableContent.singleDoorFreezer,
+                      stateKey: "tableContent.singleDoorFreezer",
                     },
                     {
                       title: "Freezer-Refrigerator Combo",
-                      value: data.freezerFridgeCombo,
-                      stateKey: "freezerFridgeCombo",
+                      value: data.tableContent.freezerFridgeCombo,
+                      stateKey: "tableContent.freezerFridgeCombo",
                     },
                     {
                       title: "Walk-in Freezer",
-                      value: data.walkInFreezer,
-                      stateKey: "walkInFreezer",
+                      value: data.tableContent.walkInFreezer,
+                      stateKey: "tableContent.walkInFreezer",
                     },
                     {
                       title: "Double-Door Stand Alone Fridge",
-                      value: data.doubleDoorFridge,
-                      stateKey: "doubleDoorFridge",
+                      value: data.tableContent.doubleDoorFridge,
+                      stateKey: "tableContent.doubleDoorFridge",
                     },
                     {
                       title: "Side By Side Fridge",
-                      value: data.sideBySideFridge,
-                      stateKey: "sideBySideFridge",
+                      value: data.tableContent.sideBySideFridge,
+                      stateKey: "tableContent.sideBySideFridge",
                     },
                     {
                       title: "Single-Door Stand Alone Fridge",
-                      value: data.singleDoorFridge,
-                      stateKey: "singleDoorFridge",
+                      value: data.tableContent.singleDoorFridge,
+                      stateKey: "tableContent.singleDoorFridge",
                     },
                     {
                       title: "Walk-in Fridge",
-                      value: data.walkInFridge,
-                      stateKey: "walkInFridge",
+                      value: data.tableContent.walkInFridge,
+                      stateKey: "tableContent.walkInFridge",
                     },
                     {
                       title: "Dry Storage (Climate Controlled)",
-                      value: data.dryStorageClimateControl,
-                      stateKey: "dryStorageClimateControl",
+                      value: data.tableContent.dryStorageClimateControl,
+                      stateKey: "tableContent.dryStorageClimateControl",
                     },
                     {
                       title: "Dry Storage (Non-Climate Controlled)",
-                      value: data.dryStorageNonClimateControl,
-                      stateKey: "dryStorageNonClimateControl",
+                      value: data.tableContent.dryStorageNonClimateControl,
+                      stateKey: "tableContent.dryStorageNonClimateControl",
                     },
                   ]}
                   onChange={this.handleInputChange}
@@ -807,18 +830,18 @@ class AgencyProfileForm extends Component {
                   options={[
                     {
                       title: "Pick-up Truck",
-                      value: data.pickUpTruck,
-                      stateKey: "pickUpTruck",
+                      value: data.tableContent.pickUpTruck,
+                      stateKey: "tableContent.pickUpTruck",
                     },
                     {
                       title: "Van",
-                      value: data.van,
-                      stateKey: "van",
+                      value: data.tableContent.van,
+                      stateKey: "tableContent.van",
                     },
                     {
                       title: "Car",
-                      value: data.car,
-                      stateKey: "car",
+                      value: data.tableContent.car,
+                      stateKey: "tableContent.car",
                     },
                   ]}
                   onChange={this.handleInputChange}
@@ -829,17 +852,6 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <FormSectionHeader title="Retail Rescue" />
-            <CheckboxList
-              label={null}
-              options={[
-                {
-                  title: "Available",
-                  selected: data.retailRescueAvailable,
-                  stateKey: "retailRescueAvailable",
-                },
-              ]}
-              onChange={this.handleInputChange}
-            />
           </div>
 
           <div className="form-section">
@@ -912,8 +924,8 @@ class AgencyProfileForm extends Component {
                 <InlineDropdown
                   label={null}
                   options={["Mia", "Charlie", "Eli", "Kate"]}
-                  value={data.staff}
-                  stateKey="staff"
+                  value={data.tableContent.staff}
+                  stateKey="tableContent.staff"
                   onChange={this.handleInputChange}
                   valid={this.isValid("tableContent.staff")}
                 />

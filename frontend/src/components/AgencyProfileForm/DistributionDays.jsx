@@ -38,7 +38,7 @@ class DistributionDays extends Component {
               value={item.time}
               stateKey={item.timeStateKey}
               onChange={onChange}
-              valid={validCheck(`distributionStartTimes.${item.stateKey}`)}
+              valid={validCheck(item.timeStateKey)}
             />
           </div>
         ))}

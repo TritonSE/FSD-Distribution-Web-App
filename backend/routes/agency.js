@@ -54,6 +54,9 @@ const validationChain = [
   body("tableContent.region").trim().not().isEmpty(),
   body("tableContent.city").trim().not().isEmpty(),
   body("tableContent.staff").trim().not().isEmpty(),
+  body("tableContent.dateOfInitialPartnership")
+    .trim()
+    .isDate({ format: "MM/DD/YYYY" }),
   body("billingZipcode").trim().isPostalCode("US"),
   body("contacts.*.contact").trim().not().isEmpty(),
   body("contacts.*.position").trim().not().isEmpty(),
@@ -61,7 +64,6 @@ const validationChain = [
   body("contacts.*.email").trim().isEmail(),
   body("scheduledNextVisit").trim().isDate({ format: "MM/DD/YYYY" }),
   body("dateOfMostRecentAgreement").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("dateOfInitialPartnership").trim().isDate({ format: "MM/DD/YYYY" }),
   body("fileAudit")
     .trim()
     .optional({ checkFalsy: true })

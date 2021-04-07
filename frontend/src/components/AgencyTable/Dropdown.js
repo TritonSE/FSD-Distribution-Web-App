@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import './Dropdown.css';
+import React, { useState } from "react";
+import "./Dropdown.css";
 
 /**
  * Dropdown is a component that creates a custom dropdown menu for the filter options. 
@@ -17,11 +17,11 @@ const Dropdown = ({filters, selected, changeSelected, changeFilter, option, pagi
 
   function showCheckboxes() {
     var checkboxes = document.getElementById(option);
-    if(!expanded){
+    if(!expanded) {
       checkboxes.style.display = "block";
       setExpanded(true);
     }
-    else{
+    else {
       checkboxes.style.display = "none";
       setExpanded(false);
     }

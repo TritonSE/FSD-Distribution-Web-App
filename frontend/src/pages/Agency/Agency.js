@@ -10,12 +10,12 @@ import { Redirect } from "react-router-dom";
 import { getJWT } from "../../auth";
 
 /**
- * The AgencyTable component is the main component for the talbe and contains the filtering
+ * The AgencyTable component is the main component for the table and contains the filtering
  * functions. It renders each part of the agency page. 
- * - {Object} foptions : global object that contains the all filtering options
+ * - {Object} fOptions : global object that contains the all filtering options
  * State:
  * - {Object} data: A JSON object holding the table content for all agencies
- * - {Object} filters: JSON object that holds all the filter options, initially set to foptions
+ * - {Object} filters: JSON object that holds all the filter options, initially set to fOptions
  * - {Number} currentPage: Holds the current page of the table
  * - {Number} entriesPerPage: Determines the number of entries displayed on each table page.
  * - {Array} selected: Array of currently selected filter options for the select labels. 
@@ -50,7 +50,7 @@ let fOptions = {
     Van: false,
   },
 
-  "Storage":{
+  "Storage": {
     "Stand Alone Freezer": false,
     "Freezer Fridge": false,
     "Chest Freezer": false,
@@ -86,12 +86,12 @@ function AgencyTable() {
     .then(data => {
       setData(data.data);
       //fill in dynamic filter options from database
-      for(let dat of data.data){
-        if(!(filters.Staff.hasOwnProperty(dat.tableContent.staff))){
+      for(let dat of data.data) {
+        if(!(filters.Staff.hasOwnProperty(dat.tableContent.staff))) {
           filters.Staff[dat.tableContent.staff] = false;
         }
-        if(dat.tableContent.dateOfInitialPartnership){
-        if(!(filters["Joined In"].hasOwnProperty(dat.tableContent.dateOfInitialPartnership.substring(6)))){
+        if(dat.tableContent.dateOfInitialPartnership) {
+        if(!(filters["Joined In"].hasOwnProperty(dat.tableContent.dateOfInitialPartnership.substring(6)))) {
           let year = dat.tableContent.dateOfInitialPartnership.substring(6);
           filters["Joined In"][year] = false;
         }
@@ -120,17 +120,17 @@ function AgencyTable() {
    * @param {Object} row JSON object that contains the data for the current row being checked against the set filter options
    * @returns Boolean value, true if the current row's data matches the filter options and false otherwise
    */
-  function checkOptions(row){
-    for(let option in filters){
+  function checkOptions(row) {
+    for(let option in filters) {
       //perform search
       if(option === "search") {
         let found = false;
         //search based on each word in the name
         let words = row.tableContent.name.toLowerCase().split(' ');
         let searched = filters.search.toLowerCase();
-        for(let word of words){
+        for(let word of words) {
           found = word.startsWith(searched);
-          if(found){
+          if(found) {
             break;
           }
         }
@@ -140,7 +140,7 @@ function AgencyTable() {
         continue;
       }
       //call checkStatus to check non-search filters
-      if(!(checkStatuses(row, option))){
+      if(!(checkStatuses(row, option))) {
         return false;
       }
     }
@@ -157,57 +157,57 @@ function AgencyTable() {
    * If the choice is set to true, then the row is checked. 
    * @returns A boolean, true if the current agency's data matches the currently set option, and false otherwise.
    */
-  function checkStatuses(row, option){
+  function checkStatuses(row, option) {
     let falseCount = 0;
     let runCount = 0;
-    for(var key in filters[option]){
+    for(var key in filters[option]) {
       runCount++;
-      if(filters[option][key] === true){
-        if(option === "Storage"){
+      if(filters[option][key] === true) {
+        if(option === "Storage") {
           //storage names are formatted differently in database
           let storageKey = key;
           storageKey = storageKey.charAt(0).toLowerCase() + storageKey.slice(1);
           //regex to replace remove spaces between strings
           storageKey = storageKey.replace(/ +/g, "");
-          if(row.tableContent[storageKey] > 0){
+          if(row.tableContent[storageKey] > 0) {
             return true;
           }
           continue;
         }
 
-        if(option === "Transportation"){
+        if(option === "Transportation") {
           let transportKey = key.toLowerCase();
           //pickup truck key is different in database
-          if(key === "Pickup Truck"){
+          if(key === "Pickup Truck") {
             transportKey = "pickUpTruck"
           }
-          if(row.tableContent[transportKey] > 0){
+          if(row.tableContent[transportKey] > 0) {
             return true;
           }
           continue;
         }
 
-        if(option === "Joined In"){
-          if(!row.tableContent["dateOfInitialPartnership"]){
+        if(option === "Joined In") {
+          if(!row.tableContent["dateOfInitialPartnership"]) {
             return false;
           }
-          if(row.tableContent["dateOfInitialPartnership"].substring(6).toLowerCase().indexOf(key.toLowerCase()) > -1){
+          if(row.tableContent["dateOfInitialPartnership"].substring(6).toLowerCase().indexOf(key.toLowerCase()) > -1) {
             return true;
           }
           continue;
         }
         //for all filter options that are not transport, join date, or storage
-        if(row.tableContent[option.toLowerCase()].toString().toLowerCase().indexOf(key.toLowerCase()) > -1){
+        if(row.tableContent[option.toLowerCase()].toString().toLowerCase().indexOf(key.toLowerCase()) > -1) {
           return true;
         }
       }
-      else{
+      else {
         falseCount++;
       }
     }
     
     //no filter options were set, so simply return true
-    if(falseCount === runCount){
+    if(falseCount === runCount) {
       return true;
     }
     return false;

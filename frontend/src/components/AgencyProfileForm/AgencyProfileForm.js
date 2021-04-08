@@ -158,7 +158,7 @@ class AgencyProfileForm extends Component {
 
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
-    // ignore any secondary input values for days that are not selected
+    // fix distribution and retail rescue formats
     const days = [
       "monday",
       "tuesday",
@@ -168,11 +168,25 @@ class AgencyProfileForm extends Component {
       "saturday",
       "sunday",
     ];
+    // UTC string format: "Www, dd Mmm yyyy hh:mm:ss GMT"
+    const UTCBase = new Date().toUTCString().slice(0, 17);
+    const UTCEnd = ":00 PDT";
     for (let day of days) {
-      if (!data.distributionDays[day]) {
+      if (data.distributionDays[day]) {
+        // this day is selected, so fix the time format
+        let time = data.distributionStartTimes[day]; // "hh:mm"
+        data.distributionStartTimes[day] = UTCBase + time + UTCEnd;
+      } else {
+        // not selected
         data.distributionStartTimes[day] = "";
       }
-      if (!data.retailRescueDays[day]) {
+
+      if (data.retailRescueDays[day]) {
+        // this day is selected, so fix the time format
+        let time = data.retailRescueStartTimes[day]; // "hh:mm"
+        data.retailRescueStartTimes[day] = UTCBase + time + UTCEnd;
+      } else {
+        // not selected
         data.retailRescueStartTimes[day] = "";
         data.retailRescueLocations[day] = "";
       }

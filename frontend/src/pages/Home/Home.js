@@ -10,6 +10,7 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import rrulePlugin from '@fullcalendar/rrule'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './Home.css'
 const config = require("../../config");
 
 /**
@@ -80,6 +81,7 @@ class Home extends Component {
             data.agencies.forEach((agency, index) => {
               const name = agency.tableContent.name;
               const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
+
               // TODO add agency to retail rescue category
 
               // add agency to distribution category
@@ -88,26 +90,40 @@ class Home extends Component {
               });
 
               // generate events
-              // const days = Object.values(agency.distributionDays);
-              // for (let i = 0; i < 7; i++) {
-              //   if (days[i]) {
-              //     this.setState({
-              //       events: [...this.state.events, {
-              //         // TODO add distribution/retail rescue to name/group 
-              //         groupdId: name,
-              //         title: name,
-              //         rrule: {
-              //           freq: 'weekly',
-              //           interval: agency.distributionFrequency,
-              //           byweekday: i,
-              //           dtstart: new Date(),
-              //         },
-              //         duration: '02:00',
-              //         backgroundColor: color
-              //       }]
-              //     });
-              //   }
-              // }
+              const days = Object.values(agency.distributionDays); // {monday: true, tuesday, false}
+              for (let i = 0; i < 7; i++) {
+                if (days[i]) {
+                  if (this.state.map[name]) {
+                    this.state.map[name].push({
+                      // TODO add distribution/retail rescue to name/group 
+                      groupdId: name,
+                      title: name,
+                      rrule: {
+                        freq: 'weekly',
+                        interval: agency.distributionFrequency,
+                        byweekday: i,
+                        dtstart: agency.distributionStartDate, // the day this was created at the start time 
+                      },
+                      duration: '02:00',
+                      backgroundColor: color
+                    });
+                  } else {
+                    this.state.map[name] = [{
+                      // TODO add distribution/retail rescue to name/group 
+                      groupdId: name,
+                      title: name,
+                      rrule: {
+                        freq: 'weekly',
+                        interval: agency.distributionFrequency,
+                        byweekday: i,
+                        dtstart: agency.distributionStartDate,
+                      },
+                      duration: '02:00',
+                      backgroundColor: color
+                    }]
+                  }
+                }
+              }
             });
           }
         });
@@ -120,14 +136,9 @@ class Home extends Component {
 
     if (checked) {
       console.log(newEvents);
-      this.setState({ events: [].concat(newEvents, this.state.events)});
+      this.setState({ events: [].concat(newEvents, this.state.events) });
     } else {
-      const toRemoveMap = newEvents.reduce((memo, item) => ({
-        ...memo,
-        [item]: true
-      }), {});
-
-      const filteredArray = this.state.events.filter(x => toRemoveMap[x]);
+      const filteredArray = this.state.events.filter(event => { return newEvents.indexOf(event) < 0 });
       this.setState({ events: filteredArray });
     }
   }
@@ -139,24 +150,28 @@ class Home extends Component {
 
     return (
       <Row>
-        <Col lg={2} md={2}>
-          <CalendarToolbar
-            distribution={this.state.distribution}
-            rescue={this.state.rescue}
-            updateCalendar={this.updateCalendar}
-          />
+        <Col lg={2} md={2} style={{ height: "100%" }}>
+            <CalendarToolbar
+              distribution={this.state.distribution}
+              rescue={this.state.rescue}
+              updateCalendar={this.updateCalendar}
+            />
         </Col>
         <Col>
-          <FullCalendar
-            plugins={[rrulePlugin, dayGridPlugin]}
-            headerToolbar={{
-              left: 'prev,next today',
-              center: 'title',
-              right: 'dayGridMonth,dayGridWeek,dayGridDay'
-            }}
-            initialView="dayGridMonth"
-            events={this.state.events}
-          />
+          <div style={{ marginTop: "5vh", marginLeft: "1vw", marginRight: "10vw", marginBottom: "15vh", height: "50%" }}>
+            <FullCalendar
+              plugins={[rrulePlugin, dayGridPlugin]}
+              headerToolbar={{
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek,dayGridDay'
+              }}
+              initialView="dayGridMonth"
+              events={this.state.events}
+              expandRows={true}
+              fixedWeekCount={false}
+            />
+          </div>
         </Col>
       </Row>
     );

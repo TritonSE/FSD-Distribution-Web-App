@@ -7,8 +7,8 @@ class CalendarToolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showDistribution: false,
-      showRescue: false,
+      showDistribution: true,
+      showRescue: true,
     };
 
     this.handleShowAgencies = this.handleShowAgencies.bind(this);
@@ -44,11 +44,7 @@ class CalendarToolbar extends Component {
   render() {
     const { showDistribution, showRescue } = this.state;
     return (
-      <div style={{ backgroundColor: "#F5F7F7", marginTop: "5vh", marginLeft: "5vw", height: "70vh" }}>
-        <button style={{ border: "none", background: "none" }} onClick={this.handleShowAgencies}>
-          All
-        </button>
-        <br />
+      <div style={{ backgroundColor: "#F5F7F7", marginTop: "5vh", marginLeft: "5vw", height: "100vh" }}>
         <button style={{ border: "none", background: "none" }} value="distribution" onClick={this.handleShowAgencies}>
           { showDistribution? <h5>Distribution</h5> : <p>Distribution</p> }
         </button>

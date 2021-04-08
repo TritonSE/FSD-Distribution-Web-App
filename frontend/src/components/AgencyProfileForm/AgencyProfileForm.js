@@ -156,6 +156,7 @@ class AgencyProfileForm extends Component {
   prepareData() {
     let data = { ...this.state };
 
+    data.tableContent = { ...data.tableContent };
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
     // fix distribution and retail rescue formats
@@ -171,6 +172,9 @@ class AgencyProfileForm extends Component {
     // UTC string format: "Www, dd Mmm yyyy hh:mm:ss GMT"
     const UTCBase = new Date().toUTCString().slice(0, 17);
     const UTCEnd = ":00 PDT";
+    data.distributionStartTimes = { ...data.distributionStartTimes };
+    data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
+    data.retailRescueLocations = { ...data.retailRescueLocations };
     for (let day of days) {
       if (data.distributionDays[day]) {
         // this day is selected, so fix the time format

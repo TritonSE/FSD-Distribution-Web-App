@@ -96,7 +96,8 @@ function AgencyTable() {
             filters["Joined In"][year] = false;
           }
         }
-    }; setFilter({...filters})})
+      }; setFilter({...filters})
+    })
     .catch(err => {
       console.log(err);
     });

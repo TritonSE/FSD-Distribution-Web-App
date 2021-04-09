@@ -43,30 +43,7 @@ class RetailRescueDays extends Component {
                 onChange={onChange}
                 valid={validCheck(item.timeStateKey)}
               />
-              <FormCol>
-                  <div style={{display: "block", float: "right", position: "relative"}}>
-                  <input
-                  type="text"
-                  style={{
-                    position: "relative",
-                    height: "25px",
-                    width: "35px",
-                    display: "inline-block",
-                    padding: "0px",
-                    paddingRight: "3px",
-                    margin: "10px 2px 0px 2px",
-                    borderRadius: "2px",
-                    border: "1px solid #000000",
-                    fontSize: "15px",
-                    textAlign: "right",
-                  }}
-                  placeholder="Location"
-                  value=""
-                  onChange={this.onChange}
-                />
-                  </div>
-               
-              </FormCol>
+              <input value="" placeholder="Location"/>
             </FormRow>
           </div>
         ))}

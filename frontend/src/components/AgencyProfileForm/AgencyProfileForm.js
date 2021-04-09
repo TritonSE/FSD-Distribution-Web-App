@@ -17,6 +17,7 @@ import InlineDropdown from "../FormComponents/InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
 import { getJWT } from "../../auth";
+import RetailRescueDays from "./RetailRescueDays";
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -873,6 +874,61 @@ class AgencyProfileForm extends Component {
 
           <div className="form-section">
             <FormSectionHeader title="Retail Rescue" />
+            <RetailRescueDays
+              values={[
+                {
+                  title: "Monday",
+                  selected: data.distributionDays.monday,
+                  time: data.distributionStartTimes.monday,
+                  stateKey: "distributionDays.monday",
+                  timeStateKey: "distributionStartTimes.monday",
+                },
+                {
+                  title: "Tuesday",
+                  selected: data.distributionDays.tuesday,
+                  time: data.distributionStartTimes.tuesday,
+                  stateKey: "distributionDays.tuesday",
+                  timeStateKey: "distributionStartTimes.tuesday",
+                },
+                {
+                  title: "Wednesday",
+                  selected: data.distributionDays.wednesday,
+                  time: data.distributionStartTimes.wednesday,
+                  stateKey: "distributionDays.wednesday",
+                  timeStateKey: "distributionStartTimes.wednesday",
+                },
+                {
+                  title: "Thursday",
+                  selected: data.distributionDays.thursday,
+                  time: data.distributionStartTimes.thursday,
+                  stateKey: "distributionDays.thursday",
+                  timeStateKey: "distributionStartTimes.thursday",
+                },
+                {
+                  title: "Friday",
+                  selected: data.distributionDays.friday,
+                  time: data.distributionStartTimes.friday,
+                  stateKey: "distributionDays.friday",
+                  timeStateKey: "distributionStartTimes.friday",
+                },
+                {
+                  title: "Saturday",
+                  selected: data.distributionDays.saturday,
+                  time: data.distributionStartTimes.saturday,
+                  stateKey: "distributionDays.saturday",
+                  timeStateKey: "distributionStartTimes.saturday",
+                },
+                {
+                  title: "Sunday",
+                  selected: data.distributionDays.sunday,
+                  time: data.distributionStartTimes.sunday,
+                  stateKey: "distributionDays.sunday",
+                  timeStateKey: "distributionStartTimes.sunday",
+                },
+              ]}
+              onChange={this.handleInputChange}
+              validCheck={this.isValid}
+            />
           </div>
 
           <div className="form-section">

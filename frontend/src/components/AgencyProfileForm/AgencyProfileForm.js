@@ -149,6 +149,15 @@ class AgencyProfileForm extends Component {
   }
 
   /**
+   * Changes date format from MM/DD/YYYY to YYYY-MM-DD.
+   * @param {String} date Date string with format MM/DD/YYYY
+   * @returns Date string with format YYYY-MM-DD
+   */
+  fixDate(date) {
+    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
+  }
+
+  /**
    * Helper function that processes this component's state into the format
    * expected by the agency schema (see backend/routes/agency.js).
    * @returns An object matching the agency schema populated with values from
@@ -170,9 +179,9 @@ class AgencyProfileForm extends Component {
       "saturday",
       "sunday",
     ];
-    // UTC string format: "Www, dd Mmm yyyy hh:mm:ss GMT"
-    const UTCBase = new Date().toUTCString().slice(0, 17);
-    const UTCEnd = ":00 PDT";
+    // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
+    const timeBase = this.fixDate(data.distributionStartDate) + "T";
+    const timeEnd = "Z";
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
     data.retailRescueLocations = { ...data.retailRescueLocations };
@@ -180,7 +189,7 @@ class AgencyProfileForm extends Component {
       if (data.distributionDays[day]) {
         // this day is selected, so fix the time format
         let time = data.distributionStartTimes[day]; // "hh:mm"
-        data.distributionStartTimes[day] = UTCBase + time + UTCEnd;
+        data.distributionStartTimes[day] = timeBase + time + timeEnd;
       } else {
         // not selected
         data.distributionStartTimes[day] = "";
@@ -189,13 +198,20 @@ class AgencyProfileForm extends Component {
       if (data.retailRescueDays[day]) {
         // this day is selected, so fix the time format
         let time = data.retailRescueStartTimes[day]; // "hh:mm"
-        data.retailRescueStartTimes[day] = UTCBase + time + UTCEnd;
+        data.retailRescueStartTimes[day] = timeBase + time + timeEnd;
       } else {
         // not selected
         data.retailRescueStartTimes[day] = "";
         data.retailRescueLocations[day] = "";
       }
     }
+
+    data.userExcludedDates = data.userExcludedDates.map((date) => {
+      return this.fixDate(date); // time not needed
+    });
+    data.userSelectedDates = data.userSelectedDates.map((date) => {
+      return this.fixDate(date) + "T09:00Z";
+    });
 
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");

@@ -91,11 +91,11 @@ function AgencyTable() {
           filters.Staff[dat.tableContent.staff] = false;
         }
         if(dat.tableContent.dateOfInitialPartnership) {
-        if(!(filters["Joined In"].hasOwnProperty(dat.tableContent.dateOfInitialPartnership.substring(6)))) {
-          let year = dat.tableContent.dateOfInitialPartnership.substring(6);
-          filters["Joined In"][year] = false;
+          if(!(filters["Joined In"].hasOwnProperty(dat.tableContent.dateOfInitialPartnership.substring(6)))) {
+            let year = dat.tableContent.dateOfInitialPartnership.substring(6);
+            filters["Joined In"][year] = false;
+          }
         }
-      }
     }; setFilter({...filters})})
     .catch(err => {
       console.log(err);

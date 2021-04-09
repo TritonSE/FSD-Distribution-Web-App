@@ -37,7 +37,7 @@ const Selected = ({filters, selected, changeSelected, changeFilter, paginate}) =
       }
       changeFilter({...filters});
       paginate(1);
-  }}>Clear All</button>
+    }}>Clear All</button>
   </div>
   )
 }

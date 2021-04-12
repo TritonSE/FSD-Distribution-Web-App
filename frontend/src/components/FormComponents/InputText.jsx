@@ -40,8 +40,27 @@ class InputText extends Component {
     return null;
   }
 
+  /**
+   * Renders label if it is given as a prop
+   */
+  renderLabel() {
+    const { label, required } = this.props;
+    if (label) {
+      return (
+        <label className="form-input-label">
+            {label}
+            <RequiredAsterisk required={required} />
+          </label>
+      )
+    }
+    else {
+      return
+    }
+    
+  }
+
   render() {
-    const { label, value, leftmost, required, wide, valid } = this.props;
+    const { value, leftmost, wide, valid } = this.props;
     let groupClass = "form-input";
     if (!leftmost) {
       groupClass += " form-col-gutter";
@@ -56,10 +75,7 @@ class InputText extends Component {
 
     return (
       <div className={groupClass}>
-        <label className="form-input-label">
-          {label}
-          <RequiredAsterisk required={required} />
-        </label>
+        {this.renderLabel()}
         <input
           type="text"
           className={boxClass}

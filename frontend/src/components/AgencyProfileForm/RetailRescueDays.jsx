@@ -5,6 +5,7 @@ import { FormRow, FormCol } from "./FormLayout";
 import InputText from "../FormComponents/InputText";
 import RequiredAsterisk from "../FormComponents/RequiredAsterisk";
 import "./FormStyle.css";
+import InputLocation from "../FormComponents/InputLocation";
 
 /**
  * DistributionDays encapsulates the set of checkboxes and time inputs
@@ -25,7 +26,7 @@ class RetailRescueDays extends Component {
     return (
       <div className="form-input selection-choice form-col-width">
         <label className="form-input-label">
-          Retail Rescue Day(s), Start TImes, and Locations
+          Retail Rescue Day(s), Start Times, and Locations
           <RequiredAsterisk required={true} />
         </label>
         {values.map((item, index) => (
@@ -43,7 +44,11 @@ class RetailRescueDays extends Component {
                 onChange={onChange}
                 valid={validCheck(item.timeStateKey)}
               />
-              <input value="" placeholder="Location"/>
+              <InputLocation
+                value={item.location}
+                stateKey={item.locationStateKey}
+                onChange={onChange}
+              />
             </FormRow>
           </div>
         ))}

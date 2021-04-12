@@ -23,6 +23,10 @@
   width: 296px;
 }
 
+.form-col-double-width {
+  width: 592px;
+}
+
 /* * * * Text styles * * * */
 
 .form-title {

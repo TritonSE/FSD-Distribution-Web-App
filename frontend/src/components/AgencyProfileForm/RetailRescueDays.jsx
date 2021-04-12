@@ -1,20 +1,20 @@
 import React, { Component } from "react";
 import Checkbox from "../FormComponents/Checkbox";
 import TimeBox from "../FormComponents/TimeBox";
-import { FormRow, FormCol } from "./FormLayout";
-import InputText from "../FormComponents/InputText";
+import { FormRow } from "./FormLayout";
 import RequiredAsterisk from "../FormComponents/RequiredAsterisk";
 import "./FormStyle.css";
 import InputLocation from "../FormComponents/InputLocation";
 
 /**
- * DistributionDays encapsulates the set of checkboxes and time inputs
- * corresponding to days of the week in the form distribution section.
+ * RetailRescueDays encapsulates the set of checkboxes, time inputs, and
+ * location inputs corresponding to days of the week in the form retail rescue
+ * section.
  *
  * Expected props:
  * - {Array<Object>} values: list of objects containing data for each day of
- * the week (title, whether it is selected, start time, state key for the
- * selection, and state key for the time)
+ * the week (title, whether it is selected, start time, location, and state keys
+ * for the selection, time, and location)
  * - {Function} onChange: callback from the form page to handle input changes,
  * should take a String and a Boolean or String
  * - {Function} validCheck: callback from the form page to check whether inputs
@@ -26,7 +26,7 @@ class RetailRescueDays extends Component {
     return (
       <div className="form-input selection-choice form-col-width">
         <label className="form-input-label">
-          Retail Rescue Day(s), Start Times, and Locations
+          Retail Rescue Day(s), Start Times (24-Hour), and Locations
           <RequiredAsterisk required={true} />
         </label>
         {values.map((item, index) => (

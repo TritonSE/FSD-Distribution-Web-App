@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import Checkbox from "../FormComponents/Checkbox";
 import TimeBox from "../FormComponents/TimeBox";
-import { FormRow } from "./FormLayout";
 import RequiredAsterisk from "../FormComponents/RequiredAsterisk";
 import "./FormStyle.css";
-import InputLocation from "../FormComponents/InputLocation";
+import LocationBox from "../FormComponents/LocationBox";
 
 /**
  * RetailRescueDays encapsulates the set of checkboxes, time inputs, and
@@ -24,32 +23,30 @@ class RetailRescueDays extends Component {
   render() {
     const { values, onChange, validCheck } = this.props;
     return (
-      <div className="form-input selection-choice form-col-width">
+      <div className="form-input selection-choice form-col-double-width">
         <label className="form-input-label">
           Retail Rescue Day(s), Start Times (24-Hour), and Locations
           <RequiredAsterisk required={true} />
         </label>
         {values.map((item, index) => (
           <div key={index}>
-            <FormRow>
-              <Checkbox
-                label={item.title}
-                isChecked={item.selected}
-                stateKey={item.stateKey}
-                onChange={onChange}
-              />
-              <TimeBox
-                value={item.time}
-                stateKey={item.timeStateKey}
-                onChange={onChange}
-                valid={validCheck(item.timeStateKey)}
-              />
-              <InputLocation
-                value={item.location}
-                stateKey={item.locationStateKey}
-                onChange={onChange}
-              />
-            </FormRow>
+            <Checkbox
+              label={item.title}
+              isChecked={item.selected}
+              stateKey={item.stateKey}
+              onChange={onChange}
+            />
+            <LocationBox
+              value={item.location}
+              stateKey={item.locationStateKey}
+              onChange={onChange}
+            />
+            <TimeBox
+              value={item.time}
+              stateKey={item.timeStateKey}
+              onChange={onChange}
+              valid={validCheck(item.timeStateKey)}
+            />
           </div>
         ))}
       </div>

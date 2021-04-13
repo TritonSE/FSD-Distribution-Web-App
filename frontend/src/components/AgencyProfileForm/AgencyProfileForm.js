@@ -250,7 +250,7 @@ class AgencyProfileForm extends Component {
       return this.fixDate(date); // time not needed
     });
     data.userSelectedDates = data.userSelectedDates.map((date) => {
-      return this.fixDate(date) + "T09:00Z";
+      return this.fixDate(date) + "T00:00Z";
     });
 
     // Remove empty strings in additionalAddresses

@@ -27,7 +27,6 @@ const DEFAULT_DATE_FORMAT = "MM/DD/YYYY";
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    let { renderCalendar} = this;
     let todayMoment = moment();
     this.state = {
       todayMoment: todayMoment,
@@ -35,7 +34,6 @@ class Calendar extends Component {
       startDateMoment: moment(props.distributionStartDate, DEFAULT_DATE_FORMAT),
     };
   }
-
 
   /**
    * Creates a two-dimensional array of String in default date format
@@ -148,7 +146,6 @@ class Calendar extends Component {
    */
   removeSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
-    const { calendar } = this.state;
 
     let newSelectedDates = userSelectedDates.slice();
     let indexOfDate = newSelectedDates.indexOf(date);
@@ -166,7 +163,6 @@ class Calendar extends Component {
    */
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
-    const { calendar } = this.state;
 
     let newSelectedDates = userSelectedDates.slice();
     newSelectedDates.push(date);
@@ -246,7 +242,6 @@ class Calendar extends Component {
    * Updates todayMoment and rerenders calendar for following month.
    */
   handleNext = () => {
-    const { onChange } = this.props;
     let newTodayMoment = this.state.todayMoment.clone().add(1, "month");
     this.setState({
       todayMoment: newTodayMoment,
@@ -258,7 +253,6 @@ class Calendar extends Component {
    * Updates todayMoment and rerenders calendar for previous month.
    */
   handlePrev = () => {
-    const { onChange } = this.props;
     let newTodayMoment = this.state.todayMoment.clone().subtract(1, "month");
     this.setState({
       todayMoment: newTodayMoment,

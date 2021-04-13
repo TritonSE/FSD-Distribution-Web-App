@@ -3,7 +3,7 @@ import "./Inputs.css";
 import "./LocationBoxes.css";
 
 /**
- *
+ * Input box for a location in the agency form retail rescue section.
  */
 class LocationBox extends Component {
   /**

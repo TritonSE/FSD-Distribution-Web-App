@@ -40,25 +40,6 @@ class InputText extends Component {
     return null;
   }
 
-  /**
-   * Renders label if it is given as a prop
-   */
-  renderLabel() {
-    const { label, required } = this.props;
-    if (label) {
-      return (
-        <label className="form-input-label">
-            {label}
-            <RequiredAsterisk required={required} />
-          </label>
-      )
-    }
-    else {
-      return
-    }
-    
-  }
-
   render() {
     const { value, leftmost, wide, valid } = this.props;
     let groupClass = "form-input";
@@ -75,7 +56,10 @@ class InputText extends Component {
 
     return (
       <div className={groupClass}>
-        {this.renderLabel()}
+        <label className="form-input-label">
+          {label}
+          <RequiredAsterisk required={required} />
+        </label>
         <input
           type="text"
           className={boxClass}

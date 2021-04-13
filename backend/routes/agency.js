@@ -8,8 +8,8 @@ const { Agency } = require("../models");
 const router = express.Router();
 
 /**
- * Checks that the distribution start time for the given day exists, if the day
- * is selected, using express-validator.
+ * Checks that the distribution start time for the given day is ISO 8601 format,
+ * if the day is selected, using express-validator.
  * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
  */
 const validateDistributionStartTime = (day) =>
@@ -19,8 +19,8 @@ const validateDistributionStartTime = (day) =>
     .isISO8601();
 
 /**
- * Checks that the retail rescue start time for the given day exists, if the day
- * is selected, using express-validator.
+ * Checks that the retail rescue start time for the given day is ISO 8601
+ * format, if the day is selected, using express-validator.
  * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
  */
 const validateRetailRescueStartTime = (day) =>

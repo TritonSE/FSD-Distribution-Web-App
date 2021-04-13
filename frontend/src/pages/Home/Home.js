@@ -3,8 +3,6 @@ import { Redirect } from 'react-router-dom';
 import { isAuthenticated } from '../../auth';
 import { Row, Col } from 'react-bootstrap';
 import { getJWT } from "../../auth";
-
-import CalendarView from '../../components/Calendar/CalendarView';
 import CalendarToolbar from '../../components/Calendar/CalendarToolbar';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -20,126 +18,149 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      /*
-        [
-          {
-            name: '',
-            color: ''
-          }
-        ]
-      */
-      distribution: [],
+      distribution: [{name: "Agency A", color: "#fc02db"}, {name: "Agency B", color: "#71fc07"}, {name: "Agency C", color: "#fc1307"}],
       rescue: [],
       events: [],
       map: {
-        "Food": [{
-          groupdId: "Steves best",
-          title: "Today's Task",
+        "Agency A": [{
+          groupId: "distribution",
+          title: "Agency A",
+          rrule: {
+            freq: "weekly",
+            interval: 1,
+            byweekday: ['mo', 'we', 'fr'],
+            dtstart: new Date().toISOString(),
+          },
+          backgroundColor: "#fc02db",
+          exdate: ['2021-04-28', '2021-04-19'],
+          duration: '02:00',
+        }],
+        "Agency B": [{
+          groupId: "distribution",
+          title: "Agency B",
           rrule: {
             freq: "weekly",
             interval: 2,
-            byweekday: ['mo', 'we', 'fr'],
-            dtstart: '2021-03-08T09:30:00',
-            until: '2021-05-20'
+            byweekday: ['tu', 'th'],
+            dtstart: new Date().toISOString(),
           },
+          backgroundColor: "#71fc07",
+          exdate: ['2021-04-20', '2021-04-29'],
           duration: '02:00',
-          extendedProps: {
-            note: "Here is a note",
-            type: 3
-          }
         }],
-        "The Shock": [{
-          groupdId: "The Shock",
-          title: "wow another task here",
-          startTime: "11:30",
-          endTime: "13:30",
-          startRecur: "2021-03-28",
-          endRecur: "2021-07-20",
-          daysOfWeek: ["2", "4", "6"],
-          extendedProps: {
-            note: "Here is a note",
-            type: 4
-          }
+        "Agency C": [{
+          groupId: "distribution",
+          title: "Agency C",
+          rrule: {
+            freq: "weekly",
+            interval: 2,
+            byweekday: ['sa', 'su'],
+            dtstart: new Date().toISOString(),
+          },
+          backgroundColor: "#fc1307",
+          exdate: ['2021-04-18', '2021-04-24'],
+          duration: '02:00',
         }]
       }
     }
     this.updateCalendar = this.updateCalendar.bind(this);
   }
 
-  componentDidMount() {
-    fetch(`${config.backend.uri}/agency`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + getJWT(),
-      }
-    })
-      .then((response) => {
-        response.json().then((data) => {
-          if (response.ok) {
-            const hsvInterval = 360 / data.agencies.length;
-            data.agencies.forEach((agency, index) => {
-              const name = agency.tableContent.name;
-              const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
+  // componentDidMount() {
+  //   fetch(`${config.backend.uri}/agency`, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: "Bearer " + getJWT(),
+  //     }
+  //   })
+      // .then((response) => {
+      //   response.json().then((data) => {
+      //     if (response.ok) {
+      //       const hsvInterval = 360 / data.agencies.length;
+      //       data.agencies.forEach((agency, index) => {
+      //         const name = agency.tableContent.name;
+      //         const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
 
-              // TODO add agency to retail rescue category
+      //         // TODO add agency to retail rescue category
 
-              // add agency to distribution category
-              this.setState({
-                distribution: [...this.state.distribution, { name: name, color: color }]
-              });
+      //         // add agency to distribution category
+      //         this.setState({
+      //           distribution: [...this.state.distribution, { name: name, color: color }]
+      //         });
 
-              // generate events
-              const days = Object.values(agency.distributionDays); // {monday: true, tuesday, false}
-              for (let i = 0; i < 7; i++) {
-                if (days[i]) {
-                  if (this.state.map[name]) {
-                    this.state.map[name].push({
-                      // TODO add distribution/retail rescue to name/group 
-                      groupdId: name,
-                      title: name,
-                      rrule: {
-                        freq: 'weekly',
-                        interval: agency.distributionFrequency,
-                        byweekday: i,
-                        dtstart: agency.distributionStartDate, // the day this was created at the start time 
-                      },
-                      duration: '02:00',
-                      backgroundColor: color
-                    });
-                  } else {
-                    this.state.map[name] = [{
-                      // TODO add distribution/retail rescue to name/group 
-                      groupdId: name,
-                      title: name,
-                      rrule: {
-                        freq: 'weekly',
-                        interval: agency.distributionFrequency,
-                        byweekday: i,
-                        dtstart: agency.distributionStartDate,
-                      },
-                      duration: '02:00',
-                      backgroundColor: color
-                    }]
-                  }
-                }
-              }
-            });
-          }
-        });
-      })
-      .catch((error) => console.error(error));
-  }
+      //         // generate events
+      //         const days = Object.values(agency.distributionDays); // {monday: true, tuesday, false}
+      //         for (let i = 0; i < 7; i++) {
+      //           if (days[i]) {
+      //             if (this.state.map[`${name} - distribution`]) {
+      //               this.state.map[name].push({
+      //                 // TODO add distribution/retail rescue to name/group 
+      //                 groupdId: name,
+      //                 title: name,
+      //                 rrule: {
+      //                   freq: 'weekly',
+      //                   interval: agency.distributionFrequency,
+      //                   byweekday: i,
+      //                   dtstart: agency.distributionStartDate, // the day this was created at the start time 
+      //                 },
+      //                 duration: '02:00',
+      //                 backgroundColor: color
+      //               });
+      //             } else {
+      //               this.state.map[name] = [{
+      //                 // TODO add distribution/retail rescue to name/group 
+      //                 groupdId: name,
+      //                 title: name,
+      //                 rrule: {
+      //                   freq: 'weekly',
+      //                   interval: agency.distributionFrequency,
+      //                   byweekday: i,
+      //                   dtstart: agency.distributionStartDate,
+      //                 },
+      //                 duration: '02:00',
+      //                 backgroundColor: color
+      //               }]
+      //             }
+      //           }
+      //         }
+      //       });
+      //     }
+      //   });
+      // })
+  //     .catch((error) => console.error(error));
+  // }
 
   updateCalendar(agency, checked) {
-    const newEvents = this.state.map[agency];
+    switch(agency) {
+      case "distribution":
+        if (checked) {
+          let events = []
+          Object.keys(this.state.map).forEach((agencyName) => {
+            events = events.concat(this.state.map[agencyName]);
+          });
+          this.setState({events: events.concat(this.state.events)});
+        } else {
+          const filteredArray = this.state.events.filter(event => { return !this.state.map[event.title] });
+          this.setState({ events: filteredArray });
+        }
+        break;
+      case "rescue":
+        if (checked) {
 
-    if (checked) {
-      console.log(newEvents);
-      this.setState({ events: [].concat(newEvents, this.state.events) });
-    } else {
-      const filteredArray = this.state.events.filter(event => { return newEvents.indexOf(event) < 0 });
-      this.setState({ events: filteredArray });
+        } else {
+
+        }
+        break;
+      default:
+        const newEvents = this.state.map[agency];
+        if (checked) {
+          this.setState({ events: [].concat(newEvents, this.state.events) });
+        } else {
+          const filteredArray = this.state.events.filter(event => { return newEvents.indexOf(event) < 0 });
+          this.setState({ events: filteredArray });
+        }
+        break;
     }
   }
 
@@ -158,7 +179,7 @@ class Home extends Component {
             />
         </Col>
         <Col>
-          <div style={{ marginTop: "5vh", marginLeft: "1vw", marginRight: "10vw", marginBottom: "15vh", height: "50%" }}>
+          <div style={{ marginTop: "5vh", marginRight: "10vw", marginBottom: "15vh", height: "50%" }}>
             <FullCalendar
               plugins={[rrulePlugin, dayGridPlugin]}
               headerToolbar={{

@@ -16,8 +16,7 @@ const validateDistributionStartTime = (day) =>
   body(`distributionStartTimes.${day}`)
     .trim()
     .if((value, { req }) => req.body.distributionDays[day])
-    .not()
-    .isEmpty();
+    .isISO8601();
 
 /**
  * Checks that the retail rescue start time for the given day exists, if the day
@@ -28,8 +27,7 @@ const validateRetailRescueStartTime = (day) =>
   body(`retailRescueStartTimes.${day}`)
     .trim()
     .if((value, { req }) => req.body.retailRescueDays[day])
-    .not()
-    .isEmpty();
+    .isISO8601();
 
 /**
  * Checks that the retail rescue location for the given day exists, if the day
@@ -49,17 +47,10 @@ const validateRetailRescueLocation = (day) =>
  */
 const validationChain = [
   body("tableContent.agencyNumber").trim().isNumeric({ no_symbols: true }),
-  body("tableContent.name").trim().not().isEmpty(),
-  body("tableContent.status").trim().not().isEmpty(),
-  body("tableContent.region").trim().not().isEmpty(),
-  body("tableContent.city").trim().not().isEmpty(),
-  body("tableContent.staff").trim().not().isEmpty(),
   body("tableContent.dateOfInitialPartnership")
     .trim()
     .isDate({ format: "MM/DD/YYYY" }),
   body("billingZipcode").trim().isPostalCode("US"),
-  body("contacts.*.contact").trim().not().isEmpty(),
-  body("contacts.*.position").trim().not().isEmpty(),
   body("contacts.*.phoneNumber").trim().isMobilePhone("en-US"),
   body("contacts.*.email").trim().isEmail(),
   body("scheduledNextVisit").trim().isDate({ format: "MM/DD/YYYY" }),
@@ -92,9 +83,7 @@ const validationChain = [
   validateRetailRescueLocation("friday"),
   validateRetailRescueLocation("saturday"),
   validateRetailRescueLocation("sunday"),
-  body("tasks.*.title").trim().not().isEmpty(),
   body("tasks.*.dueDate").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("tasks.*.status").trim().not().isEmpty(),
   isAuthenticated,
 ];
 
@@ -188,25 +177,25 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
 
 /**
  * Route for Get request to read all Agencies
- * 
+ *
  * Ex: Get request with localhost:8000/agency/
- * 
+ *
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
 router.get("/table/all", async (req, res, next) => {
   try {
-    const agency = await Agency.find({}, {_id: 0}).select('tableContent');
+    const agency = await Agency.find({}, { _id: 0 }).select("tableContent");
     return res.status(200).json({
-        success: true,
-        data: agency
+      success: true,
+      data: agency,
     });
   } catch (err) {
-      return res.status(500).json({
-          success: false,
-          error: 'Server Error'
-      });
+    return res.status(500).json({
+      success: false,
+      error: "Server Error",
+    });
   }
-})
+});
 
 module.exports = router;

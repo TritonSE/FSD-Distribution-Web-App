@@ -18,23 +18,23 @@ const PendingUserSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
-  }
+  },
 });
 
-PendingUserSchema.pre('save', function(next) {
+PendingUserSchema.pre("save", function (next) {
   const user = this;
-  if (user.isModified('password')) {
+  if (user.isModified("password")) {
     user.password = bcrypt.hashSync(user.password, 10);
   }
-  return next(); 
+  return next();
 });
 
-UserSchema.methods.verifyPassword = function(password) {
+UserSchema.methods.verifyPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
@@ -67,6 +67,62 @@ const TableContentSchema = new Schema({
     type: String,
     required: true,
   },
+
+  dateOfInitialPartnership: {
+    type: String,
+    required: true,
+  },
+
+  /* Capacity Section */
+  // Storage Type
+  standAloneFreezer: {
+    type: Number,
+  },
+  freezerFridge: {
+    type: Number,
+  },
+  chestFreezer: {
+    type: Number,
+  },
+  singleDoorFreezer: {
+    type: Number,
+  },
+  freezerFridgeCombo: {
+    type: Number,
+  },
+  walkInFreezer: {
+    type: Number,
+  },
+  doubleDoorFridge: {
+    type: Number,
+  },
+  sideBySideFridge: {
+    type: Number,
+  },
+  singleDoorFridge: {
+    type: Number,
+  },
+  walkInFridge: {
+    type: Number,
+  },
+  dryStorageClimateControl: {
+    type: Number,
+  },
+  dryStorageNonClimateControl: {
+    type: Number,
+  },
+
+  // Transportation Type
+  pickUpTruck: {
+    type: Number,
+  },
+  van: {
+    type: Number,
+  },
+  car: {
+     type: Number,
+  },
+  
 });
 
 const ContactSchema = new Schema({
@@ -143,6 +199,21 @@ const DistributionTimesSchema = new Schema({
   },
 });
 
+const AgencyTaskSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  dueDate: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: true,
+  },
+});
+
 const AgencySchema = new Schema({
   /**
    * Accessing the TableContentSchema
@@ -204,10 +275,7 @@ const AgencySchema = new Schema({
     type: String,
     required: true,
   },
-  dateOfInitialPartnership: {
-    type: String,
-    required: true,
-  },
+
   fileAudit: {
     type: String,
   },
@@ -261,56 +329,6 @@ const AgencySchema = new Schema({
     type: Boolean,
   },
 
-  /* Capacity Section */
-  // Storage Type
-  standAloneFreezer: {
-    type: Number,
-  },
-  freezerFridge: {
-    type: Number,
-  },
-  chestFreezer: {
-    type: Number,
-  },
-  singleDoorFreezer: {
-    type: Number,
-  },
-  freezerFridgeCombo: {
-    type: Number,
-  },
-  walkInFreezer: {
-    type: Number,
-  },
-  doubleDoorFridge: {
-    type: Number,
-  },
-  sideBySideFridge: {
-    type: Number,
-  },
-  singleDoorFridge: {
-    type: Number,
-  },
-  walkInFridge: {
-    type: Number,
-  },
-  dryStorageClimateControl: {
-    type: Number,
-  },
-  dryStorageNonClimateControl: {
-    type: Number,
-  },
-
-  // Transportation Type
-  pickUpTruck: {
-    type: Number,
-  },
-  van: {
-    type: Number,
-  },
-  car: {
-    type: Number,
-  },
-
   /* Retail Rescue Section */
   retailRescueAvailable: {
     type: Boolean,
@@ -343,6 +361,11 @@ const AgencySchema = new Schema({
   },
   immigrant: {
     type: Boolean,
+  },
+
+  /* Agency tasks */
+  tasks: {
+    type: [AgencyTaskSchema],
   },
 });
 

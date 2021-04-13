@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import IncrementerBox from "./IncrementerBox";
-import "./FormStyle.css";
+import "./IncrementerBoxes.css";
+import "./TextStyles.css";
 
 /**
  * IncrementerBoxColumn is a container for IncrementerBox components in a single
@@ -16,7 +17,7 @@ import "./FormStyle.css";
 class IncrementerBoxColumn extends Component {
   render() {
     return (
-      <div className="incrementer-box-list-column selection-choice">
+      <div className="incrementer-box-column selection-choice">
         {this.props.options.map((item, index) => {
           return (
             <IncrementerBox

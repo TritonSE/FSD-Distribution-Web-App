@@ -26,6 +26,12 @@ const validateDistributionStartTime = (day) =>
  * specified model fields.
  */
 const validationChain = [
+  body("tableContent.agencyNumber").trim().isNumeric({ no_symbols: true }),
+  body("tableContent.name").trim().not().isEmpty(),
+  body("tableContent.status").trim().not().isEmpty(),
+  body("tableContent.region").trim().not().isEmpty(),
+  body("tableContent.city").trim().not().isEmpty(),
+  body("tableContent.staff").trim().not().isEmpty(),
   body("billingZipcode").trim().isPostalCode("US"),
   body("contacts.*.contact").trim().not().isEmpty(),
   body("contacts.*.position").trim().not().isEmpty(),
@@ -50,6 +56,9 @@ const validationChain = [
   body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
   body("userSelectedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
   body("userExcludedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("tasks.*.title").trim().not().isEmpty(),
+  body("tasks.*.dueDate").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("tasks.*.status").trim().not().isEmpty(),
   isAuthenticated,
 ];
 
@@ -72,8 +81,7 @@ router.put("/", validationChain, async (req, res, next) => {
   const agency = new Agency(req.body);
   const schemaErrors = agency.validateSync();
   if (schemaErrors) {
-    let fields = Object.values(schemaErrors.errors).map((error) => error.path);
-    invalidFields = invalidFields.concat(fields);
+    invalidFields = invalidFields.concat(Object.keys(schemaErrors.errors));
   }
   if (invalidFields.length > 0) {
     return res.status(400).json({ fields: invalidFields });
@@ -99,9 +107,20 @@ router.put("/", validationChain, async (req, res, next) => {
  * @returns the updated Agency object in Json or any form input errors
  */
 router.post("/:id", validationChain, async (req, res, next) => {
+  let invalidFields = []; // will contain the names of any invalid fields
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    invalidFields = errors.array().map((error) => error.param);
+  }
+
+  // manually validate against schema with validateSync()
+  const agency = new Agency(req.body);
+  const schemaErrors = agency.validateSync();
+  if (schemaErrors) {
+    invalidFields = invalidFields.concat(Object.keys(schemaErrors.errors));
+  }
+  if (invalidFields.length > 0) {
+    return res.status(400).json({ fields: invalidFields });
   }
 
   Agency.updateOne({ _id: req.params.id }, req.body)
@@ -130,5 +149,28 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
       next(err);
     });
 });
+
+/**
+ * Route for Get request to read all Agencies
+ * 
+ * Ex: Get request with localhost:8000/agency/
+ * 
+ * @params - the object id of the Agency
+ * @returns the fetched Agency object in Json
+ */
+router.get("/table/all", async (req, res, next) => {
+  try {
+    const agency = await Agency.find({}, {_id: 0}).select('tableContent');
+    return res.status(200).json({
+        success: true,
+        data: agency
+    });
+  } catch (err) {
+      return res.status(500).json({
+          success: false,
+          error: 'Server Error'
+      });
+  }
+})
 
 module.exports = router;

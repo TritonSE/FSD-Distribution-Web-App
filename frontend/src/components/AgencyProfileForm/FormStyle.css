@@ -1,0 +1,109 @@
+/* * * * Form layout * * * */
+
+.form-body {
+  margin: 62px 0px 64px 130px;
+  white-space: nowrap;
+}
+
+.form-section {
+  margin-top: 74px;
+}
+
+.form-col {
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+}
+
+.form-col-gutter {
+  margin-left: 142px;
+}
+
+.form-col-width {
+  width: 296px;
+}
+
+/* * * * Text styles * * * */
+
+.form-title {
+  font-weight: bold;
+  font-size: 35px;
+  line-height: 41px;
+}
+
+.form-section-title {
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 29px;
+  display: inline-block;
+}
+
+.form-section-title-underline {
+  background: #54682f;
+  height: 4px;
+  border-radius: 1px;
+  margin-top: 3px;
+  margin-bottom: 8px;
+}
+
+/* * * * Input columns * * * */
+
+.checkbox-column {
+  width: 624px;
+}
+
+.incrementer-box-column {
+  width: 624px;
+}
+
+/* * * * div highlighting * * * */
+
+div.form-focusable {
+  margin-top: 15px;
+  padding-bottom: 23px;
+  overflow: hidden;
+}
+
+div.form-focus-gray {
+  margin-top: 12px;
+  margin-left: -130px;
+  padding-left: 130px;
+  padding-bottom: 23px;
+  background-color: #c4c4c4;
+  border-top: 3px solid #a0a0a0;
+}
+
+/* * * * Small button * * * */
+
+.small-button {
+  background: none;
+  border: none;
+  padding: 0px;
+  margin-left: 7px;
+  margin-top: 23px;
+}
+
+.small-button-text {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.small-button-span {
+  display: inline-block;
+  width: 1170px;
+}
+
+.align-right {
+  float: right;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+/* * * * Form buttons * * * */
+
+button {
+  cursor: pointer;
+}

@@ -373,7 +373,6 @@ class AgencyProfileForm extends Component {
               this.setState({ errors: errors });
               let message = `${errors.length} error(s) found!`;
               alert(message);
-              console.log(errors);
             }
           } else {
             if (history) {

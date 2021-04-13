@@ -41,7 +41,7 @@ class InputText extends Component {
   }
 
   render() {
-    const { label, value, leftmost, wide, valid } = this.props;
+    const { label, value, leftmost, required, wide, valid } = this.props;
     let groupClass = "form-input";
     if (!leftmost) {
       groupClass += " form-col-gutter";

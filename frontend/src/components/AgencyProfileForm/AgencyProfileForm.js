@@ -19,6 +19,16 @@ import "./FormStyle.css";
 import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
 
+const DAYS_OF_WEEK = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
+];
+
 /**
  * AgencyProfileForm describes the whole agency form page.
  * Expected props:
@@ -144,6 +154,36 @@ class AgencyProfileForm extends Component {
         immigrant: false,
         tasks: [],
       };
+    } else {
+      data = { ...data };
+      data.tableContent = { ...data.tableContent };
+      data.additionalAddresses = [...data.additionalAddresses];
+      data.contacts = data.contacts.map((obj) => ({ ...obj }));
+      data.distributionDays = { ...data.distributionDays };
+      data.distributionStartTimes = { ...data.distributionStartTimes };
+      data.retailRescueDays = { ...data.retailRescueDays };
+      data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
+      data.retailRescueLocations = { ...data.retailRescueLocations };
+
+      // unfix date/time formats
+      // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
+      for (let day of DAYS_OF_WEEK) {
+        if (data.distributionDays[day]) {
+          let timeString = data.distributionStartTimes[day];
+          data.distributionStartTimes[day] = timeString.slice(11, 16);
+        }
+        if (data.retailRescueDays[day]) {
+          let timeString = data.retailRescueStartTimes[day];
+          data.retailRescueStartTimes[day] = timeString.slice(11, 16);
+        }
+      }
+
+      data.userExcludedDates = data.userExcludedDates.map((date) => {
+        return this.unfixDate(date.slice(0, 10));
+      });
+      data.userSelectedDates = data.userSelectedDates.map((date) => {
+        return this.unfixDate(date.slice(0, 10));
+      });
     }
     this.state = data;
   }
@@ -155,6 +195,15 @@ class AgencyProfileForm extends Component {
    */
   fixDate(date) {
     return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
+  }
+
+  /**
+   * Changes date format from YYYY-MM-DD to MM/DD/YYYY
+   * @param {String} date Date string with format YYYY-MM-DD
+   * @returns Date string with format MM/DD/YYYY
+   */
+  unfixDate(date) {
+    return `${date.slice(5, 7)}/${date.slice(8)}/${date.slice(0, 4)}`;
   }
 
   /**
@@ -170,22 +219,13 @@ class AgencyProfileForm extends Component {
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
     // fix distribution and retail rescue formats
-    const days = [
-      "monday",
-      "tuesday",
-      "wednesday",
-      "thursday",
-      "friday",
-      "saturday",
-      "sunday",
-    ];
     // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
     const timeBase = this.fixDate(data.distributionStartDate) + "T";
     const timeEnd = "Z";
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
     data.retailRescueLocations = { ...data.retailRescueLocations };
-    for (let day of days) {
+    for (let day of DAYS_OF_WEEK) {
       if (data.distributionDays[day]) {
         // this day is selected, so fix the time format
         let time = data.distributionStartTimes[day]; // "hh:mm"
@@ -333,6 +373,7 @@ class AgencyProfileForm extends Component {
               this.setState({ errors: errors });
               let message = `${errors.length} error(s) found!`;
               alert(message);
+              console.log(errors);
             }
           } else {
             if (history) {

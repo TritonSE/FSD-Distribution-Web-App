@@ -1,30 +1,33 @@
 .location-input {
-    display: block;
-    position: relative;
-    width: auto;
-    float: right;
-    margin-top: 9px;
-    margin-left: 100px;
-    
-  }
+  display: block;
+  position: relative;
+  width: auto;
+  float: right;
+  margin-top: 9px;
+  margin-left: 100px;
+}
 
-  .location-field {
-    height: 25px;
-    position: relative;
-    width: relative;
-    display: inline-block;
-    padding: 0px;
-    padding-right: 3px;
-    margin: 0px 2px 0px 2px;
-    border-radius: 7px;
-    padding-left: 10px;
-    text-align: left;
-    border: 2px solid #cdcbd4;
-    font-size: 15px;
-    text-align: left;
-  }
+.location-field {
+  height: 25px;
+  position: relative;
+  width: relative;
+  display: inline-block;
+  padding: 0px;
+  padding-right: 3px;
+  margin: 0px 2px 0px 2px;
+  border-radius: 7px;
+  padding-left: 10px;
+  text-align: left;
+  border: 2px solid #cdcbd4;
+  font-size: 15px;
+  text-align: left;
+}
 
-  .location-field::placeholder {
-    font-style: italic;
-    color: #cdcbd4;
-  }
+.location-field::placeholder {
+  font-style: italic;
+  color: #cdcbd4;
+}
+
+.form-invalid {
+  border: 2px solid #fc0808;
+}

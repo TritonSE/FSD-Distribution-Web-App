@@ -3,7 +3,7 @@ import "./Inputs.css";
 import "./LocationBoxes.css";
 
 /**
- * 
+ *
  */
 class LocationBox extends Component {
   /**
@@ -18,13 +18,18 @@ class LocationBox extends Component {
   };
 
   render() {
-    const { value } = this.props;
+    const { value, valid } = this.props;
+
+    let className = "location-field";
+    if (!valid && valid !== undefined) {
+      className += " form-invalid";
+    }
 
     return (
       <span className="location-input">
         <input
           type="text"
-          className="location-field"
+          className={className}
           placeholder="Location"
           value={value}
           onChange={this.onChange}

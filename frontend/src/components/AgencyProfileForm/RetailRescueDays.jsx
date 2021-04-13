@@ -40,6 +40,7 @@ class RetailRescueDays extends Component {
               value={item.location}
               stateKey={item.locationStateKey}
               onChange={onChange}
+              valid={validCheck(item.locationStateKey)}
             />
             <TimeBox
               value={item.time}

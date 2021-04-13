@@ -82,7 +82,6 @@ class TimeBox extends Component {
       }
     }
 
-    // update
     let time = { ...this.state };
     time[key] = value;
     onChange(stateKey, this.buildTimeString(time));

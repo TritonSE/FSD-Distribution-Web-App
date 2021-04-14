@@ -2,18 +2,6 @@ import React from "react";
 import TestRenderer from "react-test-renderer";
 import AgencyProfileForm from "../src/components/AgencyProfileForm/AgencyProfileForm";
 
-describe("AgencyProfileForm.render", () => {
-  it("renders correctly for adding a new agency", () => {
-    // snapshot (UI) test for an initially-blank form - basically to check that
-    // nothing disappears or changes in the interface
-    const component = TestRenderer.create(
-      <AgencyProfileForm.WrappedComponent agencyData={null} />
-    );
-    let tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-});
-
 describe("AgencyProfileForm.handleInputChange", () => {
   it("updates state for existing keys", () => {
     // calls handleInputChange() with various (known) keys and test values to
@@ -23,14 +11,14 @@ describe("AgencyProfileForm.handleInputChange", () => {
     ).root.instance;
 
     // string value
-    expect(component.state.agencyNumber).toBe("");
-    component.handleInputChange("agencyNumber", "12345");
-    expect(component.state.agencyNumber).toBe("12345");
+    expect(component.state.tableContent.agencyNumber).toBe("");
+    component.handleInputChange("tableContent.agencyNumber", "12345");
+    expect(component.state.tableContent.agencyNumber).toBe("12345");
 
     // another string value
-    expect(component.state.name).toBe("");
-    component.handleInputChange("name", "Test Name");
-    expect(component.state.name).toBe("Test Name");
+    expect(component.state.tableContent.name).toBe("");
+    component.handleInputChange("tableContent.name", "Test Name");
+    expect(component.state.tableContent.name).toBe("Test Name");
 
     // string array value
     expect(component.state.additionalAddresses).toEqual([""]);
@@ -64,24 +52,24 @@ describe("AgencyProfileForm.handleInputChange", () => {
     ]);
 
     // boolean value
-    expect(component.state["monday"]).toBe(false);
-    component.handleInputChange("monday", true);
-    expect(component.state["monday"]).toBe(true);
+    expect(component.state.distributionDays.monday).toBe(false);
+    component.handleInputChange("distributionDays.monday", true);
+    expect(component.state.distributionDays.monday).toBe(true);
 
     // number value
-    expect(component.state["standAloneFreezer"]).toBe(0);
-    component.handleInputChange("standAloneFreezer", 3);
-    expect(component.state["standAloneFreezer"]).toBe(3);
+    expect(component.state.tableContent.standAloneFreezer).toBe(0);
+    component.handleInputChange("tableContent.standAloneFreezer", 3);
+    expect(component.state.tableContent.standAloneFreezer).toBe(3);
 
     // same boolean value again
-    expect(component.state["monday"]).toBe(true);
-    component.handleInputChange("monday", false);
-    expect(component.state["monday"]).toBe(false);
+    expect(component.state.distributionDays.monday).toBe(true);
+    component.handleInputChange("distributionDays.monday", false);
+    expect(component.state.distributionDays.monday).toBe(false);
 
     // same string value again
-    expect(component.state.agencyNumber).toBe("12345");
-    component.handleInputChange("agencyNumber", "67890");
-    expect(component.state.agencyNumber).toBe("67890");
+    expect(component.state.tableContent.agencyNumber).toBe("12345");
+    component.handleInputChange("tableContent.agencyNumber", "67890");
+    expect(component.state.tableContent.agencyNumber).toBe("67890");
   });
 
   it("doesn't update state for unknown keys", () => {
@@ -94,6 +82,10 @@ describe("AgencyProfileForm.handleInputChange", () => {
     expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
     component.handleInputChange("keyThatShouldNotBeUsed", "abcd");
     expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
+
+    expect(component.state.tableContent.unknownKey).toBeUndefined();
+    component.handleInputChange("tableContent.unknownKey", "abcd");
+    expect(component.state.tableContent.unknownKey).toBeUndefined();
   });
 });
 

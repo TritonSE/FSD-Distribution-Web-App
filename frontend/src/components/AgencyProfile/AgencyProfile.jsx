@@ -3,11 +3,11 @@ import { useHistory } from "react-router-dom";
 import AgencyBar from "./AgencyBar";
 import "./AgencyProfile.css";
 import AgencySideBar from "./AgencySideBar";
-import AgencyTaskSection from "./AgencyTaskSection";
+import AgencyTaskSection from "./TaskSection/AgencyTaskSection";
 import TaskForm from "../TaskForm/TaskForm";
 import edit from "./imgs/edit-icon.png";
 import { getJWT } from "../../auth";
-import LocationAndDistributions from './LocationAndDistributions';
+import LocationAndDistributions from "./LocationAndDistributions";
 
 function AgencyProfile({ data }) {
   const [agency, setAgency] = useState(undefined);

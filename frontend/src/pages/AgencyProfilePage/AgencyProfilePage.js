@@ -12,13 +12,8 @@ class AgencyProfilePage extends Component {
       return <Redirect to="login" />;
     }
     const { data } = this.props.location;
-    return (
-      <div>
-         <AgencyProfile data={data} />
-      </div>
-    );
+    return <AgencyProfile data={data} />;
   }
 }
 
 export default AgencyProfilePage;
-

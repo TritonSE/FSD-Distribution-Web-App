@@ -1,14 +1,12 @@
-import React from 'react';
-import edit from './imgs/edit-icon.png';
+import React from "react";
+import EditButton from "./EditButton";
 
-function LocationAndDistributions({agency}) {
+function LocationAndDistributions({ agency, onEdit }) {
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
-        <h1 className="category-title">
-          LOCATION AND DISTRIBUTION HOURS
-        </h1>
+        <EditButton section="location" onClick={onEdit} />
+        <h1 className="category-title">LOCATION AND DISTRIBUTION HOURS</h1>
         <div className="region-container">
           <p>
             <strong>Region:</strong>
@@ -16,27 +14,28 @@ function LocationAndDistributions({agency}) {
           </p>
           <p>
             <strong>San Diego District:</strong>
-            &nbsp;{agency.sanDiegoDistrict} |
-            &nbsp;<strong>County District:</strong>
-            &nbsp;{agency.countyDistrict} |
-            &nbsp;<strong>State Assembly District:</strong>
+            &nbsp;{agency.sanDiegoDistrict} | &nbsp;
+            <strong>County District:</strong>
+            &nbsp;{agency.countyDistrict} | &nbsp;
+            <strong>State Assembly District:</strong>
             &nbsp;{agency.stateAssemblyDistrict}
           </p>
           <p>
             <strong>State Senate District:</strong>
-            &nbsp;{agency.stateSenateDistrict} |
-            &nbsp;<strong>Federal Congressional District:</strong>
+            &nbsp;{agency.stateSenateDistrict} | &nbsp;
+            <strong>Federal Congressional District:</strong>
             &nbsp;{agency.federalCongressionalDistrict}
           </p>
         </div>
         <div className="address-container">
           <p>
             <strong>Additional Site:</strong>
-            &nbsp;{agency.additionalAddresses.map((add, index) => {
-              if(agency.additionalAddresses.length-1 <= index) {
-                return add+""
+            &nbsp;
+            {agency.additionalAddresses.map((add, index) => {
+              if (agency.additionalAddresses.length - 1 <= index) {
+                return add + "";
               } else {
-                return add+", "
+                return add + ", ";
               }
             })}
           </p>
@@ -46,9 +45,9 @@ function LocationAndDistributions({agency}) {
           </p>
           <p>
             <strong>Distribution Type:</strong>
-            &nbsp;{(agency.pantry && !agency.mealProgram) && "Pantry"}
-            {(!agency.pantry && agency.mealProgram) && "Meal Program"}
-            {(agency.pantry && agency.mealProgram) && "Pantry, Meal Program"}
+            &nbsp;{agency.pantry && !agency.mealProgram && "Pantry"}
+            {!agency.pantry && agency.mealProgram && "Meal Program"}
+            {agency.pantry && agency.mealProgram && "Pantry, Meal Program"}
           </p>
         </div>
         <div className="distributions-container">
@@ -64,7 +63,7 @@ function LocationAndDistributions({agency}) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default LocationAndDistributions;

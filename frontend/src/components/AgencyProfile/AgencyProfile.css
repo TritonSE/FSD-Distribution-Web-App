@@ -137,10 +137,15 @@
   margin-bottom: 1em;
 }
 
-#edit-icon {
+.edit-button {
+  width: auto;
+  height: auto;
+  background-color: #0000;
+  border: none;
   position: absolute;
   top: 1em;
   right: 1em;
+  cursor: pointer;
 }
 
 /* * * * Tasks section * * * */

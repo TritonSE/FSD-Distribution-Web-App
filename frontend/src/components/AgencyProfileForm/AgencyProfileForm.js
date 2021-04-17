@@ -19,6 +19,7 @@ import "./FormStyle.css";
 import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
 
+const CONFIG = require("../../config");
 const DAYS_OF_WEEK = [
   "monday",
   "tuesday",
@@ -36,6 +37,8 @@ const DAYS_OF_WEEK = [
  * existing agency)
  * - {String} editSection: name of the section being edited (if editing an
  * existing agency)
+ * - {Function} onEndEditing: callback to handle the form being closed (if
+ * editing an existing agency)
  */
 class AgencyProfileForm extends Component {
   constructor(props) {
@@ -355,10 +358,16 @@ class AgencyProfileForm extends Component {
    * Handles form submission.
    */
   submitForm = () => {
-    const { history } = this.props;
+    const { history, agencyData, editSection, onEndEditing } = this.props;
     const formData = this.prepareData();
-    fetch("http://localhost:8000/agency/", {
-      method: "PUT",
+
+    let url = `${CONFIG.backend.uri}/agency/`;
+    if (editSection) {
+      url += agencyData._id;
+    }
+
+    fetch(url, {
+      method: editSection ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + getJWT(),
@@ -375,7 +384,9 @@ class AgencyProfileForm extends Component {
               alert(message);
             }
           } else {
-            if (history) {
+            if (editSection) {
+              onEndEditing();
+            } else if (history) {
               history.push("/agency/" + data._id);
             }
           }
@@ -388,8 +399,10 @@ class AgencyProfileForm extends Component {
    * Handles form cancellation.
    */
   cancelForm = () => {
-    const { history } = this.props;
-    if (history) {
+    const { history, editSection, onEndEditing } = this.props;
+    if (editSection) {
+      onEndEditing();
+    } else if (history) {
       history.push("/agency");
     }
   };

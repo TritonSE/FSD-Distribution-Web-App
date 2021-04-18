@@ -1,0 +1,41 @@
+/* * * * Layout * * * */
+
+.modal-background {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  
+  .delete-form {
+    position: relative;
+    width: 727px;
+    height: 414px;
+    margin: 10% auto;
+    padding: 38px 0px 0px 55px;
+    background-color: #f5f7f7;
+    border: 3px solid #cdcbd4;
+  }
+  
+  .delete-form-col {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 22px;
+  }
+  
+  .button-pos {
+    margin-left: -55px;
+    margin-top: 62px;
+    text-align: center;
+  }
+  /* * * * Cancel button * * * */
+  
+  /* * * * Overrides * * * */
+  
+  .form-input-box-wide {
+    width: 607px;
+  }

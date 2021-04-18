@@ -8,18 +8,38 @@ const { Agency } = require("../models");
 const router = express.Router();
 
 /**
- * Validates the distribution start time for the given day if the day is
- * selected, using express-validator. Expects the format "HH:mm AM".
+ * Checks that the distribution start time for the given day is ISO 8601 format,
+ * if the day is selected, using express-validator.
  * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
  */
 const validateDistributionStartTime = (day) =>
   body(`distributionStartTimes.${day}`)
     .trim()
     .if((value, { req }) => req.body.distributionDays[day])
-    .custom((value) => {
-      // custom time format
-      return value.match(/^(0[1-9]|1[0-2]):([0-5][0-9]) [AP]M$/);
-    });
+    .isISO8601();
+
+/**
+ * Checks that the retail rescue start time for the given day is ISO 8601
+ * format, if the day is selected, using express-validator.
+ * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
+ */
+const validateRetailRescueStartTime = (day) =>
+  body(`retailRescueStartTimes.${day}`)
+    .trim()
+    .if((value, { req }) => req.body.retailRescueDays[day])
+    .isISO8601();
+
+/**
+ * Checks that the retail rescue location for the given day exists, if the day
+ * is selected, using express-validator.
+ * @param {String} day Day of the week to check ("monday", "tuesday", etc.)
+ */
+const validateRetailRescueLocation = (day) =>
+  body(`retailRescueLocations.${day}`)
+    .trim()
+    .if((value, { req }) => req.body.retailRescueDays[day])
+    .not()
+    .isEmpty();
 
 /**
  * Form Validation: validationChain is an array of expected formats for the
@@ -27,17 +47,10 @@ const validateDistributionStartTime = (day) =>
  */
 const validationChain = [
   body("tableContent.agencyNumber").trim().isNumeric({ no_symbols: true }),
-  body("tableContent.name").trim().not().isEmpty(),
-  body("tableContent.status").trim().not().isEmpty(),
-  body("tableContent.region").trim().not().isEmpty(),
-  body("tableContent.city").trim().not().isEmpty(),
-  body("tableContent.staff").trim().not().isEmpty(),
   body("tableContent.dateOfInitialPartnership")
     .trim()
     .isDate({ format: "MM/DD/YYYY" }),
   body("billingZipcode").trim().isPostalCode("US"),
-  body("contacts.*.contact").trim().not().isEmpty(),
-  body("contacts.*.position").trim().not().isEmpty(),
   body("contacts.*.phoneNumber").trim().isMobilePhone("en-US"),
   body("contacts.*.email").trim().isEmail(),
   body("scheduledNextVisit").trim().isDate({ format: "MM/DD/YYYY" }),
@@ -56,11 +69,21 @@ const validationChain = [
   validateDistributionStartTime("saturday"),
   validateDistributionStartTime("sunday"),
   body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("userSelectedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("userExcludedDates.*").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("tasks.*.title").trim().not().isEmpty(),
+  validateRetailRescueStartTime("monday"),
+  validateRetailRescueStartTime("tuesday"),
+  validateRetailRescueStartTime("wednesday"),
+  validateRetailRescueStartTime("thursday"),
+  validateRetailRescueStartTime("friday"),
+  validateRetailRescueStartTime("saturday"),
+  validateRetailRescueStartTime("sunday"),
+  validateRetailRescueLocation("monday"),
+  validateRetailRescueLocation("tuesday"),
+  validateRetailRescueLocation("wednesday"),
+  validateRetailRescueLocation("thursday"),
+  validateRetailRescueLocation("friday"),
+  validateRetailRescueLocation("saturday"),
+  validateRetailRescueLocation("sunday"),
   body("tasks.*.dueDate").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("tasks.*.status").trim().not().isEmpty(),
   isAuthenticated,
 ];
 
@@ -160,10 +183,9 @@ router.get("/:id" /*, isAuthenticated*/, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get("/", async (req, res, next) => {
+router.get("/table/all", async (req, res, next) => {
   try {
     const agency = await Agency.find({}).select("tableContent");
-
     return res.status(200).json({
       success: true,
       data: agency,

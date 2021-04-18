@@ -39,6 +39,9 @@ class ContactsList extends ExpandableList {
     onChange(stateKey, updatedContacts);
   }
 
+  // validation note: Mongoose produces field names that look like
+  // contacts.0.contact, while express-validator produces field names that look
+  // like contacts[0].phoneNumber
   render() {
     const { items, stateKey, validCheck } = this.props;
     return (
@@ -56,7 +59,7 @@ class ContactsList extends ExpandableList {
                     }}
                     leftmost
                     required
-                    valid={validCheck(`${stateKey}[${index}].contact`)}
+                    valid={validCheck(`${stateKey}.${index}.contact`)}
                   />
                 </FormCol>
                 <FormCol>
@@ -67,7 +70,7 @@ class ContactsList extends ExpandableList {
                       this.setContactInfo(index, "position", text);
                     }}
                     required
-                    valid={validCheck(`${stateKey}[${index}].position`)}
+                    valid={validCheck(`${stateKey}.${index}.position`)}
                   />
                 </FormCol>
                 <FormCol>

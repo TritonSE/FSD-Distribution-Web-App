@@ -2,9 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './DataTable.css';
 
+/**
+ * DataTable is a component for the table that displays on the page.
+ * Each row of the table displays the number, name, etc. and, when clicked, 
+ * links to the agency's profile.
+ * Expected props:
+ * - {Object} data: A JSON object holding the table content for all agencies
+ */
 function DataTable({ data }) {
-  //console.log(data[0].tableContent);
-  //const columns = data[0].tableContent && Object.keys(data[0].tableContent);
   return (
     <table cellPadding={0} cellSpacing={0} className="table">
       <thead>

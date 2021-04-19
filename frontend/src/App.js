@@ -32,8 +32,8 @@ function App() {
               />
               <Route
                 exact
-                path="/agency-profile/edit"
-                component={(props) => <AgencyEditPage {...props} />}
+                path="/agency-profile/:id/edit"
+                component={AgencyEditPage}
               />
               <Route exact path="/create-agency" component={AgencyForm} />
               <Route

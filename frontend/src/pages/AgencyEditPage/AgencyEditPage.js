@@ -1,39 +1,42 @@
-import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import AgencyProfileForm from "../../components/AgencyProfileForm/AgencyProfileForm";
-
 import { isAuthenticated } from "../../auth";
 
+const CONFIG = require("../../config");
+
 /**
- * Page that contains the agency profile form
+ * Page that contains the agency profile form for editing
  */
-class AgencyEditPage extends Component {
-  render() {
+function AgencyEditPage() {
+  const [agency, setAgency] = useState(null);
+  const { id } = useParams();
+  let history = useHistory();
 
-    
-    
-    console.log(this.props)
-    if (!isAuthenticated()) {
-      return <Redirect to="login" />;
-    }
-    else if (this.props.location.state) {
-      const { agencyData, editSection, onEndEditing } = this.props.location.state;
-      return (
-        <div>
-          <AgencyProfileForm agencyData={agencyData} editSection={editSection} onEndEditing={onEndEditing}/>
-        </div>
-      );
-    }
-    // Delete later
-    else {
-      return (
-        <div>
-          <AgencyProfileForm />
-        </div>
-      ); 
-    }
+  useEffect(() => {
+    fetch(`${CONFIG.backend.uri}/agency/${id}`, { method: "GET" })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setAgency(data.agency);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-    
+  if (!isAuthenticated()) {
+    return <Redirect to="login" />;
+  }
+
+  if (!id) {
+    history.push("/agency");
+  }
+
+  if (!agency) {
+    return null;
+  } else {
+    return <AgencyProfileForm agencyData={agency} editing />;
   }
 }
 

@@ -32,13 +32,21 @@ const DAYS_OF_WEEK = [
 
 /**
  * AgencyProfileForm describes the whole agency form page.
+ *
  * Expected props:
  * - {Object} agencyData: object following agency schema (if editing an
  * existing agency)
- * - {String} editSection: name of the section being edited (if editing an
- * existing agency)
- * - {Function} onEndEditing: callback to handle the form being closed (if
- * editing an existing agency)
+ * - {Boolean} editing: true if editing an existing agency, false otherwise
+ *
+ * Available section names (for hash linking):
+ * - location
+ * - contacts
+ * - compliance
+ * - distribution
+ * - capacity
+ * - retail-rescue
+ * - demographics
+ * - staff
  */
 class AgencyProfileForm extends Component {
   constructor(props) {
@@ -358,16 +366,16 @@ class AgencyProfileForm extends Component {
    * Handles form submission.
    */
   submitForm = () => {
-    const { history, agencyData, editSection, onEndEditing } = this.props;
+    const { history, agencyData, editing } = this.props;
     const formData = this.prepareData();
 
     let url = `${CONFIG.backend.uri}/agency/`;
-    if (editSection) {
+    if (editing) {
       url += agencyData._id;
     }
 
     fetch(url, {
-      method: editSection ? "POST" : "PUT",
+      method: editing ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + getJWT(),
@@ -384,10 +392,8 @@ class AgencyProfileForm extends Component {
               alert(message);
             }
           } else {
-            if (editSection) {
-              onEndEditing();
-            } else if (history) {
-              history.push("/agency/" + data._id);
+            if (history) {
+              history.push(`/agency/${data.agency._id}`);
             }
           }
         });
@@ -399,9 +405,9 @@ class AgencyProfileForm extends Component {
    * Handles form cancellation.
    */
   cancelForm = () => {
-    const { history, editSection, onEndEditing } = this.props;
-    if (editSection) {
-      onEndEditing();
+    const { history, agencyData, editing } = this.props;
+    if (editing) {
+      history.push(`/agency/${agencyData._id}`);
     } else if (history) {
       history.push("/agency");
     }
@@ -415,7 +421,7 @@ class AgencyProfileForm extends Component {
         <h1 className="form-title">Add a New Agency Profile.</h1>
 
         <form>
-          <div className="form-section" id="quick-information">
+          <div className="form-section" id="main">
             <FormSectionHeader title="Quick Information" />
             <FormRow>
               <FormCol>
@@ -483,7 +489,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section" id="location-and-addresses">
+          <div className="form-section" id="location">
             <FormSectionHeader title="Location and Addresses" />
             <FormRow>
               <FormCol>
@@ -1070,7 +1076,7 @@ class AgencyProfileForm extends Component {
             />
           </div>
 
-          <div className="form-section" id="assigned-staff">
+          <div className="form-section" id="staff">
             <FormRow>
               <FormCol>
                 <h2
@@ -1096,9 +1102,7 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <div className="form-button-container">
               <FormButton
-                title={
-                  this.props.editSection ? "Save Profile" : "Create Profile"
-                }
+                title={this.props.editing ? "Save Profile" : "Create Profile"}
                 type="primary"
                 onClick={this.submitForm}
               />

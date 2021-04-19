@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Dropdown.css";
 
 /**
@@ -15,29 +15,38 @@ import "./Dropdown.css";
 const Dropdown = ({filters, selected, changeSelected, changeFilter, option, paginate}) => {
   const [expanded, setExpanded] = useState(false);
 
-  function showCheckboxes() {
-    var checkboxes = document.getElementById(option);
-    if(!expanded) {
-      checkboxes.style.display = "block";
-      setExpanded(true);
-    }
-    else {
-      checkboxes.style.display = "none";
-      setExpanded(false);
-    }
-  }
-
+  useEffect(() => {
   /**
    * close dropdown if user clicks outside
    */
-  window.addEventListener("click", function(event) {
+  window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  });
+  function showCheckboxes() {
+    var checkboxes = document.getElementById(option);
+    if(checkboxes !== null){
+      if(!expanded) {
+        checkboxes.style.display = "block";
+        setExpanded(true);
+      }
+      else {
+        checkboxes.style.display = "none";
+        setExpanded(false);
+      }
+    }
+  }
+
+  const handleClickOutside = (event) => {
     if (event.target.closest("form") === null 
         || event.target.closest("form").parentElement !== document.getElementsByClassName("selects-container")[0]) {
       if(expanded) {
         showCheckboxes();
       }
     }
-  });
+  }
+
 
   return (
     <form>

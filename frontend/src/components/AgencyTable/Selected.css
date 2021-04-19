@@ -1,0 +1,40 @@
+/* Aligned selected filters horizontally */
+.selected-filters {
+  display: flex;
+}
+
+/* Styling for the selected boxes */
+.select-boxes {
+  display: inline-block;
+  min-width: 40px;
+  padding-left: 10px;
+  background: #f5f5f5;
+  border: 0.3px solid #5f5f5f;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-right: 1em;
+}
+
+/* Styling for the children elems of select boxes */
+.select-boxes > * {
+  float: left;
+  margin-right: 0.5em;
+  display: inline;
+  line-height: normal;
+}
+
+/* styling for x button that is on each label */
+.clear-button {
+  border: none;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 10px;
+  float: right;
+  outline: none;
+}
+
+/* Styling for the labels within each select box */
+.label-text {
+  font-size: 10px;
+  text-align: center;
+}

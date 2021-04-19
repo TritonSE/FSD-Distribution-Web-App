@@ -53,6 +53,6 @@
 
 /* * * * Overrides * * * */
 
-.form-input-box-wide {
+.task-form .form-input-box-wide {
   width: 607px;
 }

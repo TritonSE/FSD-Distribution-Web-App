@@ -67,6 +67,59 @@ const TableContentSchema = new Schema({
     type: String,
     required: true,
   },
+  /* Compliance section */
+  dateOfInitialPartnership: {
+    type: String,
+    required: true,
+  },
+  /* Capacity Section */
+  // Storage Type
+  standAloneFreezer: {
+    type: Number,
+  },
+  freezerFridge: {
+    type: Number,
+  },
+  chestFreezer: {
+    type: Number,
+  },
+  singleDoorFreezer: {
+    type: Number,
+  },
+  freezerFridgeCombo: {
+    type: Number,
+  },
+  walkInFreezer: {
+    type: Number,
+  },
+  doubleDoorFridge: {
+    type: Number,
+  },
+  sideBySideFridge: {
+    type: Number,
+  },
+  singleDoorFridge: {
+    type: Number,
+  },
+  walkInFridge: {
+    type: Number,
+  },
+  dryStorageClimateControl: {
+    type: Number,
+  },
+  dryStorageNonClimateControl: {
+    type: Number,
+  },
+  // Transportation Type
+  pickUpTruck: {
+    type: Number,
+  },
+  van: {
+    type: Number,
+  },
+  car: {
+    type: Number,
+  },
 });
 
 const ContactSchema = new Schema({
@@ -88,7 +141,7 @@ const ContactSchema = new Schema({
   },
 });
 
-const DistributionDaysSchema = new Schema({
+const DaySelectionsSchema = new Schema({
   monday: {
     type: Boolean,
     required: true,
@@ -119,7 +172,7 @@ const DistributionDaysSchema = new Schema({
   },
 });
 
-const DistributionTimesSchema = new Schema({
+const DayValuesSchema = new Schema({
   monday: {
     type: String,
   },
@@ -219,10 +272,6 @@ const AgencySchema = new Schema({
     type: String,
     required: true,
   },
-  dateOfInitialPartnership: {
-    type: String,
-    required: true,
-  },
   fileAudit: {
     type: String,
   },
@@ -238,12 +287,12 @@ const AgencySchema = new Schema({
   /* Distribution Section */
   // Which days of the week have an event
   distributionDays: {
-    type: DistributionDaysSchema,
+    type: DaySelectionsSchema,
     required: true,
   },
   // Start time for the event on each day of the week 
   distributionStartTimes: {
-    type: DistributionTimesSchema,
+    type: DayValuesSchema,
     required: true,
   },
   // Beginning of the pattern 
@@ -282,59 +331,18 @@ const AgencySchema = new Schema({
     type: Boolean,
   },
 
-  /* Capacity Section */
-  // Storage Type
-  standAloneFreezer: {
-    type: Number,
-  },
-  freezerFridge: {
-    type: Number,
-  },
-  chestFreezer: {
-    type: Number,
-  },
-  singleDoorFreezer: {
-    type: Number,
-  },
-  freezerFridgeCombo: {
-    type: Number,
-  },
-  walkInFreezer: {
-    type: Number,
-  },
-  doubleDoorFridge: {
-    type: Number,
-  },
-  sideBySideFridge: {
-    type: Number,
-  },
-  singleDoorFridge: {
-    type: Number,
-  },
-  walkInFridge: {
-    type: Number,
-  },
-  dryStorageClimateControl: {
-    type: Number,
-  },
-  dryStorageNonClimateControl: {
-    type: Number,
-  },
-
-  // Transportation Type
-  pickUpTruck: {
-    type: Number,
-  },
-  van: {
-    type: Number,
-  },
-  car: {
-    type: Number,
-  },
-
   /* Retail Rescue Section */
-  retailRescueAvailable: {
-    type: Boolean,
+  retailRescueDays: {
+    type: DaySelectionsSchema,
+    required: true,
+  },
+  retailRescueStartTimes: {
+    type: DayValuesSchema,
+    required: true,
+  },
+  retailRescueLocations: {
+    type: DayValuesSchema,
+    required: true,
   },
 
   /* Demographics Section */

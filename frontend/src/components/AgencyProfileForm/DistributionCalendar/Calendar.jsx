@@ -27,11 +27,10 @@ const DEFAULT_DATE_FORMAT = "MM/DD/YYYY";
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    let { buildCalendar } = this;
     let todayMoment = moment();
     this.state = {
       todayMoment: todayMoment,
-      calendar: buildCalendar(todayMoment),
+      calendar: this.buildCalendar(todayMoment),
       startDateMoment: moment(props.distributionStartDate, DEFAULT_DATE_FORMAT),
     };
   }
@@ -287,12 +286,11 @@ class Calendar extends Component {
         }
       }
 
-      let todayMoment = moment();
-      this.setState({
-        todayMoment: todayMoment,
-        calendar: this.buildCalendar(todayMoment),
+      this.setState((prev) => ({
+        todayMoment: prev.todayMoment,
+        calendar: prev.calendar,
         startDateMoment: moment(distributionStartDate, DEFAULT_DATE_FORMAT),
-      });
+      }));
     }
   }
 

@@ -1,0 +1,101 @@
+/* Position the multiselect box that is composed 
+of the form, multiselect, and selectBox divs*/
+form {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.multiselect {
+  margin-right: 1em;
+  box-sizing: border-box;
+  border-radius: 2px;
+}
+
+.selectBox {
+  position: relative;
+  width: 91px;
+}
+
+/* Widen the transportation box */
+#Tran{
+  position: relative;
+  width: 127px;
+}
+
+/* Style the select box text*/
+.selectBox select {
+  border: 2.5px solid #666464;
+  border-radius: 2px;
+  font-size: 14px;
+  font-family: Roboto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.selectBox select {
+  width: 100%;
+  height: 27px;
+}
+
+/* Center the select box text */
+option {
+  text-align: center;
+}
+
+/* styling for dropwdown menu containing checkboxes */
+.checkboxes {
+  position: absolute;
+  display: none;
+  min-width: 90px;
+  width: auto;
+  /* Dropdown menu should appear over all other elements */
+  z-index: 200;
+  background: #f3f3f3;
+  user-select: none;
+  padding: 0.5em;
+}
+
+.checkboxes label {
+  display: block;
+  font-size: 12px;
+  margin-left: 6px;
+}
+
+/* Style checkboxes to be smaller rectangular boxes  */
+.checkboxes input {
+  margin-right: 0.5rem;
+  appearance: none;
+  width: 7px;
+  height: 7px;
+  outline: 0.5px solid black;
+  background: #ffffff;
+  outline-offset: 1px;
+}
+
+.checkboxes input:focus {
+  outline: 1px solid black;
+}
+
+.checkboxes input:active,
+.checkboxes input:checked {
+  background: #545252;
+  outline: 1px solid black;
+}
+
+.checkboxes label:hover {
+  text-decoration: underline #1e90ff;
+}
+
+select[disabled] {
+  color: black;
+  text-decoration: none;
+}
+
+/* Hide the default select behavior */
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}

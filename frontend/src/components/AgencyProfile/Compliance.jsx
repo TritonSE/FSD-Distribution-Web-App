@@ -1,5 +1,5 @@
 import React from "react";
-import edit from "./imgs/edit-icon.png";
+import EditButton from "./EditButton";
 
 function Compliance({agency}) {
   return (

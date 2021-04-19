@@ -1,8 +1,8 @@
 import React from "react";
-import edit from "./imgs/edit-icon.png";
 import primaryTab from "./imgs/contact-tab-primary.png";
 import secondaryTab from "./imgs/contact-tab-secondary.png";
 import AgencyBar from "./AgencyBar";
+import EditButton from "./EditButton";
 
 function Contacts({agency}) {
   return (

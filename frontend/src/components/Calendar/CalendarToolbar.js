@@ -38,18 +38,22 @@ class CalendarToolbar extends Component {
   }
 
   handleCheck(event) {
-    if(event.target.value === "distribution") {
+    if (event.target.value === "distribution") {
       const checkboxes = document.getElementsByName('distributionCheckbox');
       for (const checkbox of checkboxes) {
         checkbox.checked = event.target.checked;
       }
-      this.props.updateCalendar("distribution", event.target.checked);
-    } else if(event.target.value === "rescue") {
-      this.props.rescue.forEach((agency) => {
-        this.props.updateCalendar(agency.name, true);
-      });
+      this.props.updateCalendar("da", [], event.target.checked);
+    } else if (event.target.value === "rescue") {
+      const checkboxes = document.getElementsByName('rescueCheckbox');
+      for (const checkbox of checkboxes) {
+        checkbox.checked = event.target.checked;
+      }
+      this.props.updateCalendar("ra", [], event.target.checked);
+    } else if (event.target.id === "r"){
+      this.props.updateCalendar("r", event.target.value, event.target.checked);
     } else {
-      this.props.updateCalendar(event.target.value, event.target.checked);
+      this.props.updateCalendar("d", event.target.value, event.target.checked);
     }
   }
 
@@ -57,7 +61,7 @@ class CalendarToolbar extends Component {
     const { showDistribution, showRescue } = this.state;
     return (
       <div style={{ backgroundColor: "#F5F7F7", marginTop: "5vh", marginLeft: "5vw", height: "100vh", padding: 10,  transform: 0.6}}>
-        <button style={{ border: "none", background: "none" }} value="distribution" onClick={this.handleShowAgencies}>
+        <button style={{ border: "none", background: "none" }} value="distributionnpm" onClick={this.handleShowAgencies}>
           { showDistribution? <h5>Distribution</h5> : <p>Distribution</p> }
         </button>
         { showDistribution &&
@@ -82,6 +86,7 @@ class CalendarToolbar extends Component {
                     value={agency.name}
                     onChange={this.handleCheck}
                     name="distributionCheckbox"
+                    id="d"
                   />
                   <label style={{ backgroundColor: agency.color }}>
                     {agency.name}
@@ -102,6 +107,7 @@ class CalendarToolbar extends Component {
           <div>
             <label>
               <input
+                style={{margin: 5}}
                 type="checkbox"
                 value="rescue"
                 onChange={this.handleCheck}
@@ -112,12 +118,15 @@ class CalendarToolbar extends Component {
             {this.props.rescue.map((agency, index) => {
               return (
                 <div key={index}>
-                  <label style={{ backgroundColor: agency.color }}>
-                    <input
+                  <input
+                      style={{margin: 5}}
                       type="checkbox"
                       value={agency.name}
                       onChange={this.handleCheck}
-                    />
+                      name="rescueCheckbox"
+                      id="r"
+                  />
+                  <label style={{ backgroundColor: agency.color }}>
                     {agency.name}
                   </label>
                   <br />

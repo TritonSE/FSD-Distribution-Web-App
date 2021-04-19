@@ -23,9 +23,11 @@ import { HashLink } from "react-router-hash-link";
  */
 function EditButton({ agency, section }) {
   return (
-    <HashLink to={`/agency-profile/${agency._id}/edit#${section}`}>
-      <img src={editIcon} alt="edit" />
-    </HashLink>
+    <div className="edit-button">
+      <HashLink to={`/agency-profile/${agency._id}/edit#${section}`}>
+        <img src={editIcon} alt="edit" />
+      </HashLink>
+    </div>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import "../AgencyProfile.css";
+import "./AgencyTasks.css";
 
 function AgencyTaskItem({ title, dueDate, index, color, onClick }) {
   return (

@@ -1,11 +1,11 @@
 import React from "react";
 import EditButton from "./EditButton";
 
-function LocationAndDistributions({ agency, onEdit }) {
+function LocationAndDistributions({ agency }) {
   return (
     <>
       <div className="agency-category">
-        <EditButton section="location" onClick={onEdit} />
+        <EditButton section="location-and-addresses"  agency={agency} />
         <h1 className="category-title">LOCATION AND DISTRIBUTION HOURS</h1>
         <div className="region-container">
           <p>

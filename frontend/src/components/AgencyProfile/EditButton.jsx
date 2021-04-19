@@ -1,6 +1,7 @@
 import React from "react";
 import editIcon from "./imgs/edit-icon.png";
 import "./AgencyProfile.css";
+import { HashLink } from "react-router-hash-link";
 
 /**
  * EditButtons are the buttons on the agency profile page which take the user
@@ -11,15 +12,21 @@ import "./AgencyProfile.css";
  * - {Function} onClick: Handler for when the button is clicked. Should take a
  * string (section)
  */
-function EditButton({ section, onClick }) {
+function EditButton({ agency, section }) {
   return (
-    <button
-      type="button"
-      className="edit-button"
-      onClick={() => onClick(section)}
+    <HashLink
+      to={{
+        pathname: "/agency-profile/edit",
+        hash: `#${section}`,
+        state: {
+          agencyData: agency,
+          editSection: section,
+          onEndEditing: null,
+        }
+      }}
     >
       <img src={editIcon} alt="edit" />
-    </button>
+    </HashLink>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link, Redirect } from "react-router-dom";
 import AgencyBar from "./AgencyBar";
 import "./AgencyProfile.css";
 import AgencySideBar from "./AgencySideBar";
@@ -14,13 +14,13 @@ function AgencyProfile({ data }) {
   const [editingSection, setEditingSection] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  const handleEdit = (section) => {
-    setEditingSection(section);
-  };
+  // const handleEdit = (section) => {
+  //   setEditingSection(section);
+  // };
 
-  const handleFinishEdit = () => {
-    setEditingSection(null);
-  };
+  // const handleFinishEdit = () => {
+  //   setEditingSection(null);
+  // };
 
   const handleTaskFormSubmit = (task, index) => {
     let updatedTaskList = agency.tasks.slice(); // shallow copy
@@ -82,13 +82,20 @@ function AgencyProfile({ data }) {
   }
 
   if (editingSection) {
-    return (
-      <AgencyProfileForm
-        agencyData={agency}
-        editSection={editingSection}
-        onEndEditing={handleFinishEdit}
-      />
-    );
+        // to={{
+        //   pathname: `/agency-profile/edit#location-addresses`,
+        //   data: {
+        //     agencyData: agency,
+        //     editSection: editingSection,
+        //     onEndEditing: handleFinishEdit,
+        //   },
+        // }}
+      // ,agencySection: agency, editSection: editingSection, onEndEditing: handleFinishEdit
+      // <AgencyProfileForm
+      //   agencyData={agency}
+      //   editSection={editingSection}
+      //   onEndEditing={handleFinishEdit}
+      // />
   } else if (agency) {
     return (
       <div>
@@ -96,7 +103,7 @@ function AgencyProfile({ data }) {
         <div className="agency-profile-container">
           <AgencySideBar />
           <div className="agency-profile-info">
-            <LocationAndDistributions agency={agency} onEdit={handleEdit} />
+            <LocationAndDistributions agency={agency}  />
             <AgencyTaskSection
               taskList={agency.tasks}
               onEditTask={(index) =>

@@ -415,7 +415,7 @@ class AgencyProfileForm extends Component {
         <h1 className="form-title">Add a New Agency Profile.</h1>
 
         <form>
-          <div className="form-section">
+          <div className="form-section" id="quick-information">
             <FormSectionHeader title="Quick Information" />
             <FormRow>
               <FormCol>
@@ -483,7 +483,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="location-and-addresses">
             <FormSectionHeader title="Location and Addresses" />
             <FormRow>
               <FormCol>
@@ -606,7 +606,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="contacts">
             <FormSectionHeader title="Contacts" />
             <ContactsList
               items={data.contacts}
@@ -633,7 +633,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="compliance">
             <FormSectionHeader title="Compliance" />
             <FormRow>
               <FormCol>
@@ -703,7 +703,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="distribution">
             <FormSectionHeader title="Distribution" />
             <FormRow>
               <FormCol>
@@ -838,7 +838,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="capacity">
             <FormSectionHeader title="Capacity" />
             <FormRow>
               <FormCol>
@@ -941,7 +941,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="retail-rescue">
             <FormSectionHeader title="Retail Rescue" />
             <RetailRescueDays
               values={[
@@ -1014,7 +1014,7 @@ class AgencyProfileForm extends Component {
             />
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="demographics">
             <FormSectionHeader title="Demographics" />
             <CheckboxList
               label="Check Boxes if Applicable."
@@ -1070,7 +1070,7 @@ class AgencyProfileForm extends Component {
             />
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="assigned-staff">
             <FormRow>
               <FormCol>
                 <h2

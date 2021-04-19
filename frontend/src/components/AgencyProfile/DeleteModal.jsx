@@ -18,19 +18,21 @@ function DeleteModal({showModal, toggleModal, agencyName, agencyNumber, agencyId
           <div className="delete-form">
             <div className="delete-form-row">
               <p>
-                Are you sure you want to delete <b>"{agencyNumber} - {agencyName}"</b>?
+                Are you sure you want to delete <b id="agency-text">"{agencyNumber} - {agencyName}"</b>?
+
+
               </p>
               <p className="warning">
                 Note: All files and data will be lost and non restorable
               </p>
             </div>
-            <div className="delete-form-row">
+            <div className="button-row">
               <div className="delete-form-col">
                 <div className="button-pos">
                   <FormButton
                     title="Confirm"
                     type="primary"
-                    style={{width: "315px"}}
+                    style={{width: "315px", height: "60px"}}
                     onClick={deleteAgency}
                   />
                 </div>
@@ -40,7 +42,7 @@ function DeleteModal({showModal, toggleModal, agencyName, agencyNumber, agencyId
                   <FormButton
                   title="Cancel"
                   type="secondary"
-                  style={{width: "315px"}}
+                  style={{width: "315px", height: "60px"}}
                   onClick={toggleModal}
                   />
                 </div>

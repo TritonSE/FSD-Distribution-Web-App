@@ -407,7 +407,7 @@ class AgencyProfileForm extends Component {
   cancelForm = () => {
     const { history, agencyData, editing } = this.props;
     if (editing) {
-      history.push(`/agency/${agencyData._id}`);
+      history.push(`/agency-profile/${agencyData._id}`);
     } else if (history) {
       history.push("/agency");
     }
@@ -415,10 +415,11 @@ class AgencyProfileForm extends Component {
 
   render() {
     const data = this.state;
+    const { editing } = this.props;
 
     return (
       <div className="form-body">
-        <h1 className="form-title">Add a New Agency Profile.</h1>
+        <h1 className="form-title">{editing ? "Update Agency Profile." : "Add a New Agency Profile."}</h1>
 
         <form>
           <div className="form-section" id="main">
@@ -1102,7 +1103,7 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <div className="form-button-container">
               <FormButton
-                title={this.props.editing ? "Save Profile" : "Create Profile"}
+                title={editing ? "Save Profile" : "Create Profile"}
                 type="primary"
                 onClick={this.submitForm}
               />

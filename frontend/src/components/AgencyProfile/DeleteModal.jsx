@@ -17,12 +17,10 @@ function DeleteModal({showModal, toggleModal, agencyName, agencyNumber, agencyId
         <div className="modal-background">
           <div className="delete-form">
             <div className="delete-form-row">
-              <p>
+              <p id="confirm-text">
                 Are you sure you want to delete <b id="agency-text">"{agencyNumber} - {agencyName}"</b>?
-
-
               </p>
-              <p className="warning">
+              <p id="warning">
                 Note: All files and data will be lost and non restorable
               </p>
             </div>

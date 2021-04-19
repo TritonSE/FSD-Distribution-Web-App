@@ -36,16 +36,6 @@
     vertical-align: top;
     margin-right: 22px;
   }
-  
-  .warning{
-    color: red;
-    font-size: small;
-    margin-top: 4%;
-  }
-
-  #agency-text {
-    font-size: 22px;
-  }
 
   .button-row {
     position: absolute;
@@ -57,9 +47,21 @@
     margin-left: -55px;
     text-align: center;
   }
-  /* * * * Cancel button * * * */
-  
-  /* * * * Overrides * * * */
+
+/* * * * Text * * * */
+
+  #confirm-text{
+    font-size: 20px;
+  }
+  #warning{
+    color: red;
+    font-size: small;
+    margin-top: 3%;
+  }
+
+  #agency-text {
+    font-size: 22px;
+  }
   
   .form-input-box-wide {
     width: 607px;

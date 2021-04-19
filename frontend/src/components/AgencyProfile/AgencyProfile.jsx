@@ -21,8 +21,14 @@ function AgencyProfile() {
 
   const getScrollPositions = () => {
     let positions = [];
-    positions.push(document.getElementById("location-container").scrollHeight);
-    positions.push(document.getElementById("contacts-container").scrollHeight);
+    positions.push(document.getElementById("location-container").getBoundingClientRect().top);
+    positions.push(document.getElementById("contacts-container").getBoundingClientRect().top);
+    positions.push(document.getElementById("capacity-container").getBoundingClientRect().top );
+    positions.push(document.getElementById("compliance-container").getBoundingClientRect().top);
+    positions.push(document.getElementById("demographics-container").getBoundingClientRect().top);
+    positions.push(document.getElementById("retail-container").getBoundingClientRect().top );
+    positions.push(document.getElementById("task-container").getBoundingClientRect().top );
+    console.log(document.getElementById("task-container").getBoundingClientRect().top);
     return positions;
   }
 
@@ -112,15 +118,19 @@ function AgencyProfile() {
             <div id="retail-container">
               <RetailRescue agency={agency} />
             </div>
-            <AgencyTaskSection
-              taskList={agency.tasks}
-              onEditTask={(index) =>
-                setSelectedTask({ ...agency.tasks[index], index: index })
-              }
-              onCreateTask={(status) =>
-                setSelectedTask({ title: "", dueDate: "", status: status })
-              }
-            />
+            <div id="task-container">
+              <AgencyTaskSection
+                taskList={agency.tasks}
+                onEditTask={(index) =>
+                  setSelectedTask({ ...agency.tasks[index], index: index })
+                }
+                onCreateTask={(status) =>
+                  setSelectedTask({ title: "", dueDate: "", status: status })
+                }
+              />
+            </div>
+          </div>
+          <div>
           </div>
         </div>
         {selectedTask && (

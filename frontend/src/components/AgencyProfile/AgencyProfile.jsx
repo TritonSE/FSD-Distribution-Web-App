@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, Link, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import AgencyBar from "./AgencyBar";
 import "./AgencyProfile.css";
 import AgencySideBar from "./AgencySideBar";
 import AgencyTaskSection from "./TaskSection/AgencyTaskSection";
 import TaskForm from "../TaskForm/TaskForm";
-import AgencyProfileForm from "../AgencyProfileForm/AgencyProfileForm";
 import { getJWT } from "../../auth";
 import LocationAndDistributions from "./LocationAndDistributions";
 
 function AgencyProfile({ data }) {
   const [agency, setAgency] = useState(undefined);
-  const [editingSection, setEditingSection] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
-
-  // const handleEdit = (section) => {
-  //   setEditingSection(section);
-  // };
-
-  // const handleFinishEdit = () => {
-  //   setEditingSection(null);
-  // };
 
   const handleTaskFormSubmit = (task, index) => {
     let updatedTaskList = agency.tasks.slice(); // shallow copy
@@ -81,29 +71,14 @@ function AgencyProfile({ data }) {
     history.push("/agency");
   }
 
-  if (editingSection) {
-        // to={{
-        //   pathname: `/agency-profile/edit#location-addresses`,
-        //   data: {
-        //     agencyData: agency,
-        //     editSection: editingSection,
-        //     onEndEditing: handleFinishEdit,
-        //   },
-        // }}
-      // ,agencySection: agency, editSection: editingSection, onEndEditing: handleFinishEdit
-      // <AgencyProfileForm
-      //   agencyData={agency}
-      //   editSection={editingSection}
-      //   onEndEditing={handleFinishEdit}
-      // />
-  } else if (agency) {
+  if (agency) {
     return (
       <div>
         <AgencyBar agency={agency} />
         <div className="agency-profile-container">
           <AgencySideBar />
           <div className="agency-profile-info">
-            <LocationAndDistributions agency={agency}  />
+            <LocationAndDistributions agency={agency} />
             <AgencyTaskSection
               taskList={agency.tasks}
               onEditTask={(index) =>

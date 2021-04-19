@@ -8,23 +8,22 @@ import { HashLink } from "react-router-hash-link";
  * to the edit form.
  *
  * Expected props:
+ * - {Object} agency: The agency object to edit
  * - {String} section: Anchor name for the section
- * - {Function} onClick: Handler for when the button is clicked. Should take a
- * string (section)
+ *
+ * Available section names:
+ * - location
+ * - contacts
+ * - compliance
+ * - distribution
+ * - capacity
+ * - retail-rescue
+ * - demographics
+ * - staff
  */
 function EditButton({ agency, section }) {
   return (
-    <HashLink
-      to={{
-        pathname: "/agency-profile/edit",
-        hash: `#${section}`,
-        state: {
-          agencyData: agency,
-          editSection: section,
-          onEndEditing: null,
-        }
-      }}
-    >
+    <HashLink to={`/agency-profile/${agency._id}/edit#${section}`}>
       <img src={editIcon} alt="edit" />
     </HashLink>
   );

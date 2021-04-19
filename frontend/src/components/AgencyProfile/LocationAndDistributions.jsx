@@ -5,7 +5,7 @@ function LocationAndDistributions({ agency }) {
   return (
     <>
       <div className="agency-category">
-        <EditButton section="location-and-addresses"  agency={agency} />
+        <EditButton section="location" agency={agency} />
         <h1 className="category-title">LOCATION AND DISTRIBUTION HOURS</h1>
         <div className="region-container">
           <p>

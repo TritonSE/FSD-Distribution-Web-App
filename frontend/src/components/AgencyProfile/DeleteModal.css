@@ -1,0 +1,68 @@
+/* * * * Layout * * * */
+
+.modal-background {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  
+  .delete-form {
+    position: relative;
+    width: 838px;
+    height: 424px;
+    margin: 10% auto;
+    padding: 38px 0px 0px 55px;
+    background-color: #f5f7f7;
+    border: 3px solid #cdcbd4;
+  }
+  
+  .delete-form-row{
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 57%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 70%;
+  }
+
+  .delete-form-col {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 22px;
+  }
+
+  .button-row {
+    position: absolute;
+    margin-top: 275px;
+    margin-left: 100px;
+  }
+
+  .button-pos {
+    margin-left: -55px;
+    text-align: center;
+  }
+
+/* * * * Text * * * */
+
+  #confirm-text{
+    font-size: 20px;
+  }
+  #warning{
+    color: red;
+    font-size: small;
+    margin-top: 3%;
+  }
+
+  #agency-text {
+    font-size: 22px;
+  }
+  
+  .form-input-box-wide {
+    width: 607px;
+  }

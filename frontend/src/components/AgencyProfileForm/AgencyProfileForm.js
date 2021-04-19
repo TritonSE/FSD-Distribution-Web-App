@@ -393,7 +393,7 @@ class AgencyProfileForm extends Component {
             }
           } else {
             if (history) {
-              history.push(`/agency/${data.agency._id}`);
+              history.push(`/agency-profile/${data.agency._id}`);
             }
           }
         });

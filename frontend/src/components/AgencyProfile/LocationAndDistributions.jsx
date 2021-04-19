@@ -1,7 +1,18 @@
 import React from "react";
 import EditButton from "./EditButton";
+import checkmark from "./imgs/check-circle-icon.png";
+import xmark from "./imgs/x-circle-icon.png";
 
-function LocationAndDistributions({ agency }) {
+function LocationAndDistributions({agency}) {
+
+  function displayCheckMark(bool) {
+    if(bool) {
+      return <img className="checks" src={checkmark} alt="checkmark"></img>
+    } else {
+      return <img className="checks" src={xmark} alt="xmark"></img>
+    }
+  }
+
   return (
     <>
       <div className="agency-category">
@@ -59,6 +70,24 @@ function LocationAndDistributions({ agency }) {
               <strong>Frequency: </strong>
               &nbsp;{agency.distributionFrequency}
             </p>
+          </div>
+          <div className="distribution-days-container">
+            {
+              Object.keys(agency.distributionDays).map((key) => {
+                if(key != "_id") {
+                  return (
+                    <div className="distribution-day">
+                      <strong>{key.charAt(0).toUpperCase()+key.slice(1)}</strong>
+                      <div className="img-check-container">
+                        {
+                          displayCheckMark(agency.distributionDays[key])
+                        }
+                      </div>
+                    </div>
+                  )
+                }
+              })
+            }
           </div>
         </div>
       </div>

@@ -27,8 +27,8 @@ function App() {
               <Route exact path="/agency" component={Agency} />
               <Route
                 exact
-                path="/agency-profile"
-                component={(props) => <AgencyProfilePage {...props} />}
+                path="/agency-profile/:id"
+                component={AgencyProfilePage}
               />
               <Route
                 exact

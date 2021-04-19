@@ -5,7 +5,7 @@ function Demographics({agency}) {
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
+      <EditButton section="demographics" agency={agency} />
         <h1 className="category-title">
           DEMOGRAPHICS
         </h1>

@@ -5,7 +5,7 @@ function RetailRescue({agency}) {
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
+      <EditButton section="retail-rescue" agency={agency} />
         <h1 className="category-title">
           RETAIL RESCUE
         </h1>

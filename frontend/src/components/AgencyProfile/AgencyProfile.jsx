@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import AgencyBar from "./AgencyBar";
 import "./AgencyProfile.css";
 import AgencySideBar from "./AgencySideBar";
@@ -8,10 +8,23 @@ import TaskForm from "../TaskForm/TaskForm";
 import edit from "./imgs/edit-icon.png";
 import { getJWT } from "../../auth";
 import LocationAndDistributions from './LocationAndDistributions';
+import Contacts from "./Contacts";
+import Capacity from "./Capacity";
+import Compliance from "./Compliance";
+import Demographics from "./Demographics";
+import RetailRescue from "./RetailRescue";
 
-function AgencyProfile({ data }) {
+function AgencyProfile() {
+  const { id } = useParams();
   const [agency, setAgency] = useState(undefined);
   const [selectedTask, setSelectedTask] = useState(null);
+
+  const getScrollPositions = () => {
+    let positions = [];
+    positions.push(document.getElementById("location-container").scrollHeight);
+    positions.push(document.getElementById("contacts-container").scrollHeight);
+    return positions;
+  }
 
   const handleTaskFormSubmit = (task, index) => {
     let updatedTaskList = agency.tasks.slice(); // shallow copy
@@ -26,7 +39,7 @@ function AgencyProfile({ data }) {
     updatedAgency.tasks = updatedTaskList;
 
     // Update database with new task data
-    fetch(`http://localhost:8000/agency/${data}`, {
+    fetch(`http://localhost:8000/agency/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,17 +71,17 @@ function AgencyProfile({ data }) {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/agency/${data}`, { method: "GET" })
+    fetch(`http://localhost:8000/agency/${id}`, { method: "GET" })
       .then((res) => res.json())
       .then((agency) => {
         setAgency(agency.agency);
       })
       .catch((err) => {
         console.log(err);
-      });
+      }); 
   }, []);
 
-  if (!data) {
+  if (!id) {
     history.push("/agency");
   }
 
@@ -77,9 +90,28 @@ function AgencyProfile({ data }) {
       <>
         <AgencyBar agency={agency} />
         <div className="agency-profile-container">
-          <AgencySideBar />
+          <div className="agency-sidebar-container">
+            <AgencySideBar getScrollPositions={getScrollPositions}/>
+          </div>
           <div className="agency-profile-info">
-            <LocationAndDistributions agency={agency} />
+            <div id="location-container" className="Test">
+              <LocationAndDistributions agency={agency} />
+            </div>
+            <div id="contacts-container">
+              <Contacts agency={agency} />
+            </div>
+            <div id="capacity-container">
+              <Capacity agency={agency} />
+            </div>
+            <div id="compliance-container">
+              <Compliance agency={agency} />
+            </div>
+            <div id="demographics-container">
+              <Demographics agency={agency} />
+            </div>
+            <div id="retail-container">
+              <RetailRescue agency={agency} />
+            </div>
             <AgencyTaskSection
               taskList={agency.tasks}
               onEditTask={(index) =>

@@ -25,9 +25,9 @@ function DataTable({ data }) {
       </thead>
        <tbody>
          { data.map(dat => 
-          <tr key={dat.tableContent._id}>
+          <tr key={dat.tableContent.agencyNumber}>
             <td>{dat.tableContent.agencyNumber}</td>
-            <td><Link as={Link} to={{ pathname: "/agency-profile", data: dat._id}}>{dat.tableContent.name}</Link></td>
+            <td><Link as={Link} to={{ pathname: `/agency-profile/${dat._id}`, data: dat._id}}>{dat.tableContent.name}</Link></td>
             <td>{dat.tableContent.status}</td>
             <td>{dat.tableContent.region}</td>
             <td>{dat.tableContent.city}</td>

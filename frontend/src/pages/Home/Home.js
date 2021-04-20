@@ -6,6 +6,7 @@ import { getJWT } from "../../auth";
 import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import rrulePlugin from "@fullcalendar/rrule";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
@@ -101,10 +102,6 @@ class Home extends Component {
                   ...this.state.distribution,
                   { name: name, color: color },
                 ],
-                rescue: [
-                  ...this.state.rescue,
-                  { name: name, color: color },
-                ]
               });
 
               // generate events for distribution
@@ -164,7 +161,6 @@ class Home extends Component {
                     duration: "02:00",
                     backgroundColor: color,
                   };
-                  console.log(event)
 
                   if (this.state.rescueMap[name]) {
                     this.state.rescueMap[name].push(event);
@@ -172,6 +168,15 @@ class Home extends Component {
                     this.state.rescueMap[name] = [event];
                   }
                 }
+              }
+
+              if (this.state.rescueMap[name]) {
+                this.setState({
+                  rescue: [
+                    ...this.state.rescue,
+                    { name: name, color: color },
+                  ]
+                });
               }
             });
           }
@@ -256,19 +261,21 @@ class Home extends Component {
               marginTop: "5vh",
               marginRight: "10vw",
               marginBottom: "15vh",
-              height: "50%",
+              //height: "50%",
             }}
           >
             <FullCalendar
-              plugins={[rrulePlugin, dayGridPlugin]}
+              plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin]}
+              timeZone="UTC"
               headerToolbar={{
                 left: "prev,next today",
                 center: "title",
-                right: "dayGridMonth,dayGridWeek,dayGridDay",
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
               }}
               initialView="dayGridMonth"
+              eventDisplay="block"
               events={this.state.distributionEvents.concat(this.state.rescueEvents)}
-              expandRows={true}
+              //expandRows={true}
               fixedWeekCount={false}
             />
           </div>

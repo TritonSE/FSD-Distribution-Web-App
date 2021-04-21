@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { BrowserRouter, useHistory, useParams } from "react-router-dom";
 import AgencyBar from "./AgencyBar";
 import "./AgencyProfile.css";
 import AgencySideBar from "./AgencySideBar";

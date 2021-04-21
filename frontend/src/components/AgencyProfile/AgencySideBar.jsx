@@ -40,39 +40,31 @@ function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
           document.getElementById("tasks").className = "header-side-active-container";          
         }
         setScrollPos("tasks");
-        console.log("tasks");
-        console.log(positions);
-        console.log(window.pageYOffset);
         break;
       case positions[5] <= 160:
         resetSideBar();
         document.getElementById("retail").className = "header-side-active-container";
         setScrollPos("retail");
-        console.log("retail");
         break;
       case positions[4] <= 160:
         resetSideBar();
         document.getElementById("demographics").className = "header-side-active-container";
         setScrollPos("demographics");
-        console.log("demographics");
         break;
       case positions[3] <= 160:
         resetSideBar();
         document.getElementById("compliance").className = "header-side-active-container";
         setScrollPos("compliance");
-        console.log("compliance");
         break;
       case positions[2] <= 160:
         resetSideBar();
         document.getElementById("capacity").className = "header-side-active-container";
         setScrollPos("capacity");
-        console.log("capacity");
         break;
       case positions[1] <= 160:
         resetSideBar();
         document.getElementById("contacts").className = "header-side-active-container";
         setScrollPos("contacts");
-        console.log("contacts");
         break;
       default:
         resetSideBar();

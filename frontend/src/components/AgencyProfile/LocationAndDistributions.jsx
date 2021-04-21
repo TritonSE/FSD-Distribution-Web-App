@@ -5,6 +5,35 @@ import xmark from "./imgs/x-circle-icon.png";
 
 function LocationAndDistributions({agency}) {
 
+  const distributionTypes = [
+    agency.pantry, 
+    agency.mealProgram, 
+    agency.homeboundDeliveryPartner, 
+    agency.largeScaleDistributionSite, 
+    agency.residentialFacility
+  ]
+
+  function displayTypes(types) {
+    let displayedStr = "";
+    if(types[0]) {
+      displayedStr = displayedStr + "Pantry, ";
+    }
+    if(types[1]) {
+      displayedStr = displayedStr + "Meal Program, ";
+    }
+    if(types[2]) {
+      displayedStr = displayedStr + "Homebound Delivery, ";
+    }
+    if(types[3]) {
+      displayedStr = displayedStr + "Large Scale Distribution, ";
+    }
+    if(types[4]) {
+      displayedStr = displayedStr + "Residential Facility, ";
+    }
+    displayedStr = displayedStr.replace(/,\s*$/, "");
+    return displayedStr;
+  }
+
   function displayCheckMark(bool) {
     if(bool) {
       return <img className="checks" src={checkmark} alt="checkmark"></img>
@@ -57,9 +86,7 @@ function LocationAndDistributions({agency}) {
           </p>
           <p>
             <strong>Distribution Type:</strong>
-            &nbsp;{(agency.pantry && !agency.mealProgram) && "Pantry"}
-            {(!agency.pantry && agency.mealProgram) && "Meal Program"}
-            {(agency.pantry && agency.mealProgram) && "Pantry, Meal Program"}
+            &nbsp;{displayTypes(distributionTypes)}
           </p>
         </div>
         <div className="distributions-container">

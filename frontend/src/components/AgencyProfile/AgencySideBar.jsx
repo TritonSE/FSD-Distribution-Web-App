@@ -1,19 +1,34 @@
 import React from 'react'
 import { Component, useEffect, useState } from 'react';
 import "./AgencyProfile.css";
+import { NavHashLink } from 'react-router-hash-link';
 
-function AgencySideBar({getScrollPositions}) {
+function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
 
   const [scrollPos, setScrollPos] = useState("");
 
   const resetSideBar = () => {
-    document.getElementById("main").className = "header-side-container";
-    document.getElementById("contacts").className = "header-side-container";
-    document.getElementById("capacity").className = "header-side-container";
-    document.getElementById("compliance").className = "header-side-container";
-    document.getElementById("demographics").className = "header-side-container";
-    document.getElementById("retail").className = "header-side-container";
-    document.getElementById("tasks").className = "header-side-container";
+    if(document.getElementById("main") !== null){
+      document.getElementById("main").className = "header-side-container";
+    }
+    if(document.getElementById("contacts") !== null){
+      document.getElementById("contacts").className = "header-side-container";
+    }
+    if(document.getElementById("capacity") !== null){
+      document.getElementById("capacity").className = "header-side-container";
+    }
+    if(document.getElementById("compliance") !== null){
+      document.getElementById("compliance").className = "header-side-container";
+    }
+    if(document.getElementById("demographics") !== null){
+      document.getElementById("demographics").className = "header-side-container";
+    }
+    if(document.getElementById("retail") !== null){
+      document.getElementById("retail").className = "header-side-container";
+    }
+    if(document.getElementById("tasks") !== null){
+      document.getElementById("tasks").className = "header-side-container";
+    }
   }
 
   const handleScroll = () => {
@@ -21,7 +36,9 @@ function AgencySideBar({getScrollPositions}) {
     switch(true){
       case (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight:
         resetSideBar();
-        document.getElementById("tasks").className = "header-side-active-container";
+        if(document.getElementById("tasks") !== null){
+          document.getElementById("tasks").className = "header-side-active-container";          
+        }
         setScrollPos("tasks");
         console.log("tasks");
         console.log(positions);
@@ -61,20 +78,8 @@ function AgencySideBar({getScrollPositions}) {
         resetSideBar();
         document.getElementById("main").className = "header-side-active-container";
         setScrollPos("main");
-        console.log("main");
         break;
     }
-    // if(window.pageYOffset > positions[1]) {
-    //   resetSideBar();
-    //   document.getElementById("contacts").className = "header-side-active-container";
-    //   setScrollPos("contacts");
-    //   console.log("contacts");
-    // } else {
-    //   resetSideBar();
-    //   document.getElementById("main").className = "header-side-active-container";
-    //   setScrollPos("main");
-    //   console.log("main");
-    // }
   }
 
   useEffect(() => {
@@ -87,25 +92,39 @@ function AgencySideBar({getScrollPositions}) {
   return (
     <div className="agency-sidebar">
       <div id="main" className="header-side-active-container">
-        <h3>Main</h3>
+        <a onClick={() => ScrollTo("location-container")}>
+          <h3>Main</h3>
+        </a>
       </div>
       <div id="contacts" className="header-side-container">
-        <h3>Contacts</h3>
+        <a onClick={() => ScrollTo("contacts-container")}>
+          <h3>Contacts</h3>
+        </a>
       </div>
       <div id="capacity" className="header-side-container">
-        <h3>Capacity</h3>
+        <a onClick={() => ScrollTo("capacity-container")}>
+          <h3>Capacity</h3>
+        </a>
       </div>
       <div id="compliance" className="header-side-container">
+        <a onClick={() => ScrollTo("compliance-container")}>
         <h3>Compliance</h3>
+        </a>
       </div>
       <div id="demographics" className="header-side-container">
-        <h3>Demographics</h3>
+        <a onClick={() => ScrollTo("demographics-container")}>
+          <h3>Demographics</h3>
+        </a>
       </div>
       <div id="retail" className="header-side-container">
-        <h3>Retail Rescue</h3>
+        <a onClick={() => ScrollTo("retail-container")}>
+          <h3>Retail Rescue</h3>
+        </a>
       </div>
       <div id="tasks" className="header-side-container">
-        <h3>Tasks</h3>
+        <a onClick={() => ScrollTo("task-container")}>
+          <h3>Tasks</h3>
+        </a>
       </div>
     </div>
   )

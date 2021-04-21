@@ -97,6 +97,7 @@
 
 .header-side-container {
   margin-bottom: 1em;
+  cursor: pointer;
 }
 
 .header-side-container h3 {

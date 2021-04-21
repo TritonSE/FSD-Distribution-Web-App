@@ -5,6 +5,9 @@ import secondaryTab from "./imgs/contact-tab-secondary.png";
 import AgencyBar from "./AgencyBar";
 
 function Contacts({agency}) {
+
+  let secondContact = (agency.contacts.length > 1) ? agency.contacts[1] : agency.contacts[0];
+
   return (
     <>
       <div className="agency-category">
@@ -12,7 +15,7 @@ function Contacts({agency}) {
         <h1 className="category-title">
           CONTACTS
         </h1>
-        <div className="contacts-container">
+        <div className="contacts-wrapper">
           <div className="primary-container">
             <img className="tabs" src={primaryTab} alt="primaryTab"></img>
             <div className="primary-text">
@@ -31,10 +34,10 @@ function Contacts({agency}) {
               Secondary
             </div>
             <div className="contact-secondary-container">
-              <h3>{agency.contacts[0].contact}</h3>
-              <p>Secondary Contact | {agency.contacts[0].position}</p>
-              <p>{agency.contacts[0].phoneNumber}</p>
-              <p>{agency.contacts[0].email}</p>
+              <h3>{secondContact.contact}</h3>
+              <p>Secondary Contact | {secondContact.position}</p>
+              <p>{secondContact.phoneNumber}</p>
+              <p>{secondContact.email}</p>
             </div>
           </div>
         </div>

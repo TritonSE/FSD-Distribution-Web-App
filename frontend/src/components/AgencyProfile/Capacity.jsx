@@ -2,6 +2,39 @@ import React from "react";
 import edit from "./imgs/edit-icon.png";
 
 function Capacity({agency}) {
+  
+  const storages = {
+    'Stand Alone Freezers': agency.tableContent.standAloneFreezer,
+    'Freezer Fridges': agency.tableContent.freezerFridge,
+    'Chest Freezers': agency.tableContent.chestFreezer,
+    'Single Door Freezers': agency.tableContent.singleDoorFreezer,
+    'Freezer Fridge Combos': agency.tableContent.freezerFridge.combo,
+    'Walk-In Freezers': agency.tableContent.walkInFreezer,
+    'Double Door Fridges': agency.tableContent.doubleDoorFridge,
+    'Side By Side Fridges': agency.tableContent.sideBySideFridge,
+    'Single Door Fridges': agency.tableContent.singleDoorFridge,
+    'Walk-In Fridges': agency.tableContent.walkInFridge,
+    'Dry Storages (Climate Control)': agency.tableContent.dryStorageClimateControl,
+    'Dry Storages (Non-CLimate Control)': agency.tableContent.dryStorageNonClimateControl,
+  }
+
+  const transports = {
+    'Pick-up Trucks': agency.tableContent.pickUpTruck,
+    'Vans': agency.tableContent.van,
+    'Cars': agency.tableContent.car,
+  }
+
+  function displayList(items) {
+    let displayedStr = "";
+    for(let [key,value] of Object.entries(items)) {
+      if(value > 0) {
+        displayedStr = displayedStr + `${value} ${key}, `
+      }
+    }
+    displayedStr = displayedStr.replace(/,\s*$/, "");
+    return displayedStr;
+  }
+  
   return (
     <>
       <div className="agency-category">
@@ -9,12 +42,16 @@ function Capacity({agency}) {
         <h1 className="category-title">
           CAPACITY
         </h1>
-        <p>
-          <strong>Storage and Type:</strong>
-        </p>
-        <p>
-          <strong>Transportation and Type:</strong>
-        </p>
+        <div className="capacity-wrapper">
+          <p>
+            <strong>Storage and Type:</strong>
+            &nbsp;{displayList(storages)}
+          </p>
+          <p>
+            <strong>Transportation and Type:</strong>
+            &nbsp;{displayList(transports)}
+          </p>
+        </div>
       </div>
     </>
   )

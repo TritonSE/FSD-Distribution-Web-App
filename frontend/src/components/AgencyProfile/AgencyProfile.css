@@ -163,6 +163,7 @@
   height: 6vh;
   display: flex;
   gap: 2em;
+  margin-bottom: 1em;
 }
 
 .img-check-container {
@@ -173,7 +174,7 @@
 
 /* * * * Contacts Category * * * */
 
-.contacts-container {
+.contacts-wrapper {
   display: flex;
   justify-content: space-between;
 }
@@ -238,13 +239,40 @@
 
 /* * * * Compliance Category * * * */
 
+.compliance-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.compliance-col-1 {
+  position: relative;
+  width: 45%;
+}
+
+.compliance-col-2 {
+  position: relative;
+  width: 45%;
+}
+
+.notes-wrapper {
+  margin-top: 1em;
+}
+
 /* * * * Demographics Category * * * */
 
 .demo-list {
   margin-left: 1.5em;
 }
 
+.demo-list li {
+  margin-bottom: 0.5em;
+}
+
 /* * * * Retail Rescue Category * * * */
+
+.rescue-wrapper p {
+  margin-bottom: 0.5em;
+}
 
 /* * * * Tasks section * * * */
 

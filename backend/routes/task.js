@@ -61,7 +61,19 @@ router.post("/:id", validationChain, async (req, res, next) => {
     });
   }
 
-  Task.findByIdAndUpdate(req.params.id, req.body, { returnOriginal: false })
+  Task.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then((task) => {
+      if (task.status !== "Completed" && task.dateCompleted) {
+        // remove dateCompleted field if not completed status
+        return Task.findByIdAndUpdate(
+          req.params.id,
+          { $unset: { dateCompleted: 1 } },
+          { new: true }
+        );
+      } else {
+        return task;
+      }
+    })
     .then((task) => {
       res.status(200).json({ task: task });
     })

@@ -1,6 +1,12 @@
 import React from "react";
 import edit from "./imgs/edit-icon.png";
 
+/**
+ * Functional component for the compliance category
+ * 
+ * @param {*} agency 
+ * @returns {*} Compliance component
+ */
 function Compliance({agency}) {
   return (
     <>

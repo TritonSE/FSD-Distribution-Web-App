@@ -1,6 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "./AgencyProfile.css";
 import DeleteModal from "./DeleteModal";
+
+/**
+ * Functional component for the Agency Bar
+ * 
+ * @param {*} agency 
+ * @returns {*} Agency Bar component
+ */
 function AgencyBar({agency}) {
   const [showModal, setShowModal]  = useState(false)
   const toggleModal = () => {

@@ -4,8 +4,13 @@ import primaryTab from "./imgs/contact-tab-primary.png";
 import secondaryTab from "./imgs/contact-tab-secondary.png";
 import AgencyBar from "./AgencyBar";
 
+/**
+ * Functional component for the contacts category
+ * 
+ * @param {*} agency 
+ * @returns {*} Contacts component
+ */
 function Contacts({agency}) {
-
   let secondContact = (agency.contacts.length > 1) ? agency.contacts[1] : agency.contacts[0];
 
   return (

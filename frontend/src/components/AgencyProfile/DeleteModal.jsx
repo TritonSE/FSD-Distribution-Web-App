@@ -1,15 +1,31 @@
-import React from 'react'
+import React from "react";
 import "./DeleteModal.css"
 import FormButton from "../FormComponents/FormButton";
-import  { useHistory } from 'react-router-dom'
+import  { useHistory } from "react-router-dom";
+
+/**
+ * Functional component for the delete agency modal
+ * 
+ * @param {*} showModal
+ * @param {*} toggleModal
+ * @param {*} agencyName
+ * @param {*} agencyNumber
+ * @param {*} agencyId 
+ * @returns {*} Delete Agency Modal Component
+ */
 function DeleteModal({showModal, toggleModal, agencyName, agencyNumber, agencyId}){
   const history  = useHistory();
+
+  /**
+   * Function deletes the given agency and returns the user back to the agency page
+   */
   function deleteAgency(){
     fetch(`http://localhost:8000/agency/${agencyId}`, { method: 'DELETE' }).then(response => response.json()).catch(err => { console.log(err);})
     if (history) {
       history.push("/agency");
     }
   }
+
   return(
       <>
       {

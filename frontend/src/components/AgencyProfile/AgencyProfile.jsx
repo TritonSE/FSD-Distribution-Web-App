@@ -7,7 +7,7 @@ import AgencyTaskSection from "./AgencyTaskSection";
 import TaskForm from "../TaskForm/TaskForm";
 import edit from "./imgs/edit-icon.png";
 import { getJWT } from "../../auth";
-import LocationAndDistributions from './LocationAndDistributions';
+import LocationAndDistributions from "./LocationAndDistributions";
 import Contacts from "./Contacts";
 import Capacity from "./Capacity";
 import Compliance from "./Compliance";
@@ -16,11 +16,21 @@ import RetailRescue from "./RetailRescue";
 
 let positions = [];
 
+/**
+ * Functional component for Agency Profile Page
+ * 
+ * @returns {*} Agency Profile Page
+ */
 function AgencyProfile() {
   const { id } = useParams();
   const [agency, setAgency] = useState(undefined);
   const [selectedTask, setSelectedTask] = useState(null);
 
+  /**
+   * Variable function finds the scroll positions of each agency profile category
+   * 
+   * @returns {Array} Positional offsets from top of the page
+   */
   const getScrollPositions = () => {
     let positions = [];
     if(document.getElementById("location-container") !== null){

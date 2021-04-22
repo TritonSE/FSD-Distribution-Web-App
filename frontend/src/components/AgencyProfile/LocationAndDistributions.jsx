@@ -3,6 +3,12 @@ import edit from "./imgs/edit-icon.png";
 import checkmark from "./imgs/check-circle-icon.png";
 import xmark from "./imgs/x-circle-icon.png";
 
+/**
+ * Functional component for the location and distributions category
+ * 
+ * @param {*} agency 
+ * @returns {*} Location and Distributions component
+ */
 function LocationAndDistributions({agency}) {
 
   const distributionTypes = [
@@ -13,6 +19,13 @@ function LocationAndDistributions({agency}) {
     agency.residentialFacility
   ]
 
+  /**
+   * Function adds the distribution types to a string if their
+   * corresponding bool in the given array is true
+   * 
+   * @param {*} types 
+   * @returns {string} String of the types
+   */
   function displayTypes(types) {
     let displayedStr = "";
     if(types[0]) {
@@ -34,6 +47,12 @@ function LocationAndDistributions({agency}) {
     return displayedStr;
   }
 
+  /**
+   * Function returns a checkmark if bool is true, otherwise returns a xmark
+   * 
+   * @param {*} bool 
+   * @returns {*} Img elem
+   */
   function displayCheckMark(bool) {
     if(bool) {
       return <img className="checks" src={checkmark} alt="checkmark"></img>

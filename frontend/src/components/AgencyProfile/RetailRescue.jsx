@@ -1,8 +1,22 @@
 import React from "react";
 import edit from "./imgs/edit-icon.png";
 
+
+/**
+ * Functional component for the retail rescue category
+ * 
+ * @param {*} agency 
+ * @returns {*} Retail Rescue component
+ */
 function RetailRescue({agency}) {
 
+  /**
+   * Function returns a string that contains data corresponding
+   * the the given day if the day's bool is true
+   * 
+   * @param {*} day 
+   * @returns {string} String of start time and location
+   */
   function displayDay(day) {
     let displayStr = "";
     if(day[0]) {

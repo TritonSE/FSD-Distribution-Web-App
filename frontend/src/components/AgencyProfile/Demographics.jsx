@@ -1,6 +1,12 @@
 import React from "react";
 import edit from "./imgs/edit-icon.png";
 
+/**
+ * Functional component for the demographics category
+ * 
+ * @param {*} agency 
+ * @returns {*} Demographics component
+ */
 function Demographics({agency}) {
 
   const groups = {
@@ -15,6 +21,13 @@ function Demographics({agency}) {
     'Immigrant': agency.immigrant,
   }
 
+  /**
+   * Function takes in an object and returns a list of li elems of the keys
+   * if their values are true
+   * 
+   * @param {*} items 
+   * @returns {Array} Array of li elements based of the keys given in param
+   */
   function displayList(items) {
     let listItems = [];
     for(let [key,value] of Object.entries(items)) {

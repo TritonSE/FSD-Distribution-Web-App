@@ -1,8 +1,16 @@
-import React from 'react'
-import { Component, useEffect, useState } from 'react';
+import React from "react";
+import { Component, useEffect, useState } from "react";
 import "./AgencyProfile.css";
-import { NavHashLink } from 'react-router-hash-link';
+import { NavHashLink } from "react-router-hash-link";
 
+/**
+ * Functional component for Agency Side Bar
+ * 
+ * @param {*} getScrollPositions function that returns page offset of agency categories
+ * @param {string} id unique id of agency
+ * @param {*} ScrollTo function that scrolls page to given element
+ * @returns {*} Agency Side Bar Component
+ */
 function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
 
   const [scrollPos, setScrollPos] = useState("");
@@ -74,6 +82,7 @@ function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
     }
   }
 
+  // Adds scroll event listener on render to track scroll height
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {

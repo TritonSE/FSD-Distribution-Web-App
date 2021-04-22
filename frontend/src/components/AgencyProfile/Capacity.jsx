@@ -1,6 +1,12 @@
 import React from "react";
 import edit from "./imgs/edit-icon.png";
 
+/**
+ * Functional component for the capacity category
+ * 
+ * @param {*} agency 
+ * @returns {*} Capacity component
+ */
 function Capacity({agency}) {
   
   const storages = {
@@ -24,6 +30,13 @@ function Capacity({agency}) {
     'Cars': agency.tableContent.car,
   }
 
+  /**
+   * Function takes in an object and returns a string of the keys and their values
+   * if the values satisfy the given condition
+   * 
+   * @param {*} items 
+   * @returns {string} String of keys and values
+   */
   function displayList(items) {
     let displayedStr = "";
     for(let [key,value] of Object.entries(items)) {

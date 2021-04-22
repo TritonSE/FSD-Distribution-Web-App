@@ -1,3 +1,5 @@
+/* * * * Agency Profile Top Bar * * * */
+
 .agency-bar {
   background-color: #aace67;
   width: 100%;
@@ -80,6 +82,8 @@
   justify-content: space-between;
 }
 
+/* * * * Agency Profile Sidebar * * * */
+
 .agency-sidebar-container {
   width: 15%;
   float: left;
@@ -117,6 +121,8 @@
   font-size: 25px;
   font-weight: bolder;
 }
+
+/* * * * General Agency Profile Category Styling  * * * */
 
 .agency-category {
   position: relative;

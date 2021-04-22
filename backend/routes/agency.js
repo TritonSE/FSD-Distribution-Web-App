@@ -83,7 +83,6 @@ const validationChain = [
   validateRetailRescueLocation("friday"),
   validateRetailRescueLocation("saturday"),
   validateRetailRescueLocation("sunday"),
-  body("tasks.*.dueDate").trim().isDate({ format: "MM/DD/YYYY" }),
   isAuthenticated,
 ];
 

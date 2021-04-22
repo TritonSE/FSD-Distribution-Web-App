@@ -61,7 +61,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
     });
   }
 
-  Task.updateOne({ _id: req.params.id }, req.body)
+  Task.findByIdAndUpdate(req.params.id, req.body, { returnOriginal: false })
     .then((task) => {
       res.status(200).json({ task: task });
     })
@@ -79,5 +79,28 @@ router.post("/:id", validationChain, async (req, res, next) => {
  * @returns JSON containing a list of task objects, or a list of errors
  */
 router.get("/agency/:id", isAuthenticated, async (req, res, next) => {
-  //
+  Task.find({ agencyID: req.params.id })
+    .then((tasks) => {
+      res.status(200).json({ tasks: tasks });
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
+
+/**
+ * Route for a DELETE request to delete a task.
+ *
+ * Ex. DELETE localhost:8000/task/<some task id>
+ */
+router.delete("/:id", async (req, res, next) => {
+  Task.findByIdAndDelete(req.params.id)
+    .then(() => {
+      res.status(200);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+module.exports = router;

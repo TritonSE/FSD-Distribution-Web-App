@@ -1,28 +1,26 @@
 import React from "react";
 import edit from "./imgs/edit-icon.png";
 
-
 /**
  * Functional component for the retail rescue category
- * 
- * @param {*} agency 
+ *
+ * @param {*} agency
  * @returns {*} Retail Rescue component
  */
-function RetailRescue({agency}) {
-
+function RetailRescue({ agency }) {
   /**
    * Function returns a string that contains data corresponding
    * the the given day if the day's bool is true
-   * 
-   * @param {*} day 
+   *
+   * @param {*} day
    * @returns {string} String of start time and location
    */
   function displayDay(day) {
     let displayStr = "";
-    if(day[0]) {
-      displayStr = `${day[1].substring(11,16)}, ${day[2]}`;
+    if (day[0]) {
+      displayStr = `${day[1].substring(11, 16)}, ${day[2]}`;
     } else {
-      displayStr = 'N/A';
+      displayStr = "N/A";
     }
     return displayStr;
   }
@@ -31,13 +29,12 @@ function RetailRescue({agency}) {
     <>
       <div className="agency-category">
         <img id="edit-icon" src={edit} alt="edit"></img>
-        <h1 className="category-title">
-          RETAIL RESCUE
-        </h1>
+        <h1 className="category-title">RETAIL RESCUE</h1>
         <div className="rescue-wrapper">
           <p>
             <strong>Monday:</strong>
-            &nbsp;{displayDay([
+            &nbsp;
+            {displayDay([
               agency.retailRescueDays.monday,
               agency.retailRescueStartTimes.monday,
               agency.retailRescueLocations.monday,
@@ -45,7 +42,8 @@ function RetailRescue({agency}) {
           </p>
           <p>
             <strong>Tuesday:</strong>
-            &nbsp;{displayDay([
+            &nbsp;
+            {displayDay([
               agency.retailRescueDays.tuesday,
               agency.retailRescueStartTimes.tuesday,
               agency.retailRescueLocations.tuesday,
@@ -53,7 +51,8 @@ function RetailRescue({agency}) {
           </p>
           <p>
             <strong>Wednesday:</strong>
-            &nbsp;{displayDay([
+            &nbsp;
+            {displayDay([
               agency.retailRescueDays.wednesday,
               agency.retailRescueStartTimes.wednesday,
               agency.retailRescueLocations.wednesday,
@@ -61,7 +60,8 @@ function RetailRescue({agency}) {
           </p>
           <p>
             <strong>Thursday:</strong>
-            &nbsp;{displayDay([
+            &nbsp;
+            {displayDay([
               agency.retailRescueDays.thursday,
               agency.retailRescueStartTimes.thursday,
               agency.retailRescueLocations.thursday,
@@ -69,7 +69,8 @@ function RetailRescue({agency}) {
           </p>
           <p>
             <strong>Friday:</strong>
-            &nbsp;{displayDay([
+            &nbsp;
+            {displayDay([
               agency.retailRescueDays.friday,
               agency.retailRescueStartTimes.friday,
               agency.retailRescueLocations.friday,
@@ -77,7 +78,8 @@ function RetailRescue({agency}) {
           </p>
           <p>
             <strong>Saturday:</strong>
-            &nbsp;{displayDay([
+            &nbsp;
+            {displayDay([
               agency.retailRescueDays.saturday,
               agency.retailRescueStartTimes.saturday,
               agency.retailRescueLocations.saturday,
@@ -85,7 +87,8 @@ function RetailRescue({agency}) {
           </p>
           <p>
             <strong>Sunday:</strong>
-            &nbsp;{displayDay([
+            &nbsp;
+            {displayDay([
               agency.retailRescueDays.sunday,
               agency.retailRescueStartTimes.sunday,
               agency.retailRescueLocations.sunday,
@@ -94,7 +97,7 @@ function RetailRescue({agency}) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default RetailRescue;

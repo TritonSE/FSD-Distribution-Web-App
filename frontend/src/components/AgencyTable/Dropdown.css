@@ -17,7 +17,7 @@ form {
 }
 
 /* Widen the transportation box */
-#Tran{
+#Tran {
   position: relative;
   width: 127px;
 }

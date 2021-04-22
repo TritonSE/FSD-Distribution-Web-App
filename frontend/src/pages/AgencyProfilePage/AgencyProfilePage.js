@@ -14,11 +14,10 @@ class AgencyProfilePage extends Component {
     const { data } = this.props.location;
     return (
       <div>
-         <AgencyProfile data={data} />
+        <AgencyProfile data={data} />
       </div>
     );
   }
 }
 
 export default AgencyProfilePage;
-

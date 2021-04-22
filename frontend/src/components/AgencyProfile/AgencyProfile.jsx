@@ -36,18 +36,20 @@ function AgencyProfile() {
   }
 
   const handleTaskFormSubmit = (task, index) => {
-    let updatedTaskList = tasks.slice(); // shallow copy
     let url = `${CONFIG.backend.uri}/task/`;
     let method = "PUT";
     if (index === undefined) {
       // creating a new task
       task.agencyID = agency._id;
-      updatedTaskList.push(task);
     } else {
       // modifying an existing task
-      updatedTaskList[index] = task;
       url += task._id;
       method = "POST";
+    }
+
+    if (task.status === "Completed") {
+      // dateCompleted field is for TTL
+      task.dateCompleted = Date.now();
     }
 
     // Update database with new task data
@@ -72,6 +74,15 @@ function AgencyProfile() {
           }
           // If valid response, reset state and rerender page
           else {
+            console.log(data.task);
+            let updatedTaskList = tasks.slice(); // shallow copy
+            if (index === undefined) {
+              // creating a new task
+              updatedTaskList.push(data.task);
+            } else {
+              // modifying an existing task
+              updatedTaskList[index] = data.task;
+            }
             setSelectedTask(null);
             setTasks(updatedTaskList);
           }

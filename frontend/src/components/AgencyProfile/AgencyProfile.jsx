@@ -14,9 +14,12 @@ import Compliance from "./Compliance";
 import Demographics from "./Demographics";
 import RetailRescue from "./RetailRescue";
 
+const CONFIG = require("../../config");
+
 function AgencyProfile() {
   const { id } = useParams();
   const [agency, setAgency] = useState(undefined);
+  const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
 
   const getScrollPositions = () => {
@@ -33,25 +36,28 @@ function AgencyProfile() {
   }
 
   const handleTaskFormSubmit = (task, index) => {
-    let updatedTaskList = agency.tasks.slice(); // shallow copy
+    let updatedTaskList = tasks.slice(); // shallow copy
+    let url = `${CONFIG.backend.uri}/task/`;
+    let method = "PUT";
     if (index === undefined) {
       // creating a new task
+      task.agencyID = agency._id;
       updatedTaskList.push(task);
     } else {
       // modifying an existing task
       updatedTaskList[index] = task;
+      url += task._id;
+      method = "POST";
     }
-    let updatedAgency = { ...agency };
-    updatedAgency.tasks = updatedTaskList;
 
     // Update database with new task data
-    fetch(`http://localhost:8000/agency/${id}`, {
-      method: "POST",
+    fetch(url, {
+      method: method,
       headers: {
         "Content-Type": "application/json",
         Authorization: "Bearer " + getJWT(),
       },
-      body: JSON.stringify(updatedAgency),
+      body: JSON.stringify(task),
     })
       .then((response) => {
         response.json().then((data) => {
@@ -67,7 +73,7 @@ function AgencyProfile() {
           // If valid response, reset state and rerender page
           else {
             setSelectedTask(null);
-            setAgency(updatedAgency);
+            setTasks(updatedTaskList);
           }
         });
       })
@@ -79,11 +85,27 @@ function AgencyProfile() {
   useEffect(() => {
     fetch(`http://localhost:8000/agency/${id}`, { method: "GET" })
       .then((res) => res.json())
-      .then((agency) => {
-        setAgency(agency.agency);
+      .then((data) => {
+        setAgency(data.agency);
+        return data.agency._id;
+      })
+      .then((agencyID) => {
+        return fetch(`${CONFIG.backend.uri}/task/agency/${agencyID}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + getJWT(),
+          },
+        });
+      })
+      .then((res) => {
+        return res.json()
+      })
+      .then((data) => {
+        setTasks(data.tasks);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       }); 
   }, []);
 
@@ -120,9 +142,9 @@ function AgencyProfile() {
             </div>
             <div id="task-container">
               <AgencyTaskSection
-                taskList={agency.tasks}
+                taskList={tasks}
                 onEditTask={(index) =>
-                  setSelectedTask({ ...agency.tasks[index], index: index })
+                  setSelectedTask({ ...tasks[index], index: index })
                 }
                 onCreateTask={(status) =>
                   setSelectedTask({ title: "", dueDate: "", status: status })

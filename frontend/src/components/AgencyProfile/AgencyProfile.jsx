@@ -14,8 +14,6 @@ import Compliance from "./Compliance";
 import Demographics from "./Demographics";
 import RetailRescue from "./RetailRescue";
 
-let positions = [];
-
 /**
  * Functional component for Agency Profile Page
  * 
@@ -57,7 +55,7 @@ function AgencyProfile() {
     return positions;
   }
 
-  function ScrollTo(el){
+  const ScrollTo = (el) => {
     let scrollNum;
     if(el === "task-container"){
       let body = document.body,
@@ -70,7 +68,7 @@ function AgencyProfile() {
         scrollNum = document.getElementById(el).getBoundingClientRect().top - 159;
       }
     }
-    console.log("This is " + el);
+
     window.scrollBy(0, scrollNum);
   }
   
@@ -140,7 +138,7 @@ function AgencyProfile() {
         <AgencyBar agency={agency} />
         <div className="agency-profile-container">
           <div className="agency-sidebar-container">
-            <AgencySideBar getScrollPositions={getScrollPositions} id = {id} positions = {positions} ScrollTo={ScrollTo}/>
+            <AgencySideBar getScrollPositions={getScrollPositions} ScrollTo={ScrollTo}/>
           </div>
           <div className="agency-profile-info">
             <div id="location-container" className="Test">

@@ -11,7 +11,7 @@ import { NavHashLink } from "react-router-hash-link";
  * @param {*} ScrollTo function that scrolls page to given element
  * @returns {*} Agency Side Bar Component
  */
-function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
+function AgencySideBar({getScrollPositions, ScrollTo}) {
 
   const [scrollPos, setScrollPos] = useState("");
 
@@ -39,6 +39,11 @@ function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
     }
   }
 
+  /**
+   * Function gets the scrollPositions of each category and based off the
+   * current scroll position of the user, updates the state which then re-renders
+   * the sidebar component
+   */
   const handleScroll = () => {
     let positions = getScrollPositions();
     switch(true){

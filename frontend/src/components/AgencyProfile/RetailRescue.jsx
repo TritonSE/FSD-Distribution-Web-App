@@ -1,11 +1,10 @@
 import React from "react";
 import edit from "./imgs/edit-icon.png";
 
-
 /**
  * Functional component for the retail rescue category
- * 
- * @param {*} agency 
+ *
+ * @param {*} agency
  * @returns {*} Retail Rescue component
  */
 function RetailRescue({agency}) {
@@ -27,7 +26,7 @@ function RetailRescue({agency}) {
     if(day) {
       displayStr = `${startTime.substring(11,16)}, ${location}`;
     } else {
-      displayStr = 'N/A';
+      displayStr = "N/A";
     }
     return displayStr;
   }
@@ -36,9 +35,7 @@ function RetailRescue({agency}) {
     <>
       <div className="agency-category">
         <img id="edit-icon" src={edit} alt="edit"></img>
-        <h1 className="category-title">
-          RETAIL RESCUE
-        </h1>
+        <h1 className="category-title">RETAIL RESCUE</h1>
         <div className="rescue-wrapper">
           <p>
             <strong>Monday:</strong>
@@ -71,7 +68,7 @@ function RetailRescue({agency}) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default RetailRescue;

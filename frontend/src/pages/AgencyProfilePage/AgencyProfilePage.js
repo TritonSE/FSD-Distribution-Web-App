@@ -21,4 +21,3 @@ class AgencyProfilePage extends Component {
 }
 
 export default AgencyProfilePage;
-

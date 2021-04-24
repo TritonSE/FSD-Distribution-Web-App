@@ -3,18 +3,16 @@ import edit from "./imgs/edit-icon.png";
 
 /**
  * Functional component for the compliance category
- * 
- * @param {*} agency 
+ *
+ * @param {*} agency
  * @returns {*} Compliance component
  */
-function Compliance({agency}) {
+function Compliance({ agency }) {
   return (
     <>
       <div className="agency-category">
         <img id="edit-icon" src={edit} alt="edit"></img>
-        <h1 className="category-title">
-          COMPLIANCE
-        </h1>
+        <h1 className="category-title">COMPLIANCE</h1>
         <div className="compliance-wrapper">
           <div className="compliance-col-1">
             <p>
@@ -50,7 +48,7 @@ function Compliance({agency}) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default Compliance;

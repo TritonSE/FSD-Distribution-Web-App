@@ -1,35 +1,54 @@
 import React from "react";
 import edit from "./imgs/edit-icon.png";
 
-function Compliance({agency}) {
+/**
+ * Functional component for the compliance category
+ *
+ * @param {*} agency
+ * @returns {*} Compliance component
+ */
+function Compliance({ agency }) {
   return (
     <>
       <div className="agency-category">
         <img id="edit-icon" src={edit} alt="edit"></img>
-        <h1 className="category-title">
-          COMPLIANCE
-        </h1>
-        <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
-        <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
-        <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
-        <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
-        <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
-        <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
+        <h1 className="category-title">COMPLIANCE</h1>
+        <div className="compliance-wrapper">
+          <div className="compliance-col-1">
+            <p>
+              <strong>Scheduled Next Visit:</strong>
+              &nbsp;{agency.scheduledNextVisit}
+            </p>
+            <p>
+              <strong>Date of Most Recent Agreement:</strong>
+              &nbsp;{agency.dateOfMostRecentAgreement}
+            </p>
+            <p>
+              <strong>Initial Date of Partnership:</strong>
+              &nbsp;{agency.tableContent.dateOfInitialPartnership}
+            </p>
+          </div>
+          <div className="compliance-col-2">
+            <p>
+              <strong>File Audit:</strong>
+              &nbsp;{agency.fileAudit}
+            </p>
+            <p>
+              <strong>Monitored:</strong>
+              &nbsp;{agency.monitored}
+            </p>
+            <p>
+              <strong>Food Safety Certification:</strong>
+              &nbsp;{agency.foodSafetyCertification}
+            </p>
+          </div>
+        </div>
+        <div className="notes-wrapper">
+          <strong>Notes:</strong>
+        </div>
       </div>
     </>
-  )
+  );
 }
 
 export default Compliance;

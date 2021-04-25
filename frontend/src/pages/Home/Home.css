@@ -38,3 +38,10 @@ a {
 	text-decoration: none;
 	background-color: transparent;
 }
+
+tbody::before {
+	/* content: "-"; */
+	display: block;
+	line-height: 1px;
+	text-indent: -99999px;
+}

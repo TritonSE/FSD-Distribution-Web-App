@@ -25,56 +25,9 @@ class Home extends Component {
         // { name: "Agency C", color: "#fc1307" },
       ],
       rescue: [],
-      events: [],
       distributionEvents: [],
       rescueEvents: [],
-      distributionMap: {
-        // "Agency A": [
-        //   {
-        //     groupId: "distribution",
-        //     title: "Agency A",
-        //     rrule: {
-        //       freq: "weekly",
-        //       interval: 1,
-        //       byweekday: ["mo", "we", "fr"],
-        //       dtstart: new Date().toISOString(),
-        //     },
-        //     backgroundColor: "#fc02db",
-        //     exdate: ["2021-04-28", "2021-04-19"],
-        //     duration: "02:00",
-        //   },
-        // ],
-        // "Agency B": [
-        //   {
-        //     groupId: "distribution",
-        //     title: "Agency B",
-        //     rrule: {
-        //       freq: "weekly",
-        //       interval: 2,
-        //       byweekday: ["tu", "th"],
-        //       dtstart: new Date().toISOString(),
-        //     },
-        //     backgroundColor: "#71fc07",
-        //     exdate: ["2021-04-20", "2021-04-29"],
-        //     duration: "02:00",
-        //   },
-        // ],
-        // "Agency C": [
-        //   {
-        //     groupId: "distribution",
-        //     title: "Agency C",
-        //     rrule: {
-        //       freq: "weekly",
-        //       interval: 2,
-        //       byweekday: ["sa", "su"],
-        //       dtstart: new Date().toISOString(),
-        //     },
-        //     backgroundColor: "#fc1307",
-        //     exdate: ["2021-04-18", "2021-04-24"],
-        //     duration: "02:00",
-        //   },
-        // ],
-      },
+      distributionMap: {},
       rescueMap: {},
     };
     this.updateCalendar = this.updateCalendar.bind(this);
@@ -113,6 +66,7 @@ class Home extends Component {
                       freq: "weekly",
                       interval: agency.distributionFrequency,
                       byweekday: day.substring(0, 2),
+                      wkst: day.substring(0, 2),
                       dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
                     },
                     duration: "02:00",
@@ -130,6 +84,7 @@ class Home extends Component {
                 }
               }
 
+              // adding user selected dates for the agency
               for (const day of agency.userSelectedDates) {
                 const event = {
                   title: name,
@@ -156,9 +111,10 @@ class Home extends Component {
                       freq: "weekly",
                       interval: 1,
                       byweekday: day.substring(0, 2),
+                      wkst: day.substring(0, 2),
                       dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
                     },
-                    duration: "02:00",
+                    duration: "01:00",
                     backgroundColor: color,
                   };
 
@@ -248,7 +204,7 @@ class Home extends Component {
 
     return (
       <Row>
-        <Col lg={2} md={2} style={{ height: "100%" }}>
+        <Col lg={2} md={2}>
           <CalendarToolbar
             distribution={this.state.distribution}
             rescue={this.state.rescue}
@@ -261,7 +217,6 @@ class Home extends Component {
               marginTop: "5vh",
               marginRight: "10vw",
               marginBottom: "15vh",
-              //height: "50%",
             }}
           >
             <FullCalendar
@@ -275,8 +230,8 @@ class Home extends Component {
               initialView="dayGridMonth"
               eventDisplay="block"
               events={this.state.distributionEvents.concat(this.state.rescueEvents)}
-              //expandRows={true}
               fixedWeekCount={false}
+              allDaySlot={false}
             />
           </div>
         </Col>

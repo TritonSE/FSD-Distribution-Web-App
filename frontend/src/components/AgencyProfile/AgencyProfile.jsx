@@ -47,7 +47,7 @@ function AgencyProfile() {
     return positions;
   }
 
-  function ScrollTo(el){
+  const ScrollTo = (el) =>{
     let scrollNum;
     if(el === "task-container"){
       let body = document.body,
@@ -57,10 +57,12 @@ function AgencyProfile() {
     }
     else{
       if(document.getElementById(el) !== null){
-        scrollNum = document.getElementById(el).getBoundingClientRect().top - 159;
+        //number of pixels from the top of category's div to top of viewport
+        //when a sidebar category is clicked, window should scroll until this distance is achieved
+        const topDist = 159;
+        scrollNum = document.getElementById(el).getBoundingClientRect().top - topDist;
       }
     }
-    console.log("This is " + el);
     window.scrollBy(0, scrollNum);
   }
   
@@ -109,7 +111,13 @@ function AgencyProfile() {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/agency/${id}`, { method: "GET" })
+    fetch(`http://localhost:8000/agency/${id}`, { 
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
+      },
+    })
       .then((res) => res.json())
       .then((agency) => {
         setAgency(agency.agency);
@@ -118,7 +126,7 @@ function AgencyProfile() {
         console.log(err);
       });
       
-  }, [agency]);
+  }, []);
 
   if (!id) {
     history.push("/agency");

@@ -165,7 +165,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get("/:id" /*, isAuthenticated*/, async (req, res, next) => {
+router.get("/:id", isAuthenticated, async (req, res, next) => {
   Agency.findById(req.params.id)
     .then((agency) => {
       res.status(200).json({ agency: agency });

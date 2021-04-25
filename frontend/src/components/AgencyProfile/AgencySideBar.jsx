@@ -33,6 +33,9 @@ function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
 
   const handleScroll = () => {
     let positions = getScrollPositions();
+    // sidebar should change the active category when the top of the corresponding category's div 
+    //is less than or equal to 160 pixels from the top of the viewport, the threshold distance
+    const thresholdDist = 160;
     switch(true){
       case (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight:
         resetSideBar();
@@ -41,34 +44,32 @@ function AgencySideBar({getScrollPositions, id, positions, ScrollTo}) {
         }
         setScrollPos("tasks");
         console.log("tasks");
-        console.log(positions);
-        console.log(window.pageYOffset);
         break;
-      case positions[5] <= 160:
+      case positions[5] <= thresholdDist:
         resetSideBar();
         document.getElementById("retail").className = "header-side-active-container";
         setScrollPos("retail");
         console.log("retail");
         break;
-      case positions[4] <= 160:
+      case positions[4] <= thresholdDist:
         resetSideBar();
         document.getElementById("demographics").className = "header-side-active-container";
         setScrollPos("demographics");
         console.log("demographics");
         break;
-      case positions[3] <= 160:
+      case positions[3] <= thresholdDist:
         resetSideBar();
         document.getElementById("compliance").className = "header-side-active-container";
         setScrollPos("compliance");
         console.log("compliance");
         break;
-      case positions[2] <= 160:
+      case positions[2] <= thresholdDist:
         resetSideBar();
         document.getElementById("capacity").className = "header-side-active-container";
         setScrollPos("capacity");
         console.log("capacity");
         break;
-      case positions[1] <= 160:
+      case positions[1] <= thresholdDist:
         resetSideBar();
         document.getElementById("contacts").className = "header-side-active-container";
         setScrollPos("contacts");

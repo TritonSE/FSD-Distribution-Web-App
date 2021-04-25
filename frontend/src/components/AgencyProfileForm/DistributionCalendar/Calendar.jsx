@@ -3,7 +3,7 @@ import moment from "moment";
 import "./CalendarStyle.css";
 import Header from "./Header";
 
-const DEFAULT_DATE_FORMAT = "MM/DD/YYYY";
+const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
 
 /**
  * Custom calendar component to aid with user distribution date
@@ -105,27 +105,43 @@ class Calendar extends Component {
   };
 
   /**
-   * Determines if a given date string is a valid distribution date.
+   * Determines if a given date string is not in the month currently displayed.
    *
    * @param {String} date String in default date format to be assessed
-   * @returns Boolean representing if the given date string is a valid
-   * distributiond ate
+   * @returns Boolean representing if the given date string is extraneous
    */
   isExtraneousDate = (date) => {
-    let dateMonth = parseInt(date.slice(0, 2));
-    let calendarMonth = this.state.todayMoment.month();
-    let calendarMonthNum = parseInt(moment().month(calendarMonth).format("M"));
-    return dateMonth !== calendarMonthNum;
+    const { todayMoment } = this.state;
+    let dateMonth = date.slice(5, 7);
+    let displayedMonth = moment().month(todayMoment.month).format("MM");
+    return dateMonth !== displayedMonth;
   };
 
   /**
    * Determines if a given date is a user selected date
    *
    * @param {String} date String in default date format to be assessed
-   * @returns Boolean representing if the given date is a user selected date
+   * @returns The index of the corresponding date-time string in
+   * userSelectedDates if the date is selected, or -1 otherwise
    */
-  isSelectedDate = (date) => {
-    return this.props.userSelectedDates.includes(date);
+  indexOfSelectedDate = (date) => {
+    // strings in userSelectedDates also include start times
+    for (let i in this.state.userSelectedDates) {
+      if (userSelectedDates[i].startsWith(date)) {
+        return i;
+      }
+    }
+    return -1;
+  };
+
+  /**
+   * Determines if the given date is focused in the calendar.
+   *
+   * @param {String} date Date string in default format
+   * @returns true iff date === this.state.focusedDate, otherwise false
+   */
+  isFocusedDate = (date) => {
+    return date === this.state.focusedDate;
   };
 
   /**
@@ -148,27 +164,61 @@ class Calendar extends Component {
     const { userSelectedDates, onChange } = this.props;
 
     let newSelectedDates = userSelectedDates.slice();
-    let indexOfDate = newSelectedDates.indexOf(date);
-    newSelectedDates.splice(indexOfDate, 1);
+    // strings in userSelectedDates also include start times
+    let index = -1;
+    for (let i in newSelectedDates) {
+      let selectedDate = newSelectedDates[i];
+      if (selectedDate.startsWith(date)) {
+        index = i;
+        break;
+      }
+    }
+    if (index === -1) {
+      return;
+    }
+    newSelectedDates.splice(index, 1);
 
     // Update AgencyProfileForm state (and consequently local state)
     onChange("userSelectedDates", newSelectedDates);
   };
 
   /**
-   * Adds a given date to user selected dates
+   * Adds the given date to userSelectedDates and adds a field for the date's
+   * start time to selectedDateStartTimes.
    *
    * @param {String} date String in default date format to be added to
    * user selected dates
    */
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
+    const newDate = date + "T00:00Z";
 
     let newSelectedDates = userSelectedDates.slice();
-    newSelectedDates.push(date);
+    newSelectedDates.push(newDate);
+    this.focusDate(newDate);
 
     // Update AgencyProfileForm state (and consequently local state)
     onChange("userSelectedDates", newSelectedDates);
+  };
+
+  /**
+   * Sets focusedDate in this.state to the given date (excluding time), and
+   * focusedStartTime to the time from the date string.
+   *
+   * @param {String} dateTime Date string in ISO 8601 format: YYYY-MM-DDThh:mmZ
+   */
+  focusDate = (dateTime) => {
+    this.setState({
+      focusedDate: dateTime.slice(0, 10),
+      focusedStartTime: dateTime.slice(11, 16),
+    });
+  };
+
+  /**
+   * Sets focusedDate and focusedStartTime in this.state to null.
+   */
+  unfocusDate = () => {
+    this.setState({ focusedDate: null, focusedStartTime: null });
   };
 
   /**
@@ -212,13 +262,13 @@ class Calendar extends Component {
   handleDateSelect = (date) => {
     const {
       isDistributionDate,
-      isSelectedDate,
+      indexOfSelectedDate,
       isExcludedDate,
       isExtraneousDate,
-      removeSelectedDate,
       addSelectedDate,
       addExcludedDate,
       removeExcludedDate,
+      focusDate,
     } = this;
 
     if (!isExtraneousDate(date)) {
@@ -229,8 +279,9 @@ class Calendar extends Component {
           addExcludedDate(date);
         }
       } else {
-        if (isSelectedDate(date)) {
-          removeSelectedDate(date);
+        let index = indexOfSelectedDate(date);
+        if (index !== -1) {
+          focusDate(this.props.userSelectedDates[index]);
         } else {
           addSelectedDate(date);
         }
@@ -271,8 +322,11 @@ class Calendar extends Component {
       const {
         userSelectedDates,
         userExcludedDates,
-        distributionStartDate,
+        //distributionStartDate,
       } = this.props;
+
+      // if the user just checked a new distribution weekday, then remove any
+      // selected/excluded dates of that weekday
       for (let selectedDate of userSelectedDates) {
         if (this.isDistributionDate(selectedDate)) {
           this.removeSelectedDate(selectedDate);
@@ -286,11 +340,11 @@ class Calendar extends Component {
         }
       }
 
-      this.setState((prev) => ({
+      /*this.setState((prev) => ({
         todayMoment: prev.todayMoment,
         calendar: prev.calendar,
         startDateMoment: moment(distributionStartDate, DEFAULT_DATE_FORMAT),
-      }));
+      }));*/
     }
   }
 
@@ -303,7 +357,7 @@ class Calendar extends Component {
   getDateStyle = (date) => {
     const {
       isDistributionDate,
-      isSelectedDate,
+      indexOfSelectedDate,
       isExcludedDate,
       isExtraneousDate,
     } = this;
@@ -313,7 +367,7 @@ class Calendar extends Component {
       if (!isExcludedDate(date)) {
         style = "distribution";
       }
-    } else if (isSelectedDate(date)) {
+    } else if (indexOfSelectedDate(date) !== -1) {
       style = "selected";
     }
 
@@ -327,7 +381,13 @@ class Calendar extends Component {
   render() {
     const { calendar, todayMoment } = this.state;
     const { label } = this.props;
-    const { handlePrev, handleNext, getDateStyle, handleDateSelect } = this;
+    const {
+      handlePrev,
+      handleNext,
+      getDateStyle,
+      handleDateSelect,
+      isFocusedDate,
+    } = this;
     return (
       <div className="calendar-container">
         <label className="calendar-label">{label}</label>
@@ -355,8 +415,9 @@ class Calendar extends Component {
                       className={getDateStyle(date)}
                       onClick={() => handleDateSelect(date)}
                     >
-                      {date.slice(3, 5)}
+                      {date.slice(8, 10)}
                     </div>
+                    {isFocusedDate(date) && null}
                   </div>
                 ))}
               </div>

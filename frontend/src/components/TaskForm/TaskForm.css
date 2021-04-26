@@ -30,9 +30,9 @@
 /* * * * Task Form Butttons  * * * */
 
 .button-container {
-  margin: 5%;
+  margin-top: 40px;
+  margin-left: -55px;
   text-align: center
-  
 }
 
 /* * * * Cancel button * * * */

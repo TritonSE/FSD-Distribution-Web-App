@@ -92,7 +92,6 @@ function AgencyProfile() {
           }
           // If valid response, reset state and rerender page
           else {
-            console.log(data.task);
             let updatedTaskList = tasks.slice(); // shallow copy
             if (index === undefined) {
               // creating a new task

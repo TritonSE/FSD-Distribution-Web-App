@@ -105,7 +105,7 @@ router.get("/agency/:id", isAuthenticated, async (req, res, next) => {
  *
  * Ex. DELETE localhost:8000/task/<some task id>
  */
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isAuthenticated, async (req, res, next) => {
   Task.findByIdAndDelete(req.params.id)
     .then(() => {
       res.status(200).json({});

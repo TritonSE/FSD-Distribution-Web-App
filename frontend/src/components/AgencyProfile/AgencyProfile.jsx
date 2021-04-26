@@ -7,7 +7,7 @@ import AgencyTaskSection from "./AgencyTaskSection";
 import TaskForm from "../TaskForm/TaskForm";
 import edit from "./imgs/edit-icon.png";
 import { getJWT } from "../../auth";
-import LocationAndDistributions from './LocationAndDistributions';
+import LocationAndDistributions from "./LocationAndDistributions";
 import Contacts from "./Contacts";
 import Capacity from "./Capacity";
 import Compliance from "./Compliance";
@@ -24,16 +24,34 @@ function AgencyProfile() {
 
   const getScrollPositions = () => {
     let positions = [];
-    positions.push(document.getElementById("location-container").getBoundingClientRect().top);
-    positions.push(document.getElementById("contacts-container").getBoundingClientRect().top);
-    positions.push(document.getElementById("capacity-container").getBoundingClientRect().top );
-    positions.push(document.getElementById("compliance-container").getBoundingClientRect().top);
-    positions.push(document.getElementById("demographics-container").getBoundingClientRect().top);
-    positions.push(document.getElementById("retail-container").getBoundingClientRect().top );
-    positions.push(document.getElementById("task-container").getBoundingClientRect().top );
-    console.log(document.getElementById("task-container").getBoundingClientRect().top);
+    positions.push(
+      document.getElementById("location-container").getBoundingClientRect().top
+    );
+    positions.push(
+      document.getElementById("contacts-container").getBoundingClientRect().top
+    );
+    positions.push(
+      document.getElementById("capacity-container").getBoundingClientRect().top
+    );
+    positions.push(
+      document.getElementById("compliance-container").getBoundingClientRect()
+        .top
+    );
+    positions.push(
+      document.getElementById("demographics-container").getBoundingClientRect()
+        .top
+    );
+    positions.push(
+      document.getElementById("retail-container").getBoundingClientRect().top
+    );
+    positions.push(
+      document.getElementById("task-container").getBoundingClientRect().top
+    );
+    console.log(
+      document.getElementById("task-container").getBoundingClientRect().top
+    );
     return positions;
-  }
+  };
 
   const handleTaskFormSubmit = (task, index) => {
     let url = `${CONFIG.backend.uri}/task/`;
@@ -91,6 +109,32 @@ function AgencyProfile() {
       .catch((error) => console.error(error));
   };
 
+  const handleTaskFormDelete = (task) => {
+    let url = `${CONFIG.backend.uri}/task/${task._id}`;
+    let method = "DELETE";
+
+    // Delete task from database
+    fetch(url, {
+      method: method,
+      headers: {
+        Authorization: "Bearer " + getJWT(),
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          // Create shallow copy of tasks state
+          let updatedTaskList = tasks.slice();
+
+          // Remove deleted task from tasklist state (based on id)
+          updatedTaskList = updatedTaskList.filter((x) => x._id !== task._id);
+
+          setSelectedTask(null);
+          setTasks(updatedTaskList);
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   let history = useHistory();
 
   useEffect(() => {
@@ -110,14 +154,14 @@ function AgencyProfile() {
         });
       })
       .then((res) => {
-        return res.json()
+        return res.json();
       })
       .then((data) => {
         setTasks(data.tasks);
       })
       .catch((err) => {
         console.error(err);
-      }); 
+      });
   }, []);
 
   if (!id) {
@@ -130,7 +174,7 @@ function AgencyProfile() {
         <AgencyBar agency={agency} />
         <div className="agency-profile-container">
           <div className="agency-sidebar-container">
-            <AgencySideBar getScrollPositions={getScrollPositions}/>
+            <AgencySideBar getScrollPositions={getScrollPositions} />
           </div>
           <div className="agency-profile-info">
             <div id="location-container" className="Test">
@@ -163,14 +207,14 @@ function AgencyProfile() {
               />
             </div>
           </div>
-          <div>
-          </div>
+          <div></div>
         </div>
         {selectedTask && (
           <TaskForm
             data={selectedTask}
             editIndex={selectedTask.index}
             onSubmit={handleTaskFormSubmit}
+            onDelete={handleTaskFormDelete}
             onCancel={() => setSelectedTask(null)}
           />
         )}

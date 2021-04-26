@@ -100,6 +100,14 @@ class TaskForm extends Component {
   };
 
   /**
+   * Handles task deletion
+   */
+  deleteTask = () => {
+    const { data } = this.props;
+    this.props.onDelete(data);
+  };
+
+  /**
    * Handles form cancellation.
    */
   cancelForm = () => {
@@ -151,13 +159,23 @@ class TaskForm extends Component {
               />
             </div>
           </div>
-          <div className="button-center">
-            <FormButton
-              title="Save Task"
-              type="primary"
-              onClick={this.submitForm}
-            />
+          <div className="button-container">
+              <FormButton
+                title="Save Task"
+                type="primary"
+                size={data._id  ? "small" : null }
+                onClick={this.submitForm}
+              />
+            {data._id && (
+                <FormButton
+                  title="Delete Task"
+                  type="secondary"
+                  size="small"
+                  onClick={this.deleteTask}
+                />
+            )}
           </div>
+
           <button
             type="button"
             className="task-form-cancel"

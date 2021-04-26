@@ -27,10 +27,12 @@
   margin-right: 22px;
 }
 
-.button-center {
-  margin-left: -55px;
-  margin-top: 62px;
-  text-align: center;
+/* * * * Task Form Butttons  * * * */
+
+.button-container {
+  margin: 5%;
+  text-align: center
+  
 }
 
 /* * * * Cancel button * * * */

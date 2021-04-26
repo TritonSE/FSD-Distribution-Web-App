@@ -12,10 +12,13 @@ import "./TextStyles.css";
  */
 class FormButton extends Component {
   getClass() {
-    const { type } = this.props;
+    const { type, size } = this.props;
     let className = "form-button-";
     if (type) {
       className += type;
+    }
+    if (size) {
+      className += `-${size}`
     }
     return className;
   }

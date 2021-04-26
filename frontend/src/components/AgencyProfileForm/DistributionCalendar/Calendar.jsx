@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import "./CalendarStyle.css";
 import Header from "./Header";
+import TimeInputPopup from "./TimeInputPopup";
 
 const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
 
@@ -22,6 +23,8 @@ const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
  * representing which default distribution days the user excluded
  * - {Function} onChange: Callback function to agency profile form
  * handleInputChange
+ * - {Function} validCheck: Callback from the form page to check whether start
+ * times for user selected dates passed validation, should take a String
  */
 
 class Calendar extends Component {
@@ -183,8 +186,7 @@ class Calendar extends Component {
   };
 
   /**
-   * Adds the given date to userSelectedDates and adds a field for the date's
-   * start time to selectedDateStartTimes.
+   * Adds the given date to userSelectedDates and focuses it in the calendar.
    *
    * @param {String} date String in default date format to be added to
    * user selected dates
@@ -198,6 +200,25 @@ class Calendar extends Component {
     this.focusDate(newDate);
 
     // Update AgencyProfileForm state (and consequently local state)
+    onChange("userSelectedDates", newSelectedDates);
+  };
+
+  /**
+   * Updates the time of this date in userSelectedDates, and unfocuses the date
+   * in the calendar.
+   *
+   * @param {String} date String in default date format
+   * @param {String} time New start time for the date ("hh:mm")
+   */
+  updateSelectedDate = (date, time) => {
+    const { userSelectedDates, onChange } = this.props;
+    const newDate = `${date}T${time}Z`;
+
+    let newSelectedDates = userSelectedDates.slice();
+    let index = this.indexOfSelectedDate(date);
+    newSelectedDates[index] = newDate;
+    this.unfocusDate();
+
     onChange("userSelectedDates", newSelectedDates);
   };
 
@@ -379,14 +400,17 @@ class Calendar extends Component {
   };
 
   render() {
-    const { calendar, todayMoment } = this.state;
-    const { label } = this.props;
+    const { calendar, todayMoment, focusedStartTime } = this.state;
+    const { label, validCheck } = this.props;
     const {
       handlePrev,
       handleNext,
       getDateStyle,
       handleDateSelect,
       isFocusedDate,
+      indexOfSelectedDate,
+      updateSelectedDate,
+      removeSelectedDate,
     } = this;
     return (
       <div className="calendar-container">
@@ -417,7 +441,16 @@ class Calendar extends Component {
                     >
                       {date.slice(8, 10)}
                     </div>
-                    {isFocusedDate(date) && null}
+                    {isFocusedDate(date) && (
+                      <TimeInputPopup
+                        value={focusedStartTime}
+                        valid={validCheck(
+                          `userSelectedDates[${indexOfSelectedDate(date)}]`
+                        )}
+                        onSave={(time) => updateSelectedDate(date, time)}
+                        onDelete={removeSelectedDate(date)}
+                      />
+                    )}
                   </div>
                 ))}
               </div>

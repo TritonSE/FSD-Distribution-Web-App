@@ -196,62 +196,6 @@ class Home extends Component {
     }
   }
 
-  // type, agency, checked
-  // d, r, da, ra
-  updateCalendar(type, agency, checked) {
-    switch (type) {
-      // toggle all distribution events
-      case "da":
-        this.setState({ distributionEvents: [] });
-        if (checked) {
-          let events = [];
-          Object.keys(this.state.distributionMap).forEach((agencyName) => {
-            events = events.concat(this.state.distributionMap[agencyName]);
-          });
-          this.setState({ distributionEvents: events });
-        }
-        break;
-      // toggle all retail rescue events
-      case "ra":
-        this.setState({ rescueEvents: [] });
-        if (checked) {
-          let events = [];
-          Object.keys(this.state.rescueMap).forEach((agencyName) => {
-            events = events.concat(this.state.rescueMap[agencyName]);
-          });
-          this.setState({ rescueEvents: events });
-        }
-        break;
-      // toggle a retail rescue event
-      case "r":
-        const newRescueEvents = this.state.rescueMap[agency]; // [{}, {}, {}]
-        if (checked) {
-          this.setState({ rescueEvents: this.state.rescueEvents.concat(newRescueEvents) });
-        } else {
-          const filteredArray = this.state.rescueEvents.filter((event) => {
-            return newRescueEvents.indexOf(event) < 0;
-          });
-          this.setState({ rescueEvents: filteredArray });
-        }
-        break;
-      // toggle a distribution event
-      case "d":
-        const newDistributionEvents = this.state.distributionMap[agency];
-        if (checked) {
-          this.setState({ distributionEvents: this.state.distributionEvents.concat(newDistributionEvents) });
-        } else {
-          const filteredArray = this.state.distributionEvents.filter((event) => {
-            return newDistributionEvents.indexOf(event) < 0;
-          });
-          this.setState({ distributionEvents: filteredArray });
-        }
-        break;
-      default:
-        console.log("broken code");
-        break;
-    }
-  }
-
   render() {
     if (!isAuthenticated()) {
       return <Redirect to="/login" />;

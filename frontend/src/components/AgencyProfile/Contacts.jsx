@@ -14,33 +14,62 @@ function Contacts({ agency }) {
   let secondContact =
     agency.contacts.length > 1 ? agency.contacts[1] : agency.contacts[0];
 
+  /**
+   * Function takes in an array of contacts and returns the components for each
+   * contact
+   *
+   * @param {*} contacts
+   * @returns {*} Individual contact components
+   */
+  function displayContacts(contacts) {
+    let contactElems = [];
+    contacts.map((person, index) => {
+      let contactType = 'Other';
+      let tab = secondaryTab;
+      if(index == 0) {
+        contactType = 'Primary';
+        tab = primaryTab;
+      }
+      if(index == 1) {
+        contactType = 'Secondary';
+      }
+
+      contactElems.push(
+        <div className="contact-container">
+          <img className="tabs" src={tab} alt="tab"></img>
+          <div className={`${contactType.toLowerCase()}-text`}>{contactType}</div>
+          <div className={`contact-info-container ${contactType.toLowerCase()}`}>
+            <h3>{person.contact}</h3>
+            <p>{contactType} Contact | {person.position}</p>
+            <p>{person.phoneNumber}</p>
+            <p>{person.email}</p>
+          </div>
+        </div>
+      );
+    });
+
+    let contactRows = contactElems.reduce((rows, key, index) => { 
+      return (index % 2 == 0 ? rows.push([key]) 
+        : rows[rows.length-1].push(key)) && rows;
+    }, []);
+
+    let displayedContacts = contactRows.map((elem, index) => {
+      if(elem[1]) {
+        return <div className="contacts-wrapper">{elem[0]}{elem[1]}</div>;
+      } else {
+        return <div className="contacts-wrapper">{elem[0]}</div>;
+      }
+    });
+
+    return displayedContacts;
+  }
+
   return (
     <>
       <div className="agency-category">
         <img id="edit-icon" src={edit} alt="edit"></img>
         <h1 className="category-title">CONTACTS</h1>
-        <div className="contacts-wrapper">
-          <div className="primary-container">
-            <img className="tabs" src={primaryTab} alt="primaryTab"></img>
-            <div className="primary-text">Primary</div>
-            <div className="contact-primary-container">
-              <h3>{agency.contacts[0].contact}</h3>
-              <p>Primary Contact | {agency.contacts[0].position}</p>
-              <p>{agency.contacts[0].phoneNumber}</p>
-              <p>{agency.contacts[0].email}</p>
-            </div>
-          </div>
-          <div className="secondary-container">
-            <img className="tabs" src={secondaryTab} alt="secondaryTab"></img>
-            <div className="secondary-text">Secondary</div>
-            <div className="contact-secondary-container">
-              <h3>{secondContact.contact}</h3>
-              <p>Secondary Contact | {secondContact.position}</p>
-              <p>{secondContact.phoneNumber}</p>
-              <p>{secondContact.email}</p>
-            </div>
-          </div>
-        </div>
+        {displayContacts(agency.contacts)}
       </div>
     </>
   );

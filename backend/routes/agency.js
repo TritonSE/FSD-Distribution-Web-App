@@ -148,7 +148,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
   }
 
   Agency.updateOne({ _id: req.params.id }, req.body)
-    .then((agency) => {
+    .then(() => {
       res.status(200).json({ agency: agency });
     })
     .catch((err) => {

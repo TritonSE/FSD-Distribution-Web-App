@@ -1,23 +1,52 @@
 import React from "react";
-import edit from "./imgs/edit-icon.png";
+import EditButton from "./EditButton";
 
-function Demographics({agency}) {
+/**
+ * Functional component for the demographics category
+ *
+ * @param {*} agency
+ * @returns {*} Demographics component
+ */
+function Demographics({ agency }) {
+  const groups = {
+    Youth: agency.youth,
+    Senior: agency.senior,
+    Homeless: agency.homeless,
+    Veteran: agency.veteran,
+    Healthcare: agency.healthcare,
+    College: agency.college,
+    "Disability Specific": agency.disabilitySpecific,
+    Residential: agency.residential,
+    Immigrant: agency.immigrant,
+  };
+
+  /**
+   * Function takes in an object and returns a list of li elems of the keys
+   * if their values are true
+   *
+   * @param {*} items
+   * @returns {Array} Array of li elements based of the keys given in param
+   */
+  function displayList(items) {
+    let listItems = [];
+    for (let [key, value] of Object.entries(items)) {
+      if (value) {
+        listItems.push(key);
+      }
+    }
+    let returnList = listItems.map((key) => <li>{key}</li>);
+    return returnList;
+  }
+
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
-        <h1 className="category-title">
-          DEMOGRAPHICS
-        </h1>
-        <ul className="demo-list">
-          <li>Homeless</li>
-        </ul>
-        <p>
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        </p>
+        <EditButton section="demographics" agency={agency} />
+        <h1 className="category-title">DEMOGRAPHICS</h1>
+        <ul className="demo-list">{displayList(groups)}</ul>
       </div>
     </>
-  )
+  );
 }
 
 export default Demographics;

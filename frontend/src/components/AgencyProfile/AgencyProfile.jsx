@@ -3,9 +3,8 @@ import { useHistory, useParams } from "react-router-dom";
 import AgencyBar from "./AgencyBar";
 import "./AgencyProfile.css";
 import AgencySideBar from "./AgencySideBar";
-import AgencyTaskSection from "./AgencyTaskSection";
+import AgencyTaskSection from "./TaskSection/AgencyTaskSection";
 import TaskForm from "../TaskForm/TaskForm";
-import edit from "./imgs/edit-icon.png";
 import { getJWT } from "../../auth";
 import LocationAndDistributions from "./LocationAndDistributions";
 import Contacts from "./Contacts";
@@ -16,41 +15,91 @@ import RetailRescue from "./RetailRescue";
 
 const CONFIG = require("../../config");
 
+/**
+ * Functional component for Agency Profile Page
+ *
+ * @returns {*} Agency Profile Page
+ */
 function AgencyProfile() {
   const { id } = useParams();
   const [agency, setAgency] = useState(undefined);
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
 
+  /**
+   * Variable function finds the scroll positions of each agency profile category
+   *
+   * @returns {Array} Positional offsets from top of the page
+   */
   const getScrollPositions = () => {
     let positions = [];
-    positions.push(
-      document.getElementById("location-container").getBoundingClientRect().top
-    );
-    positions.push(
-      document.getElementById("contacts-container").getBoundingClientRect().top
-    );
-    positions.push(
-      document.getElementById("capacity-container").getBoundingClientRect().top
-    );
-    positions.push(
-      document.getElementById("compliance-container").getBoundingClientRect()
-        .top
-    );
-    positions.push(
-      document.getElementById("demographics-container").getBoundingClientRect()
-        .top
-    );
-    positions.push(
-      document.getElementById("retail-container").getBoundingClientRect().top
-    );
-    positions.push(
-      document.getElementById("task-container").getBoundingClientRect().top
-    );
-    console.log(
-      document.getElementById("task-container").getBoundingClientRect().top
-    );
+    if (document.getElementById("location-container") !== null) {
+      positions.push(
+        document.getElementById("location-container").getBoundingClientRect()
+          .top
+      );
+    }
+    if (document.getElementById("contacts-container") !== null) {
+      positions.push(
+        document.getElementById("contacts-container").getBoundingClientRect()
+          .top
+      );
+    }
+    if (document.getElementById("capacity-container") !== null) {
+      positions.push(
+        document.getElementById("capacity-container").getBoundingClientRect()
+          .top
+      );
+    }
+    if (document.getElementById("compliance-container") !== null) {
+      positions.push(
+        document.getElementById("compliance-container").getBoundingClientRect()
+          .top
+      );
+    }
+    if (document.getElementById("demographics-container") !== null) {
+      positions.push(
+        document
+          .getElementById("demographics-container")
+          .getBoundingClientRect().top
+      );
+    }
+    if (document.getElementById("retail-container") !== null) {
+      positions.push(
+        document.getElementById("retail-container").getBoundingClientRect().top
+      );
+    }
+    if (document.getElementById("task-container") !== null) {
+      positions.push(
+        document.getElementById("task-container").getBoundingClientRect().top
+      );
+    }
     return positions;
+  };
+
+  const ScrollTo = (el) => {
+    let scrollNum;
+    if (el === "task-container") {
+      let body = document.body,
+        html = document.documentElement;
+      scrollNum = Math.max(
+        body.scrollHeight,
+        body.offsetHeight,
+        html.clientHeight,
+        html.scrollHeight,
+        html.offsetHeight
+      );
+    } else {
+      if (document.getElementById(el) !== null) {
+        //number of pixels from the top of category's div to top of viewport
+        //when a sidebar category is clicked, window should scroll until this distance is achieved
+        const topDist = 159;
+        scrollNum =
+          document.getElementById(el).getBoundingClientRect().top - topDist;
+      }
+    }
+
+    window.scrollBy(0, scrollNum);
   };
 
   const handleTaskFormSubmit = (task, index) => {
@@ -137,7 +186,13 @@ function AgencyProfile() {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/agency/${id}`, { method: "GET" })
+    fetch(`http://localhost:8000/agency/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         setAgency(data.agency);
@@ -173,7 +228,10 @@ function AgencyProfile() {
         <AgencyBar agency={agency} />
         <div className="agency-profile-container">
           <div className="agency-sidebar-container">
-            <AgencySideBar getScrollPositions={getScrollPositions} />
+            <AgencySideBar
+              getScrollPositions={getScrollPositions}
+              ScrollTo={ScrollTo}
+            />
           </div>
           <div className="agency-profile-info">
             <div id="location-container" className="Test">

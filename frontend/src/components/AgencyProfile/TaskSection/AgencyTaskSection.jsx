@@ -1,6 +1,6 @@
 import React from "react";
 import AgencyTaskColumn from "./AgencyTaskColumn";
-import "./AgencyProfile.css";
+import "./AgencyTasks.css";
 
 function AgencyTaskSection({ taskList, onEditTask, onCreateTask }) {
   let pendingTasks = [];

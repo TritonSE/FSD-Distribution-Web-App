@@ -1,6 +1,6 @@
 import React from "react";
 import AgencyTaskItem from "./AgencyTaskItem";
-import "./AgencyProfile.css";
+import "./AgencyTasks.css";
 
 function AgencyTaskColumn({ header, tasks, color, onEditTask, onCreateTask }) {
   return (

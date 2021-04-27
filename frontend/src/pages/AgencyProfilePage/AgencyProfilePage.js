@@ -11,8 +11,12 @@ class AgencyProfilePage extends Component {
     if (!isAuthenticated()) {
       return <Redirect to="login" />;
     }
-    const { data } = this.props.location;
-    return <AgencyProfile data={data} />;
+
+    return (
+      <div>
+        <AgencyProfile />
+      </div>
+    );
   }
 }
 

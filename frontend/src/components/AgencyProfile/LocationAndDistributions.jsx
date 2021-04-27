@@ -18,6 +18,16 @@ function LocationAndDistributions({ agency }) {
     agency.residentialFacility,
   ];
 
+  const distDays = [
+    'monday',
+    'tuesday',
+    'wednesday',
+    'thursday',
+    'friday',
+    'saturday',
+    'sunday'
+  ]
+
   /**
    * Function adds the distribution types to a string if their
    * corresponding bool in the given array is true
@@ -117,19 +127,17 @@ function LocationAndDistributions({ agency }) {
             </p>
           </div>
           <div className="distribution-days-container">
-            {Object.keys(agency.distributionDays).map((key) => {
-              if (key != "_id") {
+            {distDays.map((day) => {
                 return (
                   <div className="distribution-day">
                     <strong>
-                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                      {day.charAt(0).toUpperCase() + day.slice(1)}
                     </strong>
                     <div className="img-check-container">
-                      {displayCheckMark(agency.distributionDays[key])}
+                      {displayCheckMark(agency.distributionDays[day])}
                     </div>
                   </div>
                 );
-              }
             })}
           </div>
         </div>

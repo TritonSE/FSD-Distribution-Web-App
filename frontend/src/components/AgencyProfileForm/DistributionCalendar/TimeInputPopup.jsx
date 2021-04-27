@@ -42,7 +42,7 @@ class TimeInputPopup extends Component {
   render() {
     return (
       <div className="calendar-time-popup">
-        <span>
+        <div>
           Start time for custom day:
           <button
             type="button"
@@ -51,15 +51,15 @@ class TimeInputPopup extends Component {
           >
             <img src={deleteIcon} alt="delete" />
           </button>
-        </span>
-        <span>
+        </div>
+        <div>
           <TimeBox
             value={this.state.value}
             onChange={this.handleChange}
             valid={this.props.valid}
           />
           <SmallButton text="OK" onClick={this.handleSave} alignRight />
-        </span>
+        </div>
       </div>
     );
   }

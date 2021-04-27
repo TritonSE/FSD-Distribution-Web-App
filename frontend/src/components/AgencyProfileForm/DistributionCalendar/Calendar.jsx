@@ -116,7 +116,7 @@ class Calendar extends Component {
   isExtraneousDate = (date) => {
     const { todayMoment } = this.state;
     let dateMonth = date.slice(5, 7);
-    let displayedMonth = moment().month(todayMoment.month).format("MM");
+    let displayedMonth = moment().month(todayMoment.month()).format("MM");
     return dateMonth !== displayedMonth;
   };
 
@@ -128,8 +128,9 @@ class Calendar extends Component {
    * userSelectedDates if the date is selected, or -1 otherwise
    */
   indexOfSelectedDate = (date) => {
+    const { userSelectedDates } = this.state;
     // strings in userSelectedDates also include start times
-    for (let i in this.state.userSelectedDates) {
+    for (let i in userSelectedDates) {
       if (userSelectedDates[i].startsWith(date)) {
         return i;
       }
@@ -343,7 +344,7 @@ class Calendar extends Component {
       const {
         userSelectedDates,
         userExcludedDates,
-        //distributionStartDate,
+        distributionStartDate,
       } = this.props;
 
       // if the user just checked a new distribution weekday, then remove any
@@ -361,11 +362,11 @@ class Calendar extends Component {
         }
       }
 
-      /*this.setState((prev) => ({
+      this.setState((prev) => ({
         todayMoment: prev.todayMoment,
         calendar: prev.calendar,
         startDateMoment: moment(distributionStartDate, DEFAULT_DATE_FORMAT),
-      }));*/
+      }));
     }
   }
 
@@ -448,7 +449,7 @@ class Calendar extends Component {
                           `userSelectedDates[${indexOfSelectedDate(date)}]`
                         )}
                         onSave={(time) => updateSelectedDate(date, time)}
-                        onDelete={removeSelectedDate(date)}
+                        onDelete={() => removeSelectedDate(date)}
                       />
                     )}
                   </div>

@@ -419,7 +419,9 @@ class AgencyProfileForm extends Component {
 
     return (
       <div className="form-body">
-        <h1 className="form-title">{editing ? "Update Agency Profile." : "Add a New Agency Profile."}</h1>
+        <h1 className="form-title">
+          {editing ? "Update Agency Profile." : "Add a New Agency Profile."}
+        </h1>
 
         <form>
           <div className="form-section" id="main">
@@ -805,6 +807,7 @@ class AgencyProfileForm extends Component {
                   userSelectedDates={data.userSelectedDates}
                   userExcludedDates={data.userExcludedDates}
                   onChange={this.handleInputChange}
+                  validCheck={this.isValid}
                 />
               </FormCol>
             </FormRow>

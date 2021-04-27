@@ -11,9 +11,6 @@ import AgencyBar from "./AgencyBar";
  * @returns {*} Contacts component
  */
 function Contacts({ agency }) {
-  let secondContact =
-    agency.contacts.length > 1 ? agency.contacts[1] : agency.contacts[0];
-
   /**
    * Function takes in an array of contacts and returns the components for each
    * contact

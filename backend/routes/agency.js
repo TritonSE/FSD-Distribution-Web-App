@@ -185,7 +185,7 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
  */
 router.get("/table/all", async (req, res, next) => {
   try {
-    const agency = await Agency.find({}, { _id: 0 }).select("tableContent");
+    const agency = await Agency.find({}).select("tableContent");
     return res.status(200).json({
       success: true,
       data: agency,
@@ -198,4 +198,13 @@ router.get("/table/all", async (req, res, next) => {
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  Agency.findByIdAndDelete(req.params.id)
+    .then((agency) => {
+      res.status(200).json({ agency: agency });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 module.exports = router;

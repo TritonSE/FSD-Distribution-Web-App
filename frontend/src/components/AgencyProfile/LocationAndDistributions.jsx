@@ -26,7 +26,7 @@ function LocationAndDistributions({ agency }) {
     'friday',
     'saturday',
     'sunday'
-  ]
+  ];
 
   /**
    * Function adds the distribution types to a string if their

@@ -11,7 +11,6 @@ class CalendarToolbar extends Component {
     this.state = {
       showDistribution: true,
       showRescue: true,
-      searchValue: "",
       distribution: this.props.distribution,
       rescue: this.props.rescue
     };
@@ -26,13 +25,13 @@ class CalendarToolbar extends Component {
       this.setState({ distribution: this.props.distribution });
       this.setState({ rescue: this.props.rescue });
     } else {
-      let filtered = this.state.distribution.filter((agency) => {
-        return agency.startsWith(event.target.value);
+      let filtered = this.props.distribution.filter((agency) => {
+        return agency.name.startsWith(event.target.value);
       });
       this.setState({ distribution: filtered });
 
-      filtered = this.state.rescue.filter((agency) => {
-        return agency.startsWith(event.target.value);
+      filtered = this.props.rescue.filter((agency) => {
+        return agency.name.startsWith(event.target.value);
       });
       this.setState({ rescue: filtered });
     }
@@ -67,20 +66,14 @@ class CalendarToolbar extends Component {
       for (const checkbox of checkboxes) {
         checkbox.checked = event.target.checked;
       }
-      this.props.updateCalendar("da", [], event.target.checked);
+      this.props.updateDistributionAll(event.target.checked);
       // toggle all rescue events
     } else if (event.target.value === "rescue") {
       const checkboxes = document.getElementsByName("rescueCheckbox");
       for (const checkbox of checkboxes) {
         checkbox.checked = event.target.checked;
       }
-      this.props.updateCalendar("ra", [], event.target.checked);
-      // toggle a rescue event
-    } else if (event.target.id === "r") {
-      this.props.updateCalendar("r", event.target.value, event.target.checked);
-      // toggle a distribution event
-    } else {
-      this.props.updateCalendar("d", event.target.value, event.target.checked);
+      this.props.updateRescueAll(event.target.checked);
     }
   }
 
@@ -120,9 +113,8 @@ class CalendarToolbar extends Component {
                         style={{ margin: 5, marginLeft: -20, float: "left" }}
                         type="checkbox"
                         value={agency.name}
-                        onChange={this.handleCheck}
+                        onChange={this.props.updateDistribution}
                         name="distributionCheckbox"
-                        id="d"
                       />
                       {agency.name}
                     </label>
@@ -157,9 +149,8 @@ class CalendarToolbar extends Component {
                       style={{ margin: 5 }}
                       type="checkbox"
                       value={agency.name}
-                      onChange={this.handleCheck}
+                      onChange={this.props.updateRescue}
                       name="rescueCheckbox"
-                      id="r"
                     />
                     <label style={{ backgroundColor: agency.color }} name="rescueCheckbox">
                       {agency.name}

@@ -31,6 +31,10 @@ class Home extends Component {
       rescueMap: {},
     };
     this.updateCalendar = this.updateCalendar.bind(this);
+    this.updateDistributionAll = this.updateDistributionAll.bind(this);
+    this.updateDistribution = this.updateDistribution.bind(this);
+    this.updateRescueAll = this.updateRescueAll.bind(this);
+    this.updateRescue = this.updateRescue.bind(this);
   }
 
   componentDidMount() {
@@ -152,8 +156,11 @@ class Home extends Component {
     }
   }
 
-  updateDistribution(checked, agency) {
+  updateDistribution(event) {
+    const checked = event.target.checked
+    const agency = event.target.value
     const newDistributionEvents = this.state.distributionMap[agency];
+    console.log(newDistributionEvents)
     if (checked) {
       this.setState({ distributionEvents: this.state.distributionEvents.concat(newDistributionEvents) });
     } else {
@@ -175,7 +182,9 @@ class Home extends Component {
     }
   }
 
-  updateRescue(checked, agency) {
+  updateRescue(event) {
+    const checked = event.target.checked
+    const agency = event.target.value
     const newRescueEvents = this.state.rescueMap[agency]; // [{}, {}, {}]
     if (checked) {
       this.setState({ rescueEvents: this.state.rescueEvents.concat(newRescueEvents) });

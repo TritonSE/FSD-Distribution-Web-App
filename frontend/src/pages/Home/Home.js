@@ -25,9 +25,9 @@ class Home extends Component {
         // { name: "Agency C", color: "#fc1307" },
       ],
       rescue: [],
-      distributionEvents: [],
-      rescueEvents: [],
-      distributionMap: {},
+      distributionEvents: [{}, {}, {}],
+      rescueEvents: [{}, {}],
+      distributionMap: {}, // {"Agency" : [{}, {}, {}]}
       rescueMap: {},
     };
     this.updateCalendar = this.updateCalendar.bind(this);
@@ -141,25 +141,71 @@ class Home extends Component {
       .catch((error) => console.error(error));
   }
 
+  updateDistributionAll(checked) {
+    this.setState({ distributionEvents: [] });
+    if (checked) {
+      let events = [];
+      Object.keys(this.state.distributionMap).forEach((agencyName) => {
+        events = events.concat(this.state.distributionMap[agencyName]);
+      });
+      this.setState({ distributionEvents: events });
+    }
+  }
+
+  updateDistribution(checked, agency) {
+    const newDistributionEvents = this.state.distributionMap[agency];
+    if (checked) {
+      this.setState({ distributionEvents: this.state.distributionEvents.concat(newDistributionEvents) });
+    } else {
+      const filteredArray = this.state.distributionEvents.filter((event) => {
+        return newDistributionEvents.indexOf(event) < 0;
+      });
+      this.setState({ distributionEvents: filteredArray });
+    }
+  }
+
+  updateRescueAll(checked) {
+    this.setState({ rescueEvents: [] });
+    if (checked) {
+      let events = [];
+      Object.keys(this.state.rescueMap).forEach((agencyName) => {
+        events = events.concat(this.state.rescueMap[agencyName]);
+      });
+      this.setState({ rescueEvents: events });
+    }
+  }
+
+  updateRescue(checked, agency) {
+    const newRescueEvents = this.state.rescueMap[agency]; // [{}, {}, {}]
+    if (checked) {
+      this.setState({ rescueEvents: this.state.rescueEvents.concat(newRescueEvents) });
+    } else {
+      const filteredArray = this.state.rescueEvents.filter((event) => {
+        return newRescueEvents.indexOf(event) < 0;
+      });
+      this.setState({ rescueEvents: filteredArray });
+    }
+  }
+
   // type, agency, checked
   // d, r, da, ra
   updateCalendar(type, agency, checked) {
     switch (type) {
       // toggle all distribution events
       case "da":
-        this.setState({distributionEvents: []});
+        this.setState({ distributionEvents: [] });
         if (checked) {
           let events = [];
           Object.keys(this.state.distributionMap).forEach((agencyName) => {
-              events = events.concat(this.state.distributionMap[agencyName]);
+            events = events.concat(this.state.distributionMap[agencyName]);
           });
           this.setState({ distributionEvents: events });
-        } 
+        }
         break;
       // toggle all retail rescue events
       case "ra":
-        this.setState({rescueEvents: []});
-        if (checked) { 
+        this.setState({ rescueEvents: [] });
+        if (checked) {
           let events = [];
           Object.keys(this.state.rescueMap).forEach((agencyName) => {
             events = events.concat(this.state.rescueMap[agencyName]);
@@ -169,7 +215,7 @@ class Home extends Component {
         break;
       // toggle a retail rescue event
       case "r":
-        const newRescueEvents = this.state.rescueMap[agency];
+        const newRescueEvents = this.state.rescueMap[agency]; // [{}, {}, {}]
         if (checked) {
           this.setState({ rescueEvents: this.state.rescueEvents.concat(newRescueEvents) });
         } else {
@@ -209,6 +255,10 @@ class Home extends Component {
             distribution={this.state.distribution}
             rescue={this.state.rescue}
             updateCalendar={this.updateCalendar}
+            updateDistribution={this.updateDistribution}
+            updateDistributionAll={this.updateDistributionAll}
+            updateRescue={this.updateRescue}
+            updateRescueAll={this.updateRescueAll}
           />
         </Col>
         <Col>

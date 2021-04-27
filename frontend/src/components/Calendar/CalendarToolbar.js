@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
+import './CalendarToolbar.css';
 
 /**
  * Landing page that contains a calender with corresponding events
@@ -11,6 +12,8 @@ class CalendarToolbar extends Component {
       showDistribution: true,
       showRescue: true,
       searchValue: "",
+      distribution: this.props.distribution,
+      rescue: this.props.rescue
     };
 
     this.handleShowAgencies = this.handleShowAgencies.bind(this);
@@ -19,34 +22,24 @@ class CalendarToolbar extends Component {
   }
 
   handleSearchChange(event) {
-    this.setState({searchValue: event.target.value});
-    const agencies = document.getElementsByName(this.state.searchValue);
+    if (event.target.value.length == 0) {
+      this.setState({ distribution: this.props.distribution });
+      this.setState({ rescue: this.props.rescue });
+    } else {
+      let filtered = this.state.distribution.filter((agency) => {
+        return agency.startsWith(event.target.value);
+      });
+      this.setState({ distribution: filtered });
 
-    const distributionAgencies = document.getElementsByName("distributionCheckbox");
-    const rescueAgencies = document.getElementsByName("rescueCheckox");
-    const show = this.state.searchValue.length != 0;
-
-    for (const agency of distributionAgencies) {
-      if (agency.value) {
-        if (!show) {
-          agency.hidden = false;
-        } else if (!agency.value.startsWith(this.state.searchValue)) {
-          agency.hidden = true;
-        }
-      } else {
-
-      }
-    }
-
-    for (const agency of rescueAgencies) {
-      if (!(agency.value.startsWith(this.state.searchValue))) {
-        agency.hidden = this.state.searchValue.length == 0 ? false : true; 
-      }
+      filtered = this.state.rescue.filter((agency) => {
+        return agency.startsWith(event.target.value);
+      });
+      this.setState({ rescue: filtered });
     }
   }
 
   handleShowAgencies(event) {
-    switch(event.target.textContent) {
+    switch (event.target.textContent) {
       case "Distribution":
         this.setState({
           showDistribution: !this.state.showDistribution
@@ -75,17 +68,17 @@ class CalendarToolbar extends Component {
         checkbox.checked = event.target.checked;
       }
       this.props.updateCalendar("da", [], event.target.checked);
-    // toggle all rescue events
+      // toggle all rescue events
     } else if (event.target.value === "rescue") {
       const checkboxes = document.getElementsByName("rescueCheckbox");
       for (const checkbox of checkboxes) {
         checkbox.checked = event.target.checked;
       }
       this.props.updateCalendar("ra", [], event.target.checked);
-    // toggle a rescue event
-    } else if (event.target.id === "r"){
+      // toggle a rescue event
+    } else if (event.target.id === "r") {
       this.props.updateCalendar("r", event.target.value, event.target.checked);
-    // toggle a distribution event
+      // toggle a distribution event
     } else {
       this.props.updateCalendar("d", event.target.value, event.target.checked);
     }
@@ -94,89 +87,89 @@ class CalendarToolbar extends Component {
   render() {
     const { showDistribution, showRescue } = this.state;
     return (
-      <div style={{ 
-        backgroundColor: "#F5F7F7", 
-        marginTop: "5vh", 
-        marginLeft: "5vw", 
-        height: "100vh", 
-        padding: 10,  
+      <div style={{
+        backgroundColor: "#F5F7F7",
+        marginTop: "5vh",
+        marginLeft: "5vw",
+        height: "100vh",
+        padding: 10,
         transform: 0.6
       }}>
         <input id="search" type="text" onChange={this.handleSearchChange} placeholder="Search Agency" />
         <button style={{ border: "none", background: "none" }} value="distributionnpm" onClick={this.handleShowAgencies}>
-          { showDistribution ? <h5>Distribution</h5> : <p>Distribution</p> }
+          {showDistribution ? <h5>Distribution</h5> : <p>Distribution</p>}
         </button>
         { showDistribution &&
-         (
-          <div>
-            <input
-              style={{margin: 5}}
-              type="checkbox"
-              value="distribution"
-              onChange={this.handleCheck}
-            />
-            <label>
+          (
+            <div>
+              <label style={{ marginLeft: 20 }}>
+                <input
+                  style={{ margin: 5, marginLeft: -20 }}
+                  type="checkbox"
+                  value="distribution"
+                  onChange={this.handleCheck}
+                />
               All
             </label>
-            <br />
-            {this.props.distribution.map((agency, index) => {
-              return (
-                <div key={index}>
-                  <input
-                    style={{margin: 5}}
-                    type="checkbox"
-                    value={agency.name}
-                    onChange={this.handleCheck}
-                    name="distributionCheckbox"
-                    id="d"
-                  />
-                  <label style={{ backgroundColor: agency.color }} name="distributionCheckbox">
-                    {agency.name}
-                  </label>
-                  <br />
-               </div>
-              );
-            })} 
-          </div>
-         )
+              <br />
+              {this.state.distribution.map((agency, index) => { // 
+                return (
+                  <div key={index}>
+                    <label style={{ backgroundColor: agency.color, marginLeft: 20 }} value={agency.name} name="distributionCheckbox">
+                      <input
+                        style={{ margin: 5, marginLeft: -20, float: "left" }}
+                        type="checkbox"
+                        value={agency.name}
+                        onChange={this.handleCheck}
+                        name="distributionCheckbox"
+                        id="d"
+                      />
+                      {agency.name}
+                    </label>
+
+                  </div>
+                );
+              })}
+            </div>
+          )
         }
         <br />
         <button style={{ border: "none", background: "none" }} value="rescue" onClick={this.handleShowAgencies}>
-          { showRescue? <h5>Rescue</h5> : <p>Rescue</p> }
+          {showRescue ? <h5>Rescue</h5> : <p>Rescue</p>}
         </button>
         { showRescue &&
-         (
-          <div>
-            <label>
-              <input
-                style={{margin: 5}}
-                type="checkbox"
-                value="rescue"
-                onChange={this.handleCheck}
-              />
+          (
+            <div>
+              <label>
+                <input
+                  style={{ margin: 5 }}
+                  type="checkbox"
+                  value="rescue"
+                  onChange={this.handleCheck}
+                />
               All
             </label>
-            <br />
-            {this.props.rescue.map((agency, index) => {
-              return (
-                <div key={index}>
-                  <input
-                      style={{margin: 5}}
+              <br />
+              {this.state.rescue.map((agency, index) => {
+                return (
+                  <div key={index}>
+                    <input
+                      style={{ margin: 5 }}
                       type="checkbox"
                       value={agency.name}
                       onChange={this.handleCheck}
                       name="rescueCheckbox"
                       id="r"
-                  />
-                  <label style={{ backgroundColor: agency.color }} name="rescueCheckbox">
-                    {agency.name}
-                  </label>
-                  <br />
-               </div>
-              );
-            })} 
-          </div>
-         )
+                    />
+                    <label style={{ backgroundColor: agency.color }} name="rescueCheckbox">
+                      {agency.name}
+                    </label>
+                    <br />
+                  </div>
+                );
+              })}
+            </div>
+          )
         }
       </div>
     );

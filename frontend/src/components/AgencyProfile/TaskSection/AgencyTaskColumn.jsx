@@ -2,6 +2,21 @@ import React from "react";
 import AgencyTaskItem from "./AgencyTaskItem";
 import "./AgencyTasks.css";
 
+/**
+ * AgencyTaskColumn is a column of task items, plus an add button, in the
+ * task section of the agency profile page.
+ *
+ * Expected props:
+ * - {String} header: Text at the top of the column (status type)
+ * - {Array} tasks: Array of task objects to display
+ * - {String} color: Color for the border of this column's task items
+ * (hexadecimal)
+ * - {Function} onEditTask: Callback for when the user clicks on a task item to
+ * edit it. Receives index (int) of the task in the overall task list as
+ * argument.
+ * - {Function} onCreateTask: Callback for when the user clicks on the add
+ * button. Receives status (string) associated with this column as argument.
+ */
 function AgencyTaskColumn({ header, tasks, color, onEditTask, onCreateTask }) {
   return (
     <div className="tasks-column">

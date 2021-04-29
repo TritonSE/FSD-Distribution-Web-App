@@ -2,6 +2,17 @@ import React from "react";
 import AgencyTaskColumn from "./AgencyTaskColumn";
 import "./AgencyTasks.css";
 
+/**
+ * AgencyTaskSection encapsulates the task section of the agency profile page.
+ *
+ * Expected props:
+ * - {Array} taskList: Array of task objects to display
+ * - {Function} onEditTask: Callback for when the user clicks on a task item to
+ * edit it. Receives index (int) of the task in the overall task list as
+ * argument.
+ * - {Function} onCreateTask: Callback for when the user clicks on the add
+ * button. Receives status (string) associated with this column as argument.
+ */
 function AgencyTaskSection({ taskList, onEditTask, onCreateTask }) {
   let pendingTasks = [];
   let inProgressTasks = [];

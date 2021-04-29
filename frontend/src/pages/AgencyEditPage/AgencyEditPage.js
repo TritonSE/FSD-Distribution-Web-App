@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import AgencyProfileForm from "../../components/AgencyProfileForm/AgencyProfileForm";
-import { isAuthenticated } from "../../auth";
+import { isAuthenticated, getJWT } from "../../auth";
 
 const CONFIG = require("../../config");
 
@@ -14,10 +14,15 @@ function AgencyEditPage() {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`${CONFIG.backend.uri}/agency/${id}`, { method: "GET" })
+    fetch(`${CONFIG.backend.uri}/agency/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setAgency(data.agency);
       })
       .catch((err) => {

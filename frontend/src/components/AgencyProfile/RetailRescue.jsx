@@ -39,7 +39,8 @@ function RetailRescue({ agency }) {
         <div className="rescue-wrapper">
           <p>
             <strong>Monday:</strong>
-            &nbsp;{displayDay(days.monday, startTimes.monday, locations.monday)}
+            &nbsp;
+            {displayDay(days.monday, startTimes.monday, locations.monday)}
           </p>
           <p>
             <strong>Tuesday:</strong>
@@ -49,11 +50,7 @@ function RetailRescue({ agency }) {
           <p>
             <strong>Wednesday:</strong>
             &nbsp;
-            {displayDay(
-              days.wednesday,
-              startTimes.wednesday,
-              locations.wednesday
-            )}
+            {displayDay(days.wednesday, startTimes.wednesday, locations.wednesday)}
           </p>
           <p>
             <strong>Thursday:</strong>
@@ -62,7 +59,8 @@ function RetailRescue({ agency }) {
           </p>
           <p>
             <strong>Friday:</strong>
-            &nbsp;{displayDay(days.friday, startTimes.friday, locations.friday)}
+            &nbsp;
+            {displayDay(days.friday, startTimes.friday, locations.friday)}
           </p>
           <p>
             <strong>Saturday:</strong>
@@ -71,7 +69,8 @@ function RetailRescue({ agency }) {
           </p>
           <p>
             <strong>Sunday:</strong>
-            &nbsp;{displayDay(days.sunday, startTimes.sunday, locations.sunday)}
+            &nbsp;
+            {displayDay(days.sunday, startTimes.sunday, locations.sunday)}
           </p>
         </div>
       </div>

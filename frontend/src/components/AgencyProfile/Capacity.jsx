@@ -1,5 +1,5 @@
 import React from "react";
-import edit from "./imgs/edit-icon.png";
+import EditButton from "./EditButton";
 
 /**
  * Functional component for the capacity category
@@ -52,7 +52,7 @@ function Capacity({ agency }) {
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
+        <EditButton section="capacity" agency={agency} />
         <h1 className="category-title">CAPACITY</h1>
         <div className="capacity-wrapper">
           <p>

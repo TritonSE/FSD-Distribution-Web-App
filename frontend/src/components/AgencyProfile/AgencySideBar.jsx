@@ -1,7 +1,6 @@
 import React from "react";
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./AgencyProfile.css";
-import { NavHashLink } from "react-router-hash-link";
 
 /**
  * Functional component for Agency Side Bar
@@ -11,8 +10,7 @@ import { NavHashLink } from "react-router-hash-link";
  * @param {*} ScrollTo function that scrolls page to given element
  * @returns {*} Agency Side Bar Component
  */
-function AgencySideBar({getScrollPositions, ScrollTo}) {
-
+function AgencySideBar({ getScrollPositions, ScrollTo }) {
   const [scrollPos, setScrollPos] = useState("");
 
   const resetSideBar = () => {
@@ -47,7 +45,7 @@ function AgencySideBar({getScrollPositions, ScrollTo}) {
    */
   const handleScroll = () => {
     let positions = getScrollPositions();
-    // sidebar should change the active category when the top of the corresponding category's div 
+    // sidebar should change the active category when the top of the corresponding category's div
     //is less than or equal to 160 pixels from the top of the viewport, the threshold distance
     const thresholdDist = 160;
     switch (true) {

@@ -1,5 +1,5 @@
 import React from "react";
-import edit from "./imgs/edit-icon.png";
+import EditButton from "./EditButton";
 import checkmark from "./imgs/check-circle-icon.png";
 import xmark from "./imgs/x-circle-icon.png";
 
@@ -19,13 +19,13 @@ function LocationAndDistributions({ agency }) {
   ];
 
   const distDays = [
-    'monday',
-    'tuesday',
-    'wednesday',
-    'thursday',
-    'friday',
-    'saturday',
-    'sunday'
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
   ];
 
   /**
@@ -73,7 +73,7 @@ function LocationAndDistributions({ agency }) {
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
+        <EditButton section="location" agency={agency} />
         <h1 className="category-title">LOCATION AND DISTRIBUTION HOURS</h1>
         <div className="region-container">
           <p>
@@ -128,16 +128,14 @@ function LocationAndDistributions({ agency }) {
           </div>
           <div className="distribution-days-container">
             {distDays.map((day) => {
-                return (
-                  <div className="distribution-day">
-                    <strong>
-                      {day.charAt(0).toUpperCase() + day.slice(1)}
-                    </strong>
-                    <div className="img-check-container">
-                      {displayCheckMark(agency.distributionDays[day])}
-                    </div>
+              return (
+                <div className="distribution-day">
+                  <strong>{day.charAt(0).toUpperCase() + day.slice(1)}</strong>
+                  <div className="img-check-container">
+                    {displayCheckMark(agency.distributionDays[day])}
                   </div>
-                );
+                </div>
+              );
             })}
           </div>
         </div>

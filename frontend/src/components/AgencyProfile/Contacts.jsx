@@ -1,8 +1,7 @@
 import React from "react";
-import edit from "./imgs/edit-icon.png";
+import EditButton from "./EditButton";
 import primaryTab from "./imgs/contact-tab-primary.png";
 import secondaryTab from "./imgs/contact-tab-secondary.png";
-import AgencyBar from "./AgencyBar";
 
 /**
  * Functional component for the contacts category
@@ -78,7 +77,7 @@ function Contacts({ agency }) {
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
+        <EditButton section="contacts" agency={agency} />
         <h1 className="category-title">CONTACTS</h1>
         {displayContacts(agency.contacts)}
       </div>

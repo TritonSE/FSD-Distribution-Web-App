@@ -1,5 +1,5 @@
 import React from "react";
-import "./AgencyProfile.css";
+import "./AgencyTasks.css";
 
 /**
  * AgencyTaskItem is a single task box in the task section of the agency profile

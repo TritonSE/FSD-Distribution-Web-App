@@ -1,5 +1,5 @@
 import React from "react";
-import edit from "./imgs/edit-icon.png";
+import EditButton from "./EditButton";
 
 /**
  * Functional component for the compliance category
@@ -11,7 +11,7 @@ function Compliance({ agency }) {
   return (
     <>
       <div className="agency-category">
-        <img id="edit-icon" src={edit} alt="edit"></img>
+        <EditButton section="compliance" agency={agency} />
         <h1 className="category-title">COMPLIANCE</h1>
         <div className="compliance-wrapper">
           <div className="compliance-col-1">

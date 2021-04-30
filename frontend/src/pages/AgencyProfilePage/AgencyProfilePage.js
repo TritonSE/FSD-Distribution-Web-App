@@ -11,10 +11,10 @@ class AgencyProfilePage extends Component {
     if (!isAuthenticated()) {
       return <Redirect to="login" />;
     }
-    
+
     return (
       <div>
-         <AgencyProfile />
+        <AgencyProfile />
       </div>
     );
   }

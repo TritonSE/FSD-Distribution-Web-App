@@ -1,6 +1,6 @@
 import React from "react";
 import AgencyTaskColumn from "./AgencyTaskColumn";
-import "./AgencyProfile.css";
+import "./AgencyTasks.css";
 
 /**
  * AgencyTaskSection encapsulates the task section of the agency profile page.

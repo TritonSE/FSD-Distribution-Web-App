@@ -1,6 +1,6 @@
 import React from "react";
 import AgencyTaskItem from "./AgencyTaskItem";
-import "./AgencyProfile.css";
+import "./AgencyTasks.css";
 
 /**
  * AgencyTaskColumn is a column of task items, plus an add button, in the

@@ -791,30 +791,9 @@ class AgencyProfileForm extends Component {
                 />
               </FormCol>
               <FormCol>
-                <Calendar
-                  label="Customize Distribution Schedule"
-                  distributionStartDate={data.distributionStartDate}
-                  distributionFrequency={data.distributionFrequency}
-                  distributionDays={[
-                    data.distributionDays.sunday,
-                    data.distributionDays.monday,
-                    data.distributionDays.tuesday,
-                    data.distributionDays.wednesday,
-                    data.distributionDays.thursday,
-                    data.distributionDays.friday,
-                    data.distributionDays.saturday,
-                  ]}
-                  userSelectedDates={data.userSelectedDates}
-                  userExcludedDates={data.userExcludedDates}
-                  onChange={this.handleInputChange}
-                  validCheck={this.isValid}
-                />
-              </FormCol>
-            </FormRow>
-            <FormRow>
-              <FormCol>
                 <CheckboxList
                   label="Check Boxes if Available/Correct."
+                  gutter
                   onChange={this.handleInputChange}
                   options={[
                     {
@@ -843,6 +822,28 @@ class AgencyProfileForm extends Component {
                       stateKey: "residentialFacility",
                     },
                   ]}
+                />
+              </FormCol>
+            </FormRow>
+            <FormRow>
+              <FormCol>
+                <Calendar
+                  label="Customize Distribution Schedule"
+                  distributionStartDate={data.distributionStartDate}
+                  distributionFrequency={data.distributionFrequency}
+                  distributionDays={[
+                    data.distributionDays.sunday,
+                    data.distributionDays.monday,
+                    data.distributionDays.tuesday,
+                    data.distributionDays.wednesday,
+                    data.distributionDays.thursday,
+                    data.distributionDays.friday,
+                    data.distributionDays.saturday,
+                  ]}
+                  userSelectedDates={data.userSelectedDates}
+                  userExcludedDates={data.userExcludedDates}
+                  onChange={this.handleInputChange}
+                  validCheck={this.isValid}
                 />
               </FormCol>
             </FormRow>

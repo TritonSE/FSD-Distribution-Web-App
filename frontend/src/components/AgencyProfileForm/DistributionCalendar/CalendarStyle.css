@@ -1,9 +1,5 @@
 /* * * * Calendar * * * */
 
-.calendar-container {
-  margin-left: 142px;
-}
-
 .calendar {
   box-sizing: border-box;
   font-size: 1rem;

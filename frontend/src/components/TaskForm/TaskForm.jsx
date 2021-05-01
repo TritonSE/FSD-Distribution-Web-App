@@ -62,7 +62,7 @@ class TaskForm extends Component {
    * Handles form submission.
    */
   submitForm = () => {
-    const { editIndex, onSubmit } = this.props;
+    const { editIndex, onSubmit, data } = this.props;
     const { title, dueDate, status } = this.state;
 
     const titleTrim = title.trim();
@@ -87,6 +87,8 @@ class TaskForm extends Component {
     if (errors.length === 0) {
       // all inputs valid
       let task = {
+        _id: data._id,
+        agencyID: data.agencyID,
         title: titleTrim,
         dueDate: dueDateTrim,
         status: statusTrim,
@@ -95,6 +97,14 @@ class TaskForm extends Component {
     } else {
       this.setState({ errors: errors });
     }
+  };
+
+  /**
+   * Handles task deletion
+   */
+  deleteTask = () => {
+    const { data } = this.props;
+    this.props.onDelete(data);
   };
 
   /**
@@ -149,13 +159,23 @@ class TaskForm extends Component {
               />
             </div>
           </div>
-          <div className="button-center">
-            <FormButton
-              title="Save Task"
-              type="primary"
-              onClick={this.submitForm}
-            />
+          <div className="button-container">
+              <FormButton
+                title="Save Task"
+                type="primary"
+                size={data._id  ? "small" : null }
+                onClick={this.submitForm}
+              />
+            {data._id && (
+                <FormButton
+                  title="Delete Task"
+                  type="secondary"
+                  size="small"
+                  onClick={this.deleteTask}
+                />
+            )}
           </div>
+
           <button
             type="button"
             className="task-form-cancel"

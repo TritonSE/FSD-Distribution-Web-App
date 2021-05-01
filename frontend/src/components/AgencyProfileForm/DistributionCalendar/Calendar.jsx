@@ -12,7 +12,7 @@ const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
  *
  * Expected props:
  * - {String} distributionStartDate: String in default date format representing
- * the starting distributiond date
+ * the starting distribution date
  * - {String} distributionFrequency: Number representing how often the agency
  * distributes (in weeks)
  * - {Array<Boolean>} distributionDays: List of booleans indicating which days
@@ -128,7 +128,7 @@ class Calendar extends Component {
    * userSelectedDates if the date is selected, or -1 otherwise
    */
   indexOfSelectedDate = (date) => {
-    const { userSelectedDates } = this.state;
+    const { userSelectedDates } = this.props;
     // strings in userSelectedDates also include start times
     for (let i in userSelectedDates) {
       if (userSelectedDates[i].startsWith(date)) {
@@ -144,9 +144,9 @@ class Calendar extends Component {
    * @param {String} date Date string in default format
    * @returns true iff date === this.state.focusedDate, otherwise false
    */
-  isFocusedDate = (date) => {
-    return date === this.state.focusedDate;
-  };
+  // isFocusedDate = (date) => {
+  //   return date === this.state.focusedDate;
+  // };
 
   /**
    * Determines if a given date is a user excluded date
@@ -195,10 +195,11 @@ class Calendar extends Component {
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
     const newDate = date + "T00:00Z";
+    console.log(newDate);
 
     let newSelectedDates = userSelectedDates.slice();
     newSelectedDates.push(newDate);
-    this.focusDate(newDate);
+    // this.focusDate(newDate);
 
     // Update AgencyProfileForm state (and consequently local state)
     onChange("userSelectedDates", newSelectedDates);
@@ -218,7 +219,7 @@ class Calendar extends Component {
     let newSelectedDates = userSelectedDates.slice();
     let index = this.indexOfSelectedDate(date);
     newSelectedDates[index] = newDate;
-    this.unfocusDate();
+    // this.unfocusDate();
 
     onChange("userSelectedDates", newSelectedDates);
   };
@@ -229,19 +230,19 @@ class Calendar extends Component {
    *
    * @param {String} dateTime Date string in ISO 8601 format: YYYY-MM-DDThh:mmZ
    */
-  focusDate = (dateTime) => {
-    this.setState({
-      focusedDate: dateTime.slice(0, 10),
-      focusedStartTime: dateTime.slice(11, 16),
-    });
-  };
+  // focusDate = (dateTime) => {
+  //   this.setState({
+  //     focusedDate: dateTime.slice(0, 10),
+  //     focusedStartTime: dateTime.slice(11, 16),
+  //   });
+  // };
 
   /**
    * Sets focusedDate and focusedStartTime in this.state to null.
    */
-  unfocusDate = () => {
-    this.setState({ focusedDate: null, focusedStartTime: null });
-  };
+  // unfocusDate = () => {
+  //   this.setState({ focusedDate: null, focusedStartTime: null });
+  // };
 
   /**
    * Adds a given date to user excluded dates
@@ -288,11 +289,13 @@ class Calendar extends Component {
       isExcludedDate,
       isExtraneousDate,
       addSelectedDate,
+      removeSelectedDate,
       addExcludedDate,
       removeExcludedDate,
-      focusDate,
+      // focusDate,
     } = this;
 
+    console.log("handle select");
     if (!isExtraneousDate(date)) {
       if (isDistributionDate(date)) {
         if (isExcludedDate(date)) {
@@ -302,8 +305,10 @@ class Calendar extends Component {
         }
       } else {
         let index = indexOfSelectedDate(date);
+        console.log(index);
         if (index !== -1) {
-          focusDate(this.props.userSelectedDates[index]);
+          // focusDate(this.props.userSelectedDates[index]);
+          removeSelectedDate(date);
         } else {
           addSelectedDate(date);
         }
@@ -383,18 +388,18 @@ class Calendar extends Component {
       isExcludedDate,
       isExtraneousDate,
     } = this;
-    let style = "";
+    let style = "day";
 
     if (isDistributionDate(date)) {
       if (!isExcludedDate(date)) {
-        style = "distribution";
+        style += " distribution";
       }
     } else if (indexOfSelectedDate(date) !== -1) {
-      style = "selected";
+      style += " selected";
     }
 
     if (isExtraneousDate(date)) {
-      style += style === "" ? "extraneous" : "-extraneous";
+      style += style === "day" ? " extraneous" : "-extraneous";
     }
 
     return style;
@@ -423,26 +428,25 @@ class Calendar extends Component {
             handleNext={handleNext}
           />
           <div className="body">
-            <div className="day-names">
+            <div className="week">
               {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(
                 (weekDay) => (
-                  <div className="week" key={weekDay}>
+                  <div className="day-name" key={weekDay}>
                     {weekDay}
                   </div>
                 )
               )}
             </div>
             {calendar.map((week) => (
-              <div key={week}>
+              <div className="week" key={week}>
                 {week.map((date) => (
-                  <div className="day" key={date}>
-                    <div
-                      className={getDateStyle(date)}
-                      onClick={() => handleDateSelect(date)}
-                    >
-                      {date.slice(8, 10)}
-                    </div>
-                    {isFocusedDate(date) && (
+                  <div
+                    key={date}
+                    className={getDateStyle(date)}
+                    onClick={() => handleDateSelect(date)}
+                  >
+                    {date.slice(8, 10)}
+                    {/*isFocusedDate(date) && (
                       <TimeInputPopup
                         value={focusedStartTime}
                         valid={validCheck(
@@ -451,7 +455,7 @@ class Calendar extends Component {
                         onSave={(time) => updateSelectedDate(date, time)}
                         onDelete={() => removeSelectedDate(date)}
                       />
-                    )}
+                        )*/}
                   </div>
                 ))}
               </div>

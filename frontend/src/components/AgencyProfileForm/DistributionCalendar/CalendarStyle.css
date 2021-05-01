@@ -1,5 +1,9 @@
 /* * * * Calendar * * * */
 
+.calendar-container {
+  width: 735px;
+}
+
 .calendar {
   box-sizing: border-box;
   font-size: 1rem;
@@ -17,7 +21,6 @@
   font-size: 18px;
   line-height: 21px;
   color: #000000;
-  margin-left: -7px;
   margin-bottom: 8px;
   margin-top: 23px;
   display: inline-block;
@@ -140,4 +143,33 @@
 .calendar .day.selected-extraneous {
   background-color: lightslategray;
   color: lightgray;
+}
+
+/* * * * Date list * * * */
+
+.date-list {
+  box-sizing: border-box;
+  width: 289px;
+  height: 289px;
+  border: 2px solid #cdcbd4;
+  border-radius: 7px;
+  margin-left: 7px;
+  overflow-y: auto;
+}
+
+.date-list .date-cell {
+  height: 52px;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 5px;
+  border-bottom: 1px solid #cdcbd4;
+}
+
+.date-list .date-cell .date-text {
+  margin-top: 10px;
+  display: inline-block;
+}
+
+.date-text.invalid {
+  color: #fc0808;
 }

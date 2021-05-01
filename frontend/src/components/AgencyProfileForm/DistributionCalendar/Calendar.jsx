@@ -195,7 +195,6 @@ class Calendar extends Component {
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
     const newDate = date + "T00:00Z";
-    console.log(newDate);
 
     let newSelectedDates = userSelectedDates.slice();
     newSelectedDates.push(newDate);
@@ -294,8 +293,6 @@ class Calendar extends Component {
       removeExcludedDate,
       // focusDate,
     } = this;
-
-    console.log("handle select");
     if (!isExtraneousDate(date)) {
       if (isDistributionDate(date)) {
         if (isExcludedDate(date)) {
@@ -305,7 +302,6 @@ class Calendar extends Component {
         }
       } else {
         let index = indexOfSelectedDate(date);
-        console.log(index);
         if (index !== -1) {
           // focusDate(this.props.userSelectedDates[index]);
           removeSelectedDate(date);

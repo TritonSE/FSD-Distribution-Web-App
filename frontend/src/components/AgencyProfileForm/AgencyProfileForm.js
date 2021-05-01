@@ -13,6 +13,7 @@ import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import DistributionDays from "./DistributionDays";
 import Calendar from "./DistributionCalendar/Calendar";
+import DateList from "./DistributionCalendar/DateList";
 import InlineDropdown from "../FormComponents/InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
@@ -842,6 +843,14 @@ class AgencyProfileForm extends Component {
                   ]}
                   userSelectedDates={data.userSelectedDates}
                   userExcludedDates={data.userExcludedDates}
+                  onChange={this.handleInputChange}
+                  validCheck={this.isValid}
+                />
+              </FormCol>
+              <FormCol>
+                <DateList
+                  dates={data.userSelectedDates}
+                  stateKey="userSelectedDates"
                   onChange={this.handleInputChange}
                   validCheck={this.isValid}
                 />

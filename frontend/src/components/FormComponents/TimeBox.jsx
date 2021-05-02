@@ -27,16 +27,6 @@ class TimeBox extends Component {
    * @param {String} timeString Time string of format "hh:mm"
    */
   buildTimeObject(timeString) {
-    // console.log(`Converting to TIME OBJECT!`)
-    // console.log(timeString)
-    if (timeString === null) {
-      return {
-        hour: "",
-        minute: "",
-        ampm: "AM",
-      };
-    }
-
     const index = timeString.indexOf(":");
     let hour = timeString.slice(0, index);
     let minute = timeString.slice(index + 1);
@@ -44,7 +34,7 @@ class TimeBox extends Component {
     let ampm = "AM";
 
     // Convert 24-Hour to AMPM
-    if (hour !== "" || minute !== "") {
+    if (!isNaN(parseInt(hour))) {
       hour = parseInt(hour);
       // Addresses cases analagous to 00:00 --> 12:00AM case
       if (hour === 0) {
@@ -75,15 +65,13 @@ class TimeBox extends Component {
    * buildTimeObject()
    */
   buildTimeString(timeObject) {
-    console.log(`Converting to TIME STRING!`)
-    // console.log(timeObject)
     let time = { ...timeObject };
     let hour = time.hour;
     let minute = time.minute;
     let ampm = time.ampm;
 
     // AMPM --> 24-Hour
-    if (hour !== "" || minute !== "") {
+    if (!isNaN(parseInt(hour))) {
       hour = parseInt(hour);
       // Addresses cases analagous to 12:20AM --> 00:20
       if (ampm === "AM" && hour === 12) {
@@ -92,8 +80,8 @@ class TimeBox extends Component {
       } else if (ampm === "PM" && hour < 12) {
         hour += 12;
       }
-    } 
-    
+    }
+
     return hour + ":" + minute;
   }
 
@@ -137,8 +125,8 @@ class TimeBox extends Component {
 
     let time = { ...this.state };
     time[key] = value;
-    console.log(time)
-    console.log(this.buildTimeString(time));
+    // console.log(time);
+    // console.log(this.buildTimeString(time));
     onChange(stateKey, this.buildTimeString(time));
   };
 

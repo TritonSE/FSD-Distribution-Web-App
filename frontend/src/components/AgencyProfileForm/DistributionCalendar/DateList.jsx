@@ -39,7 +39,6 @@ class DateList extends Component {
     let newDateString = newSelectedDates[index].slice(0, 11); // YYYY-MM-DDT
     newDateString += `${newTime}Z`;
     newSelectedDates[index] = newDateString;
-    console.log(newDateString);
 
     onChange(stateKey, newSelectedDates);
   };

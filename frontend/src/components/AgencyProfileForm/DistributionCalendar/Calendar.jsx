@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import moment from "moment";
 import "./CalendarStyle.css";
 import Header from "./Header";
-import TimeInputPopup from "./TimeInputPopup";
 
 const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
 
@@ -23,10 +22,7 @@ const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
  * representing which default distribution days the user excluded
  * - {Function} onChange: Callback function to agency profile form
  * handleInputChange
- * - {Function} validCheck: Callback from the form page to check whether start
- * times for user selected dates passed validation, should take a String
  */
-
 class Calendar extends Component {
   constructor(props) {
     super(props);
@@ -124,35 +120,42 @@ class Calendar extends Component {
    * Determines if a given date is a user selected date
    *
    * @param {String} date String in default date format to be assessed
-   * @returns The index of the corresponding date-time string in
-   * userSelectedDates if the date is selected, or -1 otherwise
+   * @returns Boolean representing if the given date is a user selected date
    */
-  indexOfSelectedDate = (date) => {
+  isSelectedDate = (date) => {
+    return this.findSelectedDate(date) !== -1;
+  };
+
+  /**
+   * Helper method - implements binary search in userSelectedDates.
+   *
+   * @param {String} date Date string in default format
+   * @returns Index of this date in userSelectedDates, or -1 if not found
+   */
+  findSelectedDate = (date) => {
     const { userSelectedDates } = this.props;
-    // strings in userSelectedDates also include start times
-    for (let i in userSelectedDates) {
-      if (userSelectedDates[i].startsWith(date)) {
-        return i;
+    let low = 0;
+    let high = userSelectedDates.length - 1;
+    while (low <= high) {
+      let mid = low + Math.floor((high - low) / 2);
+      if (userSelectedDates[mid].startsWith(date)) {
+        return mid;
+      } else if (date.localeCompare(userSelectedDates[mid]) < 0) {
+        // date is earlier than mid date
+        high = mid - 1;
+      } else {
+        // date is later than mid date
+        low = mid + 1;
       }
     }
     return -1;
   };
 
   /**
-   * Determines if the given date is focused in the calendar.
-   *
-   * @param {String} date Date string in default format
-   * @returns true iff date === this.state.focusedDate, otherwise false
-   */
-  // isFocusedDate = (date) => {
-  //   return date === this.state.focusedDate;
-  // };
-
-  /**
    * Determines if a given date is a user excluded date
    *
    * @param {String} date String in default date format to be assessed
-   * @returns Boolean representing if the given date is a user selected date
+   * @returns Boolean representing if the given date is a user excluded date
    */
   isExcludedDate = (date) => {
     return this.props.userExcludedDates.includes(date);
@@ -169,14 +172,7 @@ class Calendar extends Component {
 
     let newSelectedDates = userSelectedDates.slice();
     // strings in userSelectedDates also include start times
-    let index = -1;
-    for (let i in newSelectedDates) {
-      let selectedDate = newSelectedDates[i];
-      if (selectedDate.startsWith(date)) {
-        index = i;
-        break;
-      }
-    }
+    let index = this.findSelectedDate(date);
     if (index === -1) {
       return;
     }
@@ -194,55 +190,18 @@ class Calendar extends Component {
    */
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
-    const newDate = date + "T00:00Z";
-    console.log(newDate);
+    const newDate = date + "T:Z";
 
     let newSelectedDates = userSelectedDates.slice();
-    newSelectedDates.push(newDate);
-    // this.focusDate(newDate);
+    let index = 0;
+    while (date.localeCompare(newSelectedDates[index]) > 0) {
+      index++;
+    }
+    newSelectedDates.splice(index, 0, newDate); // maintain sorted order
 
     // Update AgencyProfileForm state (and consequently local state)
     onChange("userSelectedDates", newSelectedDates);
   };
-
-  /**
-   * Updates the time of this date in userSelectedDates, and unfocuses the date
-   * in the calendar.
-   *
-   * @param {String} date String in default date format
-   * @param {String} time New start time for the date ("hh:mm")
-   */
-  updateSelectedDate = (date, time) => {
-    const { userSelectedDates, onChange } = this.props;
-    const newDate = `${date}T${time}Z`;
-
-    let newSelectedDates = userSelectedDates.slice();
-    let index = this.indexOfSelectedDate(date);
-    newSelectedDates[index] = newDate;
-    // this.unfocusDate();
-
-    onChange("userSelectedDates", newSelectedDates);
-  };
-
-  /**
-   * Sets focusedDate in this.state to the given date (excluding time), and
-   * focusedStartTime to the time from the date string.
-   *
-   * @param {String} dateTime Date string in ISO 8601 format: YYYY-MM-DDThh:mmZ
-   */
-  // focusDate = (dateTime) => {
-  //   this.setState({
-  //     focusedDate: dateTime.slice(0, 10),
-  //     focusedStartTime: dateTime.slice(11, 16),
-  //   });
-  // };
-
-  /**
-   * Sets focusedDate and focusedStartTime in this.state to null.
-   */
-  // unfocusDate = () => {
-  //   this.setState({ focusedDate: null, focusedStartTime: null });
-  // };
 
   /**
    * Adds a given date to user excluded dates
@@ -285,17 +244,14 @@ class Calendar extends Component {
   handleDateSelect = (date) => {
     const {
       isDistributionDate,
-      indexOfSelectedDate,
+      isSelectedDate,
       isExcludedDate,
       isExtraneousDate,
       addSelectedDate,
       removeSelectedDate,
       addExcludedDate,
       removeExcludedDate,
-      // focusDate,
     } = this;
-
-    console.log("handle select");
     if (!isExtraneousDate(date)) {
       if (isDistributionDate(date)) {
         if (isExcludedDate(date)) {
@@ -304,10 +260,7 @@ class Calendar extends Component {
           addExcludedDate(date);
         }
       } else {
-        let index = indexOfSelectedDate(date);
-        console.log(index);
-        if (index !== -1) {
-          // focusDate(this.props.userSelectedDates[index]);
+        if (isSelectedDate(date)) {
           removeSelectedDate(date);
         } else {
           addSelectedDate(date);
@@ -384,7 +337,7 @@ class Calendar extends Component {
   getDateStyle = (date) => {
     const {
       isDistributionDate,
-      indexOfSelectedDate,
+      isSelectedDate,
       isExcludedDate,
       isExtraneousDate,
     } = this;
@@ -394,7 +347,7 @@ class Calendar extends Component {
       if (!isExcludedDate(date)) {
         style += " distribution";
       }
-    } else if (indexOfSelectedDate(date) !== -1) {
+    } else if (isSelectedDate(date)) {
       style += " selected";
     }
 
@@ -406,18 +359,9 @@ class Calendar extends Component {
   };
 
   render() {
-    const { calendar, todayMoment, focusedStartTime } = this.state;
-    const { label, validCheck } = this.props;
-    const {
-      handlePrev,
-      handleNext,
-      getDateStyle,
-      handleDateSelect,
-      isFocusedDate,
-      indexOfSelectedDate,
-      updateSelectedDate,
-      removeSelectedDate,
-    } = this;
+    const { calendar, todayMoment } = this.state;
+    const { label } = this.props;
+    const { handlePrev, handleNext, getDateStyle, handleDateSelect } = this;
     return (
       <div className="calendar-container">
         <label className="calendar-label">{label}</label>
@@ -446,16 +390,6 @@ class Calendar extends Component {
                     onClick={() => handleDateSelect(date)}
                   >
                     {date.slice(8, 10)}
-                    {/*isFocusedDate(date) && (
-                      <TimeInputPopup
-                        value={focusedStartTime}
-                        valid={validCheck(
-                          `userSelectedDates[${indexOfSelectedDate(date)}]`
-                        )}
-                        onSave={(time) => updateSelectedDate(date, time)}
-                        onDelete={() => removeSelectedDate(date)}
-                      />
-                        )*/}
                   </div>
                 ))}
               </div>

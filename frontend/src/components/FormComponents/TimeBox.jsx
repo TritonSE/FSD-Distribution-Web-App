@@ -2,20 +2,24 @@ import React, { Component } from "react";
 import "./TimeBoxes.css";
 
 /**
- * TimeBox is a 24-hour time input field (comprised of hour box and minute box).
+ * TimeBox is a 12-hour time input field (comprised of hour box, minute box, and
+ * AM/PM selection).
+ *
+ * Note: not a controlled component. Sends updates only when the user exits an
+ * input box/selects from the dropdown.
  *
  * Expected props:
- * - {String} value: current time value of the input (format: "hh:mm")
+ * - {String} initialValue: initial time value of the input (format: "hh:mm")
  * - {String} stateKey: key to use in the onChange callback
  * - {Function} onChange: callback to handle input changes, should take a String
  * and a String
- * - {Boolean} valid: whether the current input value passed validation
+ * - {Boolean} valid: whether the initial input value passed validation
  */
 class TimeBox extends Component {
   constructor(props) {
     super(props);
 
-    const timeValue = props.value;
+    const timeValue = props.initialValue;
     if (timeValue !== undefined) {
       this.state = this.buildTimeObject(timeValue);
     }
@@ -27,7 +31,8 @@ class TimeBox extends Component {
    *
    * @param {String} timeString Time string of format "hh:mm" (24-hour)
    * @returns An object with hour, minute, and ampm string fields representing
-   * the given time (in 12-hour format)
+   * the given time (in 12-hour format); the hour is guaranteed to be either
+   * empty or 2 digits (with leading 0 if needed)
    */
   buildTimeObject(timeString) {
     const index = timeString.indexOf(":");
@@ -68,6 +73,8 @@ class TimeBox extends Component {
    *
    * @param {Object} timeObject Time object like that returned from
    * buildTimeObject()
+   * @returns 24-hour time string of format "hh:mm"; hh and mm are each
+   * guaranteed to be either empty or 2 digits
    */
   buildTimeString(timeObject) {
     let { hour, minute, ampm } = timeObject;
@@ -84,6 +91,13 @@ class TimeBox extends Component {
       }
     }
 
+    if (hour.length === 1) {
+      hour = `0${hour}`;
+    }
+    if (minute.length === 1) {
+      minute = `0${minute}`;
+    }
+
     return hour + ":" + minute;
   }
 
@@ -93,27 +107,24 @@ class TimeBox extends Component {
    * @param {Any} prevProps Previous props
    */
   componentDidUpdate(prevProps) {
-    const timeValue = this.props.value;
-    if (timeValue !== prevProps.value) {
+    const timeValue = this.props.initialValue;
+    if (timeValue !== prevProps.initialValue) {
       this.setState(this.buildTimeObject(timeValue));
     }
   }
 
   /**
-   * Handler for changes in any of the input fields in this TimeBox. Assembles a
-   * new time string and passes it to the onChange callback.
+   * Handler for changes in the hour/minute input fields in this TimeBox.
+   * Updates component state with new value.
    *
    * This function ensures that the new hour/minute value, if nonempty, has
-   * exactly two numerical digits (adding a leading 0 if needed) and has
-   * numerical value in the correct range for 12-hour time. If either of these
-   * conditions is not met, the change is ignored.
+   * numerical value in the correct range for 12-hour time. If not, the change
+   * is ignored.
    *
    * @param {String} key Which part of the time to update
    * @param {String} value Updated value
    */
   handleChange = (key, value) => {
-    const { stateKey, onChange } = this.props;
-
     if (key !== "ampm" && value !== "") {
       // get up to first 2 digits at the beginning of value
       let match = value.match(/^[0-9]{1,2}/);
@@ -123,6 +134,8 @@ class TimeBox extends Component {
       value = match[0];
 
       // make sure numerical value is in range
+      // this allows 0 for the hour, even though that's not valid by itself,
+      // because it might be a leading 0
       let numVal = parseInt(value);
       if (
         (key === "hour" && numVal > 12) ||
@@ -132,38 +145,22 @@ class TimeBox extends Component {
       }
     }
 
-    let time = { ...this.state };
-    time[key] = value;
-    onChange(stateKey, this.buildTimeString(time));
+    this.setState({ [key]: value });
   };
 
   /**
-   * Handler for losing focus in either of the numerical inputs in this TimeBox.
-   * Processes the value to ensure it is either empty or a two-digit (nonzero if
-   * hour) numerical string. If the value is updated, calls the onChange
-   * callback.
-   *
-   * @param {String} key Which part of the time input lost focus
-   * @param {String} value Current value of the input
+   * Processes component state into a 24-hour time string (may be incomplete),
+   * and calls the onChange callback.
    */
-  handleBlur = (key, value) => {
-    if (value === "") {
-      return;
-    }
-
+  sendUpdates = () => {
     const { stateKey, onChange } = this.props;
-    const numVal = parseInt(value);
 
-    if (isNaN(numVal) || (key === "hour" && numVal === 0)) {
-      // reject values that are not nonzero numbers
-      onChange(stateKey, "");
-    } else if (value.length === 1) {
-      // prepend a 0 if there's only one digit
-      let time = { ...this.state };
-      time[key] = "0" + value;
+    let time = { ...this.state };
+    if (parseInt(time.hour) === 0) {
+      this.setState({ hour: "" }, this.sendUpdates);
+    } else {
       onChange(stateKey, this.buildTimeString(time));
     }
-    // else, no change needed
   };
 
   render() {
@@ -182,7 +179,7 @@ class TimeBox extends Component {
           placeholder="00"
           value={hour}
           onChange={(event) => this.handleChange("hour", event.target.value)}
-          onBlur={(event) => this.handleBlur("hour", event.target.value)}
+          onBlur={this.sendUpdates}
         />
         :
         <input
@@ -191,12 +188,14 @@ class TimeBox extends Component {
           placeholder="00"
           value={minute}
           onChange={(event) => this.handleChange("minute", event.target.value)}
-          onBlur={(event) => this.handleBlur("minute", event.target.value)}
+          onBlur={this.sendUpdates}
         />
         &nbsp;
         <select
           value={ampm}
-          onChange={(event) => this.handleChange("ampm", event.target.value)}
+          onChange={(event) =>
+            this.setState({ ampm: event.target.value }, this.sendUpdates)
+          }
         >
           <option>AM</option>
           <option>PM</option>

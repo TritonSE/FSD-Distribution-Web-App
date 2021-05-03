@@ -54,7 +54,7 @@ class TimeInputPopup extends Component {
         </div>
         <div>
           <TimeBox
-            value={this.state.value}
+            initialValue={this.state.value}
             onChange={this.handleChange}
             valid={this.props.valid}
           />

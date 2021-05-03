@@ -56,7 +56,7 @@ class DateList extends Component {
                 {`${MONTHS[dateString.slice(5, 7)]} ${dateString.slice(8, 10)}`}
               </span>
               <TimeBox
-                value={dateString.slice(11, -1)}
+                initialValue={dateString.slice(11, -1)}
                 stateKey={index}
                 onChange={this.handleTimeChange}
                 valid={validCheck(`${stateKey}[${index}]`)}

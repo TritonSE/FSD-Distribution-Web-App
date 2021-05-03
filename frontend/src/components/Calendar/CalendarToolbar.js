@@ -42,6 +42,10 @@ class CalendarToolbar extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
+  static getDerivedStateFromProps(props, state) {
+    return { distribution: props.distribution, rescue: props.rescue };
+ }
+
   componentDidMount() {
     this.setState({ distribution: this.props.distribution });
     this.setState({ rescue: this.props.rescue });
@@ -131,7 +135,8 @@ class CalendarToolbar extends Component {
         padding: 10,
         transform: 0.6
       }}>
-        <input id="search" type="text" onChange={this.handleSearchChange} style={{ boxSizing: "border-box" }} placeholder="Search Agency" />
+        <input id="search" type="text" onChange={this.handleSearchChange} style={{ width: "100%", padding: 5 }} placeholder="Search Agency" />
+        <br />
         <button style={{ border: "none", background: "none" }} value="distributionnpm" onClick={this.handleShowAgencies}>
           {showDistribution ? <h5>Distribution</h5> : <p>Distribution</p>}
         </button>

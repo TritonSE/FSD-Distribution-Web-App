@@ -229,6 +229,10 @@ class Home extends Component {
     }
   }
 
+  handleClick = (arg) => {
+    console.log(arg);
+  }
+
   render() {
     if (!isAuthenticated()) {
       return <Redirect to="/login" />;
@@ -264,6 +268,7 @@ class Home extends Component {
               }}
               initialView="dayGridMonth"
               eventDisplay="block"
+              eventClick={this.handleClick}
               events={this.state.distributionEvents.concat(this.state.rescueEvents)}
               fixedWeekCount={false}
             />

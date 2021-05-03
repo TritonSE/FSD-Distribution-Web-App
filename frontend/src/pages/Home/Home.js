@@ -11,6 +11,7 @@ import rrulePlugin from "@fullcalendar/rrule";
 import interactionPlugin from "@fullcalendar/interaction";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
+import NotesModal from "../../components/Calendar/NotesModal";
 const config = require("../../config");
 
 /**
@@ -38,6 +39,7 @@ class Home extends Component {
       rescueEvents: [],
       distributionMap: {}, //Example: {"Agency" : [{}, {}, {}]}
       rescueMap: {},
+      showModal: false,
     };
     this.updateDistributionAll = this.updateDistributionAll.bind(this);
     this.updateDistribution = this.updateDistribution.bind(this);
@@ -195,6 +197,11 @@ class Home extends Component {
     }
   }
 
+  toggleModal = () => {
+    this.setState({showModal: true});
+    console.log(this.state.showModal);
+  };
+
   /**
    * Callback that will be passed onto the calendar toolbar. If true, it will show all events in the rescue field.
    * Otherwise, it will hide all events in the rescue field.
@@ -231,6 +238,7 @@ class Home extends Component {
 
   handleClick = (arg) => {
     console.log(arg);
+    this.toggleModal();
   }
 
   render() {
@@ -274,7 +282,12 @@ class Home extends Component {
             />
           </div>
         </Col>
+        <NotesModal
+            showModal={this.state.showModal}
+            toggleModal={this.toggleModal}
+        />
       </Row>
+
     );
   }
 }

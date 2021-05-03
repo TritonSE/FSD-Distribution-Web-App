@@ -86,7 +86,7 @@ class Home extends Component {
                       dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
                     },
                     duration: "02:00",
-                    backgroundColor: color,
+                    color: color,
                     exdate: agency.excludedDates,
                   };
 
@@ -107,7 +107,7 @@ class Home extends Component {
                   start: day,
                   end: day,
                   duration: "02:00",
-                  backgroundColor: color,
+                  color: color,
                 };
 
                 if (this.state.distributionMap[name]) {
@@ -132,7 +132,7 @@ class Home extends Component {
                       dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
                     },
                     duration: "01:00",
-                    backgroundColor: color,
+                    color: color,
                   };
 
                   if (this.state.rescueMap[name]) {

@@ -22,33 +22,36 @@ class TimeBox extends Component {
   }
 
   /**
-   * Returns an object containing the hour and minute strings from the given
-   * time string.
-   * @param {String} timeString Time string of format "hh:mm"
+   * Returns an object representing the given time. The time string may be
+   * incomplete or even empty.
+   *
+   * @param {String} timeString Time string of format "hh:mm" (24-hour)
+   * @returns An object with hour, minute, and ampm string fields representing
+   * the given time (in 12-hour format)
    */
   buildTimeObject(timeString) {
     const index = timeString.indexOf(":");
     let hour = timeString.slice(0, index);
     let minute = timeString.slice(index + 1);
-
     let ampm = "AM";
 
-    // Convert 24-Hour to AMPM
-    if (!isNaN(parseInt(hour))) {
-      hour = parseInt(hour);
-      // Addresses cases analagous to 00:00 --> 12:00AM case
-      if (hour === 0) {
-        hour += 12;
-      }
-      // Addresses standard cases analagous  13:00 --> 1:00PM
-      else if (hour > 12) {
+    // convert 24-hour to 12-hour
+    if (hour) {
+      let hourVal = parseInt(hour);
+      if (hourVal === 0) {
+        // 00:mm --> 12:mm AM
+        hour = "12";
+      } else if (hourVal === 12) {
+        // 12:mm --> 12:mm PM
         ampm = "PM";
-        hour -= 12;
-      }
-      // Addresses cases analagous to 12:59 --> 12:59PM
-      else if (hour === 12) {
+      } else if (hourVal > 12) {
+        // (hh>12):mm --> (hh-12):mm PM
         ampm = "PM";
-      }
+        hour = `${hourVal - 12}`;
+        if (hour.length === 1) {
+          hour = `0${hour}`;
+        }
+      } // else, (00<hh<12):mm --> hh:mm AM
     }
 
     return {
@@ -59,26 +62,25 @@ class TimeBox extends Component {
   }
 
   /**
-   * Returns a time string of format "hh:mm" using the data from the given
-   * object.
+   * Returns a 24-hour time string of format "hh:mm" using the data from the
+   * given object. The time object may contain empty strings, but its nonempty
+   * fields should follow 12-hour format.
+   *
    * @param {Object} timeObject Time object like that returned from
    * buildTimeObject()
    */
   buildTimeString(timeObject) {
-    let time = { ...timeObject };
-    let hour = time.hour;
-    let minute = time.minute;
-    let ampm = time.ampm;
+    let { hour, minute, ampm } = timeObject;
 
-    // AMPM --> 24-Hour
-    if (!isNaN(parseInt(hour))) {
-      hour = parseInt(hour);
-      // Addresses cases analagous to 12:20AM --> 00:20
-      if (ampm === "AM" && hour === 12) {
-        hour -= 12;
-        // Addresses cases analagous to 1:00PM --> 13:00
-      } else if (ampm === "PM" && hour < 12) {
-        hour += 12;
+    // convert 12-hour to 24-hour
+    if (hour) {
+      let hourVal = parseInt(hour);
+      if (ampm === "AM" && hourVal === 12) {
+        // 12:mm AM --> 00:mm
+        hour = "00";
+      } else if (ampm === "PM" && hourVal < 12) {
+        // (hh<12):mm PM --> (hh+12):mm
+        hour = `${hourVal + 12}`;
       }
     }
 
@@ -87,6 +89,7 @@ class TimeBox extends Component {
 
   /**
    * Recalculates state if there is a new time value.
+   *
    * @param {Any} prevProps Previous props
    */
   componentDidUpdate(prevProps) {
@@ -99,6 +102,12 @@ class TimeBox extends Component {
   /**
    * Handler for changes in any of the input fields in this TimeBox. Assembles a
    * new time string and passes it to the onChange callback.
+   *
+   * This function ensures that the new hour/minute value, if nonempty, has
+   * exactly two numerical digits (adding a leading 0 if needed) and has
+   * numerical value in the correct range for 12-hour time. If either of these
+   * conditions is not met, the change is ignored.
+   *
    * @param {String} key Which part of the time to update
    * @param {String} value Updated value
    */
@@ -125,15 +134,15 @@ class TimeBox extends Component {
 
     let time = { ...this.state };
     time[key] = value;
-    // console.log(time);
-    // console.log(this.buildTimeString(time));
     onChange(stateKey, this.buildTimeString(time));
   };
 
   /**
    * Handler for losing focus in either of the numerical inputs in this TimeBox.
-   * Processes the value to ensure it is either empty or a two-digit numerical
-   * string. If the value is updated, calls the onChange callback.
+   * Processes the value to ensure it is either empty or a two-digit (nonzero if
+   * hour) numerical string. If the value is updated, calls the onChange
+   * callback.
+   *
    * @param {String} key Which part of the time input lost focus
    * @param {String} value Current value of the input
    */
@@ -145,8 +154,8 @@ class TimeBox extends Component {
     const { stateKey, onChange } = this.props;
     const numVal = parseInt(value);
 
-    if (isNaN(numVal)) {
-      // reject values that are not numbers
+    if (isNaN(numVal) || (key === "hour" && numVal === 0)) {
+      // reject values that are not nonzero numbers
       onChange(stateKey, "");
     } else if (value.length === 1) {
       // prepend a 0 if there's only one digit
@@ -184,6 +193,7 @@ class TimeBox extends Component {
           onChange={(event) => this.handleChange("minute", event.target.value)}
           onBlur={(event) => this.handleBlur("minute", event.target.value)}
         />
+        &nbsp;
         <select
           value={ampm}
           onChange={(event) => this.handleChange("ampm", event.target.value)}

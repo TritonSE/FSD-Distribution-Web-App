@@ -5,6 +5,7 @@
   "dependencies": {
     "@fullcalendar/core": "5.5.0",
     "@fullcalendar/daygrid": "5.5.0",
+    "@fullcalendar/interaction": "5.5.0",
     "@fullcalendar/react": "5.5.0",
     "@fullcalendar/rrule": "5.5.0",
     "@fullcalendar/timegrid": "5.5.0",
@@ -20,6 +21,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-test-renderer": "^17.0.1",
+    "rrule": "^2.6.8",
     "typeface-roboto": "^1.1.13",
     "web-vitals": "^0.2.4"
   },

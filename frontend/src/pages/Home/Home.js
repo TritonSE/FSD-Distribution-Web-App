@@ -8,6 +8,7 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import rrulePlugin from "@fullcalendar/rrule";
+import interactionPlugin from "@fullcalendar/interaction";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Home.css";
 const config = require("../../config");
@@ -254,7 +255,7 @@ class Home extends Component {
             }}
           >
             <FullCalendar
-              plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin]}
+              plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]} // 
               timeZone="UTC"
               headerToolbar={{
                 left: "prev,next today",
@@ -265,7 +266,6 @@ class Home extends Component {
               eventDisplay="block"
               events={this.state.distributionEvents.concat(this.state.rescueEvents)}
               fixedWeekCount={false}
-              allDaySlot={false}
             />
           </div>
         </Col>

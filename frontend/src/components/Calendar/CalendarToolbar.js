@@ -46,11 +46,6 @@ class CalendarToolbar extends Component {
     return { distribution: props.distribution, rescue: props.rescue };
  }
 
-  componentDidMount() {
-    this.setState({ distribution: this.props.distribution });
-    this.setState({ rescue: this.props.rescue });
-  }
-
   /**
    * Handles any user input in search bar to filter out the agencies.
    * @param {object} event event object of search bar

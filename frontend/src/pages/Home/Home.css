@@ -1,8 +1,8 @@
 .fc-button.fc-prev-button, .fc-button.fc-next-button, .fc-button.fc-button-primary {
-    background: #F5F7F7;
-    background-image: none;
-    color: black;
-    border: none;
+  background: #F5F7F7;
+  background-image: none;
+  color: black;
+  border: none;
 }
 
 .fc .fc-button-primary:hover {
@@ -14,20 +14,16 @@
 }
 
 .fc .fc-button-primary:not(:disabled):active, .fc .fc-button-primary:not(:disabled).fc-button-active {
-	/* color: #fff; */
 	color: var(--fc-button-text-color, black);
-	/* background-color: #1a252f; */
 	background-color: var(--fc-button-active-bg-color, #F5F7F7);
-    font-weight: bold;
-	/* border-color: #151e27; */
-	/* border-color: var(--fc-button-active-border-color, #151e27); */
+  font-weight: bold;
 }
 
 .fc .fc-button-primary:disabled {
 	color: black;
 	color: var(--fc-button-text-color, black);
 	background-color: #F5F7F7;
-    font-weight: bold;
+  font-weight: bold;
 	background-color: var(--fc-button-bg-color, #F5F7F7);
 	border-color: #2C3E50;
 	border-color: var(--fc-button-border-color, #2C3E50);
@@ -40,7 +36,6 @@ a {
 }
 
 tbody::before {
-	/* content: "-"; */
 	display: block;
 	line-height: 1px;
 	text-indent: -99999px;

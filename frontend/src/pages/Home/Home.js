@@ -13,30 +13,40 @@ import "./Home.css";
 const config = require("../../config");
 
 /**
- * Landing page that contains a calender with corresponding events
+ * Landing page that contains a calender with corresponding events from the side toolbar.
+ * 
+ * State:
+ * - {Array<Objects>} distribution: list of agencies in the distribution category, contains name and color
+ * - {Array<Objects>} rescue: list of agencies in the rescue category, contains name and color
+ * - {Array<Objects>} distributionEvents: list of events containing the criteria and rules for rendering distribution
+ *                    events on the calendar; will be populated by events mapped from distributionMap
+ * - {Array<Objects>} rescueEvents: list of events containing the criteria and rules for rendering rescue events
+ *                    on the calendar; will be populated by events mapped from rescueMap
+ * - {Hashmap} distributionMap: hashmap that maps the distribution agency name to a set of events containing the criteria
+ *             and rules for calendar rendering
+ * - {Hashmap} rescueMap: hashmap that maps the rescue agency name to a set of events containing the criteria
+ *             and rules for calendar rendering
  */
 class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      distribution: [
-        // { name: "Agency A", color: "#fc02db" },
-        // { name: "Agency B", color: "#71fc07" },
-        // { name: "Agency C", color: "#fc1307" },
-      ],
+      distribution: [], //Example: [{color: "", name: ""}, {color: "", name: ""}]
       rescue: [],
-      distributionEvents: [{}, {}, {}],
-      rescueEvents: [{}, {}],
-      distributionMap: {}, // {"Agency" : [{}, {}, {}]}
+      distributionEvents: [], //Example: [{}, {}, {}]
+      rescueEvents: [],
+      distributionMap: {}, //Example: {"Agency" : [{}, {}, {}]}
       rescueMap: {},
     };
-    this.updateCalendar = this.updateCalendar.bind(this);
     this.updateDistributionAll = this.updateDistributionAll.bind(this);
     this.updateDistribution = this.updateDistribution.bind(this);
     this.updateRescueAll = this.updateRescueAll.bind(this);
     this.updateRescue = this.updateRescue.bind(this);
   }
 
+  /**
+   * Fetches all agencies from the database that will be used to populate the state 
+   */
   componentDidMount() {
     fetch(`${config.backend.uri}/agency`, {
       method: "GET",
@@ -51,6 +61,7 @@ class Home extends Component {
             const hsvInterval = 360 / data.agencies.length;
             data.agencies.forEach((agency, index) => {
               const name = agency.tableContent.name;
+              // generating the color of the agency
               const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
 
               // add agency to distribution category
@@ -61,9 +72,9 @@ class Home extends Component {
                 ],
               });
 
-              // generate events for distribution
+              // generate events to populate the distribution map
               for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
-                if (day != "_id" && isMarked) {
+                if (day !== "_id" && isMarked) {
                   const event = {
                     title: name,
                     rrule: {
@@ -78,11 +89,11 @@ class Home extends Component {
                     exdate: agency.excludedDates,
                   };
 
-                  // Agency already exists in map
                   if (this.state.distributionMap[name]) {
+                    // Agency already exists in distribution map
                     this.state.distributionMap[name].push(event);
                   } else {
-                    // Agency does not yet exist in map
+                    // Agency does not yet exist in distribution map
                     this.state.distributionMap[name] = [event];
                   }
                 }
@@ -99,16 +110,17 @@ class Home extends Component {
                 };
 
                 if (this.state.distributionMap[name]) {
+                  // Agency exists in distribution map
                   this.state.distributionMap[name].push(event);
                 } else {
-                  // Agency does not yet exist in map
+                  // Agency does not yet exist in distribution map
                   this.state.distributionMap[name] = [event];
                 }
               }
 
-              // generate events for retail rescue
+              // generate events to populate the rescue map
               for (const [day, isMarked] of Object.entries(agency.retailRescueDays)) {
-                if (day != "_id" && isMarked) {
+                if (day !== "_id" && isMarked) {
                   const event = {
                     title: name,
                     rrule: {
@@ -123,13 +135,16 @@ class Home extends Component {
                   };
 
                   if (this.state.rescueMap[name]) {
+                    // Agency already exists in rescue map
                     this.state.rescueMap[name].push(event);
                   } else {
+                    // Agency does not yet exist in rescue map
                     this.state.rescueMap[name] = [event];
                   }
                 }
               }
 
+              // handling agencies without any rescue events
               if (this.state.rescueMap[name]) {
                 this.setState({
                   rescue: [
@@ -145,6 +160,11 @@ class Home extends Component {
       .catch((error) => console.error(error));
   }
 
+  /**
+   * Callback that will be passed onto the calendar toolbar. If true, it will show all events in the distribution field.
+   * Otherwise, it will hide all events in the distribution field.
+   * @param {Boolean} checked Boolean determining whether the ALL checkbox in distribution section is checked
+   */
   updateDistributionAll(checked) {
     this.setState({ distributionEvents: [] });
     if (checked) {
@@ -156,11 +176,14 @@ class Home extends Component {
     }
   }
 
+  /**
+   * Callback that will be passed onto the calendar toolbar to handle the rendering of a single distribution event.
+   * @param {Object} event event object containing the information of the selected distribution event
+   */
   updateDistribution(event) {
     const checked = event.target.checked
     const agency = event.target.value
     const newDistributionEvents = this.state.distributionMap[agency];
-    console.log(newDistributionEvents)
     if (checked) {
       this.setState({ distributionEvents: this.state.distributionEvents.concat(newDistributionEvents) });
     } else {
@@ -171,6 +194,11 @@ class Home extends Component {
     }
   }
 
+  /**
+   * Callback that will be passed onto the calendar toolbar. If true, it will show all events in the rescue field.
+   * Otherwise, it will hide all events in the rescue field.
+   * @param {Boolean} checked Boolean determining whether the ALL checkbox in rescue section is checked
+   */
   updateRescueAll(checked) {
     this.setState({ rescueEvents: [] });
     if (checked) {
@@ -182,10 +210,14 @@ class Home extends Component {
     }
   }
 
+  /**
+   * Callback that will be passed onto the calendar toolbar to handle the rendering of a single rescue event.
+   * @param {Object} event event object containing the information of the selected rescue event
+   */
   updateRescue(event) {
     const checked = event.target.checked
     const agency = event.target.value
-    const newRescueEvents = this.state.rescueMap[agency]; // [{}, {}, {}]
+    const newRescueEvents = this.state.rescueMap[agency];
     if (checked) {
       this.setState({ rescueEvents: this.state.rescueEvents.concat(newRescueEvents) });
     } else {
@@ -207,7 +239,6 @@ class Home extends Component {
           <CalendarToolbar
             distribution={this.state.distribution}
             rescue={this.state.rescue}
-            updateCalendar={this.updateCalendar}
             updateDistribution={this.updateDistribution}
             updateDistributionAll={this.updateDistributionAll}
             updateRescue={this.updateRescue}

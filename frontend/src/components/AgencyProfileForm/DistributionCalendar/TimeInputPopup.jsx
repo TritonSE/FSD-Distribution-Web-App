@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import TimeBox from "../../FormComponents/TimeBox";
-import SmallButton from "../SmallButton";
 import "./CalendarStyle.css";
 import deleteIcon from "./trash-can.svg";
 
@@ -12,22 +11,24 @@ import deleteIcon from "./trash-can.svg";
  * Expected props:
  * - {String} value: initial time value
  * - {Boolean} valid: whether this time failed validation
+ * - {Boolean} shown: whether this date is focused in the calendar
  * - {Function} onChange: callback for when the user edits the TimeBox, should
  * take a String
  * - {Function} onDelete: callback for when the user clicks the delete button,
  * should take no arguments
+ * - {Function} onHide: callback for when the user clicks outside of the
+ * TimeBox, should take no arguments
  */
 class TimeInputPopup extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { shown: true };
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidUpdate() {
     setTimeout(() => {
-      if (this.state.shown) {
+      if (this.props.shown) {
         window.addEventListener("click", this.handleClickOutside);
       } else {
         window.removeEventListener("click", this.handleClickOutside);
@@ -35,16 +36,20 @@ class TimeInputPopup extends Component {
     }, 0); // 0 ms delay schedules this add/remove listener for next event loop
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("click", this.handleClickOutside);
+  }
+
   handleClickOutside(event) {
-    if (!event.target.closest(".calendar-time-popup")) {
-      this.setState({ shown: false });
+    if (!event.target.closest(".calendar")) {
+      this.props.onHide();
     }
   }
 
   render() {
-    const { value, valid, onChange, onDelete } = this.props;
+    const { value, valid, shown, onChange, onDelete, onHide } = this.props;
 
-    if (!this.state.shown) {
+    if (!shown) {
       return null;
     }
     return (
@@ -54,7 +59,10 @@ class TimeInputPopup extends Component {
           <button
             type="button"
             className="delete-button"
-            onClick={() => this.setState({ shown: false }, onDelete)}
+            onClick={() => {
+              onHide();
+              onDelete();
+            }}
           >
             <img src={deleteIcon} alt="delete" />
           </button>

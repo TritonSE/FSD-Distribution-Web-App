@@ -189,10 +189,8 @@ class Calendar extends Component {
       return;
     }
     newSelectedDates.splice(index, 1);
-    this.unfocusDate();
 
-    // Update AgencyProfileForm state (and consequently local state)
-    onChange("userSelectedDates", newSelectedDates);
+    this.unfocusDate(() => onChange("userSelectedDates", newSelectedDates));
   };
 
   /**
@@ -211,10 +209,10 @@ class Calendar extends Component {
       index++;
     }
     newSelectedDates.splice(index, 0, newDate); // maintain sorted order
-    this.focusDate(newDate);
 
-    // Update AgencyProfileForm state (and consequently local state)
-    onChange("userSelectedDates", newSelectedDates);
+    this.focusDate(newDate, () =>
+      onChange("userSelectedDates", newSelectedDates)
+    );
   };
 
   /**
@@ -239,19 +237,27 @@ class Calendar extends Component {
    * focusedStartTime to the time from the date string.
    *
    * @param {String} dateTime Date string in ISO 8601 format: YYYY-MM-DDThh:mmZ
+   * @param {Function} callback Function (void, no args) to call after state
+   * updates
    */
-  focusDate = (dateTime) => {
-    this.setState({
-      focusedDate: dateTime.slice(0, 10),
-      focusedStartTime: dateTime.slice(11, -1),
-    });
+  focusDate = (dateTime, callback) => {
+    this.setState(
+      {
+        focusedDate: dateTime.slice(0, 10),
+        focusedStartTime: dateTime.slice(11, -1),
+      },
+      callback
+    );
   };
 
   /**
    * Sets focusedDate and focusedStartTime in this.state to null.
+   *
+   * @param {Function} callback Function (void, no args) to call after state
+   * updates
    */
-  unfocusDate = () => {
-    this.setState({ focusedDate: null, focusedStartTime: null });
+  unfocusDate = (callback) => {
+    this.setState({ focusedDate: null, focusedStartTime: null }, callback);
   };
 
   /**
@@ -419,6 +425,7 @@ class Calendar extends Component {
       getDateStyle,
       handleDateSelect,
       isFocusedDate,
+      unfocusDate,
       findSelectedDate,
       updateSelectedDate,
       removeSelectedDate,
@@ -453,14 +460,16 @@ class Calendar extends Component {
                       onClick={() => handleDateSelect(date)}
                     >
                       {date.slice(8, 10)}
-                      {isFocusedDate(date) && (
+                      {index !== -1 && (
                         <TimeInputPopup
                           value={focusedStartTime}
                           valid={validCheck(`userSelectedDates[${index}]`)}
+                          shown={isFocusedDate(date)}
                           onChange={(time) =>
                             updateSelectedDate(index, date, time)
                           }
                           onDelete={() => removeSelectedDate(date)}
+                          onHide={unfocusDate}
                         />
                       )}
                     </div>

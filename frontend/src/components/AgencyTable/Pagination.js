@@ -11,12 +11,7 @@ import "./Pagination.css";
  * - {Number} entriesPerPage: number of entries in each table page, passed from parent component
  * - {Function} paginate: Function that changes the current page state, passed from parent.
  */
-const Pagination = ({
-  currentPage,
-  totalEntries,
-  entriesPerPage,
-  paginate,
-}) => {
+const Pagination = ({ currentPage, totalEntries, entriesPerPage, paginate }) => {
   const previousPageText = "<";
   const nextPageText = ">";
   const totalPages = Math.ceil(totalEntries / entriesPerPage);
@@ -26,25 +21,16 @@ const Pagination = ({
       <button onClick={() => paginate(1)} disabled={currentPage <= 1}>
         <img src="../../../firstPage.png" alt="firstPage" />{" "}
       </button>
-      <button
-        onClick={() => paginate(--currentPage)}
-        disabled={currentPage <= 1}
-      >
+      <button onClick={() => paginate(--currentPage)} disabled={currentPage <= 1}>
         {" "}
         {previousPageText}{" "}
       </button>
       <p>{currentPage}</p>
-      <button
-        onClick={() => paginate(++currentPage)}
-        disabled={currentPage >= totalPages}
-      >
+      <button onClick={() => paginate(++currentPage)} disabled={currentPage >= totalPages}>
         {" "}
         {nextPageText}{" "}
       </button>
-      <button
-        onClick={() => paginate(totalPages)}
-        disabled={currentPage >= totalPages}
-      >
+      <button onClick={() => paginate(totalPages)} disabled={currentPage >= totalPages}>
         {" "}
         <img src="../../../lastPage.png" alt="lastPage" />{" "}
       </button>

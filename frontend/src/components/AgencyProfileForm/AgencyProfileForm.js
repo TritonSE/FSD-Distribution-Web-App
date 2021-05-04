@@ -20,15 +20,8 @@ import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
 
 const CONFIG = require("../../config");
-const DAYS_OF_WEEK = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
-];
+
+const DAYS_OF_WEEK = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
 /**
  * AgencyProfileForm describes the whole agency form page.
@@ -178,23 +171,23 @@ class AgencyProfileForm extends Component {
 
       // unfix date/time formats
       // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
-      for (let day of DAYS_OF_WEEK) {
+      for (const day of DAYS_OF_WEEK) {
         if (data.distributionDays[day]) {
-          let timeString = data.distributionStartTimes[day];
+          const timeString = data.distributionStartTimes[day];
           data.distributionStartTimes[day] = timeString.slice(11, 16);
         }
         if (data.retailRescueDays[day]) {
-          let timeString = data.retailRescueStartTimes[day];
+          const timeString = data.retailRescueStartTimes[day];
           data.retailRescueStartTimes[day] = timeString.slice(11, 16);
         }
       }
 
-      data.userExcludedDates = data.userExcludedDates.map((date) => {
-        return this.unfixDate(date.slice(0, 10));
-      });
-      data.userSelectedDates = data.userSelectedDates.map((date) => {
-        return this.unfixDate(date.slice(0, 10));
-      });
+      data.userExcludedDates = data.userExcludedDates.map((date) =>
+        this.unfixDate(date.slice(0, 10))
+      );
+      data.userSelectedDates = data.userSelectedDates.map((date) =>
+        this.unfixDate(date.slice(0, 10))
+      );
     }
     this.state = data;
   }
@@ -224,22 +217,22 @@ class AgencyProfileForm extends Component {
    * this component's state
    */
   prepareData() {
-    let data = { ...this.state };
+    const data = { ...this.state };
 
     data.tableContent = { ...data.tableContent };
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
     // fix distribution and retail rescue formats
     // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
-    const timeBase = this.fixDate(data.distributionStartDate) + "T";
+    const timeBase = `${this.fixDate(data.distributionStartDate)}T`;
     const timeEnd = "Z";
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
     data.retailRescueLocations = { ...data.retailRescueLocations };
-    for (let day of DAYS_OF_WEEK) {
+    for (const day of DAYS_OF_WEEK) {
       if (data.distributionDays[day]) {
         // this day is selected, so fix the time format
-        let time = data.distributionStartTimes[day]; // "hh:mm"
+        const time = data.distributionStartTimes[day]; // "hh:mm"
         data.distributionStartTimes[day] = timeBase + time + timeEnd;
       } else {
         // not selected
@@ -248,7 +241,7 @@ class AgencyProfileForm extends Component {
 
       if (data.retailRescueDays[day]) {
         // this day is selected, so fix the time format
-        let time = data.retailRescueStartTimes[day]; // "hh:mm"
+        const time = data.retailRescueStartTimes[day]; // "hh:mm"
         data.retailRescueStartTimes[day] = timeBase + time + timeEnd;
       } else {
         // not selected
@@ -257,12 +250,10 @@ class AgencyProfileForm extends Component {
       }
     }
 
-    data.userExcludedDates = data.userExcludedDates.map((date) => {
-      return this.fixDate(date); // time not needed
-    });
-    data.userSelectedDates = data.userSelectedDates.map((date) => {
-      return this.fixDate(date) + "T00:00Z";
-    });
+    data.userExcludedDates = data.userExcludedDates.map(
+      (date) => this.fixDate(date) // time not needed
+    );
+    data.userSelectedDates = data.userSelectedDates.map((date) => `${this.fixDate(date)}T00:00Z`);
 
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
@@ -279,15 +270,12 @@ class AgencyProfileForm extends Component {
    * @param {Any} newValue The new value to set for the key
    */
   handleInputChange = (key, newValue) => {
-    let index = key.indexOf(".");
+    const index = key.indexOf(".");
     if (index !== -1) {
-      let key1 = key.slice(0, index);
-      let key2 = key.slice(index + 1);
-      if (
-        this.state.hasOwnProperty(key1) &&
-        this.state[key1].hasOwnProperty(key2)
-      ) {
-        let updated = { ...this.state[key1] };
+      const key1 = key.slice(0, index);
+      const key2 = key.slice(index + 1);
+      if (this.state.hasOwnProperty(key1) && this.state[key1].hasOwnProperty(key2)) {
+        const updated = { ...this.state[key1] };
         updated[key2] = newValue;
         this.setState({ [key1]: updated });
       }
@@ -311,7 +299,7 @@ class AgencyProfileForm extends Component {
    */
   addAddress = () => {
     const addresses = this.state.additionalAddresses;
-    let updatedAddresses = addresses.slice();
+    const updatedAddresses = addresses.slice();
     updatedAddresses.push("");
     this.setState({
       additionalAddresses: updatedAddresses,
@@ -324,7 +312,7 @@ class AgencyProfileForm extends Component {
    */
   removeAddress = () => {
     const addresses = this.state.additionalAddresses;
-    let updatedAddresses = addresses.slice();
+    const updatedAddresses = addresses.slice();
     updatedAddresses.pop();
     this.setState({
       additionalAddresses: updatedAddresses,
@@ -336,8 +324,8 @@ class AgencyProfileForm extends Component {
    * state.
    */
   addContact = () => {
-    const contacts = this.state.contacts;
-    let updatedContacts = contacts.slice();
+    const { contacts } = this.state;
+    const updatedContacts = contacts.slice();
     updatedContacts.push({
       contact: "",
       position: "",
@@ -354,8 +342,8 @@ class AgencyProfileForm extends Component {
    * state.
    */
   removeContact = () => {
-    const contacts = this.state.contacts;
-    let updatedContacts = contacts.slice();
+    const { contacts } = this.state;
+    const updatedContacts = contacts.slice();
     updatedContacts.pop();
     this.setState({
       contacts: updatedContacts,
@@ -378,7 +366,7 @@ class AgencyProfileForm extends Component {
       method: editing ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + getJWT(),
+        Authorization: `Bearer ${getJWT()}`,
       },
       body: JSON.stringify(formData),
     })
@@ -386,15 +374,13 @@ class AgencyProfileForm extends Component {
         response.json().then((data) => {
           if (!response.ok) {
             if (data.fields) {
-              let errors = data.fields.filter((x) => x !== null);
-              this.setState({ errors: errors });
-              let message = `${errors.length} error(s) found!`;
+              const errors = data.fields.filter((x) => x !== null);
+              this.setState({ errors });
+              const message = `${errors.length} error(s) found!`;
               alert(message);
             }
-          } else {
-            if (history) {
-              history.push(`/agency-profile/${data.agency._id}`);
-            }
+          } else if (history) {
+            history.push(`/agency-profile/${data.agency._id}`);
           }
         });
       })
@@ -419,7 +405,9 @@ class AgencyProfileForm extends Component {
 
     return (
       <div className="form-body">
-        <h1 className="form-title">{editing ? "Update Agency Profile." : "Add a New Agency Profile."}</h1>
+        <h1 className="form-title">
+          {editing ? "Update Agency Profile." : "Add a New Agency Profile."}
+        </h1>
 
         <form>
           <div className="form-section" id="main">
@@ -596,11 +584,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
             <FormRow>
               <span className="small-button-span">
-                <SmallButton
-                  text="Add Address"
-                  symbol="+"
-                  onClick={this.addAddress}
-                />
+                <SmallButton text="Add Address" symbol="+" onClick={this.addAddress} />
                 {data.additionalAddresses.length > 1 && (
                   <SmallButton
                     text="Remove Address"
@@ -623,11 +607,7 @@ class AgencyProfileForm extends Component {
             />
             <FormRow>
               <span className="small-button-span">
-                <SmallButton
-                  text="Add Contact"
-                  symbol="+"
-                  onClick={this.addContact}
-                />
+                <SmallButton text="Add Contact" symbol="+" onClick={this.addContact} />
                 {data.contacts.length > 1 && (
                   <SmallButton
                     text="Remove Contact"
@@ -1080,10 +1060,7 @@ class AgencyProfileForm extends Component {
           <div className="form-section" id="staff">
             <FormRow>
               <FormCol>
-                <h2
-                  className="form-section-title"
-                  style={{ marginTop: 7, marginRight: 24 }}
-                >
+                <h2 className="form-section-title" style={{ marginTop: 7, marginRight: 24 }}>
                   Assigned Staff
                 </h2>
               </FormCol>
@@ -1107,11 +1084,7 @@ class AgencyProfileForm extends Component {
                 type="primary"
                 onClick={this.submitForm}
               />
-              <FormButton
-                title="Cancel"
-                type="secondary"
-                onClick={this.cancelForm}
-              />
+              <FormButton title="Cancel" type="secondary" onClick={this.cancelForm} />
             </div>
           </div>
         </form>

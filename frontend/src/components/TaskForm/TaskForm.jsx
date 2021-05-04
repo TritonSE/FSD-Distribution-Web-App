@@ -74,9 +74,7 @@ class TaskForm extends Component {
       errors.push("title");
     }
     if (
-      !dueDateTrim.match(
-        /^(?:0[1-9]|1[0-2])\/(?:0[1-9]|[1-2][0-9]|3[01])\/[0-9]{4}$/
-      ) // format: "MM/DD/YYYY"
+      !dueDateTrim.match(/^(?:0[1-9]|1[0-2])\/(?:0[1-9]|[1-2][0-9]|3[01])\/[0-9]{4}$/) // format: "MM/DD/YYYY"
     ) {
       errors.push("dueDate");
     }
@@ -145,12 +143,7 @@ class TaskForm extends Component {
             <div className="task-form-col">
               <InputDropdown
                 label="Status"
-                options={[
-                  "Pending Assignment",
-                  "In Progress",
-                  "Under Review",
-                  "Completed",
-                ]}
+                options={["Pending Assignment", "In Progress", "Under Review", "Completed"]}
                 value={data.status}
                 stateKey={"status"}
                 onChange={this.handleInputChange}
@@ -160,27 +153,23 @@ class TaskForm extends Component {
             </div>
           </div>
           <div className="button-container">
-              <FormButton
-                title="Save Task"
-                type="primary"
-                size={data._id  ? "small" : null }
-                onClick={this.submitForm}
-              />
+            <FormButton
+              title="Save Task"
+              type="primary"
+              size={data._id ? "small" : null}
+              onClick={this.submitForm}
+            />
             {data._id && (
-                <FormButton
-                  title="Delete Task"
-                  type="secondary"
-                  size="small"
-                  onClick={this.deleteTask}
-                />
+              <FormButton
+                title="Delete Task"
+                type="secondary"
+                size="small"
+                onClick={this.deleteTask}
+              />
             )}
           </div>
 
-          <button
-            type="button"
-            className="task-form-cancel"
-            onClick={this.cancelForm}
-          >
+          <button type="button" className="task-form-cancel" onClick={this.cancelForm}>
             <svg className="icon-x" width="20" height="20" viewBox="0 0 20 20">
               <line x1="0" y1="0" x2="20" y2="20" strokeWidth="4" />
               <line x1="20" y1="0" x2="0" y2="20" strokeWidth="4" />

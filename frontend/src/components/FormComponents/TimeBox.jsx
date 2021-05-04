@@ -74,10 +74,7 @@ class TimeBox extends Component {
 
       // make sure numerical value is in range
       let numVal = parseInt(value);
-      if (
-        (key === "hour" && numVal > 23) ||
-        (key === "minute" && numVal > 59)
-      ) {
+      if ((key === "hour" && numVal > 23) || (key === "minute" && numVal > 59)) {
         return;
       }
     }

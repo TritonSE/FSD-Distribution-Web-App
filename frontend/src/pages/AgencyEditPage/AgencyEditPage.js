@@ -11,14 +11,14 @@ const CONFIG = require("../../config");
 function AgencyEditPage() {
   const [agency, setAgency] = useState(null);
   const { id } = useParams();
-  let history = useHistory();
+  const history = useHistory();
 
   useEffect(() => {
     fetch(`${CONFIG.backend.uri}/agency/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + getJWT(),
+        Authorization: `Bearer ${getJWT()}`,
       },
     })
       .then((res) => res.json())
@@ -40,9 +40,8 @@ function AgencyEditPage() {
 
   if (!agency) {
     return null;
-  } else {
-    return <AgencyProfileForm agencyData={agency} editing />;
   }
+  return <AgencyProfileForm agencyData={agency} editing />;
 }
 
 export default AgencyEditPage;

@@ -6,7 +6,7 @@ import "./CreateAgencyBtn.css";
  * Component produces a button that directs the user to the AgencyForm page
  */
 function CreateAgencyBtn() {
-  let history = useHistory();
+  const history = useHistory();
 
   function handleClick() {
     history.push("/create-agency");

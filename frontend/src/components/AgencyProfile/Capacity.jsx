@@ -19,10 +19,8 @@ function Capacity({ agency }) {
     "Side By Side Fridges": agency.tableContent.sideBySideFridge,
     "Single Door Fridges": agency.tableContent.singleDoorFridge,
     "Walk-In Fridges": agency.tableContent.walkInFridge,
-    "Dry Storages (Climate Control)":
-      agency.tableContent.dryStorageClimateControl,
-    "Dry Storages (Non-CLimate Control)":
-      agency.tableContent.dryStorageNonClimateControl,
+    "Dry Storages (Climate Control)": agency.tableContent.dryStorageClimateControl,
+    "Dry Storages (Non-CLimate Control)": agency.tableContent.dryStorageNonClimateControl,
   };
 
   const transports = {

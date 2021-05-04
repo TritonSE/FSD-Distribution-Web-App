@@ -7,7 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "build": "rm -rf build && cd ../frontend && rm -rf build && npm run-script build && mv build ../backend",
-    "cmd-build": "rmdir /s build & cd ../frontend & rmdir /s build & npm run-script build & move build ../backend"
+    "cmd-build": "rmdir /s build & cd ../frontend & rmdir /s build & npm run-script build & move build ../backend",
+    "format": "prettier --write .",
+    "lint-fix": "(eslint --fix --cache --report-unused-disable-directives . || true) && prettier --write .",
+    "lint-check": "eslint --cache --report-unused-disable-directives . && prettier --check ."
   },
   "author": "",
   "license": "ISC",
@@ -26,5 +29,12 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "prettier": "^2.2.1"
   }
 }

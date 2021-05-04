@@ -145,6 +145,40 @@
   color: lightgray;
 }
 
+/* * * * Time input popups * * * */
+
+.calendar-time-popup {
+  width: 350px;
+  height: 80px;
+  position: absolute;
+  z-index: 10;
+  top: -80px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 7px;
+  cursor: default;
+  text-align: left;
+  padding: 10px;
+}
+
+.calendar-time-popup .delete-button {
+  float: right;
+  margin-right: 5px;
+  border: none;
+  background: none;
+}
+
+.calendar-time-popup .delete-button img {
+  width: 15px;
+  height: 30px;
+}
+
+.calendar-time-popup .time-input {
+  float: left;
+  margin-left: 10px;
+}
+
 /* * * * Date list * * * */
 
 .date-list {

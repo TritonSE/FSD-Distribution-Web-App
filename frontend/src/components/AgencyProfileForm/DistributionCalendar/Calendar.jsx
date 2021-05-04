@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import moment from "moment";
 import "./CalendarStyle.css";
 import Header from "./Header";
+import TimeInputPopup from "./TimeInputPopup";
 
 const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
 
@@ -22,6 +23,8 @@ const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
  * representing which default distribution days the user excluded
  * - {Function} onChange: Callback function to agency profile form
  * handleInputChange
+ * - {Function} validCheck: callback from the form page to check whether inputs
+ * passed validation, should take a String
  */
 class Calendar extends Component {
   constructor(props) {
@@ -152,6 +155,16 @@ class Calendar extends Component {
   };
 
   /**
+   * Determines if the given date is focused in the calendar.
+   *
+   * @param {String} date Date string in default format
+   * @returns true iff date === this.state.focusedDate, otherwise false
+   */
+  isFocusedDate = (date) => {
+    return date === this.state.focusedDate;
+  };
+
+  /**
    * Determines if a given date is a user excluded date
    *
    * @param {String} date String in default date format to be assessed
@@ -162,10 +175,9 @@ class Calendar extends Component {
   };
 
   /**
-   * Removes a given date from user selected dates
+   * Removes a given date from userSelectedDates, and unfocuses the date.
    *
-   * @param {String} date String in default date format to be removed from
-   * user selected dates
+   * @param {String} date String in default date format to be removed
    */
   removeSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
@@ -177,6 +189,7 @@ class Calendar extends Component {
       return;
     }
     newSelectedDates.splice(index, 1);
+    this.unfocusDate();
 
     // Update AgencyProfileForm state (and consequently local state)
     onChange("userSelectedDates", newSelectedDates);
@@ -198,9 +211,47 @@ class Calendar extends Component {
       index++;
     }
     newSelectedDates.splice(index, 0, newDate); // maintain sorted order
+    this.focusDate(newDate);
 
     // Update AgencyProfileForm state (and consequently local state)
     onChange("userSelectedDates", newSelectedDates);
+  };
+
+  /**
+   * Updates the time of this date in userSelectedDates.
+   *
+   * @param {Number} index Index in userSelectedDates to update
+   * @param {String} date String in default date format
+   * @param {String} time New start time for the date ("hh:mm")
+   */
+  updateSelectedDate = (index, date, time) => {
+    const { userSelectedDates, onChange } = this.props;
+    const newDate = `${date}T${time}Z`;
+
+    let newSelectedDates = userSelectedDates.slice();
+    newSelectedDates[index] = newDate;
+
+    onChange("userSelectedDates", newSelectedDates);
+  };
+
+  /**
+   * Sets focusedDate in this.state to the given date (excluding time), and
+   * focusedStartTime to the time from the date string.
+   *
+   * @param {String} dateTime Date string in ISO 8601 format: YYYY-MM-DDThh:mmZ
+   */
+  focusDate = (dateTime) => {
+    this.setState({
+      focusedDate: dateTime.slice(0, 10),
+      focusedStartTime: dateTime.slice(11, -1),
+    });
+  };
+
+  /**
+   * Sets focusedDate and focusedStartTime in this.state to null.
+   */
+  unfocusDate = () => {
+    this.setState({ focusedDate: null, focusedStartTime: null });
   };
 
   /**
@@ -244,11 +295,11 @@ class Calendar extends Component {
   handleDateSelect = (date) => {
     const {
       isDistributionDate,
-      isSelectedDate,
       isExcludedDate,
       isExtraneousDate,
       addSelectedDate,
-      removeSelectedDate,
+      findSelectedDate,
+      focusDate,
       addExcludedDate,
       removeExcludedDate,
     } = this;
@@ -260,8 +311,9 @@ class Calendar extends Component {
           addExcludedDate(date);
         }
       } else {
-        if (isSelectedDate(date)) {
-          removeSelectedDate(date);
+        let index = findSelectedDate(date);
+        if (index !== -1) {
+          focusDate(this.props.userSelectedDates[index]);
         } else {
           addSelectedDate(date);
         }
@@ -359,9 +411,18 @@ class Calendar extends Component {
   };
 
   render() {
-    const { calendar, todayMoment } = this.state;
-    const { label } = this.props;
-    const { handlePrev, handleNext, getDateStyle, handleDateSelect } = this;
+    const { calendar, todayMoment, focusedStartTime } = this.state;
+    const { label, validCheck } = this.props;
+    const {
+      handlePrev,
+      handleNext,
+      getDateStyle,
+      handleDateSelect,
+      isFocusedDate,
+      findSelectedDate,
+      updateSelectedDate,
+      removeSelectedDate,
+    } = this;
     return (
       <div className="calendar-container">
         <label className="calendar-label">{label}</label>
@@ -383,15 +444,28 @@ class Calendar extends Component {
             </div>
             {calendar.map((week) => (
               <div className="week" key={week}>
-                {week.map((date) => (
-                  <div
-                    key={date}
-                    className={getDateStyle(date)}
-                    onClick={() => handleDateSelect(date)}
-                  >
-                    {date.slice(8, 10)}
-                  </div>
-                ))}
+                {week.map((date) => {
+                  let index = findSelectedDate(date);
+                  return (
+                    <div
+                      key={date}
+                      className={getDateStyle(date)}
+                      onClick={() => handleDateSelect(date)}
+                    >
+                      {date.slice(8, 10)}
+                      {isFocusedDate(date) && (
+                        <TimeInputPopup
+                          value={focusedStartTime}
+                          valid={validCheck(`userSelectedDates[${index}]`)}
+                          onChange={(time) =>
+                            updateSelectedDate(index, date, time)
+                          }
+                          onDelete={() => removeSelectedDate(date)}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             ))}
           </div>

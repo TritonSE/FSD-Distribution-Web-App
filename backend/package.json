@@ -10,7 +10,8 @@
     "cmd-build": "rmdir /s build & cd ../frontend & rmdir /s build & npm run-script build & move build ../backend",
     "format": "prettier --write .",
     "lint-fix": "(eslint --fix --cache --report-unused-disable-directives . || true) && prettier --write .",
-    "lint-check": "eslint --cache --report-unused-disable-directives . && prettier --check ."
+    "lint-check": "eslint --cache --report-unused-disable-directives . && prettier --check .",
+    "prepare": "cd .. && husky install .husky"
   },
   "author": "",
   "license": "ISC",
@@ -35,6 +36,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.22.1",
+    "husky": "^6.0.0",
     "prettier": "^2.2.1"
   }
 }

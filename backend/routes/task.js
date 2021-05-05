@@ -1,6 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const passport = require("passport");
 const { body, validationResult } = require("express-validator");
 
 const { isAuthenticated } = require("../middleware/auth");
@@ -30,20 +28,20 @@ const validationChain = [
 router.put("/", validationChain, async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({
+    res.status(400).json({
       fields: errors.array().map((error) => error.param),
     });
+  } else {
+    const task = new Task(req.body);
+    task
+      .save()
+      .then(() => {
+        res.status(200).json({ task });
+      })
+      .catch((err) => {
+        next(err);
+      });
   }
-
-  const task = new Task(req.body);
-  task
-    .save()
-    .then(() => {
-      res.status(200).json({ task });
-    })
-    .catch((err) => {
-      next(err);
-    });
 });
 
 /**
@@ -57,29 +55,29 @@ router.put("/", validationChain, async (req, res, next) => {
 router.post("/:id", validationChain, async (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({
+    res.status(400).json({
       fields: errors.array().map((error) => error.param),
     });
+  } else {
+    Task.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      .then((task) => {
+        if (task.status !== "Completed" && task.dateCompleted) {
+          // remove dateCompleted field if not completed status
+          return Task.findByIdAndUpdate(
+            req.params.id,
+            { $unset: { dateCompleted: 1 } },
+            { new: true }
+          );
+        }
+        return task;
+      })
+      .then((task) => {
+        res.status(200).json({ task });
+      })
+      .catch((err) => {
+        next(err);
+      });
   }
-
-  Task.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then((task) => {
-      if (task.status !== "Completed" && task.dateCompleted) {
-        // remove dateCompleted field if not completed status
-        return Task.findByIdAndUpdate(
-          req.params.id,
-          { $unset: { dateCompleted: 1 } },
-          { new: true }
-        );
-      }
-      return task;
-    })
-    .then((task) => {
-      res.status(200).json({ task });
-    })
-    .catch((err) => {
-      next(err);
-    });
 });
 
 /**

@@ -190,9 +190,7 @@ class TimeBox extends Component {
         &nbsp;
         <select
           value={ampm}
-          onChange={(event) =>
-            this.setState({ ampm: event.target.value }, this.sendUpdates)
-          }
+          onChange={(event) => this.setState({ ampm: event.target.value }, this.sendUpdates)}
         >
           <option>AM</option>
           <option>PM</option>

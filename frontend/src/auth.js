@@ -4,7 +4,7 @@
  */
 
 function isAuthenticated() {
-  return localStorage.hasOwnProperty("DWA:token");
+  return localStorage.getItem("DWA:token") !== null;
 }
 
 function getJWT() {

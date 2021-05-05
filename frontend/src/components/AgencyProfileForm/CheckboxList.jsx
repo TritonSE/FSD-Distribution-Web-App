@@ -35,18 +35,10 @@ class CheckboxList extends Component {
       listColumns = (
         <FormRow>
           <FormCol>
-            <CheckboxColumn
-              options={firstColumnOptions}
-              onChange={onChange}
-              wide
-            />
+            <CheckboxColumn options={firstColumnOptions} onChange={onChange} wide />
           </FormCol>
           <FormCol>
-            <CheckboxColumn
-              options={secondColumnOptions}
-              onChange={onChange}
-              wide
-            />
+            <CheckboxColumn options={secondColumnOptions} onChange={onChange} wide />
           </FormCol>
         </FormRow>
       );

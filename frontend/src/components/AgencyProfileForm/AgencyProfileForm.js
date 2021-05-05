@@ -182,33 +182,8 @@ class AgencyProfileForm extends Component {
           data.retailRescueStartTimes[day] = timeString.slice(11, 16);
         }
       }
-
-      data.userExcludedDates = data.userExcludedDates.map((date) =>
-        this.unfixDate(date.slice(0, 10))
-      );
-      data.userSelectedDates = data.userSelectedDates.map((date) =>
-        this.unfixDate(date.slice(0, 10))
-      );
     }
     this.state = data;
-  }
-
-  /**
-   * Changes date format from MM/DD/YYYY to YYYY-MM-DD.
-   * @param {String} date Date string with format MM/DD/YYYY
-   * @returns Date string with format YYYY-MM-DD
-   */
-  fixDate(date) {
-    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
-  }
-
-  /**
-   * Changes date format from YYYY-MM-DD to MM/DD/YYYY
-   * @param {String} date Date string with format YYYY-MM-DD
-   * @returns Date string with format MM/DD/YYYY
-   */
-  unfixDate(date) {
-    return `${date.slice(5, 7)}/${date.slice(8)}/${date.slice(0, 4)}`;
   }
 
   /**
@@ -225,7 +200,7 @@ class AgencyProfileForm extends Component {
 
     // fix distribution and retail rescue formats
     // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
-    const timeBase = `${this.fixDate(data.distributionStartDate)}T`;
+    const timeBase = `${AgencyProfileForm.fixDate(data.distributionStartDate)}T`;
     const timeEnd = "Z";
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
@@ -259,6 +234,15 @@ class AgencyProfileForm extends Component {
   }
 
   /**
+   * Changes date format from MM/DD/YYYY to YYYY-MM-DD.
+   * @param {String} date Date string with format MM/DD/YYYY
+   * @returns Date string with format YYYY-MM-DD
+   */
+  static fixDate(date) {
+    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
+  }
+
+  /**
    * Callback to handle when the user makes changes to any input field. Updates
    * the state with the given key and value, if the key already exists in the
    * state.
@@ -270,12 +254,14 @@ class AgencyProfileForm extends Component {
     if (index !== -1) {
       const key1 = key.slice(0, index);
       const key2 = key.slice(index + 1);
-      if (this.state.hasOwnProperty(key1) && this.state[key1].hasOwnProperty(key2)) {
-        const updated = { ...this.state[key1] };
-        updated[key2] = newValue;
-        this.setState({ [key1]: updated });
+      if (key1 in this.state && key2 in this.state[key1]) {
+        this.setState((prevState) => {
+          const updated = { ...prevState[key1] };
+          updated[key2] = newValue;
+          return { [key1]: updated };
+        });
       }
-    } else if (this.state.hasOwnProperty(key)) {
+    } else if (key in this.state) {
       this.setState({ [key]: newValue });
     }
   };

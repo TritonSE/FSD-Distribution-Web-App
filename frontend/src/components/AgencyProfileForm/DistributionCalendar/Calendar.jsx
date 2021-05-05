@@ -229,7 +229,9 @@ class Calendar extends Component {
     let newSelectedDates = userSelectedDates.slice();
     newSelectedDates[index] = newDate;
 
-    onChange("userSelectedDates", newSelectedDates);
+    this.focusDate(newDate, () =>
+      onChange("userSelectedDates", newSelectedDates)
+    );
   };
 
   /**

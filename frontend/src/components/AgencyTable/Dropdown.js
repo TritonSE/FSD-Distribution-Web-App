@@ -12,14 +12,7 @@ import "./Dropdown.css";
  * - {String} The dropdown option for the current multiselect. Ex: Staff
  * - {Function} paginate: Function that changes the page, should execute after filtering
  */
-const Dropdown = ({
-  filters,
-  selected,
-  changeSelected,
-  changeFilter,
-  option,
-  paginate,
-}) => {
+const Dropdown = ({ filters, selected, changeSelected, changeFilter, option, paginate }) => {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -32,7 +25,7 @@ const Dropdown = ({
     };
   });
   function showCheckboxes() {
-    var checkboxes = document.getElementById(option);
+    const checkboxes = document.getElementById(option);
     if (checkboxes !== null) {
       if (!expanded) {
         checkboxes.style.display = "block";
@@ -59,15 +52,11 @@ const Dropdown = ({
   return (
     <form>
       <div className="multiselect">
-        <div
-          className="selectBox"
-          onClick={showCheckboxes}
-          id={option.substring(0, 4)}
-        >
+        <div className="selectBox" onClick={showCheckboxes} id={option.substring(0, 4)}>
           <select textDecoration="none">
             <option>{option}</option>
           </select>
-          <div unselectable="on" className="overSelect"></div>
+          <div unselectable="on" className="overSelect" />
         </div>
       </div>
       <div className="checkboxes" id={option}>
@@ -78,9 +67,9 @@ const Dropdown = ({
               key={key}
               id={key}
               onChange={(e) =>
-                //when checkbox is clicked, add select label, filter, and paginate
+                // when checkbox is clicked, add select label, filter, and paginate
                 {
-                  let newStat = !filters[option][key];
+                  const newStat = !filters[option][key];
                   newStat ? (selected[key] = option) : delete selected[key];
                   changeSelected(selected);
                   changeFilter({

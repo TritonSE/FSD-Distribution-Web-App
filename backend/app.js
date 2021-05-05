@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Authentication
 require("./middleware/passport")();
+
 app.use(passport.initialize());
 
 // Routes

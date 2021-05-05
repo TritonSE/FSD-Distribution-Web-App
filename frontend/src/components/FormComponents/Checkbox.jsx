@@ -26,18 +26,8 @@ class Checkbox extends Component {
   render() {
     return (
       <label className="custom-checkbox">
-        <input
-          type="checkbox"
-          onChange={this.onChange}
-          checked={this.props.isChecked}
-        />
-        <svg
-          width="23"
-          height="23"
-          viewBox="0 0 23 23"
-          aria-hidden="true"
-          focusable="false"
-        >
+        <input type="checkbox" onChange={this.onChange} checked={this.props.isChecked} />
+        <svg width="23" height="23" viewBox="0 0 23 23" aria-hidden="true" focusable="false">
           <rect
             className="custom-checkbox-bg"
             x="0"

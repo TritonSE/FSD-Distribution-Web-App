@@ -86,10 +86,7 @@ class Calendar extends Component {
     let isDistDate = distributionDays[currDateMoment.day()];
 
     // Verify day is on or after recurrence startDate
-    if (
-      currDateMoment.isAfter(startDateMoment) ||
-      currDateMoment.isSame(startDateMoment)
-    ) {
+    if (currDateMoment.isAfter(startDateMoment) || currDateMoment.isSame(startDateMoment)) {
       // Verify day meet frequency requirements
       let weekDiff = currDateMoment.week() - startDateMoment.week();
       let isOnWeek = weekDiff % frequency === 0;
@@ -268,11 +265,7 @@ class Calendar extends Component {
    */
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      const {
-        userSelectedDates,
-        userExcludedDates,
-        distributionStartDate,
-      } = this.props;
+      const { userSelectedDates, userExcludedDates, distributionStartDate } = this.props;
       for (let selectedDate of userSelectedDates) {
         if (this.isDistributionDate(selectedDate)) {
           this.removeSelectedDate(selectedDate);
@@ -301,12 +294,7 @@ class Calendar extends Component {
    * @returns String with the appropriate style
    */
   getDateStyle = (date) => {
-    const {
-      isDistributionDate,
-      isSelectedDate,
-      isExcludedDate,
-      isExtraneousDate,
-    } = this;
+    const { isDistributionDate, isSelectedDate, isExcludedDate, isExtraneousDate } = this;
     let style = "";
 
     if (isDistributionDate(date)) {
@@ -332,29 +320,20 @@ class Calendar extends Component {
       <div className="calendar-container">
         <label className="calendar-label">{label}</label>
         <div className="calendar">
-          <Header
-            value={todayMoment}
-            handlePrev={handlePrev}
-            handleNext={handleNext}
-          />
+          <Header value={todayMoment} handlePrev={handlePrev} handleNext={handleNext} />
           <div className="body">
             <div className="day-names">
-              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(
-                (weekDay) => (
-                  <div className="week" key={weekDay}>
-                    {weekDay}
-                  </div>
-                )
-              )}
+              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((weekDay) => (
+                <div className="week" key={weekDay}>
+                  {weekDay}
+                </div>
+              ))}
             </div>
             {calendar.map((week) => (
               <div key={week}>
                 {week.map((date) => (
                   <div className="day" key={date}>
-                    <div
-                      className={getDateStyle(date)}
-                      onClick={() => handleDateSelect(date)}
-                    >
+                    <div className={getDateStyle(date)} onClick={() => handleDateSelect(date)}>
                       {date.slice(3, 5)}
                     </div>
                   </div>

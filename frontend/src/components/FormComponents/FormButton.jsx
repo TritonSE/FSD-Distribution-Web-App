@@ -26,12 +26,7 @@ class FormButton extends Component {
   render() {
     const { onClick, title, style } = this.props;
     return (
-      <button
-        type="button"
-        className={this.getClass()}
-        onClick={onClick}
-        style={style}
-      >
+      <button type="button" className={this.getClass()} onClick={onClick} style={style}>
         {title}
       </button>
     );

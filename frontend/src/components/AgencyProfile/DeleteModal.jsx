@@ -13,13 +13,7 @@ import { useHistory } from "react-router-dom";
  * @param {*} agencyId
  * @returns {*} Delete Agency Modal Component
  */
-function DeleteModal({
-  showModal,
-  toggleModal,
-  agencyName,
-  agencyNumber,
-  agencyId,
-}) {
+function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyId }) {
   const history = useHistory();
 
   /**
@@ -49,9 +43,7 @@ function DeleteModal({
                 </b>
                 ?
               </p>
-              <p id="warning">
-                Note: All files and data will be lost and non restorable
-              </p>
+              <p id="warning">Note: All files and data will be lost and non restorable</p>
             </div>
             <div className="button-row">
               <div className="delete-form-col">

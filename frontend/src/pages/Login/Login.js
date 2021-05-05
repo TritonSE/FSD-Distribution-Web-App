@@ -2,42 +2,43 @@ import React from "react";
 import { TextField, Button, Typography, makeStyles, Snackbar } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
 import { setJWT, setUser } from "../../auth";
-import "./Login.css"
+import "./Login.css";
+
 const config = require("../../config");
 
 const useStyles = makeStyles((theme) => ({
   centered: {
-    textAlign: 'center'
+    textAlign: "center",
   },
   form: {
-    //Input Field - General Layout
-    '& .MuiTextField-root': {
+    // Input Field - General Layout
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: '95%'
+      width: "95%",
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "black"
+      borderColor: "black",
     },
     "& .MuiInputLabel-outlined.Mui-focused": {
-      color: "black"
+      color: "black",
     },
-    '& .MuiTypography-root': {
+    "& .MuiTypography-root": {
       margin: theme.spacing(1),
-      width: '100%'
+      width: "100%",
     },
 
-    '& .MuiButton-root': {
+    "& .MuiButton-root": {
       margin: theme.spacing(3),
-      background: '#54682f',
-      width: '30%'
-    }
+      background: "#54682f",
+      width: "30%",
+    },
   },
   title: {
     margin: theme.spacing(2),
-    textAlign: 'center',
-    fontWeight: 'bolder',
-    textTransform: 'uppercase'
-  }
+    textAlign: "center",
+    fontWeight: "bolder",
+    textTransform: "uppercase",
+  },
 }));
 
 /**
@@ -53,32 +54,32 @@ const Login = (props) => {
     password: "",
     snack: {
       message: "",
-      open: false
+      open: false,
     },
     errors: {
       email: false,
-      password: false
+      password: false,
     },
-    form_disabled: false
+    form_disabled: false,
   });
 
   const handleChange = (prop) => (event) => {
     setState({ ...state, [prop]: event.target.value });
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const submission = {
       username: state.email,
-      password: state.password
+      password: state.password,
     };
 
     try {
       const response = await fetch(`${config.backend.uri}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submission)
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(submission),
       });
 
       if (response.ok) {
@@ -88,42 +89,80 @@ const Login = (props) => {
         history.push("/");
         props.changeIsLogged(true);
       } else if (response.status === 401) {
-        document.body.style.cursor= null;
-        setState({...state, errors: {email: true, password: true}, form_disabled: false, snack: {message: 'Invalid Login: Email or password not recognized.', open: true}});
+        document.body.style.cursor = null;
+        setState({
+          ...state,
+          errors: { email: true, password: true },
+          form_disabled: false,
+          snack: { message: "Invalid Login: Email or password not recognized.", open: true },
+        });
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
-      setState({...state, errors: {email: false, password: false}, form_disabled: false, snack: {message: `An error occurred: ${error.message}`, open: true}});
+      setState({
+        ...state,
+        errors: { email: false, password: false },
+        form_disabled: false,
+        snack: { message: `An error occurred: ${error.message}`, open: true },
+      });
     }
-  }
+  };
 
   // Handles the closing of the Snackbar. Prevents Snackbar from closing when user clicks on the screen.
   // Allows the Snackbar to persist for 6 seconds.
   const handleSnackClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
-    setState({...state, snack: {...state.snack, open: false}});
+    setState({ ...state, snack: { ...state.snack, open: false } });
   };
 
   return (
     <div className="Main">
       <div className="Border">
-        <Typography variant="h4" className={classes.title} style={{ fontSize: "2.5rem" }} > Login </Typography>
-        <p className={classes.centered} style={{ color: "#8d8d8d" }}> Sign-in into an existing account below </p>
+        <Typography variant="h4" className={classes.title} style={{ fontSize: "2.5rem" }}>
+          {" "}
+          Login{" "}
+        </Typography>
+        <p className={classes.centered} style={{ color: "#8d8d8d" }}>
+          {" "}
+          Sign-in into an existing account below{" "}
+        </p>
         <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField label='Email' variant='outlined' type='email' onChange={handleChange('email')} required={true} error={state.errors.email} />
-          <TextField label='Password' variant='outlined' type='password' onChange={handleChange('password')} required={true} error={state.errors.password} />
-          <Link to="/register" className="Child" as={Link}><Typography>Register Account</Typography></Link>
+          <TextField
+            label="Email"
+            variant="outlined"
+            type="email"
+            onChange={handleChange("email")}
+            required
+            error={state.errors.email}
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            type="password"
+            onChange={handleChange("password")}
+            required
+            error={state.errors.password}
+          />
+          <Link to="/register" className="Child" as={Link}>
+            <Typography>Register Account</Typography>
+          </Link>
           <div className={classes.centered}>
-            <Button variant="contained" type="submit" disabled={state.form_disabled}>Login</Button>
+            <Button variant="contained" type="submit" disabled={state.form_disabled}>
+              Login
+            </Button>
           </div>
         </form>
       </div>
-      <Snackbar open={state.snack.open} autoHideDuration={6000} onClose={handleSnackClose} message={state.snack.message}/>
+      <Snackbar
+        open={state.snack.open}
+        autoHideDuration={6000}
+        onClose={handleSnackClose}
+        message={state.snack.message}
+      />
     </div>
   );
-}
+};
 
 export default Login;

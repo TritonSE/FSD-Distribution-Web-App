@@ -25,18 +25,9 @@ function AgencyTaskColumn({ header, tasks, color, onEditTask, onCreateTask }) {
       </div>
       <div>
         {tasks.map((task, index) => (
-          <AgencyTaskItem
-            key={index}
-            {...task}
-            color={color}
-            onClick={onEditTask}
-          />
+          <AgencyTaskItem key={index} {...task} color={color} onClick={onEditTask} />
         ))}
-        <button
-          type="button"
-          className="add-task-button"
-          onClick={() => onCreateTask(header)}
-        >
+        <button type="button" className="add-task-button" onClick={() => onCreateTask(header)}>
           <svg
             className="icon-plus"
             width="22"

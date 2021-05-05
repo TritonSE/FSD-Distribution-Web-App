@@ -28,10 +28,7 @@ function DataTable({ data }) {
           <tr key={dat.tableContent.agencyNumber}>
             <td>{dat.tableContent.agencyNumber}</td>
             <td>
-              <Link
-                as={Link}
-                to={{ pathname: `/agency-profile/${dat._id}`, data: dat._id }}
-              >
+              <Link as={Link} to={{ pathname: `/agency-profile/${dat._id}`, data: dat._id }}>
                 {dat.tableContent.name}
               </Link>
             </td>

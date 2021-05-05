@@ -53,19 +53,17 @@ const Navbar = (props) => {
   return (
     <div>
       <div className="logo-container">
-        <img src="/fsd_logo300.png" alt="feedLogo" id="logo"></img>
+        <img src="/fsd_logo300.png" alt="feedLogo" id="logo" />
       </div>
       <nav className="NavbarItems">
         <ul className="nav-menu">
-          {MenuItems.map((item, index) => {
-            return (
-              <li key={index}>
-                <Link className={item.className} as={Link} to={item.url}>
-                  {item.title}
-                </Link>
-              </li>
-            );
-          })}
+          {MenuItems.map((item, index) => (
+            <li key={index}>
+              <Link className={item.className} as={Link} to={item.url}>
+                {item.title}
+              </Link>
+            </li>
+          ))}
           {menuItem}
         </ul>
       </nav>

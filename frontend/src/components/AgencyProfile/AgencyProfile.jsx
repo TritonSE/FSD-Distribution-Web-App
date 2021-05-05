@@ -34,45 +34,25 @@ function AgencyProfile() {
   const getScrollPositions = () => {
     let positions = [];
     if (document.getElementById("location-container") !== null) {
-      positions.push(
-        document.getElementById("location-container").getBoundingClientRect()
-          .top
-      );
+      positions.push(document.getElementById("location-container").getBoundingClientRect().top);
     }
     if (document.getElementById("contacts-container") !== null) {
-      positions.push(
-        document.getElementById("contacts-container").getBoundingClientRect()
-          .top
-      );
+      positions.push(document.getElementById("contacts-container").getBoundingClientRect().top);
     }
     if (document.getElementById("capacity-container") !== null) {
-      positions.push(
-        document.getElementById("capacity-container").getBoundingClientRect()
-          .top
-      );
+      positions.push(document.getElementById("capacity-container").getBoundingClientRect().top);
     }
     if (document.getElementById("compliance-container") !== null) {
-      positions.push(
-        document.getElementById("compliance-container").getBoundingClientRect()
-          .top
-      );
+      positions.push(document.getElementById("compliance-container").getBoundingClientRect().top);
     }
     if (document.getElementById("demographics-container") !== null) {
-      positions.push(
-        document
-          .getElementById("demographics-container")
-          .getBoundingClientRect().top
-      );
+      positions.push(document.getElementById("demographics-container").getBoundingClientRect().top);
     }
     if (document.getElementById("retail-container") !== null) {
-      positions.push(
-        document.getElementById("retail-container").getBoundingClientRect().top
-      );
+      positions.push(document.getElementById("retail-container").getBoundingClientRect().top);
     }
     if (document.getElementById("task-container") !== null) {
-      positions.push(
-        document.getElementById("task-container").getBoundingClientRect().top
-      );
+      positions.push(document.getElementById("task-container").getBoundingClientRect().top);
     }
     return positions;
   };
@@ -94,8 +74,7 @@ function AgencyProfile() {
         //number of pixels from the top of category's div to top of viewport
         //when a sidebar category is clicked, window should scroll until this distance is achieved
         const topDist = 159;
-        scrollNum =
-          document.getElementById(el).getBoundingClientRect().top - topDist;
+        scrollNum = document.getElementById(el).getBoundingClientRect().top - topDist;
       }
     }
 
@@ -228,10 +207,7 @@ function AgencyProfile() {
         <AgencyBar agency={agency} />
         <div className="agency-profile-container">
           <div className="agency-sidebar-container">
-            <AgencySideBar
-              getScrollPositions={getScrollPositions}
-              ScrollTo={ScrollTo}
-            />
+            <AgencySideBar getScrollPositions={getScrollPositions} ScrollTo={ScrollTo} />
           </div>
           <div className="agency-profile-info">
             <div id="location-container" className="Test">
@@ -255,9 +231,7 @@ function AgencyProfile() {
             <div id="task-container">
               <AgencyTaskSection
                 taskList={tasks}
-                onEditTask={(index) =>
-                  setSelectedTask({ ...tasks[index], index: index })
-                }
+                onEditTask={(index) => setSelectedTask({ ...tasks[index], index: index })}
                 onCreateTask={(status) =>
                   setSelectedTask({ title: "", dueDate: "", status: status })
                 }

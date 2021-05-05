@@ -6,38 +6,40 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const passport = require("passport");
-require('dotenv').config();
+require("dotenv").config();
 
 // Database
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useUnifiedTopology', true)
-mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017');
-mongoose.connection.once('open', () => {
-  console.log('Established connection to MongoDB.');
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useUnifiedTopology", true);
+mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017");
+mongoose.connection.once("open", () => {
+  console.log("Established connection to MongoDB.");
 });
 
 const app = express();
 
 // Middleware
-app.use(morgan('combined'));
-app.use(cors({ methods: ['GET', 'POST', 'PUT', 'DELETE'] }));
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(morgan("combined"));
+app.use(cors({ methods: ["GET", "POST", "PUT", "DELETE"] }));
+app.use(express.static(path.join(__dirname, "build")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Authentication
-require('./middleware/passport')();
+require("./middleware/passport")();
+
 app.use(passport.initialize());
 
 // Routes
-app.use('/agency', require('./routes/agency'));
-app.use('/login', require('./routes/login'));
-app.use('/register', require('./routes/register'));
-app.use('/authorize', require('./routes/authorize'));
+app.use("/agency", require("./routes/agency"));
+app.use("/task", require("./routes/task"));
+app.use("/login", require("./routes/login"));
+app.use("/register", require("./routes/register"));
+app.use("/authorize", require("./routes/authorize"));
 
 // Catch-all route
-app.get('/*', (req, res, next) => {
-  res.sendFile(path.join(__dirname, 'build/index.html'), (err) => {
+app.get("/*", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "build/index.html"), (err) => {
     if (err) {
       next();
     }
@@ -54,9 +56,9 @@ app.use((err, req, res, next) => {
   res.json({ message: err.message });
 });
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
-  console.log('Express server started on port %s', port);
+  console.log("Express server started on port %s", port);
 });
 
 module.exports = app;

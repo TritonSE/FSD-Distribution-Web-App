@@ -27,9 +27,11 @@
   margin-right: 22px;
 }
 
-.button-center {
+/* * * * Task Form Butttons  * * * */
+
+.button-container {
+  margin-top: 40px;
   margin-left: -55px;
-  margin-top: 62px;
   text-align: center;
 }
 
@@ -53,6 +55,6 @@
 
 /* * * * Overrides * * * */
 
-.form-input-box-wide {
+.task-form .form-input-box-wide {
   width: 607px;
 }

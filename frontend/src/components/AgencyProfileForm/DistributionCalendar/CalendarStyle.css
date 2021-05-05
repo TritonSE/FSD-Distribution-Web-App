@@ -126,7 +126,7 @@
 }
 
 .calendar .day.selected {
-  background-color: #ccee8e;
+  background-color: #aace67b0;
   color: black;
 }
 
@@ -141,12 +141,12 @@
 }
 
 .calendar .day.extraneous.selected {
-  background-color: #a2a7ac;
+  background-color: #778899b0;
   color: lightgray;
 }
 
 .calendar .day.selected.invalid {
-  background-color: #fd6969;
+  background-color: #fc0808b0;
 }
 
 /* * * * Time input popups * * * */

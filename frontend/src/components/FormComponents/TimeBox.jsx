@@ -137,10 +137,7 @@ class TimeBox extends Component {
       // this allows 0 for the hour, even though that's not valid by itself,
       // because it might be a leading 0
       let numVal = parseInt(value);
-      if (
-        (key === "hour" && numVal > 12) ||
-        (key === "minute" && numVal > 59)
-      ) {
+      if ((key === "hour" && numVal > 12) || (key === "minute" && numVal > 59)) {
         return;
       }
     }

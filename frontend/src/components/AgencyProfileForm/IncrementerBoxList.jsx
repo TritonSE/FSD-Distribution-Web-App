@@ -50,13 +50,7 @@ class IncrementerBoxList extends Component {
         </FormRow>
       );
     } else {
-      listColumns = (
-        <IncrementerBoxColumn
-          options={options}
-          indexBuffer={0}
-          onChange={onChange}
-        />
-      );
+      listColumns = <IncrementerBoxColumn options={options} indexBuffer={0} onChange={onChange} />;
     }
 
     return (

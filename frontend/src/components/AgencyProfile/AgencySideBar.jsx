@@ -27,8 +27,7 @@ function AgencySideBar({ getScrollPositions, ScrollTo }) {
       document.getElementById("compliance").className = "header-side-container";
     }
     if (document.getElementById("demographics") !== null) {
-      document.getElementById("demographics").className =
-        "header-side-container";
+      document.getElementById("demographics").className = "header-side-container";
     }
     if (document.getElementById("retail") !== null) {
       document.getElementById("retail").className = "header-side-container";
@@ -49,49 +48,41 @@ function AgencySideBar({ getScrollPositions, ScrollTo }) {
     //is less than or equal to 160 pixels from the top of the viewport, the threshold distance
     const thresholdDist = 160;
     switch (true) {
-      case window.innerHeight + window.pageYOffset >=
-        document.body.offsetHeight:
+      case window.innerHeight + window.pageYOffset >= document.body.offsetHeight:
         resetSideBar();
         if (document.getElementById("tasks") !== null) {
-          document.getElementById("tasks").className =
-            "header-side-active-container";
+          document.getElementById("tasks").className = "header-side-active-container";
         }
         setScrollPos("tasks");
         break;
       case positions[5] <= thresholdDist:
         resetSideBar();
-        document.getElementById("retail").className =
-          "header-side-active-container";
+        document.getElementById("retail").className = "header-side-active-container";
         setScrollPos("retail");
         break;
       case positions[4] <= thresholdDist:
         resetSideBar();
-        document.getElementById("demographics").className =
-          "header-side-active-container";
+        document.getElementById("demographics").className = "header-side-active-container";
         setScrollPos("demographics");
         break;
       case positions[3] <= thresholdDist:
         resetSideBar();
-        document.getElementById("compliance").className =
-          "header-side-active-container";
+        document.getElementById("compliance").className = "header-side-active-container";
         setScrollPos("compliance");
         break;
       case positions[2] <= thresholdDist:
         resetSideBar();
-        document.getElementById("capacity").className =
-          "header-side-active-container";
+        document.getElementById("capacity").className = "header-side-active-container";
         setScrollPos("capacity");
         break;
       case positions[1] <= thresholdDist:
         resetSideBar();
-        document.getElementById("contacts").className =
-          "header-side-active-container";
+        document.getElementById("contacts").className = "header-side-active-container";
         setScrollPos("contacts");
         break;
       default:
         resetSideBar();
-        document.getElementById("main").className =
-          "header-side-active-container";
+        document.getElementById("main").className = "header-side-active-container";
         setScrollPos("main");
         break;
     }

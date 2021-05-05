@@ -88,10 +88,7 @@ class Calendar extends Component {
     let isDistDate = distributionDays[currDateMoment.day()];
 
     // Verify day is on or after recurrence startDate
-    if (
-      currDateMoment.isAfter(startDateMoment) ||
-      currDateMoment.isSame(startDateMoment)
-    ) {
+    if (currDateMoment.isAfter(startDateMoment) || currDateMoment.isSame(startDateMoment)) {
       // Verify day meet frequency requirements
       let weekDiff = currDateMoment.week() - startDateMoment.week();
       let isOnWeek = weekDiff % frequency === 0;
@@ -210,9 +207,7 @@ class Calendar extends Component {
     }
     newSelectedDates.splice(index, 0, newDate); // maintain sorted order
 
-    this.focusDate(newDate, () =>
-      onChange("userSelectedDates", newSelectedDates)
-    );
+    this.focusDate(newDate, () => onChange("userSelectedDates", newSelectedDates));
   };
 
   /**
@@ -229,9 +224,7 @@ class Calendar extends Component {
     let newSelectedDates = userSelectedDates.slice();
     newSelectedDates[index] = newDate;
 
-    this.focusDate(newDate, () =>
-      onChange("userSelectedDates", newSelectedDates)
-    );
+    this.focusDate(newDate, () => onChange("userSelectedDates", newSelectedDates));
   };
 
   /**
@@ -359,11 +352,7 @@ class Calendar extends Component {
    */
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      const {
-        userSelectedDates,
-        userExcludedDates,
-        distributionStartDate,
-      } = this.props;
+      const { userSelectedDates, userExcludedDates, distributionStartDate } = this.props;
 
       // if the user just checked a new distribution weekday, then remove any
       // selected/excluded dates of that weekday
@@ -396,13 +385,8 @@ class Calendar extends Component {
    * selected date)
    * @returns String with the appropriate style
    */
-  getDateStyle = (date, valid) => {
-    const {
-      isDistributionDate,
-      isSelectedDate,
-      isExcludedDate,
-      isExtraneousDate,
-    } = this;
+  getDateStyle = (date) => {
+    const { isDistributionDate, isSelectedDate, isExcludedDate, isExtraneousDate } = this;
     let style = "day";
 
     if (isDistributionDate(date)) {
@@ -441,20 +425,14 @@ class Calendar extends Component {
       <div className="calendar-container">
         <label className="calendar-label">{label}</label>
         <div className="calendar">
-          <Header
-            value={todayMoment}
-            handlePrev={handlePrev}
-            handleNext={handleNext}
-          />
+          <Header value={todayMoment} handlePrev={handlePrev} handleNext={handleNext} />
           <div className="body">
             <div className="week">
-              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map(
-                (weekDay) => (
-                  <div className="day-name" key={weekDay}>
-                    {weekDay}
-                  </div>
-                )
-              )}
+              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((weekDay) => (
+                <div className="day-name" key={weekDay}>
+                  {weekDay}
+                </div>
+              ))}
             </div>
             {calendar.map((week) => (
               <div className="week" key={week}>
@@ -476,9 +454,7 @@ class Calendar extends Component {
                           value={focusedStartTime}
                           valid={valid}
                           shown={isFocusedDate(date)}
-                          onChange={(time) =>
-                            updateSelectedDate(index, date, time)
-                          }
+                          onChange={(time) => updateSelectedDate(index, date, time)}
                           onDelete={() => removeSelectedDate(date)}
                           onHide={unfocusDate}
                         />

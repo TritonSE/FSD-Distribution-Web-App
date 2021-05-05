@@ -1,4 +1,4 @@
-.Border{
+.Border {
   border: 6px solid #54682f;
   padding: 2vw;
   display: flex;
@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-.Main{
+.Main {
   display: flex;
   flex-direction: column;
   margin-top: 5vw;

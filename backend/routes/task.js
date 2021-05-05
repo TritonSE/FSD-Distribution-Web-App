@@ -5,6 +5,7 @@ const { body, validationResult } = require("express-validator");
 
 const { isAuthenticated } = require("../middleware/auth");
 const { Task } = require("../models");
+
 const router = express.Router();
 
 /**
@@ -38,7 +39,7 @@ router.put("/", validationChain, async (req, res, next) => {
   task
     .save()
     .then(() => {
-      res.status(200).json({ task: task });
+      res.status(200).json({ task });
     })
     .catch((err) => {
       next(err);
@@ -70,12 +71,11 @@ router.post("/:id", validationChain, async (req, res, next) => {
           { $unset: { dateCompleted: 1 } },
           { new: true }
         );
-      } else {
-        return task;
       }
+      return task;
     })
     .then((task) => {
-      res.status(200).json({ task: task });
+      res.status(200).json({ task });
     })
     .catch((err) => {
       next(err);
@@ -93,7 +93,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
 router.get("/agency/:id", isAuthenticated, async (req, res, next) => {
   Task.find({ agencyID: req.params.id })
     .then((tasks) => {
-      res.status(200).json({ tasks: tasks });
+      res.status(200).json({ tasks });
     })
     .catch((err) => {
       next(err);

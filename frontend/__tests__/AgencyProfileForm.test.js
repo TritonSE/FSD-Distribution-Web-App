@@ -6,9 +6,8 @@ describe("AgencyProfileForm.handleInputChange", () => {
   it("updates state for existing keys", () => {
     // calls handleInputChange() with various (known) keys and test values to
     // check that it updates AgencyProfileForm's state correctly
-    const component = TestRenderer.create(
-      <AgencyProfileForm.WrappedComponent agencyData={null} />
-    ).root.instance;
+    const component = TestRenderer.create(<AgencyProfileForm.WrappedComponent agencyData={null} />)
+      .root.instance;
 
     // string value
     expect(component.state.tableContent.agencyNumber).toBe("");
@@ -75,9 +74,8 @@ describe("AgencyProfileForm.handleInputChange", () => {
   it("doesn't update state for unknown keys", () => {
     // calls handleInputChange() with an unknown key to check that it rejects
     // the change and doesn't add it to the state
-    const component = TestRenderer.create(
-      <AgencyProfileForm.WrappedComponent agencyData={null} />
-    ).root.instance;
+    const component = TestRenderer.create(<AgencyProfileForm.WrappedComponent agencyData={null} />)
+      .root.instance;
 
     expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
     component.handleInputChange("keyThatShouldNotBeUsed", "abcd");
@@ -93,9 +91,8 @@ describe("AgencyProfileForm.addAddress", () => {
   it("adds an empty string to the array of additional addresses", () => {
     // checks that addAddress() does append an empty string to the string array
     // holding additional addresses in the state
-    const component = TestRenderer.create(
-      <AgencyProfileForm.WrappedComponent agencyData={null} />
-    ).root.instance;
+    const component = TestRenderer.create(<AgencyProfileForm.WrappedComponent agencyData={null} />)
+      .root.instance;
 
     component.handleInputChange("additionalAddresses", ["address1"]);
     // the toEqual() assertion does a recursive check for "deep" equality
@@ -112,9 +109,8 @@ describe("AgencyProfileForm.addContact", () => {
     // checks that addContact() does append a "blank" contact object (with
     // correct keys, mapped to empty strings) to the array holding contact info
     // in the state
-    const component = TestRenderer.create(
-      <AgencyProfileForm.WrappedComponent agencyData={null} />
-    ).root.instance;
+    const component = TestRenderer.create(<AgencyProfileForm.WrappedComponent agencyData={null} />)
+      .root.instance;
     const blankContact = {
       contact: "",
       position: "",
@@ -134,10 +130,6 @@ describe("AgencyProfileForm.addContact", () => {
     component.addContact();
     expect(component.state.contacts).toEqual([testContact, blankContact]);
     component.addContact();
-    expect(component.state.contacts).toEqual([
-      testContact,
-      blankContact,
-      blankContact,
-    ]);
+    expect(component.state.contacts).toEqual([testContact, blankContact, blankContact]);
   });
 });

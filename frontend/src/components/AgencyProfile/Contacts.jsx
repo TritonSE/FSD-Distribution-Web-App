@@ -33,12 +33,8 @@ function Contacts({ agency }) {
       contactElems.push(
         <div className="contact-container">
           <img className="tabs" src={tab} alt="tab"></img>
-          <div className={`${contactType.toLowerCase()}-text`}>
-            {contactType}
-          </div>
-          <div
-            className={`contact-info-container ${contactType.toLowerCase()}`}
-          >
+          <div className={`${contactType.toLowerCase()}-text`}>{contactType}</div>
+          <div className={`contact-info-container ${contactType.toLowerCase()}`}>
             <h3>{person.contact}</h3>
             <p>
               {contactType} Contact | {person.position}
@@ -51,11 +47,7 @@ function Contacts({ agency }) {
     });
 
     let contactRows = contactElems.reduce((rows, key, index) => {
-      return (
-        (index % 2 === 0
-          ? rows.push([key])
-          : rows[rows.length - 1].push(key)) && rows
-      );
+      return (index % 2 === 0 ? rows.push([key]) : rows[rows.length - 1].push(key)) && rows;
     }, []);
 
     let displayedContacts = contactRows.map((elem, index) => {

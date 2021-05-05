@@ -18,15 +18,7 @@ function LocationAndDistributions({ agency }) {
     agency.residentialFacility,
   ];
 
-  const distDays = [
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-    "sunday",
-  ];
+  const distDays = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
   /**
    * Function adds the distribution types to a string if their

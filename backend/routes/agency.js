@@ -5,6 +5,7 @@ const { body, validationResult } = require("express-validator");
 
 const { isAuthenticated } = require("../middleware/auth");
 const { Agency } = require("../models");
+
 const router = express.Router();
 
 /**
@@ -47,18 +48,13 @@ const validateRetailRescueLocation = (day) =>
  */
 const validationChain = [
   body("tableContent.agencyNumber").trim().isNumeric({ no_symbols: true }),
-  body("tableContent.dateOfInitialPartnership")
-    .trim()
-    .isDate({ format: "MM/DD/YYYY" }),
+  body("tableContent.dateOfInitialPartnership").trim().isDate({ format: "MM/DD/YYYY" }),
   body("billingZipcode").trim().isPostalCode("US"),
   body("contacts.*.phoneNumber").trim().isMobilePhone("en-US"),
   body("contacts.*.email").trim().isEmail(),
   body("scheduledNextVisit").trim().isDate({ format: "MM/DD/YYYY" }),
   body("dateOfMostRecentAgreement").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("fileAudit")
-    .trim()
-    .optional({ checkFalsy: true })
-    .isDate({ format: "MM/DD/YYYY" }),
+  body("fileAudit").trim().optional({ checkFalsy: true }).isDate({ format: "MM/DD/YYYY" }),
   body("monitored").trim().isDate({ format: "MM/DD/YYYY" }),
   body("foodSafetyCertification").trim().isDate({ format: "MM/DD/YYYY" }),
   validateDistributionStartTime("monday"),
@@ -151,7 +147,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
 
   Agency.updateOne({ _id: req.params.id }, req.body)
     .then(() => {
-      res.status(200).json({ agency: agency });
+      res.status(200).json({ agency });
     })
     .catch((err) => {
       next(err);
@@ -169,7 +165,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
 router.get("/:id", isAuthenticated, async (req, res, next) => {
   Agency.findById(req.params.id)
     .then((agency) => {
-      res.status(200).json({ agency: agency });
+      res.status(200).json({ agency });
     })
     .catch((err) => {
       next(err);
@@ -202,7 +198,7 @@ router.get("/table/all", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   Agency.findByIdAndDelete(req.params.id)
     .then((agency) => {
-      res.status(200).json({ agency: agency });
+      res.status(200).json({ agency });
     })
     .catch((err) => {
       next(err);

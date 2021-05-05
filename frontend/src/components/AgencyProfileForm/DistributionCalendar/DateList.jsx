@@ -50,19 +50,26 @@ class DateList extends Component {
       <div className="form-col-gutter">
         <label className="calendar-label">Custom-Selected Days</label>
         <div className="date-list">
-          {dates.map((dateString, index) => (
-            <div key={index} className="date-cell">
-              <span className="date-text">
-                {`${MONTHS[dateString.slice(5, 7)]} ${dateString.slice(8, 10)}`}
-              </span>
-              <TimeBox
-                initialValue={dateString.slice(11, -1)}
-                stateKey={index}
-                onChange={this.handleTimeChange}
-                valid={validCheck(`${stateKey}[${index}]`)}
-              />
-            </div>
-          ))}
+          {dates.map((dateTime, index) => {
+            let valid = validCheck(`${stateKey}[${index}]`);
+            let textClass = "date-text";
+            if (!valid) {
+              textClass += " invalid";
+            }
+            return (
+              <div key={index} className="date-cell">
+                <span className={textClass}>
+                  {`${MONTHS[dateTime.slice(5, 7)]} ${dateTime.slice(8, 10)}`}
+                </span>
+                <TimeBox
+                  initialValue={dateTime.slice(11, -1)}
+                  stateKey={index}
+                  onChange={this.handleTimeChange}
+                  valid={valid}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     );

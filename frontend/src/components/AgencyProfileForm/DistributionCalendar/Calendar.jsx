@@ -392,9 +392,11 @@ class Calendar extends Component {
    * Helper function to determine the style of a given date.
    *
    * @param {String} date String in default date format
+   * @param {Boolean} valid Whether the date passed validation (if it is a user-
+   * selected date)
    * @returns String with the appropriate style
    */
-  getDateStyle = (date) => {
+  getDateStyle = (date, valid) => {
     const {
       isDistributionDate,
       isSelectedDate,
@@ -409,10 +411,13 @@ class Calendar extends Component {
       }
     } else if (isSelectedDate(date)) {
       style += " selected";
+      if (!valid) {
+        style += " invalid";
+      }
     }
 
     if (isExtraneousDate(date)) {
-      style += style === "day" ? " extraneous" : "-extraneous";
+      style += " extraneous";
     }
 
     return style;
@@ -455,17 +460,21 @@ class Calendar extends Component {
               <div className="week" key={week}>
                 {week.map((date) => {
                   let index = findSelectedDate(date);
+                  let valid = false;
+                  if (index !== -1) {
+                    valid = validCheck(`userSelectedDates[${index}]`);
+                  }
                   return (
                     <div
                       key={date}
-                      className={getDateStyle(date)}
+                      className={getDateStyle(date, valid)}
                       onClick={() => handleDateSelect(date)}
                     >
                       {date.slice(8, 10)}
                       {index !== -1 && (
                         <TimeInputPopup
                           value={focusedStartTime}
-                          valid={validCheck(`userSelectedDates[${index}]`)}
+                          valid={valid}
                           shown={isFocusedDate(date)}
                           onChange={(time) =>
                             updateSelectedDate(index, date, time)

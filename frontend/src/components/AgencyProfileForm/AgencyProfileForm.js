@@ -258,13 +258,6 @@ class AgencyProfileForm extends Component {
       }
     }
 
-    data.userExcludedDates = data.userExcludedDates.map((date) => {
-      return this.fixDate(date); // time not needed
-    });
-    data.userSelectedDates = data.userSelectedDates.map((date) => {
-      return this.fixDate(date) + "T00:00Z";
-    });
-
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 

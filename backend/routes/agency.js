@@ -69,6 +69,8 @@ const validationChain = [
   validateDistributionStartTime("saturday"),
   validateDistributionStartTime("sunday"),
   body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("userSelectedDates.*").trim().isISO8601(),
+  body("userExcludedDates.*").trim().isISO8601(),
   validateRetailRescueStartTime("monday"),
   validateRetailRescueStartTime("tuesday"),
   validateRetailRescueStartTime("wednesday"),

@@ -13,9 +13,6 @@ import Compliance from "./Compliance";
 import Demographics from "./Demographics";
 import RetailRescue from "./RetailRescue";
 
-const CONFIG = require("../../config");
-require("dotenv").config();
-
 /**
  * Functional component for Agency Profile Page
  *
@@ -83,7 +80,7 @@ function AgencyProfile() {
   };
 
   const handleTaskFormSubmit = (task, index) => {
-    let url = `${process.env.BACKEND_URI}/task/`;
+    let url = `/task/`;
     let method = "PUT";
     if (index === undefined) {
       // creating a new task
@@ -138,7 +135,7 @@ function AgencyProfile() {
   };
 
   const handleTaskFormDelete = (task) => {
-    let url = `${process.env.BACKEND_URI}/task/${task._id}`;
+    let url = `/task/${task._id}`;
     let method = "DELETE";
 
     // Delete task from database
@@ -166,7 +163,7 @@ function AgencyProfile() {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`${process.env.BACKEND_URI}/agency/${id}`, {
+    fetch(`/agency/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -179,7 +176,7 @@ function AgencyProfile() {
         return data.agency._id;
       })
       .then((agencyID) => {
-        return fetch(`${process.env.BACKEND_URI}/task/agency/${agencyID}`, {
+        return fetch(`/task/agency/${agencyID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

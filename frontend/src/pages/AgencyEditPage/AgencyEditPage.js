@@ -3,9 +3,6 @@ import { Redirect, useHistory, useParams } from "react-router-dom";
 import AgencyProfileForm from "../../components/AgencyProfileForm/AgencyProfileForm";
 import { isAuthenticated, getJWT } from "../../auth";
 
-const CONFIG = require("../../config");
-require("dotenv").config();
-
 /**
  * Page that contains the agency profile form for editing
  */
@@ -15,7 +12,7 @@ function AgencyEditPage() {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`${process.env.BACKEND_URI}/agency/${id}`, {
+    fetch(`/agency/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

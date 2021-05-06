@@ -3,9 +3,6 @@ import "./DeleteModal.css";
 import FormButton from "../FormComponents/FormButton";
 import { useHistory } from "react-router-dom";
 
-const CONFIG = require("../../config");
-require("dotenv").config();
-
 /**
  * Functional component for the delete agency modal
  *
@@ -23,7 +20,7 @@ function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyI
    * Function deletes the given agency and returns the user back to the agency page
    */
   function deleteAgency() {
-    fetch(`${process.env.BACKEND_URI}/agency/${agencyId}`, { method: "DELETE" })
+    fetch(`/agency/${agencyId}`, { method: "DELETE" })
       .then((response) => response.json())
       .catch((err) => {
         console.log(err);

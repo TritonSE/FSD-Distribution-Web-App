@@ -3,9 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import { TextField, Button, Grid, Typography, makeStyles, Snackbar } from "@material-ui/core";
 import "./Register.css";
 
-const config = require("../../config");
-require("dotenv").config();
-
 const useStyles = makeStyles((theme) => ({
   centered: {
     textAlign: "center",
@@ -103,7 +100,7 @@ const Register = (props) => {
 
     // Attempt to register with given credentials
     try {
-      const response = await fetch(`${process.env.BACKEND_URI}/register`, {
+      const response = await fetch(`/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),

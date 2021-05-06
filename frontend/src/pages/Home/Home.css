@@ -33,7 +33,7 @@ a {
 	color: black;
 	text-decoration: none;
 	background-color: transparent;
-}
+} 
 
 tbody::before {
 	display: block;

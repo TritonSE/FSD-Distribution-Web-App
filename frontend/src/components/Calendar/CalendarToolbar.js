@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './CalendarToolbar.css';
+import "./CalendarToolbar.css";
 
 /**
  * This component contains a toolbar of categorical events that will be used to update the display of the calendar.
@@ -34,7 +34,8 @@ class CalendarToolbar extends Component {
       showDistribution: true,
       showRescue: true,
       distribution: [],
-      rescue: []
+      rescue: [],
+      searchValue: "",
     };
 
     this.handleShowAgencies = this.handleShowAgencies.bind(this);
@@ -43,8 +44,11 @@ class CalendarToolbar extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    return { distribution: props.distribution, rescue: props.rescue };
- }
+    //console.log(new Date(Date.UTC(2021, 4, 3, 24, 18)))
+    if (state.searchValue.length === 0) {
+      return { distribution: props.distribution, rescue: props.rescue }; 
+    }
+  }
 
   /**
    * Handles any user input in search bar to filter out the agencies.
@@ -52,6 +56,7 @@ class CalendarToolbar extends Component {
    */
   handleSearchChange(event) {
     const agencyName = event.target.value;
+    this.setState({ searchValue: agencyName });
     if (agencyName.length === 0) {
       this.setState({ distribution: this.props.distribution });
       this.setState({ rescue: this.props.rescue });
@@ -126,7 +131,7 @@ class CalendarToolbar extends Component {
         backgroundColor: "#F5F7F7",
         marginTop: "5vh",
         marginLeft: "5vw",
-        height: "100vh",
+        height: "100%",
         padding: 10,
         transform: 0.6
       }}>
@@ -188,7 +193,7 @@ class CalendarToolbar extends Component {
               {this.state.rescue.map((agency, index) => {
                 return (
                   <div key={index}>
-                    <label style={{ backgroundColor: agency.color, marginLeft: 20 }} name="rescueCheckbox">
+                    <label style={{ border: agency.color, borderWidth: "2px", borderStyle: "solid", marginLeft: 20 }} name="rescueCheckbox">
                       <input
                         style={{ margin: 5, marginLeft: -20, float: "left" }}
                         type="checkbox"

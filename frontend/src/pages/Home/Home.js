@@ -132,6 +132,7 @@ class Home extends Component {
                       dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
                     },
                     duration: "01:00",
+                    backgroundColor: "#FFFFFF",
                     color: color,
                   };
 
@@ -150,7 +151,7 @@ class Home extends Component {
                 this.setState({
                   rescue: [
                     ...this.state.rescue,
-                    { name: name, color: color },
+                    { name: name, color: `hsl(${index * hsvInterval}, 75%, 75%)` },
                   ]
                 });
               }
@@ -256,7 +257,7 @@ class Home extends Component {
           >
             <FullCalendar
               plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]} // 
-              timeZone="UTC"
+              timeZone="local"
               headerToolbar={{
                 left: "prev,next today",
                 center: "title",

@@ -165,7 +165,7 @@ function AgencyProfile() {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/agency/${id}`, {
+    fetch(`${CONFIG.backend.uri}/agency/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

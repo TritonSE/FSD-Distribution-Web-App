@@ -8,6 +8,8 @@ import "./Agency.css";
 import { isAuthenticated, getJWT } from "../../auth";
 import { Redirect } from "react-router-dom";
 
+const CONFIG = require("../../config");
+
 /**
  * The AgencyTable component is the main component for the table and contains the filtering
  * functions. It renders each part of the agency page.
@@ -73,7 +75,7 @@ function AgencyTable() {
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
-    fetch("http://localhost:8000/agency/table/all", {
+    fetch(`${CONFIG.backend.uri}/agency/table/all`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${getJWT()}`,

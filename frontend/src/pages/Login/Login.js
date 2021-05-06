@@ -77,7 +77,7 @@ const Login = (props) => {
     };
 
     try {
-      const response = await fetch(`${process.env.BACKEND_URI}/login`, {
+      const response = await fetch(`/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),

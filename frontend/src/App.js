@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { BrowserRouter, BrowserRouter as Route, Switch } from "react-router-dom";
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter, BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import "./App.css";
 

@@ -20,6 +20,7 @@ import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
 
 const CONFIG = require("../../config");
+require("dotenv").config();
 
 const DAYS_OF_WEEK = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
@@ -357,7 +358,7 @@ class AgencyProfileForm extends Component {
     const { history, agencyData, editing } = this.props;
     const formData = this.prepareData();
 
-    let url = `${CONFIG.backend.uri}/agency/`;
+    let url = `${process.env.BACKEND_URI}/agency/`;
     if (editing) {
       url += agencyData._id;
     }

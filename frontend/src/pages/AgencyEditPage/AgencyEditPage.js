@@ -4,6 +4,7 @@ import AgencyProfileForm from "../../components/AgencyProfileForm/AgencyProfileF
 import { isAuthenticated, getJWT } from "../../auth";
 
 const CONFIG = require("../../config");
+require("dotenv").config();
 
 /**
  * Page that contains the agency profile form for editing
@@ -14,7 +15,7 @@ function AgencyEditPage() {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`${CONFIG.backend.uri}/agency/${id}`, {
+    fetch(`${process.env.BACKEND_URI}/agency/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

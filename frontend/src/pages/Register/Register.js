@@ -4,6 +4,7 @@ import { TextField, Button, Grid, Typography, makeStyles, Snackbar } from "@mate
 import "./Register.css";
 
 const config = require("../../config");
+require("dotenv").config();
 
 const useStyles = makeStyles((theme) => ({
   centered: {
@@ -102,7 +103,7 @@ const Register = (props) => {
 
     // Attempt to register with given credentials
     try {
-      const response = await fetch(`${config.backend.uri}/register`, {
+      const response = await fetch(`${process.env.BACKEND_URI}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),

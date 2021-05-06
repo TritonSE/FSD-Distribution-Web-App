@@ -9,7 +9,7 @@ import deleteIcon from "./trash-can.svg";
  * deselect the date.
  *
  * Expected props:
- * - {String} value: initial time value
+ * - {String} value: initial time value "hh:mm"
  * - {Boolean} valid: whether this time failed validation
  * - {Boolean} shown: whether this date is focused in the calendar
  * - {Function} onChange: callback for when the user edits the TimeBox, should

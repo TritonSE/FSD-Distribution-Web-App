@@ -5,6 +5,7 @@ import Header from "./Header";
 import TimeInputPopup from "./TimeInputPopup";
 
 const DEFAULT_DATE_FORMAT = "YYYY-MM-DD";
+const USER_FACING_FORMAT = "MM/DD/YYYY";
 
 /**
  * Custom calendar component to aid with user distribution date
@@ -33,7 +34,7 @@ class Calendar extends Component {
     this.state = {
       todayMoment: todayMoment,
       calendar: this.buildCalendar(todayMoment),
-      startDateMoment: moment(props.distributionStartDate, DEFAULT_DATE_FORMAT),
+      startDateMoment: moment(props.distributionStartDate, USER_FACING_FORMAT),
     };
   }
 
@@ -198,7 +199,7 @@ class Calendar extends Component {
    */
   addSelectedDate = (date) => {
     const { userSelectedDates, onChange } = this.props;
-    const newDate = date + "T:Z";
+    const newDate = date + "T:";
 
     let newSelectedDates = userSelectedDates.slice();
     let index = 0;
@@ -219,7 +220,7 @@ class Calendar extends Component {
    */
   updateSelectedDate = (index, date, time) => {
     const { userSelectedDates, onChange } = this.props;
-    const newDate = `${date}T${time}Z`;
+    const newDate = `${date}T${time}`;
 
     let newSelectedDates = userSelectedDates.slice();
     newSelectedDates[index] = newDate;
@@ -231,7 +232,7 @@ class Calendar extends Component {
    * Sets focusedDate in this.state to the given date (excluding time), and
    * focusedStartTime to the time from the date string.
    *
-   * @param {String} dateTime Date string in ISO 8601 format: YYYY-MM-DDThh:mmZ
+   * @param {String} dateTime Date string in ISO 8601 format: YYYY-MM-DDThh:mm
    * @param {Function} callback Function (void, no args) to call after state
    * updates
    */
@@ -239,7 +240,7 @@ class Calendar extends Component {
     this.setState(
       {
         focusedDate: dateTime.slice(0, 10),
-        focusedStartTime: dateTime.slice(11, -1),
+        focusedStartTime: dateTime.slice(11),
       },
       callback
     );
@@ -372,7 +373,7 @@ class Calendar extends Component {
       this.setState((prev) => ({
         todayMoment: prev.todayMoment,
         calendar: prev.calendar,
-        startDateMoment: moment(distributionStartDate, DEFAULT_DATE_FORMAT),
+        startDateMoment: moment(distributionStartDate, USER_FACING_FORMAT),
       }));
     }
   }
@@ -385,7 +386,7 @@ class Calendar extends Component {
    * selected date)
    * @returns String with the appropriate style
    */
-  getDateStyle = (date) => {
+  getDateStyle = (date, valid) => {
     const { isDistributionDate, isSelectedDate, isExcludedDate, isExtraneousDate } = this;
     let style = "day";
 

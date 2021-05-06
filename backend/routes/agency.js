@@ -110,7 +110,7 @@ router.put("/", validationChain, async (req, res, next) => {
     agency
       .save()
       .then(() => {
-        res.status(200).json(agency);
+        res.status(200).json({ agency });
       })
       .catch((err) => {
         next(err);

@@ -171,7 +171,7 @@ class AgencyProfileForm extends Component {
       data.retailRescueLocations = { ...data.retailRescueLocations };
 
       // unfix date/time formats
-      // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
+      // ISO 8601 format: "YYYY-MM-DDThh:mm-07:00" (literal T)
       for (const day of DAYS_OF_WEEK) {
         if (data.distributionDays[day]) {
           const timeString = data.distributionStartTimes[day];
@@ -182,6 +182,7 @@ class AgencyProfileForm extends Component {
           data.retailRescueStartTimes[day] = timeString.slice(11, 16);
         }
       }
+      data.userSelectedDates = data.userSelectedDates.map((dateTime) => dateTime.slice(0, 16));
     }
     this.state = data;
   }
@@ -199,9 +200,9 @@ class AgencyProfileForm extends Component {
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
     // fix distribution and retail rescue formats
-    // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
+    // ISO 8601 format: "YYYY-MM-DDThh:mm-07:00" (literal T)
     const timeBase = `${AgencyProfileForm.fixDate(data.distributionStartDate)}T`;
-    const timeEnd = "Z";
+    const timeEnd = "-07:00";
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
     data.retailRescueLocations = { ...data.retailRescueLocations };
@@ -225,6 +226,7 @@ class AgencyProfileForm extends Component {
         data.retailRescueLocations[day] = "";
       }
     }
+    data.userSelectedDates = data.userSelectedDates.map((dateTime) => `${dateTime}${timeEnd}`);
 
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");

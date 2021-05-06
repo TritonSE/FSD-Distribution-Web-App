@@ -37,7 +37,7 @@ class DateList extends Component {
 
     let newSelectedDates = dates.slice();
     let newDateString = newSelectedDates[index].slice(0, 11); // YYYY-MM-DDT
-    newDateString += `${newTime}Z`;
+    newDateString += newTime;
     newSelectedDates[index] = newDateString;
 
     onChange(stateKey, newSelectedDates);
@@ -62,7 +62,7 @@ class DateList extends Component {
                   {`${MONTHS[dateTime.slice(5, 7)]} ${dateTime.slice(8, 10)}`}
                 </span>
                 <TimeBox
-                  initialValue={dateTime.slice(11, -1)}
+                  initialValue={dateTime.slice(11)}
                   stateKey={index}
                   onChange={this.handleTimeChange}
                   valid={valid}

@@ -1,9 +1,8 @@
 /* * * * Tasks section * * * */
 
 .tasks-wrapper {
-  width: 90%;
+  width: 95%;
   height: auto;
-  margin-top: 59px;
   position: relative;
   float: left;
   display: flex;

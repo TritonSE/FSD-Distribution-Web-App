@@ -22,7 +22,6 @@ import deleteIcon from "./trash-can.svg";
 class TimeInputPopup extends Component {
   constructor(props) {
     super(props);
-
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 

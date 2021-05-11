@@ -18,10 +18,11 @@ import "./FormStyle.css";
  * and a Boolean
  * - {Boolean} twoColumns: whether the checkbox group should be split into two
  * columns
+ * - {Boolean} gutter: whether the checkbox group should have a left gutter
  */
 class CheckboxList extends Component {
   render() {
-    const { twoColumns, label, options, onChange } = this.props;
+    const { twoColumns, gutter, label, options, onChange } = this.props;
 
     let listColumns = null;
     if (twoColumns) {
@@ -34,15 +35,20 @@ class CheckboxList extends Component {
       listColumns = (
         <FormRow>
           <FormCol>
-            <CheckboxColumn options={firstColumnOptions} onChange={onChange} />
+            <CheckboxColumn options={firstColumnOptions} onChange={onChange} wide />
           </FormCol>
           <FormCol>
-            <CheckboxColumn options={secondColumnOptions} onChange={onChange} />
+            <CheckboxColumn options={secondColumnOptions} onChange={onChange} wide />
           </FormCol>
         </FormRow>
       );
     } else {
       listColumns = <CheckboxColumn options={options} onChange={onChange} />;
+    }
+
+    let className = "form-input";
+    if (gutter) {
+      className += " form-col-gutter";
     }
 
     let labelItem = null;
@@ -51,7 +57,7 @@ class CheckboxList extends Component {
     }
 
     return (
-      <div className="form-input">
+      <div className={className}>
         {labelItem}
         {listColumns}
       </div>

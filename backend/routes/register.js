@@ -19,7 +19,7 @@ const validationChain = [
  *
  * @returns a message
  */
-router.post("/", validationChain, async (req, res, next) => {
+router.post("/", validationChain, async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -35,11 +35,13 @@ router.post("/", validationChain, async (req, res, next) => {
 
   pendingUser
     .save()
-    .then((user) => {
-      sendEmail({ email: user.email, link: `${process.env.HOST}/authorize/${user.id}` });
-      res.status(200).json(user);
+    .then((user_) => {
+      sendEmail({ email: user_.email, link: `${process.env.HOST}/authorize/${user_.id}` });
+      res.status(200).json(user_);
     })
-    .catch((err) => res.status(403).json({ errors: "User is already pending" }));
+    .catch(() => res.status(403).json({ errors: "User is already pending" }));
+
+  return null;
 });
 
 module.exports = router;

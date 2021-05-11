@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import CreateAgencyBtn from "../../components/CreateAgencyBtn/CreateAgencyBtn";
 import Pagination from "../../components/AgencyTable/Pagination";
 import Dropdown from "../../components/AgencyTable/Dropdown";
@@ -6,7 +7,6 @@ import Selected from "../../components/AgencyTable/Selected";
 import DataTable from "../../components/AgencyTable/DataTable";
 import "./Agency.css";
 import { isAuthenticated, getJWT } from "../../auth";
-import { Redirect } from "react-router-dom";
 
 /**
  * The AgencyTable component is the main component for the table and contains the filtering
@@ -80,19 +80,15 @@ function AgencyTable() {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        setData(data.data);
+      .then((data_) => {
+        setData(data_.data);
         // fill in dynamic filter options from database
-        for (const dat of data.data) {
-          if (!filters.Staff.hasOwnProperty(dat.tableContent.staff)) {
+        for (const dat of data_.data) {
+          if (!(dat.tableContent.staff in filters.Staff)) {
             filters.Staff[dat.tableContent.staff] = false;
           }
           if (dat.tableContent.dateOfInitialPartnership) {
-            if (
-              !filters["Joined In"].hasOwnProperty(
-                dat.tableContent.dateOfInitialPartnership.substring(6)
-              )
-            ) {
+            if (!(dat.tableContent.dateOfInitialPartnership.substring(6) in filters["Joined In"])) {
               const year = dat.tableContent.dateOfInitialPartnership.substring(6);
               filters["Joined In"][year] = false;
             }
@@ -104,51 +100,6 @@ function AgencyTable() {
         console.log(err);
       });
   }, []);
-
-  /**
-   * Main filter function that passes the data for each agency (each row in the table) to a helper filtering method
-   * @param {Array} rows The unfiltered data that is an array of each row of the table, i.e. each
-   * entry of the array contains the information corresponding to each agency in the table
-   */
-  function search(rows) {
-    return rows.filter((row) => checkOptions(row));
-  }
-
-  /**
-   * Filters the current row of the table based on the options set in the filters object. First performs the search based on
-   * the currently set search query. Then, the row is filtered based on each dropdown option by calling the helper checkStatuses
-   * @param {Object} row JSON object that contains the data for the current row being checked against the set filter options
-   * @returns Boolean value, true if the current row's data matches the filter options and false otherwise
-   */
-  function checkOptions(row) {
-    for (const option in filters) {
-      // perform search
-      if (option === "search") {
-        let found = false;
-        // search based on each word in the name
-        const words = row.tableContent.name.toLowerCase().split(" ");
-        const searched = filters.search.toLowerCase();
-        for (const word of words) {
-          found = word.startsWith(searched);
-          if (found) {
-            break;
-          }
-        }
-        if (
-          !(found || row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched))
-        ) {
-          return false;
-        }
-        continue;
-      }
-      // call checkStatus to check non-search filters
-      if (!checkStatuses(row, option)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
 
   /**
    * Filters the passed in row based on the passed in option, ex: Staff is an option. The options Storage, Transportation, and
@@ -222,6 +173,51 @@ function AgencyTable() {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Filters the current row of the table based on the options set in the filters object. First performs the search based on
+   * the currently set search query. Then, the row is filtered based on each dropdown option by calling the helper checkStatuses
+   * @param {Object} row JSON object that contains the data for the current row being checked against the set filter options
+   * @returns Boolean value, true if the current row's data matches the filter options and false otherwise
+   */
+  function checkOptions(row) {
+    for (const option in filters) {
+      // perform search
+      if (option === "search") {
+        let found = false;
+        // search based on each word in the name
+        const words = row.tableContent.name.toLowerCase().split(" ");
+        const searched = filters.search.toLowerCase();
+        for (const word of words) {
+          found = word.startsWith(searched);
+          if (found) {
+            break;
+          }
+        }
+        if (
+          !(found || row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched))
+        ) {
+          return false;
+        }
+        continue;
+      }
+      // call checkStatus to check non-search filters
+      if (!checkStatuses(row, option)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  /**
+   * Main filter function that passes the data for each agency (each row in the table) to a helper filtering method
+   * @param {Array} rows The unfiltered data that is an array of each row of the table, i.e. each
+   * entry of the array contains the information corresponding to each agency in the table
+   */
+  function search(rows) {
+    return rows.filter((row) => checkOptions(row));
   }
 
   // calculate indices for pagination

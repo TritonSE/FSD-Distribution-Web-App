@@ -22,7 +22,7 @@ const MenuItems = [
 const Navbar = (props) => {
   const history = useHistory();
 
-  const handleLogout = (event) => {
+  const handleLogout = () => {
     logout();
     history.push("/");
     props.changeIsLogged(false);
@@ -34,21 +34,23 @@ const Navbar = (props) => {
    * Otherwise, replace logout with login in the navigation bar.
    */
   let menuItem = null;
-  props.isLogged
-    ? (menuItem = (
-        <li>
-          <Link className="nav-links" as={Link} to="#" onClick={handleLogout}>
-            Logout
-          </Link>
-        </li>
-      ))
-    : (menuItem = (
-        <li>
-          <Link className="nav-links" as={Link} to="/login">
-            Login
-          </Link>
-        </li>
-      ));
+  if (props.isLogged) {
+    menuItem = (
+      <li>
+        <Link className="nav-links" as={Link} to="#" onClick={handleLogout}>
+          Logout
+        </Link>
+      </li>
+    );
+  } else {
+    menuItem = (
+      <li>
+        <Link className="nav-links" as={Link} to="/login">
+          Login
+        </Link>
+      </li>
+    );
+  }
 
   return (
     <div>

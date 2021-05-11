@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter, BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import "./App.css";
-import { BrowserRouter, BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import Home from "./pages/Home/Home";
 import Agency from "./pages/Agency/Agency";
@@ -14,12 +15,11 @@ import { isAuthenticated } from "./auth";
 
 function App() {
   const [isLogged, setLogged] = useState(isAuthenticated());
-  const changeIsLogged = (isLogged) => setLogged(isLogged);
   return (
     <div className="App">
       <BrowserRouter>
         <div>
-          <Navbar isLogged={isLogged} changeIsLogged={changeIsLogged} />
+          <Navbar isLogged={isLogged} changeIsLogged={setLogged} />
           <Switch>
             <>
               <Route exact path="/" component={Home} />
@@ -30,7 +30,7 @@ function App() {
               <Route
                 exact
                 path="/login"
-                render={(...props) => <Login {...props} changeIsLogged={changeIsLogged} />}
+                render={(...props) => <Login {...props} changeIsLogged={setLogged} />}
               />
               <Route exact path="/register" component={Register} />
             </>

@@ -1,21 +1,20 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { isAuthenticated } from "../../auth";
-import { Row, Col } from "react-bootstrap";
-import { getJWT } from "../../auth";
-import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import rrulePlugin from "@fullcalendar/rrule";
 import interactionPlugin from "@fullcalendar/interaction";
-import "bootstrap/dist/css/bootstrap.min.css";
+
+import { isAuthenticated } from "../../auth";
+import { getJWT } from "../../auth";
+import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import "./Home.css";
 const config = require("../../config");
 
 /**
  * Landing page that contains a calender with corresponding events from the side toolbar.
- * 
+ *
  * State:
  * - {Array<Objects>} distribution: list of agencies in the distribution category, contains name and color
  * - {Array<Objects>} rescue: list of agencies in the rescue category, contains name and color
@@ -46,7 +45,7 @@ class Home extends Component {
   }
 
   /**
-   * Fetches all agencies from the database that will be used to populate the state 
+   * Fetches all agencies from the database that will be used to populate the state
    */
   componentDidMount() {
     fetch(`${config.backend.uri}/agency`, {
@@ -74,7 +73,9 @@ class Home extends Component {
               });
 
               // generate events to populate the distribution map
-              for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
+              for (const [day, isMarked] of Object.entries(
+                agency.distributionDays
+              )) {
                 if (day !== "_id" && isMarked) {
                   const event = {
                     title: name,
@@ -120,7 +121,9 @@ class Home extends Component {
               }
 
               // generate events to populate the rescue map
-              for (const [day, isMarked] of Object.entries(agency.retailRescueDays)) {
+              for (const [day, isMarked] of Object.entries(
+                agency.retailRescueDays
+              )) {
                 if (day !== "_id" && isMarked) {
                   const event = {
                     title: name,
@@ -151,8 +154,11 @@ class Home extends Component {
                 this.setState({
                   rescue: [
                     ...this.state.rescue,
-                    { name: name, color: `hsl(${index * hsvInterval}, 75%, 75%)` },
-                  ]
+                    {
+                      name: name,
+                      color: `hsl(${index * hsvInterval}, 75%, 75%)`,
+                    },
+                  ],
                 });
               }
             });
@@ -183,11 +189,15 @@ class Home extends Component {
    * @param {Object} event event object containing the information of the selected distribution event
    */
   updateDistribution(event) {
-    const checked = event.target.checked
-    const agency = event.target.value
+    const checked = event.target.checked;
+    const agency = event.target.value;
     const newDistributionEvents = this.state.distributionMap[agency];
     if (checked) {
-      this.setState({ distributionEvents: this.state.distributionEvents.concat(newDistributionEvents) });
+      this.setState({
+        distributionEvents: this.state.distributionEvents.concat(
+          newDistributionEvents
+        ),
+      });
     } else {
       const filteredArray = this.state.distributionEvents.filter((event) => {
         return newDistributionEvents.indexOf(event) < 0;
@@ -217,11 +227,13 @@ class Home extends Component {
    * @param {Object} event event object containing the information of the selected rescue event
    */
   updateRescue(event) {
-    const checked = event.target.checked
-    const agency = event.target.value
+    const checked = event.target.checked;
+    const agency = event.target.value;
     const newRescueEvents = this.state.rescueMap[agency];
     if (checked) {
-      this.setState({ rescueEvents: this.state.rescueEvents.concat(newRescueEvents) });
+      this.setState({
+        rescueEvents: this.state.rescueEvents.concat(newRescueEvents),
+      });
     } else {
       const filteredArray = this.state.rescueEvents.filter((event) => {
         return newRescueEvents.indexOf(event) < 0;
@@ -236,8 +248,10 @@ class Home extends Component {
     }
 
     return (
-      <Row>
-        <Col lg={2} md={2}>
+      <div className="home">
+        <div
+          style={{ minHeight: Math.ceil((window.screen.height - 185) * 0.76) }}
+        >
           <CalendarToolbar
             distribution={this.state.distribution}
             rescue={this.state.rescue}
@@ -246,31 +260,31 @@ class Home extends Component {
             updateRescue={this.updateRescue}
             updateRescueAll={this.updateRescueAll}
           />
-        </Col>
-        <Col>
-          <div
-            style={{
-              marginTop: "5vh",
-              marginRight: "10vw",
-              marginBottom: "15vh",
+        </div>
+        <div className="home-calendar">
+          <FullCalendar
+            plugins={[
+              rrulePlugin,
+              dayGridPlugin,
+              timeGridPlugin,
+              interactionPlugin,
+            ]}
+            timeZone="local"
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay",
             }}
-          >
-            <FullCalendar
-              plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]} // 
-              timeZone="local"
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
-              }}
-              initialView="dayGridMonth"
-              eventDisplay="block"
-              events={this.state.distributionEvents.concat(this.state.rescueEvents)}
-              fixedWeekCount={false}
-            />
-          </div>
-        </Col>
-      </Row>
+            initialView="dayGridMonth"
+            eventDisplay="block"
+            events={this.state.distributionEvents.concat(
+              this.state.rescueEvents
+            )}
+            fixedWeekCount={false}
+            contentHeight={Math.ceil((window.screen.height - 185) * 0.7)}
+          />
+        </div>
+      </div>
     );
   }
 }

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./CalendarToolbar.css";
 
 /**
  * This component contains a toolbar of categorical events that will be used to update the display of the calendar.
@@ -12,6 +11,9 @@ import "./CalendarToolbar.css";
  *                    (will be updated depending on search bar input)
  * - {Array<Objects>} rescue: list of agencies in the rescue category, contains name and color
  *                    (will be updated depending on search bar input)
+ * - {String} searchValue: String value that the search bar will hold
+ * - {Hashmap} checked: hashmap that maps the distribution agency's checkbox label to whether it is checked
+ * - {Hashmap} rescueChecked: hashmap that maps the rescue agency's checkbox label to whether it is checked
  * 
  * Expected props:
  * - {Array<Objects>} distribution: list of agencies in the distribution
@@ -36,6 +38,8 @@ class CalendarToolbar extends Component {
       distribution: [],
       rescue: [],
       searchValue: "",
+      checked: {},
+      rescueChecked: {},
     };
 
     this.handleShowAgencies = this.handleShowAgencies.bind(this);
@@ -44,10 +48,10 @@ class CalendarToolbar extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    //console.log(new Date(Date.UTC(2021, 4, 3, 24, 18)))
     if (state.searchValue.length === 0) {
       return { distribution: props.distribution, rescue: props.rescue }; 
     }
+    return state;
   }
 
   /**
@@ -109,16 +113,16 @@ class CalendarToolbar extends Component {
 
     // toggle all distribution events
     if (category === "distribution") {
-      const checkboxes = document.getElementsByName("distributionCheckbox");
-      for (const checkbox of checkboxes) {
-        checkbox.checked = isChecked;
+      this.state.checked["all"] = isChecked;
+      for(const entry of this.state.distribution) {
+        this.state.checked[entry.name] = isChecked;
       }
       this.props.updateDistributionAll(isChecked);
       // toggle all rescue events
     } else if (category === "rescue") {
-      const checkboxes = document.getElementsByName("rescueCheckbox");
-      for (const checkbox of checkboxes) {
-        checkbox.checked = isChecked;
+      this.state.rescueChecked["all"] = isChecked;
+      for(const entry of this.state.rescue) {
+        this.state.rescueChecked[entry.name] = isChecked;
       }
       this.props.updateRescueAll(isChecked);
     }
@@ -131,9 +135,8 @@ class CalendarToolbar extends Component {
         backgroundColor: "#F5F7F7",
         marginTop: "5vh",
         marginLeft: "5vw",
-        height: "100%",
+        minHeight: Math.ceil((window.screen.height - 185)*0.76),
         padding: 10,
-        transform: 0.6
       }}>
         <input id="search" type="text" onChange={this.handleSearchChange} style={{ width: "100%", padding: 5 }} placeholder="Search Agency" />
         <br />
@@ -149,6 +152,7 @@ class CalendarToolbar extends Component {
                   type="checkbox"
                   value="distribution"
                   onChange={this.handleCheck}
+                  checked={!!this.state.checked["all"]}
                 />
               All
             </label>
@@ -161,7 +165,8 @@ class CalendarToolbar extends Component {
                         style={{ margin: 5, marginLeft: -20, float: "left" }}
                         type="checkbox"
                         value={agency.name}
-                        onChange={this.props.updateDistribution}
+                        onChange={(e) => { this.state.checked[e.target.value] = !this.state.checked[e.target.value]; this.props.updateDistribution(e);}}
+                        checked={!!this.state.checked[agency.name]}
                         name="distributionCheckbox"
                       />
                       {agency.name}
@@ -186,6 +191,7 @@ class CalendarToolbar extends Component {
                   type="checkbox"
                   value="rescue"
                   onChange={this.handleCheck}
+                  checked={!!this.state.rescueChecked["all"]}
                 />
               All
             </label>
@@ -193,12 +199,13 @@ class CalendarToolbar extends Component {
               {this.state.rescue.map((agency, index) => {
                 return (
                   <div key={index}>
-                    <label style={{ border: agency.color, borderWidth: "2px", borderStyle: "solid", marginLeft: 20 }} name="rescueCheckbox">
+                    <label style={{ borderColor: agency.color, borderWidth: "2px", borderStyle: "solid", marginLeft: 20 }} name="rescueCheckbox">
                       <input
                         style={{ margin: 5, marginLeft: -20, float: "left" }}
                         type="checkbox"
                         value={agency.name}
                         onChange={this.props.updateRescue}
+                        checked={!!this.state.rescueChecked[agency.name]}
                         name="rescueCheckbox"
                       />
                       {agency.name}

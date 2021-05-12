@@ -200,7 +200,6 @@ class Home extends Component {
 
   toggleModal = () => {
     this.setState({showModal: !this.state.showModal});
-    console.log(this.state.showModal);
   };
 
   /**
@@ -241,6 +240,7 @@ class Home extends Component {
     console.log(arg);
     this.selectedEvent = arg;
     this.toggleModal();
+    this.setState({selectedEvent: arg});
   }
 
   render() {
@@ -287,7 +287,7 @@ class Home extends Component {
         <NotesModal
             showModal={this.state.showModal}
             toggleModal={this.toggleModal}
-            event={this.selectedEvent}
+            selectedEvent={this.state.selectedEvent}
         />
       </Row>
 

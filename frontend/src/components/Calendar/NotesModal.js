@@ -24,18 +24,15 @@ function NotesModal({
     <>
       {showModal ? (
         <div className="modal-background">
-          <div className="delete-form">
-            <div className="delete-form-row">
-              <p id="confirm-text">
-                Are you sure you want to delete{" "}
-                <b id="agency-text">
-                  "hello"
-                </b>
-                ?
-              </p>
-              <p id="warning">
-                Note: All files and data will be lost and non restorable
-              </p>
+          <div className="notes-form">
+            <div className="notes-form-row">
+              <b id="agency-name-text">
+                Agency
+              </b>
+            </div>
+            <div className="notes-form-row">
+              <p>Change Color</p>
+              <p>Remove Event</p>
             </div>
             <div className="button-row">
               <div className="delete-form-col">

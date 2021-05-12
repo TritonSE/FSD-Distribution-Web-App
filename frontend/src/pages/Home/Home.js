@@ -198,7 +198,7 @@ class Home extends Component {
   }
 
   toggleModal = () => {
-    this.setState({showModal: true});
+    this.setState({showModal: !this.state.showModal});
     console.log(this.state.showModal);
   };
 

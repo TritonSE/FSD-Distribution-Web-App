@@ -83,7 +83,7 @@ function NotesModal({
         <div className="modal-background">
           <div className="notes-container">
             <div className="notes-info">
-              <h2>Agency X</h2>
+              <h2>{selectedEvent && selectedEvent.event._def.title}</h2>
               <p>Date, Time</p>
               <p>{getFreq()} on {getDay()}</p>
             </div>

@@ -40,6 +40,7 @@ class Home extends Component {
       distributionMap: {}, //Example: {"Agency" : [{}, {}, {}]}
       rescueMap: {},
       showModal: false,
+      selectedEvent: undefined,
     };
     this.updateDistributionAll = this.updateDistributionAll.bind(this);
     this.updateDistribution = this.updateDistribution.bind(this);
@@ -238,6 +239,7 @@ class Home extends Component {
 
   handleClick = (arg) => {
     console.log(arg);
+    this.selectedEvent = arg;
     this.toggleModal();
   }
 
@@ -285,6 +287,7 @@ class Home extends Component {
         <NotesModal
             showModal={this.state.showModal}
             toggleModal={this.toggleModal}
+            event={this.selectedEvent}
         />
       </Row>
 

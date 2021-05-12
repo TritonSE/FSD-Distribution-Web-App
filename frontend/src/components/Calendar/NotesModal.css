@@ -1,68 +1,92 @@
 /* * * * Layout * * * */
+body {
+  overflow-x: hidden;
+}
 
 .modal-background {
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.25);
-  }
-  
-  .notes-form {
-    position: relative;
-    width: 838px;
-    height: 424px;
-    margin: 10% auto;
-    padding: 38px 0px 0px 55px;
-    background-color: #f5f7f7;
-    border: 3px solid #cdcbd4;
-  }
-  
-  .notes-form-row {
-    margin: 0;
-    position: absolute;
-    top: 45%;
-    left: 57%;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    width: 70%;
-  }
-  
-  .delete-form-col {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 22px;
-  }
-  
-  .button-row {
-    position: absolute;
-    margin-top: 275px;
-    margin-left: 100px;
-  }
-  
-  .button-pos {
-    margin-left: -55px;
-    text-align: center;
-  }
-  
-  /* * * * Text * * * */
-  
-  #confirm-text {
-    font-size: 20px;
-  }
-  #warning {
-    color: red;
-    font-size: small;
-    margin-top: 3%;
-  }
-  
-  #agency-text {
-    font-size: 22px;
-  }
-  
-  .form-input-box-wide {
-    width: 607px;
-  }
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.notes-container {
+  position: relative;
+  width: 638px;
+  height: 450px;
+  margin: 10% auto;
+  padding: 2% 4% 2% 4%;
+  background-color: #ffffff;
+  box-shadow: 1px 2px 4px 5px rgba(17, 17, 17, 0.322);
+}
+
+.notes-info {
+  border-bottom: 1px solid rgb(128, 128, 128);
+}
+
+.notes-info h2 {
+  font-size: 20px;
+}
+
+.notes-info p {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
+
+.notes-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5%;
+}
+
+.color-select,
+.remove-select {
+  border: 2px solid #cdcbd4;
+  border-radius: 7px;
+}
+
+.color-select {
+  width: 100%;
+}
+
+.remove-select {
+  margin-right: 1em;
+}
+
+.notes-options h2 {
+  font-size: 18px;
+}
+
+.trash-image {
+  position: absolute;
+  right: 25px;
+  top: 150px;
+}
+
+.notes-message {
+  margin-top: 1em;
+  width: 100%;
+  height: 200px;
+}
+
+.notes-message h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.notes-message textarea {
+  resize: none;
+  width: 100%;
+  height: 80%;
+  border-radius: 5px;
+  border: 1px solid rgb(145, 145, 145);
+}
+
+.form-buttons {
+  display: flex;
+}

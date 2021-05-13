@@ -1,7 +1,8 @@
   
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./NotesModal.css";
 import FormButton from "../FormComponents/FormButton";
+import { getJWT } from "../../auth";
 import trash from "./trashcan.png";
 
 /**
@@ -21,6 +22,9 @@ function NotesModal({
   toggleModal,
   selectedEvent,
 }) {
+
+  const [note, setNote] = useState("");
+  const [exist, setExist] = useState(false);
 
   function changeColor() {
     //event.event.backgroundColor = "blue";
@@ -72,11 +76,67 @@ function NotesModal({
     }
     return day;
   }
+
+  function updateEvent() {
+    let eventID = selectedEvent.event._instance.instanceId;
+    if(exist) {
+      fetch(`http://localhost:8000/notes/${eventID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getJWT(),
+        },
+        body: JSON.stringify({
+          _id: eventID,
+          message: note,
+        })
+      });
+    } else {
+      fetch(`http://localhost:8000/notes/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getJWT(),
+        },
+        body: JSON.stringify({
+          _id: eventID,
+          message: note,
+        })
+      });
+    }
+    toggleModal();
+  }
+  
   useEffect(() => {
-  }, []);
+    if(selectedEvent) {
+      console.log("Fetch");
+      let eventID = selectedEvent.event._instance.instanceId;
+      fetch(`http://localhost:8000/notes/${eventID}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getJWT(),
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if(data) {
+            setExist(true);
+            setNote(data.message);
+          }
+        })
+        .catch((err) => {
+          setExist(false);
+          console.log(err);
+        });
+    }
+  }, [])
 
+  function handleChange(event) {
+    setNote(event.target.value);
+  }
 
-    console.log(showModal);
+  console.log(showModal);
   return (
     <>
       {showModal ? (
@@ -108,13 +168,14 @@ function NotesModal({
             </div>
             <div className="notes-message">
               <h2>Note</h2>
-              <textarea></textarea>
+              <textarea id="noteText" onChange={handleChange}></textarea>
             </div>
             <div className="form-buttons">
               <FormButton
                 title="Confirm"
                 type="primary"
                 style={{ width: "45%", height: "30px", fontSize: "18px"}}
+                onClick={updateEvent}
               />
               <FormButton
                 title="Cancel"

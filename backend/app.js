@@ -34,6 +34,7 @@ app.use('/agency', require('./routes/agency'));
 app.use('/login', require('./routes/login'));
 app.use('/register', require('./routes/register'));
 app.use('/authorize', require('./routes/authorize'));
+app.use('/notes', require('./routes/notes'));
 
 // Catch-all route
 app.get('/*', (req, res, next) => {

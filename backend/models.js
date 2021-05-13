@@ -380,8 +380,19 @@ const AgencySchema = new Schema({
   },
 });
 
+const NotesSchema = new Schema({
+  _id: {
+    type: Number,
+  },
+  /* Notes text */
+  message: {
+    type: String
+  },
+});
+
 const Agency = mongoose.model("Agency", AgencySchema);
 const User = mongoose.model("User", UserSchema);
 const PendingUser = mongoose.model("PendingUser", PendingUserSchema);
+const Notes = mongoose.model("Notes", NotesSchema);
 
-module.exports = { Agency, User, PendingUser };
+module.exports = { Agency, User, PendingUser, Notes };

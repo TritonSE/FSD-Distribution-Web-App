@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import "./CalendarToolbar.css";
 /**
  * This component contains a toolbar of categorical events that will be used to update the display of the calendar.
  * This also contains an input bar that will filter out events based on Agency name.
@@ -38,7 +38,7 @@ class CalendarToolbar extends Component {
       distribution: [],
       rescue: [],
       searchValue: "",
-      checked: {},
+      distributionChecked: {},
       rescueChecked: {},
     };
 
@@ -113,9 +113,9 @@ class CalendarToolbar extends Component {
 
     // toggle all distribution events
     if (category === "distribution") {
-      this.state.checked["all"] = isChecked;
+      this.state.distributionChecked["all"] = isChecked;
       for(const entry of this.state.distribution) {
-        this.state.checked[entry.name] = isChecked;
+        this.state.distributionChecked[entry.name] = isChecked;
       }
       this.props.updateDistributionAll(isChecked);
       // toggle all rescue events
@@ -129,50 +129,41 @@ class CalendarToolbar extends Component {
   }
 
   render() {
-    const { showDistribution, showRescue } = this.state;
+    const { showDistribution, showRescue, distributionChecked, rescueChecked } = this.state;
     return (
-      <div style={{
-        backgroundColor: "#F5F7F7",
-        marginTop: "5vh",
-        marginLeft: "5vw",
-        minHeight: Math.ceil((window.screen.height - 185) * 0.71),
-        padding: 10,
-        width: "300px",
-      }}>
-        <input id="search" type="text" onChange={this.handleSearchChange} style={{ width: "100%", padding: 5 }} placeholder="Search Agency" />
-        <br />
-        <button style={{ border: "none", background: "none" }} value="distributionnpm" onClick={this.handleShowAgencies}>
+      <div className="toolbar" style={{minHeight: Math.ceil((window.screen.height - 185) * 0.71)}}>
+        <input id="search" type="text" onChange={this.handleSearchChange} className="toolbar-search" placeholder="Search Agency" />
+        <button className="filter-heading" value="distributionnpm" onClick={this.handleShowAgencies}>
           {showDistribution ? <h5>Distribution</h5> : <p>Distribution</p>}
         </button>
         { showDistribution &&
           (
             <div>
-              <label style={{ marginLeft: 20 }}>
+              <label className="distribution-label">
                 <input
-                  style={{ margin: 5, marginLeft: -20 }}
+                  className="filter-input"
                   type="checkbox"
                   value="distribution"
                   onChange={this.handleCheck}
-                  checked={!!this.state.checked["all"]}
+                  checked={!!distributionChecked["all"]}
                 />
               All
             </label>
               
               {this.state.distribution.map((agency, index) => {
                 return (
-                  <div key={index}>
-                    <label style={{ backgroundColor: agency.color, margin: 5 }} name="distributionCheckbox">
+                  <div className="filter-holder" key={index}>
+                    <label className="distribution-label" style={{ backgroundColor: agency.color }} name="distributionCheckbox">
                       <input
-                        style={{ float: "left" }}
+                        className="filter-input"
                         type="checkbox"
                         value={agency.name}
-                        onChange={(e) => { this.state.checked[e.target.value] = !this.state.checked[e.target.value]; this.props.updateDistribution(e);}}
-                        checked={!!this.state.checked[agency.name]}
+                        onChange={(e) => { distributionChecked[e.target.value] = !distributionChecked[e.target.value]; this.props.updateDistribution(e);}}
+                        checked={!!distributionChecked[agency.name]}
                         name="distributionCheckbox"
                       />
                       {agency.name}
                     </label>
-                    <br />
                   </div>
                 );
               })}
@@ -180,37 +171,36 @@ class CalendarToolbar extends Component {
           )
         }
         <br />
-        <button style={{ border: "none", background: "none" }} value="rescue" onClick={this.handleShowAgencies}>
+        <button className="filter-heading" value="rescue" onClick={this.handleShowAgencies}>
           {showRescue ? <h5>Rescue</h5> : <p>Rescue</p>}
         </button>
         { showRescue &&
           (
             <div>
-              <label style={{ marginLeft: 20 }}>
+              <label className="distribution-label">
                 <input
-                  style={{ margin: 5, marginLeft: -20 }}
+                  className="filter-input"
                   type="checkbox"
                   value="rescue"
                   onChange={this.handleCheck}
-                  checked={!!this.state.rescueChecked["all"]}
+                  checked={!!rescueChecked["all"]}
                 />
               All
             </label>
               {this.state.rescue.map((agency, index) => {
                 return (
-                  <div key={index}>
-                    <label style={{ borderColor: agency.color, borderWidth: "2px", borderStyle: "solid", margin: 5 }} name="rescueCheckbox">
+                  <div className="filter-holder" key={index}>
+                    <label className="rescue-label" style={{ borderColor: agency.color }} name="rescueCheckbox">
                       <input
-                        style={{ float: "left" }}
+                        className="filter-input"
                         type="checkbox"
                         value={agency.name}
-                        onChange={(e) => { this.state.rescueChecked[e.target.value] = !this.state.rescueChecked[e.target.value]; this.props.updateRescue(e);}}
-                        checked={!!this.state.rescueChecked[agency.name]}
+                        onChange={(e) => { rescueChecked[e.target.value] = !rescueChecked[e.target.value]; this.props.updateRescue(e);}}
+                        checked={!!rescueChecked[agency.name]}
                         name="rescueCheckbox"
                       />
                       {agency.name}
                     </label>
-                    <br />
                   </div>
                 );
               })}

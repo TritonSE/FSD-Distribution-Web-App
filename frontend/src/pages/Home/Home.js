@@ -281,7 +281,7 @@ class Home extends Component {
               this.state.rescueEvents
             )}
             fixedWeekCount={false}
-            contentHeight={Math.ceil((window.screen.height - 185) * 0.7)}
+            height={Math.ceil((window.screen.height - 185) * 0.71)}
           />
         </div>
       </div>

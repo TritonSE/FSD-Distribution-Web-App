@@ -135,8 +135,9 @@ class CalendarToolbar extends Component {
         backgroundColor: "#F5F7F7",
         marginTop: "5vh",
         marginLeft: "5vw",
-        minHeight: Math.ceil((window.screen.height - 185)*0.76),
+        minHeight: Math.ceil((window.screen.height - 185) * 0.71),
         padding: 10,
+        width: "300px",
       }}>
         <input id="search" type="text" onChange={this.handleSearchChange} style={{ width: "100%", padding: 5 }} placeholder="Search Agency" />
         <br />
@@ -156,13 +157,13 @@ class CalendarToolbar extends Component {
                 />
               All
             </label>
-              <br />
+              
               {this.state.distribution.map((agency, index) => {
                 return (
                   <div key={index}>
-                    <label style={{ backgroundColor: agency.color, marginLeft: 20 }} name="distributionCheckbox">
+                    <label style={{ backgroundColor: agency.color, margin: 5 }} name="distributionCheckbox">
                       <input
-                        style={{ margin: 5, marginLeft: -20, float: "left" }}
+                        style={{ float: "left" }}
                         type="checkbox"
                         value={agency.name}
                         onChange={(e) => { this.state.checked[e.target.value] = !this.state.checked[e.target.value]; this.props.updateDistribution(e);}}
@@ -171,7 +172,7 @@ class CalendarToolbar extends Component {
                       />
                       {agency.name}
                     </label>
-
+                    <br />
                   </div>
                 );
               })}
@@ -195,16 +196,15 @@ class CalendarToolbar extends Component {
                 />
               All
             </label>
-              <br />
               {this.state.rescue.map((agency, index) => {
                 return (
                   <div key={index}>
-                    <label style={{ borderColor: agency.color, borderWidth: "2px", borderStyle: "solid", marginLeft: 20 }} name="rescueCheckbox">
+                    <label style={{ borderColor: agency.color, borderWidth: "2px", borderStyle: "solid", margin: 5 }} name="rescueCheckbox">
                       <input
-                        style={{ margin: 5, marginLeft: -20, float: "left" }}
+                        style={{ float: "left" }}
                         type="checkbox"
                         value={agency.name}
-                        onChange={this.props.updateRescue}
+                        onChange={(e) => { this.state.rescueChecked[e.target.value] = !this.state.rescueChecked[e.target.value]; this.props.updateRescue(e);}}
                         checked={!!this.state.rescueChecked[agency.name]}
                         name="rescueCheckbox"
                       />

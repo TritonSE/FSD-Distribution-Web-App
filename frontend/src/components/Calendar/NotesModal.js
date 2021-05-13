@@ -28,21 +28,48 @@ function NotesModal({
   function getFreq(){
     let freq;
     let interval;
-    if(selectedEvent){
-      interval = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.interval;
-
+    if(selectedEvent && selectedEvent.event._def.recurringDef){
+        interval = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.interval;
+    } else{
+      return "";
     }
     if(interval == 2){
-      freq = "Biweekly"
+      freq = "Biweekly on "
     } else{
-      freq="Weekly"
+      freq="Weekly on "
     }
+    console.log(selectedEvent.view.currentStart)
     return freq;
+  }
+
+  function getDate(){
+    let date;
+    if(selectedEvent){
+      date = String(selectedEvent.event._instance.range.start).substring(4, 10);
+    }
+    console.log(typeof date)
+    return date;
+  }
+
+  function getTime(){
+    let time;
+    if(selectedEvent){
+      time = String(selectedEvent.event._instance.range.start).substring(16,21);
+    }
+    if(time){
+      //convert to standard time
+      let timeNum = parseInt(time.substring(0,2));
+      if(timeNum > 12){
+        timeNum = timeNum-12;
+        time = timeNum + time.substring(2);
+      }
+    }
+    return time;
   }
 
   function getDay(){
     let dayOfWeek;
-    if(selectedEvent){
+    if(selectedEvent && selectedEvent.event._def.recurringDef){
       dayOfWeek = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.wkst;
     }
     console.log(dayOfWeek);
@@ -84,8 +111,8 @@ function NotesModal({
           <div className="notes-container">
             <div className="notes-info">
               <h2>{selectedEvent && selectedEvent.event._def.title}</h2>
-              <p>Date, Time</p>
-              <p>{getFreq()} on {getDay()}</p>
+              <p> {getDate()}, {getTime()}</p>
+              <p>{getFreq()} {getDay()}</p>
             </div>
             <div className="notes-options">
               <div className="option-color">

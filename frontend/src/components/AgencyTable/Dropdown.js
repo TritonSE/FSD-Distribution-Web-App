@@ -15,15 +15,6 @@ import "./Dropdown.css";
 const Dropdown = ({ filters, selected, changeSelected, changeFilter, option, paginate }) => {
   const [expanded, setExpanded] = useState(false);
 
-  useEffect(() => {
-    /**
-     * close dropdown if user clicks outside
-     */
-    window.addEventListener("click", handleClickOutside);
-    return () => {
-      window.removeEventListener("click", handleClickOutside);
-    };
-  });
   function showCheckboxes() {
     const checkboxes = document.getElementById(option);
     if (checkboxes !== null) {
@@ -49,6 +40,16 @@ const Dropdown = ({ filters, selected, changeSelected, changeFilter, option, pag
     }
   };
 
+  useEffect(() => {
+    /**
+     * close dropdown if user clicks outside
+     */
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  });
+
   return (
     <form>
       <div className="multiselect">
@@ -66,11 +67,15 @@ const Dropdown = ({ filters, selected, changeSelected, changeFilter, option, pag
               type="checkbox"
               key={key}
               id={key}
-              onChange={(e) =>
+              onChange={() =>
                 // when checkbox is clicked, add select label, filter, and paginate
                 {
                   const newStat = !filters[option][key];
-                  newStat ? (selected[key] = option) : delete selected[key];
+                  if (newStat) {
+                    selected[key] = option;
+                  } else {
+                    delete selected[key];
+                  }
                   changeSelected(selected);
                   changeFilter({
                     ...filters,

@@ -1,6 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const passport = require("passport");
 const { body, validationResult } = require("express-validator");
 
 const { isAuthenticated } = require("../middleware/auth");
@@ -65,6 +63,8 @@ const validationChain = [
   validateDistributionStartTime("saturday"),
   validateDistributionStartTime("sunday"),
   body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("userSelectedDates.*").trim().isISO8601(),
+  body("userExcludedDates.*").trim().isISO8601(),
   validateRetailRescueStartTime("monday"),
   validateRetailRescueStartTime("tuesday"),
   validateRetailRescueStartTime("wednesday"),
@@ -103,18 +103,19 @@ router.put("/", validationChain, async (req, res, next) => {
   if (schemaErrors) {
     invalidFields = invalidFields.concat(Object.keys(schemaErrors.errors));
   }
-  if (invalidFields.length > 0) {
-    return res.status(400).json({ fields: invalidFields });
-  }
 
-  agency
-    .save()
-    .then(() => {
-      res.status(200).json(agency);
-    })
-    .catch((err) => {
-      next(err);
-    });
+  if (invalidFields.length > 0) {
+    res.status(400).json({ fields: invalidFields });
+  } else {
+    agency
+      .save()
+      .then(() => {
+        res.status(200).json({ agency });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
 });
 
 /**
@@ -139,17 +140,18 @@ router.post("/:id", validationChain, async (req, res, next) => {
   if (schemaErrors) {
     invalidFields = invalidFields.concat(Object.keys(schemaErrors.errors));
   }
-  if (invalidFields.length > 0) {
-    return res.status(400).json({ fields: invalidFields });
-  }
 
-  Agency.updateOne({ _id: req.params.id }, req.body)
-    .then(() => {
-      res.status(200).json({ agency });
-    })
-    .catch((err) => {
-      next(err);
-    });
+  if (invalidFields.length > 0) {
+    res.status(400).json({ fields: invalidFields });
+  } else {
+    Agency.updateOne({ _id: req.params.id }, req.body)
+      .then(() => {
+        res.status(200).json({ agency });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
 });
 
 /**
@@ -178,7 +180,7 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get("/table/all", async (req, res, next) => {
+router.get("/table/all", async (req, res) => {
   try {
     const agency = await Agency.find({}).select("tableContent");
     return res.status(200).json({

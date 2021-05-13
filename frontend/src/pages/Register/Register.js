@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Register = (props) => {
+const Register = () => {
   const classes = useStyles();
   const history = useHistory();
   const [state, setState] = React.useState({

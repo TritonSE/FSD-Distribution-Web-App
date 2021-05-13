@@ -11,15 +11,17 @@ import "./FormStyle.css";
  */
 class SmallButton extends Component {
   render() {
+    const { alignRight, symbol, text, onClick } = this.props;
+
     let buttonClass = "small-button";
-    if (this.props.alignRight) {
+    if (alignRight) {
       buttonClass += " align-right";
     }
 
     return (
-      <button type="button" className={buttonClass} onClick={this.props.onClick}>
-        <span className="small-button-text">{this.props.symbol + " "}</span>
-        <span className="small-button-text underline">{this.props.text}</span>
+      <button type="button" className={buttonClass} onClick={onClick}>
+        {symbol && <span className="small-button-text">{symbol + " "}</span>}
+        <span className="small-button-text underline">{text}</span>
       </button>
     );
   }

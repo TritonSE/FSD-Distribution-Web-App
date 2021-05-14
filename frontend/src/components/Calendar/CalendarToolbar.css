@@ -1,6 +1,7 @@
 .distribution-label {
     margin-left: 20px;
     display: block;
+    padding-left: 4px;
 }
 
 .filter-input {
@@ -19,6 +20,7 @@
     border-style: solid;
     margin-left: 18px;
     display: block;
+    padding-left: 4px;
 }
 
 .filter-holder {
@@ -35,5 +37,5 @@
     margin-top: 5vh;
     margin-left: 5vw;
     padding: 10px;
-    /* width: 300px; */
+    width: 300px;
 }

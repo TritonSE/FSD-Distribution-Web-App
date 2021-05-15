@@ -25,11 +25,20 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: "100%",
     },
+    // Asterisk Styling
+    "& .MuiFormLabel-asterisk": {
+      color: "rgba(0, 0, 0, 0.54)",
+    },
+
+    // Button styling
     "& .MuiButton-root": {
       margin: theme.spacing(3),
       color: "black",
       background: "#54682f",
       width: "30%",
+    },
+    "& .MuiButton-label": {
+      color: "white",
     },
   },
   title: {

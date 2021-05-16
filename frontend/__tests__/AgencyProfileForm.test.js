@@ -10,11 +10,11 @@ describe("AgencyProfileForm.handleInputChange", () => {
       .root.instance;
 
     // string value
-    expect(component.state.tableContent.agencyNumber).toBe("");
-    component.handleInputChange("tableContent.agencyNumber", "12345");
-    expect(component.state.tableContent.agencyNumber).toBe("12345");
+    expect(component.state.mainSiteAddress).toBe("");
+    component.handleInputChange("mainSiteAddress", "123 abc");
+    expect(component.state.mainSiteAddress).toBe("123 abc");
 
-    // another string value
+    // embedded object string value
     expect(component.state.tableContent.name).toBe("");
     component.handleInputChange("tableContent.name", "Test Name");
     expect(component.state.tableContent.name).toBe("Test Name");
@@ -24,7 +24,7 @@ describe("AgencyProfileForm.handleInputChange", () => {
     component.handleInputChange("additionalAddresses", ["address1"]);
     expect(component.state.additionalAddresses).toEqual(["address1"]);
 
-    // contacts array value
+    // object array value
     expect(component.state.contacts).toEqual([
       {
         contact: "",
@@ -66,9 +66,9 @@ describe("AgencyProfileForm.handleInputChange", () => {
     expect(component.state.distributionDays.monday).toBe(false);
 
     // same string value again
-    expect(component.state.tableContent.agencyNumber).toBe("12345");
-    component.handleInputChange("tableContent.agencyNumber", "67890");
-    expect(component.state.tableContent.agencyNumber).toBe("67890");
+    expect(component.state.mainSiteAddress).toBe("123 abc");
+    component.handleInputChange("mainSiteAddress", "456 def");
+    expect(component.state.mainSiteAddress).toBe("456 def");
   });
 
   it("doesn't update state for unknown keys", () => {

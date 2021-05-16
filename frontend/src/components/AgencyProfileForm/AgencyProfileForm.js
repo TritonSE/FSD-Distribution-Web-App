@@ -113,7 +113,7 @@ class AgencyProfileForm extends Component {
           sunday: "",
         },
         distributionStartDate: "",
-        distributionFrequency: "1",
+        distributionFrequency: "",
         userSelectedDates: [],
         userExcludedDates: [],
         pantry: false,
@@ -157,7 +157,6 @@ class AgencyProfileForm extends Component {
         disabilitySpecific: false,
         residential: false,
         immigrant: false,
-        tasks: [],
       };
     } else {
       data = { ...data };

@@ -104,6 +104,23 @@ describe("AgencyProfileForm.addAddress", () => {
   });
 });
 
+describe("AgencyProfileForm.removeAddress", () => {
+  it("removes the last string in the array of additional addresses", () => {
+    // checks that removeAddress() does remove the last element from the string array
+    // holding additional addresses in the state
+    const component = TestRenderer.create(<AgencyProfileForm.WrappedComponent agencyData={null} />)
+      .root.instance;
+
+    component.handleInputChange("additionalAddresses", ["address1", "address2", "address3"]);
+    // the toEqual() assertion does a recursive check for "deep" equality
+    expect(component.state.additionalAddresses).toEqual(["address1", "address2", "address3"]);
+    component.removeAddress();
+    expect(component.state.additionalAddresses).toEqual(["address1", "address2"]);
+    component.removeAddress();
+    expect(component.state.additionalAddresses).toEqual(["address1"]);
+  });
+});
+
 describe("AgencyProfileForm.addContact", () => {
   it("adds a new contact object to the array of contacts", () => {
     // checks that addContact() does append a "blank" contact object (with
@@ -131,5 +148,25 @@ describe("AgencyProfileForm.addContact", () => {
     expect(component.state.contacts).toEqual([testContact, blankContact]);
     component.addContact();
     expect(component.state.contacts).toEqual([testContact, blankContact, blankContact]);
+  });
+});
+
+describe("AgencyProfileForm.removeContact", () => {
+  it("removes the last contact object in the array of contacts", () => {
+    // checks that removeContact() does remove the last element in the array holding contact info
+    // in the state
+    const component = TestRenderer.create(<AgencyProfileForm.WrappedComponent agencyData={null} />)
+      .root.instance;
+    const contact1 = { contact: "A", position: "S", phoneNumber: "D", email: "F" };
+    const contact2 = { contact: "Q", position: "W", phoneNumber: "E", email: "R" };
+    const contact3 = { contact: "T", position: "Y", phoneNumber: "U", email: "I" };
+
+    component.handleInputChange("contacts", [contact1, contact2, contact3]);
+    // the toEqual() assertion does a recursive check for "deep" equality
+    expect(component.state.contacts).toEqual([contact1, contact2, contact3]);
+    component.removeContact();
+    expect(component.state.contacts).toEqual([contact1, contact2]);
+    component.removeContact();
+    expect(component.state.contacts).toEqual([contact1]);
   });
 });

@@ -26,9 +26,6 @@ function NotesModal({
   const [note, setNote] = useState("");
   const [exist, setExist] = useState(false);
 
-  function changeColor() {
-    //event.event.backgroundColor = "blue";
-  }
   function getFreq(){
     let freq;
     let interval;

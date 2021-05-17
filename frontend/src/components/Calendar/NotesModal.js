@@ -42,17 +42,20 @@ function NotesModal({
     } else{
       freq="Weekly on "
     }
-    console.log(selectedEvent.view.currentStart)
     return freq;
   }
 
   function getDate(){
     let date;
+    let dateRes;
     if(selectedEvent){
-      date = String(selectedEvent.event._instance.range.start).substring(4, 10);
+      date = String(selectedEvent.event._instance.range.start);
+      //date += " GMT";
+      console.log(date);
+      dateRes = new Date(date);
+      dateRes = dateRes.toString();
     }
-    console.log(typeof date)
-    return date;
+    return dateRes;
   }
 
   function getTime(){
@@ -76,7 +79,6 @@ function NotesModal({
     if(selectedEvent && selectedEvent.event._def.recurringDef){
       dayOfWeek = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.wkst;
     }
-    console.log(dayOfWeek);
     let day;
     switch(dayOfWeek){
       case 0:
@@ -135,6 +137,7 @@ function NotesModal({
   }
   
   useEffect(() => {
+    console.log(selectedEvent);
     if(selectedEvent) {
       console.log("Fetch");
       let eventID = selectedEvent.event._instance.instanceId;
@@ -157,7 +160,7 @@ function NotesModal({
           console.log(err);
         });
     }
-  }, [])
+  }, [selectedEvent])
 
   function handleChange(event) {
     setNote(event.target.value);

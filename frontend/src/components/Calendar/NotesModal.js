@@ -99,7 +99,7 @@ function NotesModal({
   }
 
   function updateEvent() {
-    let eventID = selectedEvent.event._instance.instanceId;
+    let eventID = String(selectedEvent.event._instance.range.start);
     if(exist) {
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "POST",
@@ -131,8 +131,8 @@ function NotesModal({
   useEffect(() => {
     console.log(selectedEvent);
     if(selectedEvent) {
-      console.log("Fetch");
-      let eventID = selectedEvent.event._instance.instanceId;
+      let eventID = String(selectedEvent.event._instance.range.start);
+      console.log(eventID);
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "GET",
         headers: {
@@ -142,9 +142,10 @@ function NotesModal({
       })
         .then((res) => res.json())
         .then((data) => {
-          if(data) {
+          if(data.note.message) {
             setExist(true);
-            setNote(data.message);
+            setNote(data.note.message);
+            document.getElementById("noteText").value = data.note.message;
           }
         })
         .catch((err) => {
@@ -152,13 +153,12 @@ function NotesModal({
           console.log(err);
         });
     }
-  }, [selectedEvent])
+  },[selectedEvent]);
 
   function handleChange(event) {
     setNote(event.target.value);
   }
 
-  console.log(showModal);
   return (
     <>
       {showModal ? (

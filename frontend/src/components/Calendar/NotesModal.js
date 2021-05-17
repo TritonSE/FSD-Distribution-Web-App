@@ -173,22 +173,15 @@ function NotesModal({
               <p>{getFreq()} {getDay()}</p>
             </div>
             <div className="notes-options">
-              <div className="option-color">
-                <h2>Change color</h2>
-                <select className="color-select">
-                  <option>Red</option>
-                  <option>Blue</option>
-                </select>
-              </div>
               <div className="option-remove">
                 <h2>Remove event</h2>
                 <div className="remove-wrapper">
                   <select className="remove-select">
+                    <option>None</option>
                     <option>Remove this event</option>
                     <option>All future events</option>
                   </select>
                 </div>
-                <img className="trash-image" src={trash} alt="trash"></img>
               </div>
             </div>
             <div className="notes-message">

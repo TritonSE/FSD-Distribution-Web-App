@@ -62,12 +62,6 @@ body {
   font-size: 18px;
 }
 
-.trash-image {
-  position: absolute;
-  right: 25px;
-  top: 150px;
-}
-
 .notes-message {
   margin-top: 1em;
   width: 100%;

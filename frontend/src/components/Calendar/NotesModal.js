@@ -47,15 +47,10 @@ function NotesModal({
 
   function getDate(){
     let date;
-    let dateRes;
     if(selectedEvent){
-      date = String(selectedEvent.event._instance.range.start);
-      //date += " GMT";
-      console.log(date);
-      dateRes = new Date(date);
-      dateRes = dateRes.toString();
+      date = String(selectedEvent.event._instance.range.start).substring(4,10);
     }
-    return dateRes;
+    return date;
   }
 
   function getTime(){

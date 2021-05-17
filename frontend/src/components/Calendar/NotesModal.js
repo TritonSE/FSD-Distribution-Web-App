@@ -26,9 +26,6 @@ function NotesModal({
   const [note, setNote] = useState("");
   const [exist, setExist] = useState(false);
 
-  function changeColor() {
-    //event.event.backgroundColor = "blue";
-  }
   function getFreq(){
     let freq;
     let interval;
@@ -42,7 +39,6 @@ function NotesModal({
     } else{
       freq="Weekly on "
     }
-    console.log(selectedEvent.view.currentStart)
     return freq;
   }
 
@@ -51,7 +47,6 @@ function NotesModal({
     if(selectedEvent){
       date = String(selectedEvent.event._instance.range.start).substring(4, 10);
     }
-    console.log(typeof date)
     return date;
   }
 
@@ -76,7 +71,6 @@ function NotesModal({
     if(selectedEvent && selectedEvent.event._def.recurringDef){
       dayOfWeek = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.wkst;
     }
-    console.log(dayOfWeek);
     let day;
     switch(dayOfWeek){
       case 0:
@@ -105,7 +99,7 @@ function NotesModal({
   }
 
   function updateEvent() {
-    let eventID = selectedEvent.event._instance.instanceId;
+    let eventID = String(selectedEvent.event._instance.range.start);
     if(exist) {
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "POST",
@@ -136,8 +130,8 @@ function NotesModal({
   
   useEffect(() => {
     if(selectedEvent) {
-      console.log("Fetch");
-      let eventID = selectedEvent.event._instance.instanceId;
+      let eventID = String(selectedEvent.event._instance.range.start);
+      console.log(eventID);
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "GET",
         headers: {
@@ -147,9 +141,10 @@ function NotesModal({
       })
         .then((res) => res.json())
         .then((data) => {
-          if(data) {
+          if(data.note.message) {
             setExist(true);
-            setNote(data.message);
+            setNote(data.note.message);
+            document.getElementById("noteText").value = data.note.message;
           }
         })
         .catch((err) => {
@@ -157,13 +152,12 @@ function NotesModal({
           console.log(err);
         });
     }
-  }, [])
+  },[selectedEvent]);
 
   function handleChange(event) {
     setNote(event.target.value);
   }
 
-  console.log(showModal);
   return (
     <>
       {showModal ? (

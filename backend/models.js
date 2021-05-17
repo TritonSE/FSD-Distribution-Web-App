@@ -382,7 +382,7 @@ const AgencySchema = new Schema({
 
 const NotesSchema = new Schema({
   _id: {
-    type: Number,
+    type: String,
   },
   /* Notes text */
   message: {

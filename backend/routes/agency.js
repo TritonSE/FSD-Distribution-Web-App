@@ -1,10 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
-const passport = require("passport");
 const { body, validationResult } = require("express-validator");
 
 const { isAuthenticated } = require("../middleware/auth");
 const { Agency } = require("../models");
+
 const router = express.Router();
 
 /**
@@ -47,18 +46,13 @@ const validateRetailRescueLocation = (day) =>
  */
 const validationChain = [
   body("tableContent.agencyNumber").trim().isNumeric({ no_symbols: true }),
-  body("tableContent.dateOfInitialPartnership")
-    .trim()
-    .isDate({ format: "MM/DD/YYYY" }),
+  body("tableContent.dateOfInitialPartnership").trim().isDate({ format: "MM/DD/YYYY" }),
   body("billingZipcode").trim().isPostalCode("US"),
   body("contacts.*.phoneNumber").trim().isMobilePhone("en-US"),
   body("contacts.*.email").trim().isEmail(),
   body("scheduledNextVisit").trim().isDate({ format: "MM/DD/YYYY" }),
   body("dateOfMostRecentAgreement").trim().isDate({ format: "MM/DD/YYYY" }),
-  body("fileAudit")
-    .trim()
-    .optional({ checkFalsy: true })
-    .isDate({ format: "MM/DD/YYYY" }),
+  body("fileAudit").trim().optional({ checkFalsy: true }).isDate({ format: "MM/DD/YYYY" }),
   body("monitored").trim().isDate({ format: "MM/DD/YYYY" }),
   body("foodSafetyCertification").trim().isDate({ format: "MM/DD/YYYY" }),
   validateDistributionStartTime("monday"),
@@ -69,6 +63,8 @@ const validationChain = [
   validateDistributionStartTime("saturday"),
   validateDistributionStartTime("sunday"),
   body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
+  body("userSelectedDates.*").trim().isISO8601(),
+  body("userExcludedDates.*").trim().isISO8601(),
   validateRetailRescueStartTime("monday"),
   validateRetailRescueStartTime("tuesday"),
   validateRetailRescueStartTime("wednesday"),
@@ -83,7 +79,6 @@ const validationChain = [
   validateRetailRescueLocation("friday"),
   validateRetailRescueLocation("saturday"),
   validateRetailRescueLocation("sunday"),
-  body("tasks.*.dueDate").trim().isDate({ format: "MM/DD/YYYY" }),
   isAuthenticated,
 ];
 
@@ -108,18 +103,19 @@ router.put("/", validationChain, async (req, res, next) => {
   if (schemaErrors) {
     invalidFields = invalidFields.concat(Object.keys(schemaErrors.errors));
   }
-  if (invalidFields.length > 0) {
-    return res.status(400).json({ fields: invalidFields });
-  }
 
-  agency
-    .save()
-    .then(() => {
-      res.status(200).json(agency);
-    })
-    .catch((err) => {
-      next(err);
-    });
+  if (invalidFields.length > 0) {
+    res.status(400).json({ fields: invalidFields });
+  } else {
+    agency
+      .save()
+      .then(() => {
+        res.status(200).json({ agency });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
 });
 
 /**
@@ -144,17 +140,18 @@ router.post("/:id", validationChain, async (req, res, next) => {
   if (schemaErrors) {
     invalidFields = invalidFields.concat(Object.keys(schemaErrors.errors));
   }
-  if (invalidFields.length > 0) {
-    return res.status(400).json({ fields: invalidFields });
-  }
 
-  Agency.updateOne({ _id: req.params.id }, req.body)
-    .then((agency) => {
-      res.status(200).json({ agency: agency });
-    })
-    .catch((err) => {
-      next(err);
-    });
+  if (invalidFields.length > 0) {
+    res.status(400).json({ fields: invalidFields });
+  } else {
+    Agency.updateOne({ _id: req.params.id }, req.body)
+      .then(() => {
+        res.status(200).json({ agency });
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
 });
 
 /**
@@ -168,7 +165,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
 router.get("/:id", isAuthenticated, async (req, res, next) => {
   Agency.findById(req.params.id)
     .then((agency) => {
-      res.status(200).json({ agency: agency });
+      res.status(200).json({ agency });
     })
     .catch((err) => {
       next(err);
@@ -200,9 +197,9 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
  */
-router.get("/table/all", async (req, res, next) => {
+router.get("/table/all", async (req, res) => {
   try {
-    const agency = await Agency.find({}, { _id: 0 }).select("tableContent");
+    const agency = await Agency.find({}).select("tableContent");
     return res.status(200).json({
       success: true,
       data: agency,
@@ -215,4 +212,13 @@ router.get("/table/all", async (req, res, next) => {
   }
 });
 
+router.delete("/:id", async (req, res, next) => {
+  Agency.findByIdAndDelete(req.params.id)
+    .then((agency) => {
+      res.status(200).json({ agency });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
 module.exports = router;

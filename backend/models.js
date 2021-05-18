@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema({
@@ -196,7 +197,12 @@ const DayValuesSchema = new Schema({
   },
 });
 
-const AgencyTaskSchema = new Schema({
+const TaskSchema = new Schema({
+  agencyID: {
+    type: mongoose.ObjectId,
+    ref: "Agency",
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -208,6 +214,10 @@ const AgencyTaskSchema = new Schema({
   status: {
     type: String,
     required: true,
+  },
+  dateCompleted: {
+    type: Date,
+    expires: 2592000,
   },
 });
 
@@ -373,15 +383,11 @@ const AgencySchema = new Schema({
   immigrant: {
     type: Boolean,
   },
-
-  /* Agency tasks */
-  tasks: {
-    type: [AgencyTaskSchema],
-  },
 });
 
 const Agency = mongoose.model("Agency", AgencySchema);
+const Task = mongoose.model("Task", TaskSchema);
 const User = mongoose.model("User", UserSchema);
 const PendingUser = mongoose.model("PendingUser", PendingUserSchema);
 
-module.exports = { Agency, User, PendingUser };
+module.exports = { Agency, Task, User, PendingUser };

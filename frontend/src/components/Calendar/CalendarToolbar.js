@@ -65,14 +65,10 @@ class CalendarToolbar extends Component {
       this.setState({ distribution: this.props.distribution });
       this.setState({ rescue: this.props.rescue });
     } else {
-      let filtered = this.props.distribution.filter((agency) => {
-        return agency.name.startsWith(agencyName);
-      });
+      let filtered = this.props.distribution.filter((agency) => agency.name.startsWith(agencyName));
       this.setState({ distribution: filtered });
 
-      filtered = this.props.rescue.filter((agency) => {
-        return agency.name.startsWith(agencyName);
-      });
+      filtered = this.props.rescue.filter((agency) => agency.name.startsWith(agencyName));
       this.setState({ rescue: filtered });
     }
   }
@@ -84,21 +80,20 @@ class CalendarToolbar extends Component {
   handleShowAgencies(event) {
     switch (event.target.textContent) {
       case "Distribution":
-        this.setState({
-          showDistribution: !this.state.showDistribution
-        });
+        this.setState(prevState => ({
+          showDistribution: !prevState.showDistribution,
+        }));
         break;
       case "Rescue":
-        this.setState({
-          showRescue: !this.state.showRescue
-        });
+        this.setState(prevState => ({
+          showRescue: !prevState.showRescue,
+        }));
         break;
       default:
-        this.setState({
-          showDistribution: !this.state.showDistribution,
-
-          showRescue: !this.state.showRescue,
-        });
+        this.setState(prevState => ({
+          showDistribution: !prevState.showDistribution,
+          showRescue: !prevState.showRescue,
+        }));
         break;
     }
   }
@@ -133,7 +128,7 @@ class CalendarToolbar extends Component {
     return (
       <div className="toolbar" style={{minHeight: Math.ceil((window.screen.height - 185) * 0.71)}}>
         <input id="search" type="text" onChange={this.handleSearchChange} className="toolbar-search" placeholder="Search Agency" />
-        <button className="filter-heading" value="distributionnpm" onClick={this.handleShowAgencies}>
+        <button className="filter-heading" value="distributionnpm" type="button" onClick={this.handleShowAgencies}>
           {showDistribution ? <h5>Distribution</h5> : <p>Distribution</p>}
         </button>
         { showDistribution &&
@@ -150,8 +145,7 @@ class CalendarToolbar extends Component {
               All
             </label>
               
-              {this.state.distribution.map((agency, index) => {
-                return (
+              {this.state.distribution.map((agency, index) => (
                   <div className="filter-holder" key={index}>
                     <label className="distribution-label" style={{ backgroundColor: agency.color }} name="distributionCheckbox">
                       <input
@@ -165,13 +159,13 @@ class CalendarToolbar extends Component {
                       {agency.name}
                     </label>
                   </div>
-                );
-              })}
+                )
+              )}
             </div>
           )
         }
         <br />
-        <button className="filter-heading" value="rescue" onClick={this.handleShowAgencies}>
+        <button className="filter-heading" value="rescue" type="button" onClick={this.handleShowAgencies}>
           {showRescue ? <h5>Rescue</h5> : <p>Rescue</p>}
         </button>
         { showRescue &&
@@ -187,8 +181,7 @@ class CalendarToolbar extends Component {
                 />
               All
             </label>
-              {this.state.rescue.map((agency, index) => {
-                return (
+              {this.state.rescue.map((agency, index) => (
                   <div className="filter-holder" key={index}>
                     <label className="rescue-label" style={{ borderColor: agency.color }} name="rescueCheckbox">
                       <input
@@ -202,8 +195,8 @@ class CalendarToolbar extends Component {
                       {agency.name}
                     </label>
                   </div>
-                );
-              })}
+                )
+              )}
             </div>
           )
         }

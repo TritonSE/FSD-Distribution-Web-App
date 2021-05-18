@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+// eslint-disable-next-line no-unused-vars
+import { BrowserRouter, BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+
 import Home from "./pages/Home/Home";
 import Agency from "./pages/Agency/Agency";
-import AgencyProfile from "./pages/AgencyProfile/AgencyProfile";
+import AgencyProfilePage from "./pages/AgencyProfilePage/AgencyProfilePage";
+import AgencyEditPage from "./pages/AgencyEditPage/AgencyEditPage";
 import AgencyForm from "./pages/AgencyForm/AgencyForm";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import { isAuthenticated } from "./auth";
-import { useState } from 'react';
 
 function App() {
   const [isLogged, setLogged] = useState(isAuthenticated());
-  const changeIsLogged = (isLogged) => setLogged(isLogged);
   return (
     <div className="App">
       <BrowserRouter>
         <div>
-          <Navbar isLogged={isLogged} changeIsLogged={changeIsLogged} />
+          <Navbar isLogged={isLogged} changeIsLogged={setLogged} />
           <Switch>
-            <React.Fragment>
+            <>
               <Route exact path="/" component={Home} />
               <Route exact path="/agency" component={Agency} />
-              <Route exact path="/agency/:id" component={AgencyProfile} />
+              <Route exact path="/agency-profile/:id" component={AgencyProfilePage} />
+              <Route exact path="/agency-profile/:id/edit" component={AgencyEditPage} />
               <Route exact path="/create-agency" component={AgencyForm} />
-              <Route exact path="/login" render={(...props) => (<Login {...props} changeIsLogged={changeIsLogged} />)} />
+              <Route
+                exact
+                path="/login"
+                render={(...props) => <Login {...props} changeIsLogged={setLogged} />}
+              />
               <Route exact path="/register" component={Register} />
-            </React.Fragment>
+            </>
           </Switch>
         </div>
       </BrowserRouter>

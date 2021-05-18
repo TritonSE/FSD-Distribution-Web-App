@@ -1,6 +1,9 @@
 /* Dimensional styling for the search container */
 .search-container {
   margin: auto;
+}
+
+.search-container {
   width: 80%;
   margin-bottom: 3em;
   margin-top: 3em;
@@ -46,7 +49,7 @@
 
 /* Align select options horizontally */
 .selects-container {
-  display: flex;
+  display: inline-flex;
 }
 
 /* Styling for the clear all button */
@@ -71,17 +74,21 @@
 
 /* Dimensional styling for the data table container */
 .data-table-container {
-  margin: auto;
   width: 80%;
-  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Dimensional styling for the CreateBtn Container */
 .create-btn-container {
-  margin: auto;
-  margin-top: 1em;
+  margin-top: 1.5em;
   width: 80%;
-  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.create-btn-container > * {
+  float: left;
 }
 
 /* Align selected filters horizontally */

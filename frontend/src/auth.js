@@ -4,36 +4,33 @@
  */
 
 function isAuthenticated() {
-  return localStorage.hasOwnProperty('DWA:token');
+  return localStorage.getItem("DWA:token") !== null;
 }
 
 function getJWT() {
   if (!isAuthenticated()) {
     return null;
   }
-  return localStorage.getItem('DWA:token');
+  return localStorage.getItem("DWA:token");
 }
 function setJWT(token) {
-  localStorage.setItem('DWA:token', token);
+  localStorage.setItem("DWA:token", token);
 }
 
 function getUser() {
   if (!isAuthenticated()) {
     return null;
   }
-  return JSON.parse(localStorage.getItem('DWA:user'));
+  return JSON.parse(localStorage.getItem("DWA:user"));
 }
 
 function setUser(user) {
-  localStorage.setItem('DWA:user', JSON.stringify(user));
+  localStorage.setItem("DWA:user", JSON.stringify(user));
 }
 
 function logout() {
-  localStorage.removeItem('DWA:token');
-  localStorage.removeItem('DWA:user');
+  localStorage.removeItem("DWA:token");
+  localStorage.removeItem("DWA:user");
 }
 
-export {
-  isAuthenticated, getJWT, setJWT,
-  getUser, setUser, logout
-};
+export { isAuthenticated, getJWT, setJWT, getUser, setUser, logout };

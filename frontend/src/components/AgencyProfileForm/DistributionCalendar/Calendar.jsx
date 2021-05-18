@@ -12,6 +12,8 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * selection and exclusion.
  *
  * Expected props:
+ * - {String} todayDate: String in default date format from which the calendar
+ * is built
  * - {String} distributionStartDate: String in default date format representing
  * the starting distribution date
  * - {String} distributionFrequency: Number representing how often the agency
@@ -30,7 +32,9 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    let todayMoment = moment();
+    
+    let todayMoment = todayDate ? moment(todayDate, DEFAULT_DATE_FORMAT) : moment();
+
     this.state = {
       todayMoment: todayMoment,
       calendar: this.buildCalendar(todayMoment),

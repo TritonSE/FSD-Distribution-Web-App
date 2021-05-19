@@ -99,7 +99,7 @@ function NotesModal({
   }
 
   function updateEvent() {
-    let eventID = String(selectedEvent.event._instance.range.start);
+    let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
     if(exist) {
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "POST",
@@ -131,7 +131,7 @@ function NotesModal({
   useEffect(() => {
     console.log(selectedEvent);
     if(selectedEvent) {
-      let eventID = String(selectedEvent.event._instance.range.start);
+      let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
       console.log(eventID);
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "GET",

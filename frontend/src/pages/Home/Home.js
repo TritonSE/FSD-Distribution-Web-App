@@ -90,7 +90,8 @@ class Home extends Component {
                     },
                     duration: "02:00",
                     color: color,
-                    distribution: true,
+                    distribution: 'D',
+                    retailrescue: '',
                     exdate: agency.excludedDates,
                   };
 
@@ -112,6 +113,8 @@ class Home extends Component {
                   end: day,
                   duration: "02:00",
                   color: color,
+                  distribution: 'D',
+                  retailrescue: '',
                 };
 
                 if (this.state.distributionMap[name]) {
@@ -137,7 +140,8 @@ class Home extends Component {
                     },
                     duration: "01:00",
                     color: color,
-                    retailrescue: true,
+                    distribution: '',
+                    retailrescue: 'R',
                   };
 
                   if (this.state.rescueMap[name]) {

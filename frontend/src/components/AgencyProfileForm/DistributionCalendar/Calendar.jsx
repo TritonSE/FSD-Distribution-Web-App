@@ -33,7 +33,7 @@ class Calendar extends Component {
   constructor(props) {
     super(props);
     
-    let todayMoment = todayDate ? moment(todayDate, DEFAULT_DATE_FORMAT) : moment();
+    let todayMoment = props.todayDate ? moment(props.todayDate, DEFAULT_DATE_FORMAT) : moment();
 
     this.state = {
       todayMoment: todayMoment,

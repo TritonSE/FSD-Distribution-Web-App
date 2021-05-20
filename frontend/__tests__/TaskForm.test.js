@@ -47,3 +47,32 @@ describe("TaskForm.handleInputChange", () => {
     expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
   });
 });
+
+describe("TaskForm.isValid", () => {
+  it("returns true for valid fields", () => {
+    // checks that isValid() correctly identifies valid fields (which are not in the errors list)
+    const component = TestRenderer.create(<TaskForm data={null} />).root.instance;
+    component.setState({ errors: ["field1", "field3", "field5"] });
+
+    expect(component.isValid("field2")).toBe(true);
+    expect(component.isValid("field4")).toBe(true);
+  });
+
+  it("returns false for invalid fields", () => {
+    // checks that isValid() correctly identifies invalid fields (which are present in the errors
+    // list)
+    const component = TestRenderer.create(<TaskForm data={null} />).root.instance;
+    component.setState({ errors: ["field1", "field3", "field5"] });
+
+    expect(component.isValid("field1")).toBe(false);
+    expect(component.isValid("field5")).toBe(false);
+  });
+
+  it("returns true before validation has occurred", () => {
+    // checks that isValid() treats all fields as valid when there is no errors list yet
+    const component = TestRenderer.create(<TaskForm data={null} />).root.instance;
+
+    expect(component.isValid("field1")).toBe(true);
+    expect(component.isValid("field2")).toBe(true);
+  });
+});

@@ -21,3 +21,29 @@ describe("TaskForm.constructor", () => {
     expect(component.state.status).toBe("B");
   });
 });
+
+describe("TaskForm.handleInputChange", () => {
+  it("updates state for existing keys", () => {
+    // calls handleInputChange() with various (known) keys and test values to
+    // check that it updates TaskForm's state correctly
+    const component = TestRenderer.create(<TaskForm data={null} />).root.instance;
+    component.handleInputChange("title", "abc");
+    expect(component.state.title).toBe("abc");
+    component.handleInputChange("dueDate", "def");
+    expect(component.state.dueDate).toBe("def");
+    component.handleInputChange("status", "ghi");
+    expect(component.state.status).toBe("ghi");
+    component.handleInputChange("title", "jkl");
+    expect(component.state.title).toBe("jkl");
+  });
+
+  it("doesn't update state for unknown keys", () => {
+    // calls handleInputChange() with an unknown key to check that it rejects
+    // the change and doesn't add it to the state
+    const component = TestRenderer.create(<TaskForm data={null} />).root.instance;
+
+    expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
+    component.handleInputChange("keyThatShouldNotBeUsed", "abcd");
+    expect(component.state.keyThatShouldNotBeUsed).toBeUndefined();
+  });
+});

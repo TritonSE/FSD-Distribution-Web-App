@@ -14,10 +14,10 @@ describe("TaskForm.constructor", () => {
   it("populates state with given data", () => {
     // checks the state after passing in test data
     const component = TestRenderer.create(
-      <TaskForm data={{ title: "A", dueDate: "01/01/1970", status: "B" }} />
+      <TaskForm data={{ title: "A", dueDate: "01/01/2021", status: "B" }} />
     ).root.instance;
     expect(component.state.title).toBe("A");
-    expect(component.state.dueDate).toBe("01/01/1970");
+    expect(component.state.dueDate).toBe("01/01/2021");
     expect(component.state.status).toBe("B");
   });
 });
@@ -74,5 +74,99 @@ describe("TaskForm.isValid", () => {
 
     expect(component.isValid("field1")).toBe(true);
     expect(component.isValid("field2")).toBe(true);
+  });
+});
+
+describe("TaskForm.submitForm", () => {
+  it("calls onSubmit() when input values are valid format", () => {
+    // checks that it calls the onSubmit() callback with correct data when the fields contain valid
+    // input values
+    const mockOnSubmit = jest.fn();
+    const mockData = {
+      _id: 123,
+      agencyID: 456,
+      title: "Task",
+      dueDate: "01/01/2021",
+      status: "In Progress",
+    };
+    const mockEditIndex = 2;
+    const component = TestRenderer.create(
+      <TaskForm data={mockData} editIndex={mockEditIndex} onSubmit={mockOnSubmit} />
+    ).root.instance;
+    component.submitForm();
+    expect(mockOnSubmit).toHaveBeenCalledWith(mockData, mockEditIndex);
+  });
+
+  it("rejects when title is empty", () => {
+    // checks that "title" is added to errors list and onSubmit() is NOT called when title is empty
+    // and all other fields are valid
+    const mockOnSubmit = jest.fn();
+    const mockData = {
+      _id: 123,
+      agencyID: 456,
+      title: "",
+      dueDate: "01/01/2021",
+      status: "In Progress",
+    };
+    const mockEditIndex = 2;
+    const component = TestRenderer.create(
+      <TaskForm data={mockData} editIndex={mockEditIndex} onSubmit={mockOnSubmit} />
+    ).root.instance;
+    component.submitForm();
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+    expect(component.state.errors).toEqual(["title"]);
+  });
+
+  it("rejects when status is empty", () => {
+    // checks that "status" is added to errors list and onSubmit() is NOT called when status is
+    // empty and all other fields are valid
+    const mockOnSubmit = jest.fn();
+    const mockData = {
+      _id: 123,
+      agencyID: 456,
+      title: "Task",
+      dueDate: "01/01/2021",
+      status: "",
+    };
+    const mockEditIndex = 2;
+    const component = TestRenderer.create(
+      <TaskForm data={mockData} editIndex={mockEditIndex} onSubmit={mockOnSubmit} />
+    ).root.instance;
+    component.submitForm();
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+    expect(component.state.errors).toEqual(["status"]);
+  });
+
+  it("rejects when dueDate is empty or improperly formatted", () => {
+    // checks that "dueDate" is added to errors list and onSubmit() is NOT called when dueDate is
+    // either empty or not in the format MM/DD/YYYY and all other fields are valid
+    const mockOnSubmit = jest.fn();
+    const mockData = {
+      _id: 123,
+      agencyID: 456,
+      title: "Task",
+      dueDate: "",
+      status: "In Progress",
+    };
+    const mockEditIndex = 2;
+    const component = TestRenderer.create(
+      <TaskForm data={mockData} editIndex={mockEditIndex} onSubmit={mockOnSubmit} />
+    ).root.instance;
+    component.submitForm();
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+    expect(component.state.errors).toEqual(["dueDate"]);
+    component.handleInputChange("dueDate", "2021");
+    component.submitForm();
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+    component.handleInputChange("dueDate", "01-01-2021");
+    component.submitForm();
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+    component.handleInputChange("dueDate", "13/01/2021");
+    component.submitForm();
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+    component.handleInputChange("dueDate", "12/00/2021");
+    component.submitForm();
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+    expect(component.state.errors).toEqual(["dueDate"]);
   });
 });

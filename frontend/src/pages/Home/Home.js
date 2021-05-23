@@ -173,7 +173,7 @@ class Home extends Component {
   /**
    * Callback that will be passed onto the calendar toolbar. If true, it will show all events in the distribution field.
    * Otherwise, it will hide all events in the distribution field.
-   * @param {Boolean} checked Boolean determining whether the ALL checkbox in distribution section is checked
+   * @param {Boolean} checked: Boolean determining whether the ALL checkbox in distribution section is checked
    */
   updateDistributionAll(checked) {
     this.setState({ distributionEvents: [] });
@@ -188,7 +188,7 @@ class Home extends Component {
 
   /**
    * Callback that will be passed onto the calendar toolbar to handle the rendering of a single distribution event.
-   * @param {Object} event event object containing the information of the selected distribution event
+   * @param {Object} event: event object containing the information of the selected distribution event
    */
   updateDistribution(event) {
     const { checked } = event.target;
@@ -210,7 +210,7 @@ class Home extends Component {
   /**
    * Callback that will be passed onto the calendar toolbar. If true, it will show all events in the rescue field.
    * Otherwise, it will hide all events in the rescue field.
-   * @param {Boolean} checked Boolean determining whether the ALL checkbox in rescue section is checked
+   * @param {Boolean} checked: Boolean determining whether the ALL checkbox in rescue section is checked
    */
   updateRescueAll(checked) {
     this.setState({ rescueEvents: [] });
@@ -225,7 +225,7 @@ class Home extends Component {
 
   /**
    * Callback that will be passed onto the calendar toolbar to handle the rendering of a single rescue event.
-   * @param {Object} event event object containing the information of the selected rescue event
+   * @param {Object} event: event object containing the information of the selected rescue event
    */
   updateRescue(event) {
     const { checked } = event.target;

@@ -56,7 +56,7 @@ class CalendarToolbar extends Component {
 
   /**
    * Handles any user input in search bar to filter out the agencies.
-   * @param {object} event event object of search bar
+   * @param {Object} event: event object of search bar
    */
   handleSearchChange(event) {
     const agencyName = event.target.value;
@@ -75,7 +75,7 @@ class CalendarToolbar extends Component {
 
   /**
    * Allows the showing/hiding of events based on category.
-   * @param {object} event event object of the category label
+   * @param {Object} event: event object of the category label
    */
   handleShowAgencies(event) {
     switch (event.target.textContent) {
@@ -100,7 +100,7 @@ class CalendarToolbar extends Component {
 
   /**
    * Handles selection of the ALL checkboxes based on category.
-   * @param {object} event event object of the ALL checkbox
+   * @param {Object} event: event object of the ALL checkbox
    */
   handleCheck(event) {
     const category = event.target.value;

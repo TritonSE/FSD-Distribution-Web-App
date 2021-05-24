@@ -295,25 +295,31 @@ const AgencySchema = new Schema({
   },
 
   /* Distribution Section */
+  // Which days of the week have an event
   distributionDays: {
     type: DaySelectionsSchema,
     required: true,
   },
+  // Start time for the event on each day of the week 
   distributionStartTimes: {
     type: DayValuesSchema,
     required: true,
   },
+  // Beginning of the pattern 
   distributionStartDate: {
     type: String,
     required: true,
   },
+  // How many weeks per pattern 
   distributionFrequency: {
     type: Number,
     required: true,
   },
+  // Extra dates outside pattern
   userSelectedDates: {
     type: [String],
   },
+  // Dates in pattern that should be excluded 
   userExcludedDates: {
     type: [String],
   },

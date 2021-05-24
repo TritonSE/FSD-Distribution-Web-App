@@ -1,0 +1,54 @@
+.home {
+  display: flex;
+}
+
+.home-calendar {
+  margin: 5vh;
+  width: 100%;
+}
+
+.fc-button.fc-prev-button,
+.fc-button.fc-next-button,
+.fc-button.fc-button-primary {
+  background: #f5f7f7;
+  background-image: none;
+  color: black;
+  border: none;
+}
+
+.fc .fc-button-primary:hover {
+  color: black;
+  color: var(--fc-button-text-color, black);
+  background-color: #f5f7f7;
+  background-color: var(--fc-button-hover-bg-color, #f5f7f7);
+  border-color: none;
+}
+
+.fc .fc-button-primary:not(:disabled):active,
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  color: var(--fc-button-text-color, black);
+  background-color: var(--fc-button-active-bg-color, #f5f7f7);
+  font-weight: bold;
+}
+
+.fc .fc-button-primary:disabled {
+  color: black;
+  color: var(--fc-button-text-color, black);
+  background-color: #f5f7f7;
+  font-weight: bold;
+  background-color: var(--fc-button-bg-color, #f5f7f7);
+  border-color: #2c3e50;
+  border-color: var(--fc-button-border-color, #2c3e50);
+}
+
+.fc a {
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.fc tbody::before {
+  display: block;
+  line-height: 1px;
+  text-indent: -99999px;
+}

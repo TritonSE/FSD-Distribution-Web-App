@@ -58,7 +58,10 @@ class Home extends Component {
     })
       .then((response) => {
         response.json().then((data) => {
-          if (response.ok) {
+          if (response.ok || this.props.testData) {
+            if(this.props.testData) {
+              data = this.props.testData;
+            }
             const { agencies } = data;
             const hsvInterval = 360 / agencies.length;
             agencies.forEach((agency, index) => {

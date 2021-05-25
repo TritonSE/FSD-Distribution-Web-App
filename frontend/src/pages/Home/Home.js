@@ -41,6 +41,8 @@ class Home extends Component {
       rescueMap: {},
       showModal: false,
       selectedEvent: undefined,
+      agencyId: undefined,
+      userDates: undefined,
     };
     this.updateDistributionAll = this.updateDistributionAll.bind(this);
     this.updateDistribution = this.updateDistribution.bind(this);
@@ -92,7 +94,9 @@ class Home extends Component {
                     color: color,
                     distribution: 'D',
                     retailrescue: '',
-                    exdate: agency.excludedDates,
+                    agencyID: agency._id,
+                    userDates: agency.userSelectedDates,
+                    exdate: agency.userExcludedDates,
                   };
 
                   if (this.state.distributionMap[name]) {
@@ -115,6 +119,9 @@ class Home extends Component {
                   color: color,
                   distribution: 'D',
                   retailrescue: '',
+                  agencyID: agency._id,
+                  userDates: agency.userSelectedDates,
+                  dDate: day,
                 };
 
                 if (this.state.distributionMap[name]) {
@@ -142,6 +149,8 @@ class Home extends Component {
                     color: color,
                     distribution: '',
                     retailrescue: 'R',
+                    agencyID: agency._id,
+                    userDates: agency.userSelectedDates,
                   };
 
                   if (this.state.rescueMap[name]) {
@@ -243,10 +252,10 @@ class Home extends Component {
   }
 
   handleClick = (arg) => {
-    console.log(arg);
     this.selectedEvent = arg;
     this.toggleModal();
     this.setState({selectedEvent: arg});
+    console.log(arg);
   }
 
   render() {
@@ -294,6 +303,8 @@ class Home extends Component {
             showModal={this.state.showModal}
             toggleModal={this.toggleModal}
             selectedEvent={this.state.selectedEvent}
+            agencyId={this.state.agencyId}
+            userDates={this.state.userDates}
         />
       </Row>
 

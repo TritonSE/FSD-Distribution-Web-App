@@ -25,6 +25,7 @@ function NotesModal({
 
   const [note, setNote] = useState("");
   const [exist, setExist] = useState(false);
+  const [agencyID, setAgencyID] = useState(undefined);
 
   function getFreq(){
     let freq;
@@ -99,6 +100,64 @@ function NotesModal({
   }
 
   function updateEvent() {
+    let removeEvent = document.getElementById('remove');
+    if(selectedEvent.event._def.recurringDef == null) {
+      if(removeEvent.value != "None") {
+        fetch(`http://localhost:8000/agency/${agencyID}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + getJWT(),
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          return data.agency;
+        })
+        .then((agency) => {
+          fetch(`http://localhost:8000/agency/${agencyID}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + getJWT(),
+            },
+            body: JSON.stringify({
+              ...agency,
+              userSelectedDates: agency.userSelectedDates.filter((date) => 
+                date != selectedEvent.event._def.extendedProps.dDate
+              )
+            }),
+          });
+        });
+      }
+    } else {
+      if(removeEvent.value == "Remove this event") {
+        fetch(`http://localhost:8000/agency/${agencyID}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + getJWT(),
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          return data.agency;
+        })
+        .then((agency) => {
+          fetch(`http://localhost:8000/agency/${agencyID}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + getJWT(),
+            },
+            body: JSON.stringify({
+              ...agency,
+              userExcludedDates: agency.userExcludedDates.concat([selectedEvent.event._instance.range.start.toISOString().substring(0,selectedEvent.event._instance.range.start.toISOString().indexOf('T'))]),
+            }),
+          });
+        });
+      }
+    }
     let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
     if(exist) {
       fetch(`http://localhost:8000/notes/${eventID}`, {
@@ -129,10 +188,8 @@ function NotesModal({
   }
   
   useEffect(() => {
-    console.log(selectedEvent);
     if(selectedEvent) {
       let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
-      console.log(eventID);
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "GET",
         headers: {
@@ -142,6 +199,7 @@ function NotesModal({
       })
         .then((res) => res.json())
         .then((data) => {
+          setAgencyID(selectedEvent.event._def.extendedProps.agencyID);
           if(data.note.message) {
             setExist(true);
             setNote(data.note.message);
@@ -173,7 +231,7 @@ function NotesModal({
               <div className="option-remove">
                 <h2>Remove event</h2>
                 <div className="remove-wrapper">
-                  <select className="remove-select">
+                  <select className="remove-select" id="remove">
                     <option>None</option>
                     <option>Remove this event</option>
                     <option>All future events</option>

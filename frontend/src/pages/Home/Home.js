@@ -54,6 +54,8 @@ class Home extends Component {
    * Fetches all agencies from the database that will be used to populate the state 
    */
   componentDidMount() {
+    console.log("RAN AGAIN");
+    console.log(this.props)
     fetch(`${config.backend.uri}/agency`, {
       method: "GET",
       headers: {
@@ -112,6 +114,9 @@ class Home extends Component {
                     };
                   }
                   else{
+                    if(agency.tableContent.agencyNumber === 1145){
+                      console.log(agency.userExcludedDates);
+                    }
                     event = {
                       title: name,
                       rrule: {
@@ -131,7 +136,6 @@ class Home extends Component {
                     };
                   }
 
-                  console.log(agency.userExcludedDates);
 
                   if (this.state.distributionMap[name]) {
                     // Agency already exists in distribution map
@@ -340,6 +344,8 @@ class Home extends Component {
             selectedEvent={this.state.selectedEvent}
             agencyId={this.state.agencyId}
             userDates={this.state.userDates}
+            deleted = {this.props.deleted}
+            changeDeleted = {this.props.changeDeleted}
         />
       </Row>
 

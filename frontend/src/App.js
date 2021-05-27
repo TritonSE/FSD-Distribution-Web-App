@@ -14,6 +14,8 @@ import { useState } from 'react';
 
 function App() {
   const [isLogged, setLogged] = useState(isAuthenticated());
+  const [deleted, setDeleted] = useState(0);
+  const changeDeleted = (deleted) => setDeleted(deleted);
   const changeIsLogged = (isLogged) => setLogged(isLogged);
   return (
     <div className="App">
@@ -22,7 +24,7 @@ function App() {
           <Navbar isLogged={isLogged} changeIsLogged={changeIsLogged} />
           <Switch>
             <React.Fragment>
-              <Route exact path="/" component={Home} />
+              <Route exact path="/" render={() => (<Home key={deleted} deleted = {deleted} changeDeleted = {changeDeleted}/>)} />
               <Route exact path="/agency" component={Agency} />
               <Route exact path="/agency/:id" component={AgencyProfile} />
               <Route exact path="/create-agency" component={AgencyForm} />

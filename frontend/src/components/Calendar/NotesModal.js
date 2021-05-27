@@ -21,6 +21,8 @@ function NotesModal({
   showModal,
   toggleModal,
   selectedEvent,
+  deleted,
+  changeDeleted,
 }) {
 
   const [note, setNote] = useState("");
@@ -129,6 +131,7 @@ function NotesModal({
               )
             }),
           });
+          changeDeleted(++deleted);
         })
         .then(() => {
           fetch(`http://localhost:8000/notes/${eventID}`, {
@@ -165,6 +168,7 @@ function NotesModal({
               userExcludedDates: agency.userExcludedDates.concat([selectedEvent.event._instance.range.start.toISOString()]),
             }),
           });
+          changeDeleted(++deleted);
         })
         .then(() => {
           fetch(`http://localhost:8000/notes/${eventID}`, {
@@ -176,6 +180,7 @@ function NotesModal({
           });
         });
       }
+      
       if(removeEvent.value == "All future events") {
         fetch(`http://localhost:8000/agency/${agencyID}`, {
           method: "GET",
@@ -204,6 +209,7 @@ function NotesModal({
                 distributionExcludedTimes: newDistributionExclude,
               }),
             });
+            changeDeleted(++deleted);
           }
         })
 

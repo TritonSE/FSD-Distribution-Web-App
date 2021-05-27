@@ -97,7 +97,15 @@ class Home extends Component {
                     agencyID: agency._id,
                     userDates: agency.userSelectedDates,
                     exdate: agency.userExcludedDates,
+                    // exrule: {
+                    //   freq: "weekly",
+                    //   interval: agency.distributionFrequency,
+                    //   byweekday: day.substring(0, 2),
+                    //   wkst: day.substring(0, 2),
+                    //   dtstart: "2021-06-01T09:30Z"
+                    // }
                   };
+                  console.log(agency.userExcludedDates);
 
                   if (this.state.distributionMap[name]) {
                     // Agency already exists in distribution map
@@ -144,6 +152,7 @@ class Home extends Component {
                       byweekday: day.substring(0, 2),
                       wkst: day.substring(0, 2),
                       dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
+
                     },
                     duration: "01:00",
                     color: color,

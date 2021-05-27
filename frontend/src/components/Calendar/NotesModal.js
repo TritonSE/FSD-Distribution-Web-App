@@ -100,10 +100,11 @@ function NotesModal({
   }
 
   function updateEvent() {
+    let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
     let removeEvent = document.getElementById('remove');
     if(selectedEvent.event._def.recurringDef == null) {
       if(removeEvent.value != "None") {
-        fetch(`http://localhost:8000/agency/${agencyID}`, {
+        fetch(`http://localhost:8000/agency/${agencyID}`, { //delete a user selected event
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -128,9 +129,18 @@ function NotesModal({
               )
             }),
           });
+        })
+        .then(() => {
+          fetch(`http://localhost:8000/notes/${eventID}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + getJWT(),  
+            },
+          });
         });
       }
-    } else {
+    } else { //delete a recurring event
       if(removeEvent.value == "Remove this event") {
         fetch(`http://localhost:8000/agency/${agencyID}`, {
           method: "GET",
@@ -152,13 +162,23 @@ function NotesModal({
             },
             body: JSON.stringify({
               ...agency,
-              userExcludedDates: agency.userExcludedDates.concat([selectedEvent.event._instance.range.start.toISOString().substring(0,selectedEvent.event._instance.range.start.toISOString().indexOf('T'))]),
+              userExcludedDates: agency.userExcludedDates.concat([selectedEvent.event._instance.range.start.toISOString()]),
             }),
+          });
+        })
+        .then(() => {
+          fetch(`http://localhost:8000/notes/${eventID}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + getJWT(),
+            },
           });
         });
       }
     }
-    let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
+
+    //handle adding or changing a note
     if(exist) {
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "POST",

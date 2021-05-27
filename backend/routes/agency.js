@@ -184,7 +184,7 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
  * @returns the fetched Agency object in Json
  */
  router.get('/', isAuthenticated, async (req, res, next) => {
-  Agency.find({}, 'tableContent userSelectedDates userExcludedDates distributionDays distributionStartTimes distributionStartDate distributionFrequency retailRescueDays retailRescueStartTimes')
+  Agency.find({}, 'tableContent userSelectedDates userExcludedDates distributionDays distributionStartTimes distributionExcludedTimes distributionStartDate distributionFrequency retailRescueDays retailRescueStartTimes retailRescueExcludedTimes')
     .then((agencies) => {
       res.status(200).json({ agencies });
     })

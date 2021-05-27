@@ -295,6 +295,10 @@ const AgencySchema = new Schema({
     type: DayValuesSchema,
     required: true,
   },
+  // Start time for the event on each day of the week 
+  distributionExcludedTimes: {
+    type: DayValuesSchema,
+  },
   // Beginning of the pattern 
   distributionStartDate: {
     type: String,
@@ -339,6 +343,9 @@ const AgencySchema = new Schema({
   retailRescueStartTimes: {
     type: DayValuesSchema,
     required: true,
+  },
+  retailRescueExcludedTimes: {
+    type: DayValuesSchema,
   },
   retailRescueLocations: {
     type: DayValuesSchema,

@@ -100,7 +100,7 @@ function NotesModal({
   }
 
   function updateEvent() {
-    let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
+    let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution) + (selectedEvent.event._def.extendedProps.retailrescue);
     let removeEvent = document.getElementById('remove');
     if(selectedEvent.event._def.recurringDef == null) {
       if(removeEvent.value != "None") {
@@ -176,6 +176,39 @@ function NotesModal({
           });
         });
       }
+      if(removeEvent.value == "All future events") {
+        fetch(`http://localhost:8000/agency/${agencyID}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + getJWT(),
+          },
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          return data.agency;
+        })
+        .then((agency) => {
+          if(agency.distributionExcludedTimes){
+            console.log(agency.distributionExcludedTimes);
+            let newDistributionExclude = agency.distributionExcludedTimes;
+            newDistributionExclude[getDay().toLowerCase()] = selectedEvent.event._instance.range.start.toISOString();
+            fetch(`http://localhost:8000/agency/${agencyID}`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + getJWT(),
+              },
+              body: JSON.stringify({
+                ...agency,
+                distributionExcludedTimes: newDistributionExclude,
+              }),
+            });
+          }
+        })
+
+
+      }
     }
 
     //handle adding or changing a note
@@ -209,7 +242,7 @@ function NotesModal({
   
   useEffect(() => {
     if(selectedEvent) {
-      let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution);
+      let eventID = String(selectedEvent.event._instance.range.start) + String(selectedEvent.event._instance.range.end) + (selectedEvent.event._def.title) + (selectedEvent.event._def.extendedProps.distribution) + (selectedEvent.event._def.extendedProps.retailrescue);
       fetch(`http://localhost:8000/notes/${eventID}`, {
         method: "GET",
         headers: {

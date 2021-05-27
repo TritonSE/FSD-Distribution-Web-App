@@ -63,6 +63,7 @@ class Home extends Component {
     })
       .then((response) => {
         response.json().then((data) => {
+          console.log(data);
           if (response.ok) {
             const hsvInterval = 360 / data.agencies.length;
             data.agencies.forEach((agency, index) => {
@@ -81,30 +82,55 @@ class Home extends Component {
               // generate events to populate the distribution map
               for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
                 if (day !== "_id" && isMarked) {
-                  const event = {
-                    title: name,
-                    rrule: {
-                      freq: "weekly",
-                      interval: agency.distributionFrequency,
-                      byweekday: day.substring(0, 2),
-                      wkst: day.substring(0, 2),
-                      dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
-                    },
-                    duration: "02:00",
-                    color: color,
-                    distribution: 'D',
-                    retailrescue: '',
-                    agencyID: agency._id,
-                    userDates: agency.userSelectedDates,
-                    exdate: agency.userExcludedDates,
-                    // exrule: {
-                    //   freq: "weekly",
-                    //   interval: agency.distributionFrequency,
-                    //   byweekday: day.substring(0, 2),
-                    //   wkst: day.substring(0, 2),
-                    //   dtstart: "2021-06-01T09:30Z"
-                    // }
-                  };
+                  let event;
+                  if(agency.tableContent.agencyNumber == 1134){
+                    console.log(agency);
+                    console.log("HERE");
+                    event = {
+                      title: name,
+                      rrule: {
+                        freq: "weekly",
+                        interval: agency.distributionFrequency,
+                        byweekday: day.substring(0, 2),
+                        wkst: day.substring(0, 2),
+                        dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
+                      },
+                      duration: "02:00",
+                      color: color,
+                      distribution: 'D',
+                      retailrescue: '',
+                      agencyID: agency._id,
+                      userDates: agency.userSelectedDates,
+                      exdate: agency.userExcludedDates,
+                      exrule: {
+                        freq: "weekly",
+                        interval: agency.distributionFrequency,
+                        byweekday: day.substring(0, 2),
+                        wkst: day.substring(0, 2),
+                        dtstart: agency.distributionExcludedTimes[day],
+                      },
+                    };
+                  }
+                  else{
+                    event = {
+                      title: name,
+                      rrule: {
+                        freq: "weekly",
+                        interval: agency.distributionFrequency,
+                        byweekday: day.substring(0, 2),
+                        wkst: day.substring(0, 2),
+                        dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
+                      },
+                      duration: "02:00",
+                      color: color,
+                      distribution: 'D',
+                      retailrescue: '',
+                      agencyID: agency._id,
+                      userDates: agency.userSelectedDates,
+                      exdate: agency.userExcludedDates,
+                    };
+                  }
+
                   console.log(agency.userExcludedDates);
 
                   if (this.state.distributionMap[name]) {

@@ -84,57 +84,29 @@ class Home extends Component {
               // generate events to populate the distribution map
               for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
                 if (day !== "_id" && isMarked) {
-                  let event;
-                  if(agency.tableContent.agencyNumber == 1134){
-                    console.log(agency);
-                    console.log("HERE");
-                    event = {
-                      title: name,
-                      rrule: {
-                        freq: "weekly",
-                        interval: agency.distributionFrequency,
-                        byweekday: day.substring(0, 2),
-                        wkst: day.substring(0, 2),
-                        dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
-                      },
-                      duration: "02:00",
-                      color: color,
-                      distribution: 'D',
-                      retailrescue: '',
-                      agencyID: agency._id,
-                      userDates: agency.userSelectedDates,
-                      exdate: agency.userExcludedDates,
-                      exrule: {
-                        freq: "weekly",
-                        interval: agency.distributionFrequency,
-                        byweekday: day.substring(0, 2),
-                        wkst: day.substring(0, 2),
-                        dtstart: agency.distributionExcludedTimes[day],
-                      },
-                    };
-                  }
-                  else{
-                    if(agency.tableContent.agencyNumber === 1145){
-                      console.log(agency.userExcludedDates);
-                    }
-                    event = {
-                      title: name,
-                      rrule: {
-                        freq: "weekly",
-                        interval: agency.distributionFrequency,
-                        byweekday: day.substring(0, 2),
-                        wkst: day.substring(0, 2),
-                        dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
-                      },
-                      duration: "02:00",
-                      color: color,
-                      distribution: 'D',
-                      retailrescue: '',
-                      agencyID: agency._id,
-                      userDates: agency.userSelectedDates,
-                      exdate: agency.userExcludedDates,
-                    };
-                  }
+                  const event = {
+                    title: name,
+                    rrule: {
+                      freq: "weekly",
+                      interval: agency.distributionFrequency,
+                      byweekday: day.substring(0, 2),
+                      wkst: day.substring(0, 2),
+                      dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
+                    },
+                    duration: "02:00",
+                    color,
+                    distribution: 'D',
+                    retailrescue: '',
+                    agencyID: agency._id,
+                    exdate: agency.userExcludedDates,
+                    exrule: {
+                      freq: "weekly",
+                      interval: agency.distributionFrequency,
+                      byweekday: day.substring(0, 2),
+                      wkst: day.substring(0, 2),
+                      dtstart: agency.distributionExcludedTimes[day],
+                    },
+                  };
 
 
                   if (this.state.distributionMap[name]) {
@@ -154,12 +126,10 @@ class Home extends Component {
                   start: day,
                   end: day,
                   duration: "02:00",
-                  color: color,
+                  color,
                   distribution: 'D',
                   retailrescue: '',
                   agencyID: agency._id,
-                  userDates: agency.userSelectedDates,
-                  dDate: day,
                 };
 
                 if (this.state.distributionMap[name]) {
@@ -182,14 +152,21 @@ class Home extends Component {
                       byweekday: day.substring(0, 2),
                       wkst: day.substring(0, 2),
                       dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
-
                     },
                     duration: "01:00",
-                    color: color,
+                    backgroundColor:"#FFFFFF",
+                    color,
                     distribution: '',
                     retailrescue: 'R',
                     agencyID: agency._id,
-                    userDates: agency.userSelectedDates,
+                    exdate: agency.userExcludedDates,
+                    exrule: {
+                      freq: "weekly",
+                      interval: 1,
+                      byweekday: day.substring(0, 2),
+                      wkst: day.substring(0, 2),
+                      dtstart: agency.retailRescueExcludedTimes[day],
+                    },
                   };
 
                   if (this.state.rescueMap[name]) {
@@ -324,7 +301,7 @@ class Home extends Component {
           >
             <FullCalendar
               plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]} // 
-              timeZone="UTC"
+              timeZone="local"
               headerToolbar={{
                 left: "prev,next today",
                 center: "title",
@@ -335,6 +312,7 @@ class Home extends Component {
               eventClick={this.handleClick}
               events={this.state.distributionEvents.concat(this.state.rescueEvents)}
               fixedWeekCount={false}
+              contentHeight = "auto"
             />
           </div>
         </Col>
@@ -343,7 +321,6 @@ class Home extends Component {
             toggleModal={this.toggleModal}
             selectedEvent={this.state.selectedEvent}
             agencyId={this.state.agencyId}
-            userDates={this.state.userDates}
             deleted = {this.props.deleted}
             changeDeleted = {this.props.changeDeleted}
         />

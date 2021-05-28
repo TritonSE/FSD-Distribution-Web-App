@@ -29,76 +29,44 @@ function NotesModal({
   const [exist, setExist] = useState(false);
   const [agencyID, setAgencyID] = useState(undefined);
 
-  function getFreq(){
+  function getFreq() {
     let freq;
     let interval;
-    if(selectedEvent && selectedEvent.event._def.recurringDef){
-        interval = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.interval;
+    if(selectedEvent && selectedEvent.event._def.recurringDef) {
+      interval = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.interval;
     } else{
       return "";
     }
-    if(interval == 2){
+    if(interval == 2) {
       freq = "Biweekly on "
-    } else{
-      freq="Weekly on "
+    } else if(interval == 1) {
+      freq = "Weekly on "
+    } else {
+      freq = "Every " + interval + " Weeks on "
     }
+    
     return freq;
   }
 
-  function getDate(){
-    let date;
-    if(selectedEvent){
-      date = String(selectedEvent.event._instance.range.start).substring(4,10);
+  function getDate() {
+    let date = "";
+    let options = {month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric'};
+    if(selectedEvent) {
+      date = new Date(selectedEvent.event.startStr);
+      date = String(new Intl.DateTimeFormat('en-US', options).format(date));
     }
     return date;
   }
 
-  function getTime(){
-    let time;
-    if(selectedEvent){
-      time = String(selectedEvent.event._instance.range.start).substring(16,21);
-    }
-    if(time){
-      //convert to standard time
-      let timeNum = parseInt(time.substring(0,2));
-      if(timeNum > 12){
-        timeNum = timeNum-12;
-        time = timeNum + time.substring(2);
-      }
-    }
-    return time;
-  }
-
-  function getDay(){
-    let dayOfWeek;
+  function getDay() {
+    let date = "";
     if(selectedEvent && selectedEvent.event._def.recurringDef){
-      dayOfWeek = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.wkst;
+      console.log(selectedEvent.event.startStr);
+      //dayOfWeek = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.wkst;
+      date = new Date(selectedEvent.event.startStr);
+      date = String(new Intl.DateTimeFormat('en-US', {weekday: 'long'}).format(date));
     }
-    let day;
-    switch(dayOfWeek){
-      case 0:
-        day = "Monday";
-        break;
-      case 1:
-        day = "Tuesday";
-        break;
-      case 2:
-        day = "Wednesday";
-        break;
-      case 3:
-        day = "Thursday";
-        break;
-      case 4:
-        day = "Friday";
-        break;
-      case 5:
-        day = "Saturday";
-        break;
-      case 6:
-        day = "Sunday";
-        break;
-    }
-    return day;
+    return date;
   }
 
   function updateEvent() {
@@ -127,7 +95,7 @@ function NotesModal({
             body: JSON.stringify({
               ...agency,
               userSelectedDates: agency.userSelectedDates.filter((date) => 
-                date != selectedEvent.event._def.extendedProps.dDate
+                date != selectedEvent.event.startStr
               )
             }),
           });
@@ -144,7 +112,8 @@ function NotesModal({
         });
       }
     } else { //delete a recurring event
-      if(removeEvent.value == "Remove this event") {
+
+      if(removeEvent.value == "Remove this event") { //delete a single recurring event
         fetch(`http://localhost:8000/agency/${agencyID}`, {
           method: "GET",
           headers: {
@@ -165,7 +134,7 @@ function NotesModal({
             },
             body: JSON.stringify({
               ...agency,
-              userExcludedDates: agency.userExcludedDates.concat([selectedEvent.event._instance.range.start.toISOString()]),
+              userExcludedDates: agency.userExcludedDates.concat([selectedEvent.event.startStr]),
             }),
           });
           changeDeleted(++deleted);
@@ -181,7 +150,7 @@ function NotesModal({
         });
       }
       
-      if(removeEvent.value == "All future events") {
+      if(removeEvent.value == "All future events") { //delete event and all future events
         fetch(`http://localhost:8000/agency/${agencyID}`, {
           method: "GET",
           headers: {
@@ -197,7 +166,8 @@ function NotesModal({
           if(agency.distributionExcludedTimes){
             console.log(agency.distributionExcludedTimes);
             let newDistributionExclude = agency.distributionExcludedTimes;
-            newDistributionExclude[getDay().toLowerCase()] = selectedEvent.event._instance.range.start.toISOString();
+            newDistributionExclude[getDay().toLowerCase()] = selectedEvent.event.startStr;
+            console.log(getDay().toLowerCase());
             fetch(`http://localhost:8000/agency/${agencyID}`, {
               method: "POST",
               headers: {
@@ -276,6 +246,12 @@ function NotesModal({
     setNote(event.target.value);
   }
 
+  function displayFutureEvents() {
+    if(selectedEvent && selectedEvent.event._def.recurringDef != null) {
+      return <option>All future events</option>
+    }
+  }
+
   return (
     <>
       {showModal ? (
@@ -283,7 +259,7 @@ function NotesModal({
           <div className="notes-container">
             <div className="notes-info">
               <h2>{selectedEvent && selectedEvent.event._def.title}</h2>
-              <p> {getDate()}, {getTime()}</p>
+              <p> {getDate()}</p>
               <p>{getFreq()} {getDay()}</p>
             </div>
             <div className="notes-options">
@@ -293,7 +269,7 @@ function NotesModal({
                   <select className="remove-select" id="remove">
                     <option>None</option>
                     <option>Remove this event</option>
-                    <option>All future events</option>
+                    {displayFutureEvents()}
                   </select>
                 </div>
               </div>

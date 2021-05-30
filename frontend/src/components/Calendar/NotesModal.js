@@ -33,7 +33,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
     } else if (interval === 1) {
       freq = `Weekly on `;
     } else {
-      freq = `Every ${interval} Weeks on`;
+      freq = `Every ${interval} weeks on `;
     }
 
     return freq;

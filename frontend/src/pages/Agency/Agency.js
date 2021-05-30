@@ -81,7 +81,6 @@ function AgencyTable() {
     })
       .then((res) => res.json())
       .then((data_) => {
-        console.log(data_.data);
         setData(data_.data);
         // fill in dynamic filter options from database
         for (const dat of data_.data) {

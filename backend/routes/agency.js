@@ -173,9 +173,8 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
 });
 
 /**
- * Route for Get request to read all Agencies
  *
- * Ex: Get request with localhost:8000/agency/
+ * Ex: Get request with localhost:8000/agency/table/all
  *
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json

@@ -14,7 +14,6 @@ function AgencyBar({ agency }) {
     setShowModal((prev) => !prev);
   };
 
-  // test comment
   return (
     <div className="agency-bar">
       <div className="agency-bar-info">

@@ -314,7 +314,7 @@ const AgencySchema = new Schema({
     type: String,
     required: true,
   },
-  // How many weeks per pattern
+  // How many weeks per pattern 
   distributionFrequency: {
     type: Number,
     required: true,
@@ -323,7 +323,7 @@ const AgencySchema = new Schema({
   userSelectedDates: {
     type: [String],
   },
-  // Dates in pattern that should be excluded for distribution
+  // Dates in pattern that should be excluded 
   userExcludedDates: {
     type: [String],
   },

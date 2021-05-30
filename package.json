@@ -10,8 +10,5 @@
     "format": "npm run format --prefix backend && npm run format --prefix frontend",
     "build": "npm run build --prefix backend",
     "start": "cd backend && node app.js"
-  },
-  "devDependencies": {
-    "husky": "^6.0.0"
   }
 }

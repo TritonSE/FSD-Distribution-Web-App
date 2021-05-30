@@ -23,6 +23,7 @@
     "email-templates": "^8.0.3",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
+    "fsd-distribution-web-app": "file:..",
     "http-errors": "^1.8.0",
     "jsonwebtoken": "^5.7.0",
     "mongoose": "^5.11.12",

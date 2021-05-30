@@ -142,8 +142,8 @@ class CalendarToolbar extends Component {
                   onChange={this.handleCheck}
                   checked={!!distributionChecked["all"]}
                 />
-              All
-            </label>
+                <p>All</p>
+              </label>
               
               {this.state.distribution.map((agency, index) => (
                   <div className="filter-holder" key={index}>
@@ -156,7 +156,7 @@ class CalendarToolbar extends Component {
                         checked={!!distributionChecked[agency.name]}
                         name="distributionCheckbox"
                       />
-                      {agency.name}
+                      <div className="distribution-name">{agency.name}</div>
                     </label>
                   </div>
                 )
@@ -179,8 +179,8 @@ class CalendarToolbar extends Component {
                   onChange={this.handleCheck}
                   checked={!!rescueChecked["all"]}
                 />
-              All
-            </label>
+                  <p>All</p>
+              </label>
               {this.state.rescue.map((agency, index) => (
                   <div className="filter-holder" key={index}>
                     <label className="rescue-label" style={{ borderColor: agency.color }} name="rescueCheckbox">
@@ -192,7 +192,9 @@ class CalendarToolbar extends Component {
                         checked={!!rescueChecked[agency.name]}
                         name="rescueCheckbox"
                       />
-                      {agency.name}
+                      <div className="rescue-name">
+                        {agency.name}
+                      </div>
                     </label>
                   </div>
                 )

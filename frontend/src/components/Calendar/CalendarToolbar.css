@@ -1,39 +1,53 @@
 .distribution-label {
-    margin-left: 20px;
-    display: block;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.distribution-label > p {
+  margin-left: .3em;
+}
+
+.distribution-name, .rescue-name {
+  display: flex;
+  flex-direction: row;
+  padding-left: 0.3em;
 }
 
 .filter-input {
-    margin-right: 5px;
-    margin-left: -20px;
+  margin-right: 5px;
+  margin-left: -20px;
 }
 
 .filter-heading {
-    border: none;
-    background: none;
-    margin: 5px 5px 5px 0px;
+  border: none;
+  background: none;
+  margin: 5px 5px 5px 0px;
 }
 
 .rescue-label {
-    border-width: 2px;
-    border-style: solid;
-    margin-left: 18px;
-    display: block;
+  border-width: 2px;
+  border-style: solid;
+  margin-left: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .filter-holder {
-    margin-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .toolbar-search {
-    width: 100%;
-    padding: 5px; 
+  width: 100%;
+  padding: 5px; 
 }
 
 .toolbar {
-    background-color: #F5F7F7;
-    margin-top: 5vh;
-    margin-left: 5vw;
-    padding: 10px;
-    width: 300px;
+  background-color: #F5F7F7;
+  margin-top: 5vh;
+  margin-left: 5vw;
+  padding: 10px;
+  width: 300px;
 }

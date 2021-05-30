@@ -13,29 +13,34 @@ import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import DistributionDays from "./DistributionDays";
 import Calendar from "./DistributionCalendar/Calendar";
+import DateList from "./DistributionCalendar/DateList";
 import InlineDropdown from "../FormComponents/InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
 import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
 
-const DAYS_OF_WEEK = [
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-  "sunday",
-];
+const CONFIG = require("../../config");
+
+const DAYS_OF_WEEK = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
 /**
  * AgencyProfileForm describes the whole agency form page.
+ *
  * Expected props:
  * - {Object} agencyData: object following agency schema (if editing an
  * existing agency)
- * - {String} editSection: name of the section being edited (if editing an
- * existing agency)
+ * - {Boolean} editing: true if editing an existing agency, false otherwise
+ *
+ * Available section names (for hash linking):
+ * - location
+ * - contacts
+ * - compliance
+ * - distribution
+ * - capacity
+ * - retail-rescue
+ * - demographics
+ * - staff
  */
 class AgencyProfileForm extends Component {
   constructor(props) {
@@ -184,44 +189,20 @@ class AgencyProfileForm extends Component {
       data.retailRescueLocations = { ...data.retailRescueLocations };
 
       // unfix date/time formats
-      // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
-      for (let day of DAYS_OF_WEEK) {
+      // ISO 8601 format: "YYYY-MM-DDThh:mm-07:00" (literal T)
+      for (const day of DAYS_OF_WEEK) {
         if (data.distributionDays[day]) {
-          let timeString = data.distributionStartTimes[day];
+          const timeString = data.distributionStartTimes[day];
           data.distributionStartTimes[day] = timeString.slice(11, 16);
         }
         if (data.retailRescueDays[day]) {
-          let timeString = data.retailRescueStartTimes[day];
+          const timeString = data.retailRescueStartTimes[day];
           data.retailRescueStartTimes[day] = timeString.slice(11, 16);
         }
       }
-
-      data.userExcludedDates = data.userExcludedDates.map((date) => {
-        return this.unfixDate(date.slice(0, 10));
-      });
-      data.userSelectedDates = data.userSelectedDates.map((date) => {
-        return this.unfixDate(date.slice(0, 10));
-      });
+      data.userSelectedDates = data.userSelectedDates.map((dateTime) => dateTime.slice(0, 16));
     }
     this.state = data;
-  }
-
-  /**
-   * Changes date format from MM/DD/YYYY to YYYY-MM-DD.
-   * @param {String} date Date string with format MM/DD/YYYY
-   * @returns Date string with format YYYY-MM-DD
-   */
-  fixDate(date) {
-    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
-  }
-
-  /**
-   * Changes date format from YYYY-MM-DD to MM/DD/YYYY
-   * @param {String} date Date string with format YYYY-MM-DD
-   * @returns Date string with format MM/DD/YYYY
-   */
-  unfixDate(date) {
-    return `${date.slice(5, 7)}/${date.slice(8)}/${date.slice(0, 4)}`;
   }
 
   /**
@@ -231,22 +212,22 @@ class AgencyProfileForm extends Component {
    * this component's state
    */
   prepareData() {
-    let data = { ...this.state };
+    const data = { ...this.state };
 
     data.tableContent = { ...data.tableContent };
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
     // fix distribution and retail rescue formats
-    // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
-    const timeBase = this.fixDate(data.distributionStartDate) + "T";
-    const timeEnd = "Z";
+    // ISO 8601 format: "YYYY-MM-DDThh:mm-07:00" (literal T)
+    const timeBase = `${AgencyProfileForm.fixDate(data.distributionStartDate)}T`;
+    const timeEnd = "-07:00";
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
     data.retailRescueLocations = { ...data.retailRescueLocations };
-    for (let day of DAYS_OF_WEEK) {
+    for (const day of DAYS_OF_WEEK) {
       if (data.distributionDays[day]) {
         // this day is selected, so fix the time format
-        let time = data.distributionStartTimes[day]; // "hh:mm"
+        const time = data.distributionStartTimes[day]; // "hh:mm"
         data.distributionStartTimes[day] = timeBase + time + timeEnd;
       } else {
         // not selected
@@ -255,7 +236,7 @@ class AgencyProfileForm extends Component {
 
       if (data.retailRescueDays[day]) {
         // this day is selected, so fix the time format
-        let time = data.retailRescueStartTimes[day]; // "hh:mm"
+        const time = data.retailRescueStartTimes[day]; // "hh:mm"
         data.retailRescueStartTimes[day] = timeBase + time + timeEnd;
       } else {
         // not selected
@@ -263,19 +244,22 @@ class AgencyProfileForm extends Component {
         data.retailRescueLocations[day] = "";
       }
     }
-
-    data.userExcludedDates = data.userExcludedDates.map((date) => {
-      return this.fixDate(date); // time not needed
-    });
-    data.userSelectedDates = data.userSelectedDates.map((date) => {
-      return this.fixDate(date) + "T00:00Z";
-    });
+    data.userSelectedDates = data.userSelectedDates.map((dateTime) => `${dateTime}${timeEnd}`);
 
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 
     // extra fields will be ignored by mongoose
     return data;
+  }
+
+  /**
+   * Changes date format from MM/DD/YYYY to YYYY-MM-DD.
+   * @param {String} date Date string with format MM/DD/YYYY
+   * @returns Date string with format YYYY-MM-DD
+   */
+  static fixDate(date) {
+    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
   }
 
   /**
@@ -286,19 +270,18 @@ class AgencyProfileForm extends Component {
    * @param {Any} newValue The new value to set for the key
    */
   handleInputChange = (key, newValue) => {
-    let index = key.indexOf(".");
+    const index = key.indexOf(".");
     if (index !== -1) {
-      let key1 = key.slice(0, index);
-      let key2 = key.slice(index + 1);
-      if (
-        this.state.hasOwnProperty(key1) &&
-        this.state[key1].hasOwnProperty(key2)
-      ) {
-        let updated = { ...this.state[key1] };
-        updated[key2] = newValue;
-        this.setState({ [key1]: updated });
+      const key1 = key.slice(0, index);
+      const key2 = key.slice(index + 1);
+      if (key1 in this.state && key2 in this.state[key1]) {
+        this.setState((prevState) => {
+          const updated = { ...prevState[key1] };
+          updated[key2] = newValue;
+          return { [key1]: updated };
+        });
       }
-    } else if (this.state.hasOwnProperty(key)) {
+    } else if (key in this.state) {
       this.setState({ [key]: newValue });
     }
   };
@@ -318,7 +301,7 @@ class AgencyProfileForm extends Component {
    */
   addAddress = () => {
     const addresses = this.state.additionalAddresses;
-    let updatedAddresses = addresses.slice();
+    const updatedAddresses = addresses.slice();
     updatedAddresses.push("");
     this.setState({
       additionalAddresses: updatedAddresses,
@@ -331,7 +314,7 @@ class AgencyProfileForm extends Component {
    */
   removeAddress = () => {
     const addresses = this.state.additionalAddresses;
-    let updatedAddresses = addresses.slice();
+    const updatedAddresses = addresses.slice();
     updatedAddresses.pop();
     this.setState({
       additionalAddresses: updatedAddresses,
@@ -343,8 +326,8 @@ class AgencyProfileForm extends Component {
    * state.
    */
   addContact = () => {
-    const contacts = this.state.contacts;
-    let updatedContacts = contacts.slice();
+    const { contacts } = this.state;
+    const updatedContacts = contacts.slice();
     updatedContacts.push({
       contact: "",
       position: "",
@@ -361,8 +344,8 @@ class AgencyProfileForm extends Component {
    * state.
    */
   removeContact = () => {
-    const contacts = this.state.contacts;
-    let updatedContacts = contacts.slice();
+    const { contacts } = this.state;
+    const updatedContacts = contacts.slice();
     updatedContacts.pop();
     this.setState({
       contacts: updatedContacts,
@@ -373,13 +356,19 @@ class AgencyProfileForm extends Component {
    * Handles form submission.
    */
   submitForm = () => {
-    const { history } = this.props;
+    const { history, agencyData, editing } = this.props;
     const formData = this.prepareData();
-    fetch("http://localhost:8000/agency/", {
-      method: "PUT",
+
+    let url = `${CONFIG.backend.uri}/agency/`;
+    if (editing) {
+      url += agencyData._id;
+    }
+
+    fetch(url, {
+      method: editing ? "POST" : "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + getJWT(),
+        Authorization: `Bearer ${getJWT()}`,
       },
       body: JSON.stringify(formData),
     })
@@ -387,15 +376,13 @@ class AgencyProfileForm extends Component {
         response.json().then((data) => {
           if (!response.ok) {
             if (data.fields) {
-              let errors = data.fields.filter((x) => x !== null);
-              this.setState({ errors: errors });
-              let message = `${errors.length} error(s) found!`;
+              const errors = data.fields.filter((x) => x !== null);
+              this.setState({ errors });
+              const message = `${errors.length} error(s) found!`;
               alert(message);
             }
-          } else {
-            if (history) {
-              history.push("/agency/" + data._id);
-            }
+          } else if (history) {
+            history.push(`/agency-profile/${data.agency._id}`);
           }
         });
       })
@@ -406,21 +393,26 @@ class AgencyProfileForm extends Component {
    * Handles form cancellation.
    */
   cancelForm = () => {
-    const { history } = this.props;
-    if (history) {
+    const { history, agencyData, editing } = this.props;
+    if (editing) {
+      history.push(`/agency-profile/${agencyData._id}`);
+    } else if (history) {
       history.push("/agency");
     }
   };
 
   render() {
     const data = this.state;
+    const { editing } = this.props;
 
     return (
       <div className="form-body">
-        <h1 className="form-title">Add a New Agency Profile.</h1>
+        <h1 className="form-title">
+          {editing ? "Update Agency Profile." : "Add a New Agency Profile."}
+        </h1>
 
         <form>
-          <div className="form-section">
+          <div className="form-section" id="main">
             <FormSectionHeader title="Quick Information" />
             <FormRow>
               <FormCol>
@@ -488,7 +480,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="location">
             <FormSectionHeader title="Location and Addresses" />
             <FormRow>
               <FormCol>
@@ -594,11 +586,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
             <FormRow>
               <span className="small-button-span">
-                <SmallButton
-                  text="Add Address"
-                  symbol="+"
-                  onClick={this.addAddress}
-                />
+                <SmallButton text="Add Address" symbol="+" onClick={this.addAddress} />
                 {data.additionalAddresses.length > 1 && (
                   <SmallButton
                     text="Remove Address"
@@ -611,7 +599,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="contacts">
             <FormSectionHeader title="Contacts" />
             <ContactsList
               items={data.contacts}
@@ -621,11 +609,7 @@ class AgencyProfileForm extends Component {
             />
             <FormRow>
               <span className="small-button-span">
-                <SmallButton
-                  text="Add Contact"
-                  symbol="+"
-                  onClick={this.addContact}
-                />
+                <SmallButton text="Add Contact" symbol="+" onClick={this.addContact} />
                 {data.contacts.length > 1 && (
                   <SmallButton
                     text="Remove Contact"
@@ -638,7 +622,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="compliance">
             <FormSectionHeader title="Compliance" />
             <FormRow>
               <FormCol>
@@ -708,7 +692,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="distribution">
             <FormSectionHeader title="Distribution" />
             <FormRow>
               <FormCol>
@@ -787,29 +771,9 @@ class AgencyProfileForm extends Component {
                 />
               </FormCol>
               <FormCol>
-                <Calendar
-                  label="Customize Distribution Schedule"
-                  distributionStartDate={data.distributionStartDate}
-                  distributionFrequency={data.distributionFrequency}
-                  distributionDays={[
-                    data.distributionDays.sunday,
-                    data.distributionDays.monday,
-                    data.distributionDays.tuesday,
-                    data.distributionDays.wednesday,
-                    data.distributionDays.thursday,
-                    data.distributionDays.friday,
-                    data.distributionDays.saturday,
-                  ]}
-                  userSelectedDates={data.userSelectedDates}
-                  userExcludedDates={data.userExcludedDates}
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
-            <FormRow>
-              <FormCol>
                 <CheckboxList
                   label="Check Boxes if Available/Correct."
+                  gutter
                   onChange={this.handleInputChange}
                   options={[
                     {
@@ -841,9 +805,39 @@ class AgencyProfileForm extends Component {
                 />
               </FormCol>
             </FormRow>
+            <FormRow>
+              <FormCol>
+                <Calendar
+                  label="Customize Distribution Schedule"
+                  distributionStartDate={data.distributionStartDate}
+                  distributionFrequency={data.distributionFrequency}
+                  distributionDays={[
+                    data.distributionDays.sunday,
+                    data.distributionDays.monday,
+                    data.distributionDays.tuesday,
+                    data.distributionDays.wednesday,
+                    data.distributionDays.thursday,
+                    data.distributionDays.friday,
+                    data.distributionDays.saturday,
+                  ]}
+                  userSelectedDates={data.userSelectedDates}
+                  userExcludedDates={data.userExcludedDates}
+                  onChange={this.handleInputChange}
+                  validCheck={this.isValid}
+                />
+              </FormCol>
+              <FormCol>
+                <DateList
+                  dates={data.userSelectedDates}
+                  stateKey="userSelectedDates"
+                  onChange={this.handleInputChange}
+                  validCheck={this.isValid}
+                />
+              </FormCol>
+            </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="capacity">
             <FormSectionHeader title="Capacity" />
             <FormRow>
               <FormCol>
@@ -946,7 +940,7 @@ class AgencyProfileForm extends Component {
             </FormRow>
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="retail-rescue">
             <FormSectionHeader title="Retail Rescue" />
             <RetailRescueDays
               values={[
@@ -1019,7 +1013,7 @@ class AgencyProfileForm extends Component {
             />
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="demographics">
             <FormSectionHeader title="Demographics" />
             <CheckboxList
               label="Check Boxes if Applicable."
@@ -1075,13 +1069,10 @@ class AgencyProfileForm extends Component {
             />
           </div>
 
-          <div className="form-section">
+          <div className="form-section" id="staff">
             <FormRow>
               <FormCol>
-                <h2
-                  className="form-section-title"
-                  style={{ marginTop: 7, marginRight: 24 }}
-                >
+                <h2 className="form-section-title" style={{ marginTop: 7, marginRight: 24 }}>
                   Assigned Staff
                 </h2>
               </FormCol>
@@ -1101,17 +1092,11 @@ class AgencyProfileForm extends Component {
           <div className="form-section">
             <div className="form-button-container">
               <FormButton
-                title={
-                  this.props.editSection ? "Save Profile" : "Create Profile"
-                }
+                title={editing ? "Save Profile" : "Create Profile"}
                 type="primary"
                 onClick={this.submitForm}
               />
-              <FormButton
-                title="Cancel"
-                type="secondary"
-                onClick={this.cancelForm}
-              />
+              <FormButton title="Cancel" type="secondary" onClick={this.cancelForm} />
             </div>
           </div>
         </form>

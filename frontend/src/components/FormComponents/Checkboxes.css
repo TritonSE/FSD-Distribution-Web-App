@@ -32,10 +32,7 @@
   fill: #54682f;
 }
 
-.custom-checkbox
-  input[type="checkbox"]:checked
-  + svg
-  .custom-checkbox-checkmark {
+.custom-checkbox input[type="checkbox"]:checked + svg .custom-checkbox-checkmark {
   stroke: #ffffff;
 }
 

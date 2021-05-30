@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import './CalendarToolbar.css';
-
+import "./CalendarToolbar.css";
 /**
  * This component contains a toolbar of categorical events that will be used to update the display of the calendar.
  * This also contains an input bar that will filter out events based on Agency name.
- * 
+ *
  * State:
  * - {Boolean} showDistribution: Boolean that determines the showing/hiding of all distribution events
  * - {Boolean} showRescue: Boolean that determines the showing/hiding of all rescue events
@@ -12,11 +11,14 @@ import './CalendarToolbar.css';
  *                    (will be updated depending on search bar input)
  * - {Array<Objects>} rescue: list of agencies in the rescue category, contains name and color
  *                    (will be updated depending on search bar input)
- * 
+ * - {String} searchValue: String value that the search bar will hold
+ * - {Hashmap} checked: hashmap that maps the distribution agency's checkbox label to whether it is checked
+ * - {Hashmap} rescueChecked: hashmap that maps the rescue agency's checkbox label to whether it is checked
+ *
  * Expected props:
  * - {Array<Objects>} distribution: list of agencies in the distribution
  *                    category, contains name and color
- * - {Array<Objects>} rescue: list of agencies in the rescue category, 
+ * - {Array<Objects>} rescue: list of agencies in the rescue category,
  *                    contains name and color
  * - {Function} updateDistribution: callback from selecting a single distribution event from toolbar to handle
  *              the calendar display, should take an event object
@@ -34,7 +36,10 @@ class CalendarToolbar extends Component {
       showDistribution: true,
       showRescue: true,
       distribution: [],
-      rescue: []
+      rescue: [],
+      searchValue: "",
+      distributionChecked: {},
+      rescueChecked: {},
     };
 
     this.handleShowAgencies = this.handleShowAgencies.bind(this);
@@ -43,60 +48,59 @@ class CalendarToolbar extends Component {
   }
 
   static getDerivedStateFromProps(props, state) {
-    return { distribution: props.distribution, rescue: props.rescue };
- }
+    if (state.searchValue.length === 0) {
+      return { distribution: props.distribution, rescue: props.rescue };
+    }
+    return state;
+  }
 
   /**
    * Handles any user input in search bar to filter out the agencies.
-   * @param {object} event event object of search bar
+   * @param {Object} event: event object of search bar
    */
   handleSearchChange(event) {
     const agencyName = event.target.value;
+    this.setState({ searchValue: agencyName });
     if (agencyName.length === 0) {
       this.setState({ distribution: this.props.distribution });
       this.setState({ rescue: this.props.rescue });
     } else {
-      let filtered = this.props.distribution.filter((agency) => {
-        return agency.name.startsWith(agencyName);
-      });
+      let filtered = this.props.distribution.filter((agency) => agency.name.startsWith(agencyName));
       this.setState({ distribution: filtered });
 
-      filtered = this.props.rescue.filter((agency) => {
-        return agency.name.startsWith(agencyName);
-      });
+      filtered = this.props.rescue.filter((agency) => agency.name.startsWith(agencyName));
       this.setState({ rescue: filtered });
     }
   }
 
   /**
    * Allows the showing/hiding of events based on category.
-   * @param {object} event event object of the category label
+   * @param {Object} event: event object of the category label
    */
   handleShowAgencies(event) {
     switch (event.target.textContent) {
       case "Distribution":
-        this.setState({
-          showDistribution: !this.state.showDistribution
-        });
+        this.setState((prevState) => ({
+          showDistribution: !prevState.showDistribution,
+        }));
         break;
       case "Rescue":
-        this.setState({
-          showRescue: !this.state.showRescue
-        });
+        this.setState((prevState) => ({
+          showRescue: !prevState.showRescue,
+        }));
         break;
       default:
-        this.setState({
-          showDistribution: !this.state.showDistribution,
-
-          showRescue: !this.state.showRescue,
-        });
+        this.setState((prevState) => ({
+          showDistribution: !prevState.showDistribution,
+          showRescue: !prevState.showRescue,
+        }));
         break;
     }
   }
 
   /**
    * Handles selection of the ALL checkboxes based on category.
-   * @param {object} event event object of the ALL checkbox
+   * @param {Object} event: event object of the ALL checkbox
    */
   handleCheck(event) {
     const category = event.target.value;
@@ -104,107 +108,125 @@ class CalendarToolbar extends Component {
 
     // toggle all distribution events
     if (category === "distribution") {
-      const checkboxes = document.getElementsByName("distributionCheckbox");
-      for (const checkbox of checkboxes) {
-        checkbox.checked = isChecked;
+      this.state.distributionChecked["all"] = isChecked;
+      for (const entry of this.state.distribution) {
+        this.state.distributionChecked[entry.name] = isChecked;
       }
       this.props.updateDistributionAll(isChecked);
       // toggle all rescue events
     } else if (category === "rescue") {
-      const checkboxes = document.getElementsByName("rescueCheckbox");
-      for (const checkbox of checkboxes) {
-        checkbox.checked = isChecked;
+      this.state.rescueChecked["all"] = isChecked;
+      for (const entry of this.state.rescue) {
+        this.state.rescueChecked[entry.name] = isChecked;
       }
       this.props.updateRescueAll(isChecked);
     }
   }
 
   render() {
-    const { showDistribution, showRescue } = this.state;
+    const { showDistribution, showRescue, distributionChecked, rescueChecked } = this.state;
     return (
-      <div style={{
-        backgroundColor: "#F5F7F7",
-        marginTop: "5vh",
-        marginLeft: "5vw",
-        height: "100vh",
-        padding: 10,
-        transform: 0.6
-      }}>
-        <input id="search" type="text" onChange={this.handleSearchChange} style={{ width: "100%", padding: 5 }} placeholder="Search Agency" />
-        <br />
-        <button style={{ border: "none", background: "none" }} value="distributionnpm" onClick={this.handleShowAgencies}>
+      <div
+        className="toolbar"
+        style={{ minHeight: Math.ceil((window.screen.height - 185) * 0.71) }}
+      >
+        <input
+          id="search"
+          type="text"
+          onChange={this.handleSearchChange}
+          className="toolbar-search"
+          placeholder="Search Agency"
+        />
+        <button
+          className="filter-heading"
+          value="distributionnpm"
+          type="button"
+          onClick={this.handleShowAgencies}
+        >
           {showDistribution ? <h5>Distribution</h5> : <p>Distribution</p>}
         </button>
-        { showDistribution &&
-          (
-            <div>
-              <label style={{ marginLeft: 20 }}>
-                <input
-                  style={{ margin: 5, marginLeft: -20 }}
-                  type="checkbox"
-                  value="distribution"
-                  onChange={this.handleCheck}
-                />
+        {showDistribution && (
+          <div>
+            <label className="distribution-label">
+              <input
+                className="filter-input"
+                type="checkbox"
+                value="distribution"
+                onChange={this.handleCheck}
+                checked={!!distributionChecked["all"]}
+              />
               All
             </label>
-              <br />
-              {this.state.distribution.map((agency, index) => {
-                return (
-                  <div key={index}>
-                    <label style={{ backgroundColor: agency.color, marginLeft: 20 }} name="distributionCheckbox">
-                      <input
-                        style={{ margin: 5, marginLeft: -20, float: "left" }}
-                        type="checkbox"
-                        value={agency.name}
-                        onChange={this.props.updateDistribution}
-                        name="distributionCheckbox"
-                      />
-                      {agency.name}
-                    </label>
 
-                  </div>
-                );
-              })}
-            </div>
-          )
-        }
+            {this.state.distribution.map((agency, index) => (
+              <div className="filter-holder" key={index}>
+                <label
+                  className="distribution-label"
+                  style={{ backgroundColor: agency.color }}
+                  name="distributionCheckbox"
+                >
+                  <input
+                    className="filter-input"
+                    type="checkbox"
+                    value={agency.name}
+                    onChange={(e) => {
+                      distributionChecked[e.target.value] = !distributionChecked[e.target.value];
+                      this.props.updateDistribution(e);
+                    }}
+                    checked={!!distributionChecked[agency.name]}
+                    name="distributionCheckbox"
+                  />
+                  {agency.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        )}
         <br />
-        <button style={{ border: "none", background: "none" }} value="rescue" onClick={this.handleShowAgencies}>
+        <button
+          className="filter-heading"
+          value="rescue"
+          type="button"
+          onClick={this.handleShowAgencies}
+        >
           {showRescue ? <h5>Rescue</h5> : <p>Rescue</p>}
         </button>
-        { showRescue &&
-          (
-            <div>
-              <label style={{ marginLeft: 20 }}>
-                <input
-                  style={{ margin: 5, marginLeft: -20 }}
-                  type="checkbox"
-                  value="rescue"
-                  onChange={this.handleCheck}
-                />
+        {showRescue && (
+          <div>
+            <label className="distribution-label">
+              <input
+                className="filter-input"
+                type="checkbox"
+                value="rescue"
+                onChange={this.handleCheck}
+                checked={!!rescueChecked["all"]}
+              />
               All
             </label>
-              <br />
-              {this.state.rescue.map((agency, index) => {
-                return (
-                  <div key={index}>
-                    <label style={{ backgroundColor: agency.color, marginLeft: 20 }} name="rescueCheckbox">
-                      <input
-                        style={{ margin: 5, marginLeft: -20, float: "left" }}
-                        type="checkbox"
-                        value={agency.name}
-                        onChange={this.props.updateRescue}
-                        name="rescueCheckbox"
-                      />
-                      {agency.name}
-                    </label>
-                    <br />
-                  </div>
-                );
-              })}
-            </div>
-          )
-        }
+            {this.state.rescue.map((agency, index) => (
+              <div className="filter-holder" key={index}>
+                <label
+                  className="rescue-label"
+                  style={{ borderColor: agency.color }}
+                  name="rescueCheckbox"
+                >
+                  <input
+                    className="filter-input"
+                    type="checkbox"
+                    value={agency.name}
+                    onChange={(e) => {
+                      rescueChecked[e.target.value] = !rescueChecked[e.target.value];
+                      this.props.updateRescue(e);
+                    }}
+                    checked={!!rescueChecked[agency.name]}
+                    name="rescueCheckbox"
+                  />
+                  {agency.name}
+                </label>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     );
   }

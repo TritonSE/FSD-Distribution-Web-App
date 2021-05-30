@@ -26,10 +26,7 @@ class Header extends Component {
 
     return (
       <div className="header">
-        <div
-          className="previous"
-          onClick={!value.isBefore(currDate) ? handlePrev : null}
-        >
+        <div className="previous" onClick={!value.isBefore(currDate) ? handlePrev : null}>
           {!value.isBefore(currDate) && renderArrow()}
         </div>
         <div className="current">{value.format("MMMM")}</div>

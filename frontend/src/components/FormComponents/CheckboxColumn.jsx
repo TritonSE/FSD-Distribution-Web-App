@@ -13,13 +13,19 @@ import "./TextStyles.css";
  * checkbox option (title, whether it is currently selected, and state key)
  * - {Function} onChange: callback to handle input changes, should take a
  * String and a Boolean
+ * - {Boolean} wide: whether this column should expand in width
  */
 
 class CheckboxColumn extends Component {
   render() {
-    const { onChange, options } = this.props;
+    const { onChange, options, wide } = this.props;
+    let className = "checkbox-column selection-choice";
+    if (wide) {
+      className += " wide";
+    }
+
     return (
-      <div className="checkbox-column selection-choice">
+      <div className={className}>
         {options.map((item, index) => {
           return (
             <Checkbox

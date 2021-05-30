@@ -16,7 +16,7 @@
 }
 
 /* Added white space between the table header and table body */
-tbody:before {
+.table tbody:before {
   content: "-";
   display: block;
   line-height: 1px;
@@ -55,4 +55,8 @@ tbody:before {
   font-size: 15px;
   font-family: Roboto;
   font-weight: 400;
+}
+
+Link {
+  cursor: pointer;
 }

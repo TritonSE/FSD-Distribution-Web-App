@@ -12,10 +12,13 @@ import "./TextStyles.css";
  */
 class FormButton extends Component {
   getClass() {
-    const { type} = this.props;
+    const { type, size } = this.props;
     let className = "form-button-";
     if (type) {
       className += type;
+    }
+    if (size) {
+      className += ` form-button-${size}`;
     }
     return className;
   }
@@ -23,7 +26,7 @@ class FormButton extends Component {
   render() {
     const { onClick, title, style } = this.props;
     return (
-      <button style={style} type="button" className={this.getClass()} onClick={onClick}>
+      <button type="button" className={this.getClass()} onClick={onClick} style={style}>
         {title}
       </button>
     );

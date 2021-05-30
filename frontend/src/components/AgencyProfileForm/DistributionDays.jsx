@@ -35,7 +35,7 @@ class DistributionDays extends Component {
               onChange={onChange}
             />
             <TimeBox
-              value={item.time}
+              initialValue={item.time}
               stateKey={item.timeStateKey}
               onChange={onChange}
               valid={validCheck(item.timeStateKey)}

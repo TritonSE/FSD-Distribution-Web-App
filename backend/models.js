@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema({
@@ -196,7 +197,12 @@ const DayValuesSchema = new Schema({
   },
 });
 
-const AgencyTaskSchema = new Schema({
+const TaskSchema = new Schema({
+  agencyID: {
+    type: mongoose.ObjectId,
+    ref: "Agency",
+    required: true,
+  },
   title: {
     type: String,
     required: true,
@@ -208,6 +214,10 @@ const AgencyTaskSchema = new Schema({
   status: {
     type: String,
     required: true,
+  },
+  dateCompleted: {
+    type: Date,
+    expires: 2592000,
   },
 });
 
@@ -290,21 +300,21 @@ const AgencySchema = new Schema({
     type: DaySelectionsSchema,
     required: true,
   },
-  // Start time for the event on each day of the week 
+  // Start time for the event on each day of the week
   distributionStartTimes: {
     type: DayValuesSchema,
     required: true,
   },
-  // Start time for the event on each day of the week 
+  // Start time for the event on each day of the week
   distributionExcludedTimes: {
     type: DayValuesSchema,
   },
-  // Beginning of the pattern 
+  // Beginning of the pattern
   distributionStartDate: {
     type: String,
     required: true,
   },
-  // How many weeks per pattern 
+  // How many weeks per pattern
   distributionFrequency: {
     type: Number,
     required: true,
@@ -313,11 +323,10 @@ const AgencySchema = new Schema({
   userSelectedDates: {
     type: [String],
   },
-  // Dates in pattern that should be excluded 
+  // Dates in pattern that should be excluded for distribution
   userExcludedDates: {
     type: [String],
   },
-
   // Checkboxes for Distribution Section
   pantry: {
     type: Boolean,
@@ -380,11 +389,6 @@ const AgencySchema = new Schema({
   immigrant: {
     type: Boolean,
   },
-
-  /* Agency tasks */
-  tasks: {
-    type: [AgencyTaskSchema],
-  },
 });
 
 const NotesSchema = new Schema({
@@ -393,13 +397,24 @@ const NotesSchema = new Schema({
   },
   /* Notes text */
   message: {
-    type: String
+    type: String,
+  },
+  /* Identify events part of the same recurrence */
+  recurringID: {
+    type: String,
+  },
+  timeFromEpoch: {
+    type: Number,
+  },
+  agencyID: {
+    type: String,
   },
 });
 
 const Agency = mongoose.model("Agency", AgencySchema);
+const Task = mongoose.model("Task", TaskSchema);
 const User = mongoose.model("User", UserSchema);
 const PendingUser = mongoose.model("PendingUser", PendingUserSchema);
 const Notes = mongoose.model("Notes", NotesSchema);
 
-module.exports = { Agency, User, PendingUser, Notes };
+module.exports = { Agency, Task, User, PendingUser, Notes };

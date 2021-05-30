@@ -34,7 +34,7 @@
 
 /* Styling of the navbar */
 .nav-menu {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(3, auto);
   grid-gap: 50%;
   list-style: none;
@@ -50,6 +50,8 @@
 .nav-links {
   color: #ffffff;
   text-decoration: none;
+  font-size: 18px;
+  margin-left: 70px;
 }
 
 /* Hover effect for the navbar links */

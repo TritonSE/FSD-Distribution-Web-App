@@ -1,22 +1,20 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-import { isAuthenticated } from "../../auth";
-import { Row, Col } from "react-bootstrap";
-import { getJWT } from "../../auth";
-import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import rrulePlugin from "@fullcalendar/rrule";
 import interactionPlugin from "@fullcalendar/interaction";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./Home.css";
 import NotesModal from "../../components/Calendar/NotesModal";
+import { getJWT, isAuthenticated } from "../../auth";
+import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
+import "./Home.css";
+
 const config = require("../../config");
 
 /**
  * Landing page that contains a calender with corresponding events from the side toolbar.
- * 
+ *
  * State:
  * - {Array<Objects>} distribution: list of agencies in the distribution category, contains name and color
  * - {Array<Objects>} rescue: list of agencies in the rescue category, contains name and color
@@ -33,16 +31,15 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      distribution: [], //Example: [{color: "", name: ""}, {color: "", name: ""}]
+      distribution: [], // Example: [{color: "", name: ""}, {color: "", name: ""}]
       rescue: [],
-      distributionEvents: [], //Example: [{}, {}, {}]
+      distributionEvents: [], // Example: [{}, {}, {}]
       rescueEvents: [],
-      distributionMap: {}, //Example: {"Agency" : [{}, {}, {}]}
+      distributionMap: {}, // Example: {"Agency" : [{}, {}, {}]}
       rescueMap: {},
       showModal: false,
       selectedEvent: undefined,
       agencyId: undefined,
-      userDates: undefined,
     };
     this.updateDistributionAll = this.updateDistributionAll.bind(this);
     this.updateDistribution = this.updateDistribution.bind(this);
@@ -51,35 +48,31 @@ class Home extends Component {
   }
 
   /**
-   * Fetches all agencies from the database that will be used to populate the state 
+   * Fetches all agencies from the database that will be used to populate the state
    */
   componentDidMount() {
-    console.log("RAN AGAIN");
-    console.log(this.props)
+    const authorizationToken = `Bearer ${getJWT()}`;
     fetch(`${config.backend.uri}/agency`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + getJWT(),
+        Authorization: authorizationToken,
       },
     })
       .then((response) => {
         response.json().then((data) => {
-          console.log(data);
           if (response.ok) {
-            const hsvInterval = 360 / data.agencies.length;
-            data.agencies.forEach((agency, index) => {
-              const name = agency.tableContent.name;
+            const { agencies } = data;
+            const hsvInterval = 360 / agencies.length;
+            agencies.forEach((agency, index) => {
+              const { name } = agency.tableContent;
               // generating the color of the agency
               const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
 
               // add agency to distribution category
-              this.setState({
-                distribution: [
-                  ...this.state.distribution,
-                  { name: name, color: color },
-                ],
-              });
+              this.setState((prevState) => ({
+                distribution: [...prevState.distribution, { name, color }],
+              }));
 
               // generate events to populate the distribution map
               for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
@@ -95,9 +88,13 @@ class Home extends Component {
                     },
                     duration: "02:00",
                     color,
-                    distribution: 'D',
-                    retailrescue: '',
+                    distribution: "D",
+                    retailrescue: "",
                     agencyID: agency._id,
+                    recurringID: `${agency._id}${agency.distributionStartTimes[day]}${day.substring(
+                      0,
+                      2
+                    )}D`,
                     exdate: agency.userExcludedDates,
                     exrule: {
                       freq: "weekly",
@@ -107,7 +104,6 @@ class Home extends Component {
                       dtstart: agency.distributionExcludedTimes[day],
                     },
                   };
-
 
                   if (this.state.distributionMap[name]) {
                     // Agency already exists in distribution map
@@ -127,9 +123,10 @@ class Home extends Component {
                   end: day,
                   duration: "02:00",
                   color,
-                  distribution: 'D',
-                  retailrescue: '',
+                  distribution: "D",
+                  retailrescue: "",
                   agencyID: agency._id,
+                  recurringID: "",
                 };
 
                 if (this.state.distributionMap[name]) {
@@ -154,11 +151,15 @@ class Home extends Component {
                       dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
                     },
                     duration: "01:00",
-                    backgroundColor:"#FFFFFF",
+                    backgroundColor: "#FFFFFF",
                     color,
-                    distribution: '',
-                    retailrescue: 'R',
+                    distribution: "",
+                    retailrescue: "R",
                     agencyID: agency._id,
+                    recurringID: `${agency._id}${agency.retailRescueStartTimes[day]}${day.substring(
+                      0,
+                      2
+                    )}R`,
                     exdate: agency.userExcludedDates,
                     exrule: {
                       freq: "weekly",
@@ -181,12 +182,15 @@ class Home extends Component {
 
               // handling agencies without any rescue events
               if (this.state.rescueMap[name]) {
-                this.setState({
+                this.setState((prevState) => ({
                   rescue: [
-                    ...this.state.rescue,
-                    { name: name, color: color },
-                  ]
-                });
+                    ...prevState.rescue,
+                    {
+                      name,
+                      color: `hsl(${index * hsvInterval}, 75%, 75%)`,
+                    },
+                  ],
+                }));
               }
             });
           }
@@ -198,7 +202,7 @@ class Home extends Component {
   /**
    * Callback that will be passed onto the calendar toolbar. If true, it will show all events in the distribution field.
    * Otherwise, it will hide all events in the distribution field.
-   * @param {Boolean} checked Boolean determining whether the ALL checkbox in distribution section is checked
+   * @param {Boolean} checked: Boolean determining whether the ALL checkbox in distribution section is checked
    */
   updateDistributionAll(checked) {
     this.setState({ distributionEvents: [] });
@@ -213,24 +217,27 @@ class Home extends Component {
 
   /**
    * Callback that will be passed onto the calendar toolbar to handle the rendering of a single distribution event.
-   * @param {Object} event event object containing the information of the selected distribution event
+   * @param {Object} event: event object containing the information of the selected distribution event
    */
   updateDistribution(event) {
-    const checked = event.target.checked
-    const agency = event.target.value
+    const { checked } = event.target;
+    const agency = event.target.value;
     const newDistributionEvents = this.state.distributionMap[agency];
     if (checked) {
-      this.setState({ distributionEvents: this.state.distributionEvents.concat(newDistributionEvents) });
+      this.setState((prevState) => ({
+        distributionEvents: prevState.distributionEvents.concat(newDistributionEvents),
+      }));
     } else {
-      const filteredArray = this.state.distributionEvents.filter((event) => {
-        return newDistributionEvents.indexOf(event) < 0;
-      });
+      const { distributionEvents } = this.state;
+      const filteredArray = distributionEvents.filter(
+        (distribution) => newDistributionEvents.indexOf(distribution) < 0
+      );
       this.setState({ distributionEvents: filteredArray });
     }
   }
 
   toggleModal = () => {
-    this.setState({showModal: !this.state.showModal});
+    this.setState((prevState) => ({ showModal: !prevState.showModal }));
   };
 
   /**
@@ -251,18 +258,19 @@ class Home extends Component {
 
   /**
    * Callback that will be passed onto the calendar toolbar to handle the rendering of a single rescue event.
-   * @param {Object} event event object containing the information of the selected rescue event
+   * @param {Object} event: event object containing the information of the selected rescue event
    */
   updateRescue(event) {
-    const checked = event.target.checked
-    const agency = event.target.value
+    const { checked } = event.target;
+    const agency = event.target.value;
     const newRescueEvents = this.state.rescueMap[agency];
     if (checked) {
-      this.setState({ rescueEvents: this.state.rescueEvents.concat(newRescueEvents) });
+      this.setState((prevState) => ({
+        rescueEvents: prevState.rescueEvents.concat(newRescueEvents),
+      }));
     } else {
-      const filteredArray = this.state.rescueEvents.filter((event) => {
-        return newRescueEvents.indexOf(event) < 0;
-      });
+      const { rescueEvents } = this.state;
+      const filteredArray = rescueEvents.filter((rescue) => newRescueEvents.indexOf(rescue) < 0);
       this.setState({ rescueEvents: filteredArray });
     }
   }
@@ -270,9 +278,9 @@ class Home extends Component {
   handleClick = (arg) => {
     this.selectedEvent = arg;
     this.toggleModal();
-    this.setState({selectedEvent: arg});
+    this.setState({ selectedEvent: arg });
     console.log(arg);
-  }
+  };
 
   render() {
     if (!isAuthenticated()) {
@@ -280,8 +288,8 @@ class Home extends Component {
     }
 
     return (
-      <Row>
-        <Col lg={2} md={2}>
+      <div className="home">
+        <div style={{ minHeight: Math.ceil((window.screen.height - 185) * 0.76) }}>
           <CalendarToolbar
             distribution={this.state.distribution}
             rescue={this.state.rescue}
@@ -290,42 +298,33 @@ class Home extends Component {
             updateRescue={this.updateRescue}
             updateRescueAll={this.updateRescueAll}
           />
-        </Col>
-        <Col>
-          <div
-            style={{
-              marginTop: "5vh",
-              marginRight: "10vw",
-              marginBottom: "15vh",
+        </div>
+        <div className="home-calendar">
+          <FullCalendar
+            plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]}
+            timeZone="local"
+            headerToolbar={{
+              left: "prev,next today",
+              center: "title",
+              right: "dayGridMonth,timeGridWeek,timeGridDay",
             }}
-          >
-            <FullCalendar
-              plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]} // 
-              timeZone="local"
-              headerToolbar={{
-                left: "prev,next today",
-                center: "title",
-                right: "dayGridMonth,timeGridWeek,timeGridDay",
-              }}
-              initialView="dayGridMonth"
-              eventDisplay="block"
-              eventClick={this.handleClick}
-              events={this.state.distributionEvents.concat(this.state.rescueEvents)}
-              fixedWeekCount={false}
-              contentHeight = "auto"
-            />
-          </div>
-        </Col>
+            initialView="dayGridMonth"
+            eventDisplay="block"
+            eventClick={this.handleClick}
+            events={this.state.distributionEvents.concat(this.state.rescueEvents)}
+            fixedWeekCount={false}
+            contentHeight="auto"
+          />
+        </div>
         <NotesModal
-            showModal={this.state.showModal}
-            toggleModal={this.toggleModal}
-            selectedEvent={this.state.selectedEvent}
-            agencyId={this.state.agencyId}
-            deleted = {this.props.deleted}
-            changeDeleted = {this.props.changeDeleted}
+          showModal={this.state.showModal}
+          toggleModal={this.toggleModal}
+          selectedEvent={this.state.selectedEvent}
+          agencyId={this.state.agencyId}
+          deleted={this.props.deleted}
+          changeDeleted={this.props.changeDeleted}
         />
-      </Row>
-
+      </div>
     );
   }
 }

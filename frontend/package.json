@@ -57,6 +57,8 @@
     "@babel/eslint-parser": "^7.13.14",
     "@babel/preset-react": "^7.13.13",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",

@@ -1,5 +1,5 @@
 export default {
-  "userSelectedDates": ["2021-05-13T17:00-07:00", "2021-05-25T11:11-07:00"],
+  "userSelectedDates": ["2021-05-13T17:00-07:00"],
   "userExcludedDates": ["2021-05-31"],
   "tableContent": {
     "_id": { "$oid": "6094197bd70a8b178f7b19af" },
@@ -31,9 +31,9 @@ export default {
     "_id": { "$oid": "6094197bd70a8b178f7b19b1" },
     "monday": true,
     "tuesday": false,
-    "wednesday": true,
+    "wednesday": false,
     "thursday": false,
-    "friday": true,
+    "friday": false,
     "saturday": false,
     "sunday": false
   },
@@ -41,14 +41,14 @@ export default {
     "_id": { "$oid": "6094197bd70a8b178f7b19b2" },
     "monday": "2021-05-01T09:00-07:00",
     "tuesday": "",
-    "wednesday": "2021-05-01T12:00-07:00",
+    "wednesday": "",
     "thursday": "",
-    "friday": "2021-05-01T10:30-07:00",
+    "friday": "",
     "saturday": "",
     "sunday": ""
   },
   "distributionStartDate": "05/01/2021",
-  "distributionFrequency": { "$numberInt": "1" },
+  "distributionFrequency": 1,
   "retailRescueDays": {
     "_id": { "$oid": "6094197bd70a8b178f7b19b3" },
     "monday": true,

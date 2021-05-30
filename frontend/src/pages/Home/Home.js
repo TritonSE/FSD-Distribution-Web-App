@@ -27,7 +27,7 @@ const config = require("../../config");
  * - {Hashmap} rescueMap: hashmap that maps the rescue agency name to a set of events containing the criteria
  *             and rules for calendar rendering
  */
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,129 +48,133 @@ class Home extends Component {
    * Fetches all agencies from the database that will be used to populate the state
    */
   componentDidMount() {
-    const authorizationToken = `Bearer ${getJWT()}`;
-    fetch(`${config.backend.uri}/agency`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: authorizationToken,
-      },
-    })
+    if(!this.props.testData) {
+      const authorizationToken = `Bearer ${getJWT()}`;
+      fetch(`${config.backend.uri}/agency`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorizationToken,
+        },
+      })
       .then((response) => {
         response.json().then((data) => {
-          if (response.ok || this.props.testData) {
-            if(this.props.testData) {
-              data = this.props.testData;
-            }
-            const { agencies } = data;
-            const hsvInterval = 360 / agencies.length;
-            agencies.forEach((agency, index) => {
-              const { name } = agency.tableContent;
-              // generating the color of the agency
-              const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
-
-              // add agency to distribution category
-              this.setState(prevState => ({
-                distribution: [
-                  ...prevState.distribution,
-                  { name, color }, 
-                ],
-              }));
-
-              // generate events to populate the distribution map
-              for (const [day, isMarked] of Object.entries(
-                agency.distributionDays
-              )) {
-                if (day !== "_id" && isMarked) {
-                  const event = {
-                    title: name,
-                    rrule: {
-                      freq: "weekly",
-                      interval: agency.distributionFrequency,
-                      byweekday: day.substring(0, 2),
-                      wkst: day.substring(0, 2),
-                      dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
-                    },
-                    duration: "02:00",
-                    color,
-                    exdate: agency.excludedDates,
-                  };
-
-                  if (this.state.distributionMap[name]) {
-                    // Agency already exists in distribution map
-                    this.state.distributionMap[name].push(event);
-                  } else {
-                    // Agency does not yet exist in distribution map
-                    this.state.distributionMap[name] = [event];
-                  }
-                }
-              }
-
-              // adding user selected dates for the agency
-              for (const day of agency.userSelectedDates) {
-                const event = {
-                  title: name,
-                  start: day,
-                  end: day,
-                  duration: "02:00",
-                  color,
-                };
-
-                if (this.state.distributionMap[name]) {
-                  // Agency exists in distribution map
-                  this.state.distributionMap[name].push(event);
-                } else {
-                  // Agency does not yet exist in distribution map
-                  this.state.distributionMap[name] = [event];
-                }
-              }
-
-              // generate events to populate the rescue map
-              for (const [day, isMarked] of Object.entries(
-                agency.retailRescueDays
-              )) {
-                if (day !== "_id" && isMarked) {
-                  const event = {
-                    title: name,
-                    rrule: {
-                      freq: "weekly",
-                      interval: 1,
-                      byweekday: day.substring(0, 2),
-                      wkst: day.substring(0, 2),
-                      dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
-                    },
-                    duration: "01:00",
-                    backgroundColor: "#FFFFFF",
-                    color,
-                  };
-
-                  if (this.state.rescueMap[name]) {
-                    // Agency already exists in rescue map
-                    this.state.rescueMap[name].push(event);
-                  } else {
-                    // Agency does not yet exist in rescue map
-                    this.state.rescueMap[name] = [event];
-                  }
-                }
-              }
-
-              // handling agencies without any rescue events
-              if (this.state.rescueMap[name]) {
-                this.setState(prevState => ({
-                  rescue: [
-                    ...prevState.rescue,
-                    {
-                      name,
-                      color: `hsl(${index * hsvInterval}, 75%, 75%)`,
-                    },
-                  ],
-                }));
-              }
-            });
+          if (response.ok) {
+            this.populateEvents(data);
           }
         });
-      })
+      })   
       .catch((error) => console.error(error));
+    } else {
+      this.populateEvents(this.props.testData);
+    } 
+  }
+
+  populateEvents(data) {
+    const { agencies } = data;
+    const hsvInterval = 360 / agencies.length;
+    agencies.forEach((agency, index) => {
+      const { name } = agency.tableContent;
+      // generating the color of the agency
+      const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
+
+      // add agency to distribution category
+      this.setState(prevState => ({
+        distribution: [
+          ...prevState.distribution,
+          { name, color }, 
+        ],
+      }));
+      // generate events to populate the distribution map
+      for (const [day, isMarked] of Object.entries(
+        agency.distributionDays
+      )) {
+        if (day !== "_id" && isMarked) {
+          const event = {
+            title: name,
+            rrule: {
+              freq: "weekly",
+              interval: agency.distributionFrequency,
+              byweekday: day.substring(0, 2),
+              wkst: day.substring(0, 2),
+              dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
+            },
+            duration: "02:00",
+            color,
+            exdate: agency.userExcludedDates,
+          };
+
+          if (this.state.distributionMap[name]) {
+            // Agency already exists in distribution map
+            this.state.distributionMap[name].push(event);
+          } else {
+            // Agency does not yet exist in distribution map
+            this.state.distributionMap[name] = [event];
+          }
+        }
+      }
+
+      // adding user selected dates for the agency
+      for (const day of agency.userSelectedDates) {
+        const event = {
+          title: name,
+          start: day,
+          end: day,
+          duration: "02:00",
+          color,
+        };
+
+        if (this.state.distributionMap[name]) {
+          // Agency exists in distribution map
+          this.state.distributionMap[name].push(event);
+        } else {
+          // Agency does not yet exist in distribution map
+          this.state.distributionMap[name] = [event];
+        }
+      }
+
+      // generate events to populate the rescue map
+      for (const [day, isMarked] of Object.entries(
+        agency.retailRescueDays
+      )) {
+        if (day !== "_id" && isMarked) {
+          const event = {
+            title: name,
+            rrule: {
+              freq: "weekly",
+              interval: 1,
+              byweekday: day.substring(0, 2),
+              wkst: day.substring(0, 2),
+              dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
+            },
+            duration: "01:00",
+            backgroundColor: "#FFFFFF",
+            color,
+          };
+
+          if (this.state.rescueMap[name]) {
+            // Agency already exists in rescue map
+            this.state.rescueMap[name].push(event);
+          } else {
+            // Agency does not yet exist in rescue map
+            this.state.rescueMap[name] = [event];
+          }
+        }
+      }
+
+      // handling agencies without any rescue events
+      if (this.state.rescueMap[name]) {
+        this.setState(prevState => ({
+          rescue: [
+            ...prevState.rescue,
+            {
+              name,
+              color: `hsl(${index * hsvInterval}, 50%, 50%)`,
+            },
+          ],
+        }));
+      }
+    });
   }
 
   /**
@@ -246,7 +250,7 @@ class Home extends Component {
   }
 
   render() {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() && !this.props.testData) {
       return <Redirect to="/login" />;
     }
 
@@ -280,9 +284,21 @@ class Home extends Component {
             }}
             initialView="dayGridMonth"
             eventDisplay="block"
-            events={this.state.distributionEvents.concat(
-              this.state.rescueEvents
-            )}
+            events={[
+              {
+                "title": "Agency With Timezone Offsets",
+                "rrule": {
+                  "freq": "weekly",
+                  "interval": 1,
+                  "byweekday": "mo",
+                  "wkst": "mo",
+                  "dtstart": "2021-05-01T00:00-07:00"
+                },
+                "duration": "01:00",
+                "backgroundColor": "#FFFFFF",
+                "color": "hsl(0, 50%, 50%)"
+              }
+            ]}
             fixedWeekCount={false}
             contentHeight = "auto"
           />
@@ -291,5 +307,3 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;

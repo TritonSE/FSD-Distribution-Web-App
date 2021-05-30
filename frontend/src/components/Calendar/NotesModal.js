@@ -4,14 +4,15 @@ import FormButton from "../FormComponents/FormButton";
 import { getJWT } from "../../auth";
 
 /**
- * Functional component for the delete agency modal
- *
- * @param {*} showModal
- * @param {*} toggleModal
- * @param {*} agencyName
- * @param {*} agencyNumber
- * @param {*} agencyId
- * @returns {*} Delete Agency Modal Component
+ * Functional component for the delete agency modal, allows singular and recurring event deletion and notes.
+ * It also contains basic information about the event such as date and time.
+ * Expected Props:
+ * - {Boolean} showModal: boolean to decide whether modal should be rendered
+ * - {Function} toggleModal: function that toggles modal between open and closed
+ * - {Object} selectedEvent: the calendar event that the user clicked
+ * - {Number} deleted: deleted is the key of the Home component, this changes when an
+ * event is deleted, thereby forcing the calendar to re-render
+ * - {Function} changeDeleted: function to change the deleted key
  */
 
 function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDeleted }) {

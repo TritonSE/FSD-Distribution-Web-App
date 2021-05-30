@@ -113,7 +113,7 @@ function AgencyTable() {
   function checkStatuses(row, option) {
     let falseCount = 0;
     let runCount = 0;
-    for (const key of filters[option]) {
+    for (const key of Object.keys(filters[option])) {
       runCount++;
       if (filters[option][key] === true) {
         if (option === "Storage") {
@@ -182,7 +182,7 @@ function AgencyTable() {
    * @returns Boolean value, true if the current row's data matches the filter options and false otherwise
    */
   function checkOptions(row) {
-    for (const option of filters) {
+    for (const option of Object.keys(filters)) {
       // perform search
       if (option === "search") {
         let found = false;

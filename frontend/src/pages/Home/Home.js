@@ -70,17 +70,12 @@ class Home extends Component {
               const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
 
               // add agency to distribution category
-              this.setState(prevState => ({
-                distribution: [
-                  ...prevState.distribution,
-                  { name, color }, 
-                ],
+              this.setState((prevState) => ({
+                distribution: [...prevState.distribution, { name, color }],
               }));
 
               // generate events to populate the distribution map
-              for (const [day, isMarked] of Object.entries(
-                agency.distributionDays
-              )) {
+              for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
                 if (day !== "_id" && isMarked) {
                   const event = {
                     title: name,
@@ -144,9 +139,7 @@ class Home extends Component {
               }
 
               // generate events to populate the rescue map
-              for (const [day, isMarked] of Object.entries(
-                agency.retailRescueDays
-              )) {
+              for (const [day, isMarked] of Object.entries(agency.retailRescueDays)) {
                 if (day !== "_id" && isMarked) {
                   const event = {
                     title: name,
@@ -189,7 +182,7 @@ class Home extends Component {
 
               // handling agencies without any rescue events
               if (this.state.rescueMap[name]) {
-                this.setState(prevState => ({
+                this.setState((prevState) => ({
                   rescue: [
                     ...prevState.rescue,
                     {
@@ -272,11 +265,11 @@ class Home extends Component {
     const agency = event.target.value;
     const newRescueEvents = this.state.rescueMap[agency];
     if (checked) {
-      this.setState( prevState => ({
+      this.setState((prevState) => ({
         rescueEvents: prevState.rescueEvents.concat(newRescueEvents),
       }));
     } else {
-      const { rescueEvents } = this.state
+      const { rescueEvents } = this.state;
       const filteredArray = rescueEvents.filter((rescue) => newRescueEvents.indexOf(rescue) < 0);
       this.setState({ rescueEvents: filteredArray });
     }
@@ -296,9 +289,7 @@ class Home extends Component {
 
     return (
       <div className="home">
-        <div
-          style={{ minHeight: Math.ceil((window.screen.height - 185) * 0.76) }}
-        >
+        <div style={{ minHeight: Math.ceil((window.screen.height - 185) * 0.76) }}>
           <CalendarToolbar
             distribution={this.state.distribution}
             rescue={this.state.rescue}
@@ -310,12 +301,7 @@ class Home extends Component {
         </div>
         <div className="home-calendar">
           <FullCalendar
-            plugins={[
-              rrulePlugin,
-              dayGridPlugin,
-              timeGridPlugin,
-              interactionPlugin,
-            ]}
+            plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]}
             timeZone="local"
             headerToolbar={{
               left: "prev,next today",

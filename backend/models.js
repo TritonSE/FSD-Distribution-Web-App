@@ -305,7 +305,7 @@ const AgencySchema = new Schema({
     type: DayValuesSchema,
     required: true,
   },
-  // Start time for the event on each day of the week
+  // Start of excluded event patterns for each day of the week
   distributionExcludedTimes: {
     type: DayValuesSchema,
   },

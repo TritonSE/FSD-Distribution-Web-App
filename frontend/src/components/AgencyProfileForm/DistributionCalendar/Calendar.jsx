@@ -18,6 +18,8 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * distributes (in weeks)
  * - {Array<Boolean>} distributionDays: List of booleans indicating which days
  * of the week are valid distribution days
+ * - {Array<Boolean>} distributionStartTimes: List of strings indicating * 
+ * start-times for valid distribution days
  * - {Array<String>} userSelectedDates: List of Strings in default date format
  * representing which dates the user selected
  * - {Array<String>} userExcludedDates: List of Strings in default date format
@@ -169,6 +171,14 @@ class Calendar extends Component {
    * @returns Boolean representing if the given date is a user excluded date
    */
   isExcludedDate = (date) => {
+
+    
+    // Obtain start time
+    let startTime = this.props.distributionStartTimes[moment(date, DEFAULT_DATE_FORMAT).day()]
+
+    // Append starttime to date
+    date += `T${startTime}:00-07:00`
+
     return this.props.userExcludedDates.includes(date);
   };
 
@@ -265,6 +275,12 @@ class Calendar extends Component {
   addExcludedDate = (date) => {
     const { userExcludedDates, onChange } = this.props;
 
+      
+    // Obtain start time
+    let startTime = this.props.distributionStartTimes[moment(date, DEFAULT_DATE_FORMAT).day()]
+
+    // Append time to date
+    date += `T${startTime}:00-07:00`
     let newExcludedDates = userExcludedDates.slice();
     newExcludedDates.push(date);
 
@@ -305,6 +321,7 @@ class Calendar extends Component {
       addExcludedDate,
       removeExcludedDate,
     } = this;
+    
     if (!isExtraneousDate(date)) {
       if (isDistributionDate(date)) {
         if (isExcludedDate(date)) {

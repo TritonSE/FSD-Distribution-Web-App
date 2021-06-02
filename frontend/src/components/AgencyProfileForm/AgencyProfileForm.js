@@ -820,6 +820,15 @@ class AgencyProfileForm extends Component {
                     data.distributionDays.friday,
                     data.distributionDays.saturday,
                   ]}
+                  distributionStartTimes={[
+                    data.distributionStartTimes.sunday,
+                    data.distributionStartTimes.monday,
+                    data.distributionStartTimes.tuesday,
+                    data.distributionStartTimes.wednesday,
+                    data.distributionStartTimes.thursday,
+                    data.distributionStartTimes.friday,
+                    data.distributionStartTimes.saturday,
+                  ]}
                   userSelectedDates={data.userSelectedDates}
                   userExcludedDates={data.userExcludedDates}
                   onChange={this.handleInputChange}

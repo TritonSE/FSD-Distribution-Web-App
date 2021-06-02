@@ -52,7 +52,6 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
   function getDay() {
     let date = "";
     if (selectedEvent && selectedEvent.event._def.recurringDef) {
-      // dayOfWeek = selectedEvent.event._def.recurringDef.typeData.rruleSet._rrule[0].options.wkst;
       date = new Date(selectedEvent.event.startStr);
       date = String(new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date));
     }

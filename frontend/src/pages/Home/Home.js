@@ -302,7 +302,7 @@ class Home extends Component {
         <div className="home-calendar">
           <FullCalendar
             plugins={[rrulePlugin, dayGridPlugin, timeGridPlugin, interactionPlugin]}
-            timeZone="local"
+            timeZone="utc"
             headerToolbar={{
               left: "prev,next today",
               center: "title",

@@ -279,7 +279,6 @@ class Home extends Component {
     this.selectedEvent = arg;
     this.toggleModal();
     this.setState({ selectedEvent: arg });
-    console.log(arg);
   };
 
   render() {

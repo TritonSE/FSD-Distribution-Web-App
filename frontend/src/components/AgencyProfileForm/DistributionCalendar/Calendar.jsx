@@ -99,8 +99,6 @@ class Calendar extends Component {
       if (isOnWeek) {
         // Verify day is a valid distribution day
         if (isDistDate) {
-
-
           let excludedStartTime = this.props.distributionExcludedTimes[currDateMoment.day()];
 
           if (excludedStartTime !== "") {
@@ -114,7 +112,7 @@ class Calendar extends Component {
             let excludedStartTimeDateMoment = moment(excludedStartTimeDate, DEFAULT_DATE_FORMAT);
 
             if (currDateMoment.isSameOrAfter(excludedStartTimeDateMoment)) {
-              console.log(date)
+              console.log(date);
               return false;
             }
           }

@@ -30,7 +30,7 @@ function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyI
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:8000/agency/${agencyId}`, {
+        fetch(`http://localhost:8000/notes/all/${agencyId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

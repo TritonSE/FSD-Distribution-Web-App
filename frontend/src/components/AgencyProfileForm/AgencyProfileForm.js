@@ -112,6 +112,15 @@ class AgencyProfileForm extends Component {
           saturday: "",
           sunday: "",
         },
+        distributionExcludedTimes: {
+          monday: "",
+          tuesday: "",
+          wednesday: "",
+          thursday: "",
+          friday: "",
+          saturday: "",
+          sunday: "",
+        },
         distributionStartDate: "",
         distributionFrequency: "1",
         userSelectedDates: [],
@@ -131,6 +140,15 @@ class AgencyProfileForm extends Component {
           sunday: false,
         },
         retailRescueStartTimes: {
+          monday: "",
+          tuesday: "",
+          wednesday: "",
+          thursday: "",
+          friday: "",
+          saturday: "",
+          sunday: "",
+        },
+        retailRescueExcludedTimes: {
           monday: "",
           tuesday: "",
           wednesday: "",
@@ -171,7 +189,7 @@ class AgencyProfileForm extends Component {
       data.retailRescueLocations = { ...data.retailRescueLocations };
 
       // unfix date/time formats
-      // ISO 8601 format: "YYYY-MM-DDThh:mm-07:00" (literal T)
+      // ISO 8601 format: "YYYY-MM-DDThh:mm" (literal T)
       for (const day of DAYS_OF_WEEK) {
         if (data.distributionDays[day]) {
           const timeString = data.distributionStartTimes[day];
@@ -182,7 +200,6 @@ class AgencyProfileForm extends Component {
           data.retailRescueStartTimes[day] = timeString.slice(11, 16);
         }
       }
-      data.userSelectedDates = data.userSelectedDates.map((dateTime) => dateTime.slice(0, 16));
     }
     this.state = data;
   }
@@ -200,9 +217,8 @@ class AgencyProfileForm extends Component {
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
     // fix distribution and retail rescue formats
-    // ISO 8601 format: "YYYY-MM-DDThh:mm-07:00" (literal T)
+    // ISO 8601 format: "YYYY-MM-DDThh:mm" (literal T)
     const timeBase = `${AgencyProfileForm.fixDate(data.distributionStartDate)}T`;
-    const timeEnd = "-07:00";
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
     data.retailRescueLocations = { ...data.retailRescueLocations };
@@ -210,7 +226,7 @@ class AgencyProfileForm extends Component {
       if (data.distributionDays[day]) {
         // this day is selected, so fix the time format
         const time = data.distributionStartTimes[day]; // "hh:mm"
-        data.distributionStartTimes[day] = timeBase + time + timeEnd;
+        data.distributionStartTimes[day] = timeBase + time;
       } else {
         // not selected
         data.distributionStartTimes[day] = "";
@@ -219,14 +235,13 @@ class AgencyProfileForm extends Component {
       if (data.retailRescueDays[day]) {
         // this day is selected, so fix the time format
         const time = data.retailRescueStartTimes[day]; // "hh:mm"
-        data.retailRescueStartTimes[day] = timeBase + time + timeEnd;
+        data.retailRescueStartTimes[day] = timeBase + time;
       } else {
         // not selected
         data.retailRescueStartTimes[day] = "";
         data.retailRescueLocations[day] = "";
       }
     }
-    data.userSelectedDates = data.userSelectedDates.map((dateTime) => `${dateTime}${timeEnd}`);
 
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
@@ -801,6 +816,24 @@ class AgencyProfileForm extends Component {
                     data.distributionDays.thursday,
                     data.distributionDays.friday,
                     data.distributionDays.saturday,
+                  ]}
+                  distributionStartTimes={[
+                    data.distributionStartTimes.sunday,
+                    data.distributionStartTimes.monday,
+                    data.distributionStartTimes.tuesday,
+                    data.distributionStartTimes.wednesday,
+                    data.distributionStartTimes.thursday,
+                    data.distributionStartTimes.friday,
+                    data.distributionStartTimes.saturday,
+                  ]}
+                  distributionExcludedTimes={[
+                    data.distributionExcludedTimes.sunday,
+                    data.distributionExcludedTimes.monday,
+                    data.distributionExcludedTimes.tuesday,
+                    data.distributionExcludedTimes.wednesday,
+                    data.distributionExcludedTimes.thursday,
+                    data.distributionExcludedTimes.friday,
+                    data.distributionExcludedTimes.saturday,
                   ]}
                   userSelectedDates={data.userSelectedDates}
                   userExcludedDates={data.userExcludedDates}

@@ -118,7 +118,6 @@ const Register = () => {
       });
       // Successful Registration
       if (response.ok) {
-        console.log("account pending approval");
         history.push("/");
       } else if (response.status === 403) {
         document.body.style.cursor = null;

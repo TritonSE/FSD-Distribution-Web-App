@@ -87,7 +87,7 @@ router.delete("/:id", isAuthenticated, async (req, res, next) => {
  */
 router.delete("/all/:id", isAuthenticated, async (req, res) => {
   const conditions = { agencyID: req.params.id };
-  
+
   try {
     const notes = await Notes.deleteMany(conditions);
     return res.status(200).json({

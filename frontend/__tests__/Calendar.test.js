@@ -1,80 +1,70 @@
 import React from "react";
 import TestRenderer from "react-test-renderer";
-import Enzyme, { shallow } from "enzyme";
+import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Home from "../src/pages/Home/Home";
 import CalendarToolbar from "../src/components/Calendar/CalendarToolbar";
-import agencyEventData from "../__mocks__/agencyEventData";
+import {agencyEventData} from "../__mocks__/agencyEventData";
+import {  distributionAgency1, distributionAgency2, rescueAgency1, rescueAgency2 } from "../__mocks__/parsedAgencyEventData";
 
 Enzyme.configure({ adapter: new Adapter() })
 
 describe("Home.populateEvents", () => {
-  it("create test data", () => {
+  it("parse data into events and mutate", () => {
     // create sample db data
-    const data = {agencies: [ 
-      agencyEventData
-    ]}
+    const component = shallow(<Home testData={agencyEventData} />);
+    const instance = component.instance();
+    
+    const agency1Name = distributionAgency1.title.name;
+    const agency2Name = distributionAgency2.title.name;
+    const agency1DistributionEvents = distributionAgency1.events;
+    const agency2DistributionEvents = distributionAgency2.events;
+    const agency1RescueEvents = rescueAgency1.events;
+    const agency2RescueEvents = rescueAgency2.events;
 
-    const component = shallow(<Home testData={data} />)
-
-    // check distributionMap
+    // check distributionMap 
     expect(component.state("distributionMap")).toEqual({
-      "Agency With Timezone Offsets" : [ 
-        {
-          "title": "Agency With Timezone Offsets",
-          "rrule": {
-            "freq": "weekly",
-            "interval": 1,
-            "byweekday": "mo",
-            "wkst": "mo",
-            "dtstart": "2021-05-01T09:00-07:00"
-          },
-          "duration": "02:00",
-          "color": "hsl(0, 50%, 50%)",
-          "exdate": ["2021-05-31"]
-        },
-        {
-          "title": "Agency With Timezone Offsets",
-          "start": "2021-05-13T17:00-07:00",
-          "end": "2021-05-13T17:00-07:00",
-          "duration": "02:00",
-          "color": "hsl(0, 50%, 50%)"
-        }
-      ]
-    })
-    // // check distribution
-    // expect(component.state.distribution).toEqual([
-      
-    // ])
-    // // check rescueMap
-    // expect(component.state.rescueMap).toEqual([
-      
-    // ])
-    // // check rescue
-    // expect(component.state.rescue).toEqual([
-      
-    // ])
+      [agency1Name]: agency1DistributionEvents,
+      [agency2Name]: agency2DistributionEvents
+    });
+
+    // check distribution
+    expect(component.state("distribution")).toEqual([
+      distributionAgency1.title, distributionAgency2.title
+    ]);
+
+    // check rescueMap
+    expect(component.state("rescueMap")).toEqual({
+      [agency1Name]: agency1RescueEvents,
+      [agency2Name]: agency2RescueEvents
+    });
+    
+    // check rescue
+    expect(component.state("rescue")).toEqual([
+      rescueAgency1.title, rescueAgency2.title
+    ]);
+
+    // check one distribution event
+    instance.updateDistribution({target: { checked: true, value: agency1Name }});
+    expect(component.state("distributionEvents")).toEqual(agency1DistributionEvents);
+    
+    // check all distribution events
+    instance.updateDistributionAll(true);
+    expect(component.state("distributionEvents")).toEqual(agency1DistributionEvents.concat(agency2DistributionEvents));
+
+    // uncheck all distribution events
+    instance.updateDistributionAll(false);
+    expect(component.state("distributionEvents")).toEqual([]);
+
+    // check a rescue event
+    instance.updateRescue({target: { checked: true, value: agency1Name }});
+    expect(component.state("rescueEvents")).toEqual(agency1RescueEvents);
+
+    // check all rescue events
+    instance.updateRescueAll(true);
+    expect(component.state("rescueEvents")).toEqual(agency1RescueEvents.concat(agency2RescueEvents));
+
+    instance.updateRescueAll(false);
+    expect(component.state("rescueEvents")).toEqual([]);
   });
 });
-
-// describe("Home.filterEvents", () => {
-//     it("updateDistributionAll", () => {
-      
-//     });
-
-//     it("updateDistribution", () => {
-      
-//     });
-
-//     it("updateRescueAll", () => {
-      
-//     });
-
-//     it("updateRescue", () => {
-      
-//     });
-// });
-
-// describe("CalendarToolbar.populateLabels", () => {
-
-// })

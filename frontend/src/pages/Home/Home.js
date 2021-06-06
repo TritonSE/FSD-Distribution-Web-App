@@ -284,21 +284,7 @@ export default class Home extends Component {
             }}
             initialView="dayGridMonth"
             eventDisplay="block"
-            events={[
-              {
-                "title": "Agency With Timezone Offsets",
-                "rrule": {
-                  "freq": "weekly",
-                  "interval": 1,
-                  "byweekday": "mo",
-                  "wkst": "mo",
-                  "dtstart": "2021-05-01T00:00-07:00"
-                },
-                "duration": "01:00",
-                "backgroundColor": "#FFFFFF",
-                "color": "hsl(0, 50%, 50%)"
-              }
-            ]}
+            events={this.state.distributionEvents.concat(this.state.rescueEvents)}
             fixedWeekCount={false}
             contentHeight = "auto"
           />

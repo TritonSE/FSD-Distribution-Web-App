@@ -68,7 +68,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
     const removeEvent = document.getElementById("remove");
     if (selectedEvent.event._def.recurringDef == null) {
       if (removeEvent.value !== "None") {
-        fetch(`http://localhost:8000/agency/${agencyID}`, {
+        fetch(`/agency/${agencyID}`, {
           // delete a user selected event
           method: "GET",
           headers: {
@@ -81,7 +81,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
           .then((agency) => {
             const regex = /:[0-9][0-9]-/g; // regex to remove seconds from standard ISO format
             const deleteDate = selectedEvent.event.startStr.replace(regex, "-");
-            fetch(`http://localhost:8000/agency/${agencyID}`, {
+            fetch(`/agency/${agencyID}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -95,7 +95,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
             changeDeleted(++deleted);
           })
           .then(() => {
-            fetch(`http://localhost:8000/notes/${eventID}`, {
+            fetch(`/notes/${eventID}`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -108,7 +108,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
       // delete a recurring event
       if (removeEvent.value === "Remove this event") {
         // delete a single recurring event
-        fetch(`http://localhost:8000/agency/${agencyID}`, {
+        fetch(`/agency/${agencyID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -118,7 +118,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
           .then((res) => res.json())
           .then((data) => data.agency)
           .then((agency) => {
-            fetch(`http://localhost:8000/agency/${agencyID}`, {
+            fetch(`/agency/${agencyID}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -132,7 +132,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
             changeDeleted(++deleted);
           })
           .then(() => {
-            fetch(`http://localhost:8000/notes/${eventID}`, {
+            fetch(`/notes/${eventID}`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -144,7 +144,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
 
       if (removeEvent.value === "All future events") {
         // delete event and all future events
-        fetch(`http://localhost:8000/agency/${agencyID}`, {
+        fetch(`/agency/${agencyID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -170,7 +170,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
                 retailRescueExcludedTimes: newRetailExclude,
               });
             }
-            fetch(`http://localhost:8000/agency/${agencyID}`, {
+            fetch(`/agency/${agencyID}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -181,7 +181,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
             changeDeleted(++deleted);
           })
           .then(() => {
-            fetch(`http://localhost:8000/notes/`, {
+            fetch(`/notes/`, {
               method: "DELETE",
               headers: {
                 "Content-Type": "application/json",
@@ -198,7 +198,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
 
     // handle adding or changing a note
     if (exist) {
-      fetch(`http://localhost:8000/notes/${eventID}`, {
+      fetch(`/notes/${eventID}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -213,7 +213,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
         }),
       });
     } else {
-      fetch(`http://localhost:8000/notes/`, {
+      fetch(`/notes/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -238,7 +238,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
         selectedEvent.event.startStr +
         selectedEvent.event._def.extendedProps.distribution +
         selectedEvent.event._def.extendedProps.retailrescue;
-      fetch(`http://localhost:8000/notes/${eventID}`, {
+      fetch(`/notes/${eventID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

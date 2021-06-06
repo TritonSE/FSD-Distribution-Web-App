@@ -36,12 +36,13 @@
 .nav-menu {
   display: flex;
   grid-template-columns: repeat(3, auto);
-  grid-gap: 70%;
+  grid-gap: 50%;
   list-style: none;
   text-align: none;
   width: 10%;
   justify-content: flex-end;
   margin-right: 20%;
+  padding: 1% 0% 1% 0%;
 }
 
 /* Styling of the navbar links */

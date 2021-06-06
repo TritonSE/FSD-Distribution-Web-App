@@ -113,7 +113,7 @@ function AgencyTable() {
   function checkStatuses(row, option) {
     let falseCount = 0;
     let runCount = 0;
-    for (const key in filters[option]) {
+    for (const key of Object.keys(filters[option])) {
       runCount++;
       if (filters[option][key] === true) {
         if (option === "Storage") {
@@ -182,22 +182,26 @@ function AgencyTable() {
    * @returns Boolean value, true if the current row's data matches the filter options and false otherwise
    */
   function checkOptions(row) {
-    for (const option in filters) {
+    for (const option of Object.keys(filters)) {
       // perform search
       if (option === "search") {
         let found = false;
-        // search based on each word in the name
-        const words = row.tableContent.name.toLowerCase().split(" ");
-        const searched = filters.search.toLowerCase();
-        for (const word of words) {
-          found = word.startsWith(searched);
-          if (found) {
-            break;
+        const query = filters.search.toLowerCase();
+        const nameToMatch = row.tableContent.name.toLowerCase();
+        const numToMatch = row.tableContent.agencyNumber.toString().toLowerCase();
+        if (query.includes(" ") && query.length > 2) {
+          found = nameToMatch.includes(query);
+        } else {
+          // search based on each word in the name
+          const words = nameToMatch.split(" ");
+          for (const word of words) {
+            found = word.startsWith(query);
+            if (found) {
+              break;
+            }
           }
         }
-        if (
-          !(found || row.tableContent.agencyNumber.toString().toLowerCase().startsWith(searched))
-        ) {
+        if (!(found || numToMatch.startsWith(query))) {
           return false;
         }
         continue;

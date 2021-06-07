@@ -10,6 +10,8 @@ import { getJWT, isAuthenticated } from "../../auth";
 import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import "./Home.css";
 
+const config = require("../../config");
+
 /**
  * Landing page that contains a calender with corresponding events from the side toolbar.
  *

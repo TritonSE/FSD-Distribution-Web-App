@@ -52,7 +52,7 @@
 
 /* * * * Input columns * * * */
 
-.checkbox-column {
+.checkbox-column.wide {
   width: 624px;
 }
 

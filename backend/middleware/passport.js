@@ -29,14 +29,14 @@ module.exports = () => {
     new LocalStrategy((user, password, next) => {
       User.findOne({ email: user })
         .exec()
-        .then((user) => {
-          if (!user) {
+        .then((user_) => {
+          if (!user_) {
             return next(null, false);
           }
-          if (!user.verifyPassword(password)) {
+          if (!user_.verifyPassword(password)) {
             return next(null, false);
           }
-          return next(null, user);
+          return next(null, user_);
         });
     })
   );

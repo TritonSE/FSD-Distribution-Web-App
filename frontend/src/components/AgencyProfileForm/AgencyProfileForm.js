@@ -13,13 +13,12 @@ import AddressList from "./AddressList";
 import ContactsList from "./ContactsList";
 import DistributionDays from "./DistributionDays";
 import Calendar from "./DistributionCalendar/Calendar";
+import DateList from "./DistributionCalendar/DateList";
 import InlineDropdown from "../FormComponents/InlineDropdown";
 import "typeface-roboto";
 import "./FormStyle.css";
 import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
-
-const CONFIG = require("../../config");
 
 const DAYS_OF_WEEK = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
@@ -111,6 +110,15 @@ class AgencyProfileForm extends Component {
           saturday: "",
           sunday: "",
         },
+        distributionExcludedTimes: {
+          monday: "",
+          tuesday: "",
+          wednesday: "",
+          thursday: "",
+          friday: "",
+          saturday: "",
+          sunday: "",
+        },
         distributionStartDate: "",
         distributionFrequency: "1",
         userSelectedDates: [],
@@ -130,6 +138,15 @@ class AgencyProfileForm extends Component {
           sunday: false,
         },
         retailRescueStartTimes: {
+          monday: "",
+          tuesday: "",
+          wednesday: "",
+          thursday: "",
+          friday: "",
+          saturday: "",
+          sunday: "",
+        },
+        retailRescueExcludedTimes: {
           monday: "",
           tuesday: "",
           wednesday: "",
@@ -170,7 +187,7 @@ class AgencyProfileForm extends Component {
       data.retailRescueLocations = { ...data.retailRescueLocations };
 
       // unfix date/time formats
-      // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
+      // ISO 8601 format: "YYYY-MM-DDThh:mm" (literal T)
       for (const day of DAYS_OF_WEEK) {
         if (data.distributionDays[day]) {
           const timeString = data.distributionStartTimes[day];
@@ -181,33 +198,8 @@ class AgencyProfileForm extends Component {
           data.retailRescueStartTimes[day] = timeString.slice(11, 16);
         }
       }
-
-      data.userExcludedDates = data.userExcludedDates.map((date) =>
-        this.unfixDate(date.slice(0, 10))
-      );
-      data.userSelectedDates = data.userSelectedDates.map((date) =>
-        this.unfixDate(date.slice(0, 10))
-      );
     }
     this.state = data;
-  }
-
-  /**
-   * Changes date format from MM/DD/YYYY to YYYY-MM-DD.
-   * @param {String} date Date string with format MM/DD/YYYY
-   * @returns Date string with format YYYY-MM-DD
-   */
-  fixDate(date) {
-    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
-  }
-
-  /**
-   * Changes date format from YYYY-MM-DD to MM/DD/YYYY
-   * @param {String} date Date string with format YYYY-MM-DD
-   * @returns Date string with format MM/DD/YYYY
-   */
-  unfixDate(date) {
-    return `${date.slice(5, 7)}/${date.slice(8)}/${date.slice(0, 4)}`;
   }
 
   /**
@@ -223,9 +215,8 @@ class AgencyProfileForm extends Component {
     data.tableContent.phone = data.contacts[0].phoneNumber;
 
     // fix distribution and retail rescue formats
-    // ISO 8601 format: "YYYY-MM-DDThh:mmZ" (literal T and Z)
-    const timeBase = `${this.fixDate(data.distributionStartDate)}T`;
-    const timeEnd = "Z";
+    // ISO 8601 format: "YYYY-MM-DDThh:mm" (literal T)
+    const timeBase = `${AgencyProfileForm.fixDate(data.distributionStartDate)}T`;
     data.distributionStartTimes = { ...data.distributionStartTimes };
     data.retailRescueStartTimes = { ...data.retailRescueStartTimes };
     data.retailRescueLocations = { ...data.retailRescueLocations };
@@ -233,7 +224,7 @@ class AgencyProfileForm extends Component {
       if (data.distributionDays[day]) {
         // this day is selected, so fix the time format
         const time = data.distributionStartTimes[day]; // "hh:mm"
-        data.distributionStartTimes[day] = timeBase + time + timeEnd;
+        data.distributionStartTimes[day] = timeBase + time;
       } else {
         // not selected
         data.distributionStartTimes[day] = "";
@@ -242,7 +233,7 @@ class AgencyProfileForm extends Component {
       if (data.retailRescueDays[day]) {
         // this day is selected, so fix the time format
         const time = data.retailRescueStartTimes[day]; // "hh:mm"
-        data.retailRescueStartTimes[day] = timeBase + time + timeEnd;
+        data.retailRescueStartTimes[day] = timeBase + time;
       } else {
         // not selected
         data.retailRescueStartTimes[day] = "";
@@ -250,16 +241,20 @@ class AgencyProfileForm extends Component {
       }
     }
 
-    data.userExcludedDates = data.userExcludedDates.map(
-      (date) => this.fixDate(date) // time not needed
-    );
-    data.userSelectedDates = data.userSelectedDates.map((date) => `${this.fixDate(date)}T00:00Z`);
-
     // Remove empty strings in additionalAddresses
     data.additionalAddresses = data.additionalAddresses.filter((x) => x !== "");
 
     // extra fields will be ignored by mongoose
     return data;
+  }
+
+  /**
+   * Changes date format from MM/DD/YYYY to YYYY-MM-DD.
+   * @param {String} date Date string with format MM/DD/YYYY
+   * @returns Date string with format YYYY-MM-DD
+   */
+  static fixDate(date) {
+    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
   }
 
   /**
@@ -274,12 +269,14 @@ class AgencyProfileForm extends Component {
     if (index !== -1) {
       const key1 = key.slice(0, index);
       const key2 = key.slice(index + 1);
-      if (this.state.hasOwnProperty(key1) && this.state[key1].hasOwnProperty(key2)) {
-        const updated = { ...this.state[key1] };
-        updated[key2] = newValue;
-        this.setState({ [key1]: updated });
+      if (key1 in this.state && key2 in this.state[key1]) {
+        this.setState((prevState) => {
+          const updated = { ...prevState[key1] };
+          updated[key2] = newValue;
+          return { [key1]: updated };
+        });
       }
-    } else if (this.state.hasOwnProperty(key)) {
+    } else if (key in this.state) {
       this.setState({ [key]: newValue });
     }
   };
@@ -357,7 +354,7 @@ class AgencyProfileForm extends Component {
     const { history, agencyData, editing } = this.props;
     const formData = this.prepareData();
 
-    let url = `${CONFIG.backend.uri}/agency/`;
+    let url = `/agency/`;
     if (editing) {
       url += agencyData._id;
     }
@@ -769,29 +766,9 @@ class AgencyProfileForm extends Component {
                 />
               </FormCol>
               <FormCol>
-                <Calendar
-                  label="Customize Distribution Schedule"
-                  distributionStartDate={data.distributionStartDate}
-                  distributionFrequency={data.distributionFrequency}
-                  distributionDays={[
-                    data.distributionDays.sunday,
-                    data.distributionDays.monday,
-                    data.distributionDays.tuesday,
-                    data.distributionDays.wednesday,
-                    data.distributionDays.thursday,
-                    data.distributionDays.friday,
-                    data.distributionDays.saturday,
-                  ]}
-                  userSelectedDates={data.userSelectedDates}
-                  userExcludedDates={data.userExcludedDates}
-                  onChange={this.handleInputChange}
-                />
-              </FormCol>
-            </FormRow>
-            <FormRow>
-              <FormCol>
                 <CheckboxList
                   label="Check Boxes if Available/Correct."
+                  gutter
                   onChange={this.handleInputChange}
                   options={[
                     {
@@ -820,6 +797,54 @@ class AgencyProfileForm extends Component {
                       stateKey: "residentialFacility",
                     },
                   ]}
+                />
+              </FormCol>
+            </FormRow>
+            <FormRow>
+              <FormCol>
+                <Calendar
+                  label="Customize Distribution Schedule"
+                  distributionStartDate={data.distributionStartDate}
+                  distributionFrequency={data.distributionFrequency}
+                  distributionDays={[
+                    data.distributionDays.sunday,
+                    data.distributionDays.monday,
+                    data.distributionDays.tuesday,
+                    data.distributionDays.wednesday,
+                    data.distributionDays.thursday,
+                    data.distributionDays.friday,
+                    data.distributionDays.saturday,
+                  ]}
+                  distributionStartTimes={[
+                    data.distributionStartTimes.sunday,
+                    data.distributionStartTimes.monday,
+                    data.distributionStartTimes.tuesday,
+                    data.distributionStartTimes.wednesday,
+                    data.distributionStartTimes.thursday,
+                    data.distributionStartTimes.friday,
+                    data.distributionStartTimes.saturday,
+                  ]}
+                  distributionExcludedTimes={[
+                    data.distributionExcludedTimes.sunday,
+                    data.distributionExcludedTimes.monday,
+                    data.distributionExcludedTimes.tuesday,
+                    data.distributionExcludedTimes.wednesday,
+                    data.distributionExcludedTimes.thursday,
+                    data.distributionExcludedTimes.friday,
+                    data.distributionExcludedTimes.saturday,
+                  ]}
+                  userSelectedDates={data.userSelectedDates}
+                  userExcludedDates={data.userExcludedDates}
+                  onChange={this.handleInputChange}
+                  validCheck={this.isValid}
+                />
+              </FormCol>
+              <FormCol>
+                <DateList
+                  dates={data.userSelectedDates}
+                  stateKey="userSelectedDates"
+                  onChange={this.handleInputChange}
+                  validCheck={this.isValid}
                 />
               </FormCol>
             </FormRow>

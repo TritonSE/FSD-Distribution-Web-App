@@ -7,7 +7,7 @@ require("dotenv").config();
 /**
  * Route for Get request to authorize a user
  *
- * Ex: Get request with localhost:8000/{Object ID}
+ * Ex: Get request with /{Object ID}
  *
  * @params object id of the pendingUser
  */

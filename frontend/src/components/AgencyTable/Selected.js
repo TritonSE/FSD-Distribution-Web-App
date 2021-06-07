@@ -11,8 +11,9 @@ const Selected = ({ filters, selected, changeSelected, changeFilter, paginate })
       <div className="select-boxes" key={select}>
         <p className="label-text">{select}</p>
         <button
+          type="button"
           className="clear-button"
-          onClick={(e) => {
+          onClick={() => {
             delete selected[select];
             changeSelected({ ...selected });
             // create and dispatch custom event to simulate clicking checkbox
@@ -28,15 +29,16 @@ const Selected = ({ filters, selected, changeSelected, changeFilter, paginate })
       </div>
     ))}
     <button
+      type="button"
       id="clearall"
-      onClick={(e) => {
+      onClick={() => {
         // clear all checkmarks, refilter, and paginate
-        for (const select in selected) {
+        Object.keys(selected).forEach((select) => {
           filters[selected[select]][select] = false;
           delete selected[select];
           changeSelected({ ...selected });
           document.getElementById(select).checked = false;
-        }
+        });
         changeFilter({ ...filters });
         paginate(1);
       }}

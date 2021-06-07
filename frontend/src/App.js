@@ -15,6 +15,8 @@ import { isAuthenticated } from "./auth";
 
 function App() {
   const [isLogged, setLogged] = useState(isAuthenticated());
+  const [deleted, setDeleted] = useState(0);
+  const changeDeleted = (deleteIncr) => setDeleted(deleteIncr);
   return (
     <div className="App">
       <BrowserRouter>
@@ -22,7 +24,13 @@ function App() {
           <Navbar isLogged={isLogged} changeIsLogged={setLogged} />
           <Switch>
             <>
-              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Home key={deleted} deleted={deleted} changeDeleted={changeDeleted} />
+                )}
+              />
               <Route exact path="/agency" component={Agency} />
               <Route exact path="/agency-profile/:id" component={AgencyProfilePage} />
               <Route exact path="/agency-profile/:id/edit" component={AgencyEditPage} />

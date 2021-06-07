@@ -46,6 +46,11 @@
 
 .toolbar {
   background-color: #F5F7F7;
+  padding: 5px;
+}
+
+.toolbar {
+  background-color: #f5f7f7;
   margin-top: 5vh;
   margin-left: 5vw;
   padding: 10px;

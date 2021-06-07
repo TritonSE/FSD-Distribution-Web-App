@@ -3,8 +3,6 @@ import { Link, useHistory } from "react-router-dom";
 import { TextField, Button, Grid, Typography, makeStyles, Snackbar } from "@material-ui/core";
 import "./Register.css";
 
-const config = require("../../config");
-
 const useStyles = makeStyles((theme) => ({
   centered: {
     textAlign: "center",
@@ -111,14 +109,13 @@ const Register = () => {
 
     // Attempt to register with given credentials
     try {
-      const response = await fetch(`${config.backend.uri}/register`, {
+      const response = await fetch(`/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),
       });
       // Successful Registration
       if (response.ok) {
-        console.log("account pending approval");
         history.push("/");
       } else if (response.status === 403) {
         document.body.style.cursor = null;

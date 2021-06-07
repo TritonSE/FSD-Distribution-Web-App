@@ -33,12 +33,12 @@ const Selected = ({ filters, selected, changeSelected, changeFilter, paginate })
       id="clearall"
       onClick={() => {
         // clear all checkmarks, refilter, and paginate
-        for (const select in selected) {
+        Object.keys(selected).forEach((select) => {
           filters[selected[select]][select] = false;
           delete selected[select];
           changeSelected({ ...selected });
           document.getElementById(select).checked = false;
-        }
+        });
         changeFilter({ ...filters });
         paginate(1);
       }}

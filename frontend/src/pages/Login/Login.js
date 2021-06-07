@@ -4,8 +4,6 @@ import { useHistory, Link } from "react-router-dom";
 import { setJWT, setUser } from "../../auth";
 import "./Login.css";
 
-const config = require("../../config");
-
 const useStyles = makeStyles((theme) => ({
   centered: {
     textAlign: "center",
@@ -85,7 +83,7 @@ const Login = (props) => {
     };
 
     try {
-      const response = await fetch(`${config.backend.uri}/login`, {
+      const response = await fetch(`/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),

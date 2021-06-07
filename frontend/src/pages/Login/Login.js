@@ -4,9 +4,6 @@ import { useHistory, Link } from "react-router-dom";
 import { setJWT, setUser } from "../../auth";
 import "./Login.css";
 
-const config = require("../../config");
-require("dotenv").config();
-
 const useStyles = makeStyles((theme) => ({
   centered: {
     textAlign: "center",

@@ -15,7 +15,7 @@ const validationChain = [
 /**
  * Route for Post request to register to the web app
  *
- * Ex: Post request with localhost:8000/register/
+ * Ex: Post request with /register
  *
  * @returns a message
  */

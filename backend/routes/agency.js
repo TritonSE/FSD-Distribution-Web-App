@@ -85,7 +85,7 @@ const validationChain = [
 /**
  * Route for Put request to create a new Agency in the database
  *
- * Ex: Put request with localhost:8000/agency/
+ * Ex: Put request with /agency/
  *
  * @params validationChain - the form fields that will be validated
  * @returns the new Agency object created in Json or any form input errors
@@ -121,7 +121,7 @@ router.put("/", validationChain, async (req, res, next) => {
 /**
  * Route for Post request to update a current Agency in the database
  *
- * Ex: Post request with localhost:8000/agency/{object id}
+ * Ex: Post request with /agency/{object id}
  *
  * @params the object id of the Agency
  * @params validationChain - the form fields that will be validated
@@ -157,7 +157,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
 /**
  * Route for Get request to read a current Agency in the database
  *
- * Ex: Get request with localhost:8000/agency/{object id}
+ * Ex: Get request with /agency/{object id}
  *
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
@@ -173,9 +173,28 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
 });
 
 /**
- * Route for Get request to read all Agencies
  *
- * Ex: Get request with localhost:8000/agency/
+ * Ex: Get request with /agency/table/all
+ *
+ * @params - the object id of the Agency
+ * @returns the fetched Agency object in Json
+ */
+router.get("/", isAuthenticated, async (req, res, next) => {
+  Agency.find(
+    {},
+    "tableContent userSelectedDates userExcludedDates distributionDays distributionStartTimes distributionExcludedTimes distributionStartDate distributionFrequency retailRescueDays retailRescueStartTimes retailRescueExcludedTimes"
+  )
+    .then((agencies) => {
+      res.status(200).json({ agencies });
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+/**
+ *
+ * Ex: Get request with /agency/table/all
  *
  * @params - the object id of the Agency
  * @returns the fetched Agency object in Json
@@ -195,7 +214,7 @@ router.get("/table/all", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isAuthenticated, async (req, res, next) => {
   Agency.findByIdAndDelete(req.params.id)
     .then((agency) => {
       res.status(200).json({ agency });

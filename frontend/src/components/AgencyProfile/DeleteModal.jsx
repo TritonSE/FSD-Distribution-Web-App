@@ -2,6 +2,7 @@ import React from "react";
 import "./DeleteModal.css";
 import FormButton from "../FormComponents/FormButton";
 import { useHistory } from "react-router-dom";
+import { getJWT } from "../../auth";
 
 /**
  * Functional component for the delete agency modal
@@ -20,14 +21,31 @@ function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyI
    * Function deletes the given agency and returns the user back to the agency page
    */
   function deleteAgency() {
-    fetch(`http://localhost:8000/agency/${agencyId}`, { method: "DELETE" })
+    fetch(`/agency/${agencyId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getJWT(),
+      },
+    })
       .then((response) => response.json())
+      .then(() => {
+        fetch(`/notes/all/${agencyId}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + getJWT(),
+          },
+        });
+      })
+      .then(() => {
+        if (history) {
+          history.push("/agency");
+        }
+      })
       .catch((err) => {
         console.log(err);
       });
-    if (history) {
-      history.push("/agency");
-    }
   }
 
   return (

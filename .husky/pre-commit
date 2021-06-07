@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Directories containing Node.js projects to be linted.
 node_dirs=(backend frontend)

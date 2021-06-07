@@ -20,6 +20,9 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * distributes (in weeks)
  * - {Array<Boolean>} distributionDays: List of booleans indicating which days
  * of the week are valid distribution days
+ * - {Array<Boolean>} distributionStartTimes: List of strings indicating *
+ * start-times for valid distribution days
+ * distributionExcludedTimes
  * - {Array<String>} userSelectedDates: List of Strings in default date format
  * representing which dates the user selected
  * - {Array<String>} userExcludedDates: List of Strings in default date format
@@ -100,6 +103,24 @@ class Calendar extends Component {
       if (isOnWeek) {
         // Verify day is a valid distribution day
         if (isDistDate) {
+          let excludedStartTime = this.props.distributionExcludedTimes[currDateMoment.day()];
+
+          if (excludedStartTime !== "") {
+            let excludedStartTimeDate = excludedStartTime.substring(
+              0,
+              excludedStartTime.indexOf("T")
+            );
+            console.log("Excluded start time date:");
+            console.log(excludedStartTimeDate);
+
+            let excludedStartTimeDateMoment = moment(excludedStartTimeDate, DEFAULT_DATE_FORMAT);
+
+            if (currDateMoment.isSameOrAfter(excludedStartTimeDateMoment)) {
+              console.log(date);
+              return false;
+            }
+          }
+
           return true;
         }
       }
@@ -173,6 +194,18 @@ class Calendar extends Component {
    * @returns Boolean representing if the given date is a user excluded date
    */
   isExcludedDate = (date) => {
+    let dateDay = moment(date, DEFAULT_DATE_FORMAT).day();
+
+    let excluded = this.props.distributionExcludedTimes[dateDay];
+
+    // Obtain start time
+    let startTime = this.props.distributionStartTimes[dateDay];
+
+    //
+
+    // Append start-time to date
+    date += `T${startTime}:00`;
+
     return this.props.userExcludedDates.includes(date);
   };
 
@@ -269,6 +302,12 @@ class Calendar extends Component {
   addExcludedDate = (date) => {
     const { userExcludedDates, onChange } = this.props;
 
+    // Obtain start time
+    let startTime = this.props.distributionStartTimes[moment(date, DEFAULT_DATE_FORMAT).day()];
+
+    // Append time to date
+    date += `T${startTime}:00`;
+
     let newExcludedDates = userExcludedDates.slice();
     newExcludedDates.push(date);
 
@@ -309,6 +348,7 @@ class Calendar extends Component {
       addExcludedDate,
       removeExcludedDate,
     } = this;
+
     if (!isExtraneousDate(date)) {
       if (isDistributionDate(date)) {
         if (isExcludedDate(date)) {

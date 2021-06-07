@@ -295,29 +295,38 @@ const AgencySchema = new Schema({
   },
 
   /* Distribution Section */
+  // Which days of the week have an event
   distributionDays: {
     type: DaySelectionsSchema,
     required: true,
   },
+  // Start time for the event on each day of the week
   distributionStartTimes: {
     type: DayValuesSchema,
     required: true,
   },
+  // Start of excluded event patterns for each day of the week
+  distributionExcludedTimes: {
+    type: DayValuesSchema,
+  },
+  // Beginning of the pattern
   distributionStartDate: {
     type: String,
     required: true,
   },
+  // How many weeks per pattern
   distributionFrequency: {
     type: Number,
     required: true,
   },
+  // Extra dates outside pattern
   userSelectedDates: {
     type: [String],
   },
+  // Dates in pattern that should be excluded
   userExcludedDates: {
     type: [String],
   },
-
   // Checkboxes for Distribution Section
   pantry: {
     type: Boolean,
@@ -343,6 +352,9 @@ const AgencySchema = new Schema({
   retailRescueStartTimes: {
     type: DayValuesSchema,
     required: true,
+  },
+  retailRescueExcludedTimes: {
+    type: DayValuesSchema,
   },
   retailRescueLocations: {
     type: DayValuesSchema,
@@ -379,9 +391,30 @@ const AgencySchema = new Schema({
   },
 });
 
+const NotesSchema = new Schema({
+  _id: {
+    type: String,
+  },
+  /* Notes text */
+  message: {
+    type: String,
+  },
+  /* Identify events part of the same recurrence */
+  recurringID: {
+    type: String,
+  },
+  timeFromEpoch: {
+    type: Number,
+  },
+  agencyID: {
+    type: String,
+  },
+});
+
 const Agency = mongoose.model("Agency", AgencySchema);
 const Task = mongoose.model("Task", TaskSchema);
 const User = mongoose.model("User", UserSchema);
 const PendingUser = mongoose.model("PendingUser", PendingUserSchema);
+const Notes = mongoose.model("Notes", NotesSchema);
 
-module.exports = { Agency, Task, User, PendingUser };
+module.exports = { Agency, Task, User, PendingUser, Notes };

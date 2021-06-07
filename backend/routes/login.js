@@ -9,7 +9,7 @@ require("dotenv").config();
 /**
  * Route for Post request to login to the web app
  *
- * Ex: Post request with localhost:8000/login/
+ * Ex: Post request with /login/
  *
  * @params passport local authentication to validate user info in database
  * @returns the username and the Json Webtoken that will be stored in local storage

@@ -10,8 +10,6 @@ import { getJWT, isAuthenticated } from "../../auth";
 import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import "./Home.css";
 
-const config = require("../../config");
-
 /**
  * Landing page that contains a calender with corresponding events from the side toolbar.
  *
@@ -52,7 +50,7 @@ class Home extends Component {
    */
   componentDidMount() {
     const authorizationToken = `Bearer ${getJWT()}`;
-    fetch(`${config.backend.uri}/agency`, {
+    fetch(`/agency`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

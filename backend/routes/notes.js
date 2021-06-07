@@ -8,7 +8,7 @@ const router = express.Router();
 /**
  * Route for Put request to create a new note in the database
  *
- * Ex: Put request with localhost:8000/notes/
+ * Ex: Put request with /notes/
  *
  * @returns the new Note object in json
  */
@@ -27,7 +27,7 @@ router.put("/", isAuthenticated, async (req, res, next) => {
 /**
  * Route to receive Post requests to update selected note object
  *
- * Ex: Post request with localhost:8000/notes/{note id}
+ * Ex: Post request with /notes/{note id}
  *
  * @params - object id of note
  * @returns the updated Note object in json
@@ -45,7 +45,7 @@ router.post("/:id", isAuthenticated, async (req, res, next) => {
 /**
  * Route for Get request to return a note object from database
  *
- * Ex: Get request with localhost:8000/notes/{note id}
+ * Ex: Get request with /notes/{note id}
  *
  * @params - object id of note
  * @returns the fetched Note object in json format
@@ -63,7 +63,7 @@ router.get("/:id", isAuthenticated, async (req, res, next) => {
 /**
  * Route for Delete request to delete note object in database
  *
- * Ex: Delete request with localhost:8000/notes/{note id}
+ * Ex: Delete request with /notes/{note id}
  *
  * @params - object id of note
  * @returns the deleted Agency in json

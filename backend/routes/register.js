@@ -15,7 +15,7 @@ const validationChain = [
 /**
  * Route for Post request to register to the web app
  *
- * Ex: Post request with localhost:8000/register/
+ * Ex: Post request with /register
  *
  * @returns a message
  */
@@ -36,7 +36,7 @@ router.post("/", validationChain, async (req, res) => {
   pendingUser
     .save()
     .then((user_) => {
-      sendEmail({ email: user_.email, link: `${process.env.HOST}/authorize/${user_.id}` });
+      sendEmail({ email: user_.email, link: `${req.protocol}://${req.get('host')}/authorize/${user_.id}` });
       res.status(200).json(user_);
     })
     .catch(() => res.status(403).json({ errors: "User is already pending" }));

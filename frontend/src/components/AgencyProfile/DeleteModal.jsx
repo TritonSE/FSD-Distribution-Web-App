@@ -21,7 +21,7 @@ function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyI
    * Function deletes the given agency and returns the user back to the agency page
    */
   function deleteAgency() {
-    fetch(`http://localhost:8000/agency/${agencyId}`, {
+    fetch(`/agency/${agencyId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +30,7 @@ function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyI
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`http://localhost:8000/notes/all/${agencyId}`, {
+        fetch(`/notes/all/${agencyId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

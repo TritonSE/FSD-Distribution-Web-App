@@ -20,8 +20,6 @@ import "./FormStyle.css";
 import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
 
-const CONFIG = require("../../config");
-
 const DAYS_OF_WEEK = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
 /**
@@ -356,7 +354,7 @@ class AgencyProfileForm extends Component {
     const { history, agencyData, editing } = this.props;
     const formData = this.prepareData();
 
-    let url = `${CONFIG.backend.uri}/agency/`;
+    let url = `/agency/`;
     if (editing) {
       url += agencyData._id;
     }

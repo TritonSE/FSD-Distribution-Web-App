@@ -25,7 +25,7 @@ function EditButton({ agency, section }) {
   return (
     <div className="edit-button">
       <HashLink to={`/agency-profile/${agency._id}/edit#${section}`}>
-        <img src={editIcon} alt="edit" />
+        <img src="./imgs/edit-icon.png" alt="edit" />
       </HashLink>
     </div>
   );

@@ -1,9 +1,7 @@
 import React from "react";
-import TestRenderer from "react-test-renderer";
-import Enzyme, { shallow, mount } from "enzyme";
+import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Home from "../src/pages/Home/Home";
-import CalendarToolbar from "../src/components/Calendar/CalendarToolbar";
 import {agencyEventData} from "../__mocks__/agencyEventData";
 import {  distributionAgency1, distributionAgency2, rescueAgency1, rescueAgency2 } from "../__mocks__/parsedAgencyEventData";
 
@@ -15,8 +13,8 @@ describe("Home.populateEvents", () => {
     const component = shallow(<Home testData={agencyEventData} />);
     const instance = component.instance();
     
-    const agency1Name = distributionAgency1.title.name;
-    const agency2Name = distributionAgency2.title.name;
+    const agency1Name = distributionAgency1.title[0].name;
+    const agency2Name = distributionAgency2.title[0].name;
     const agency1DistributionEvents = distributionAgency1.events;
     const agency2DistributionEvents = distributionAgency2.events;
     const agency1RescueEvents = rescueAgency1.events;
@@ -30,7 +28,7 @@ describe("Home.populateEvents", () => {
 
     // check distribution
     expect(component.state("distribution")).toEqual([
-      distributionAgency1.title, distributionAgency2.title
+      distributionAgency1.title[0], distributionAgency2.title[0]
     ]);
 
     // check rescueMap
@@ -40,9 +38,9 @@ describe("Home.populateEvents", () => {
     });
     
     // check rescue
-    expect(component.state("rescue")).toEqual([
-      rescueAgency1.title, rescueAgency2.title
-    ]);
+    expect(component.state("rescue")).toEqual(
+      rescueAgency1.title.concat(rescueAgency2.title)
+    );
 
     // check one distribution event
     instance.updateDistribution({target: { checked: true, value: agency1Name }});

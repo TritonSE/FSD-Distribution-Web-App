@@ -51,6 +51,16 @@ export const agencyEventData = {
       },
       "distributionStartDate": "05/01/2021",
       "distributionFrequency": 1,
+      "distributionExcludedTimes": {
+        "_id": { "$oid": "60b0c930fa2e445f98c9af0d" },
+        "monday": "",
+        "tuesday": "",
+        "wednesday": "",
+        "thursday": "",
+        "friday": "",
+        "saturday": "",
+        "sunday": ""
+      },
       "retailRescueDays": {
         "_id": { "$oid": "6094197bd70a8b178f7b19b3" },
         "monday": true,
@@ -80,7 +90,17 @@ export const agencyEventData = {
         "friday": "",
         "saturday": "",
         "sunday": ""
-      }
+      },
+      "retailRescueExcludedTimes": {
+        "_id": { "$oid": "60b0c930fa2e445f98c9af0d" },
+        "monday": "",
+        "tuesday": "",
+        "wednesday": "",
+        "thursday": "",
+        "friday": "",
+        "saturday": "",
+        "sunday": ""
+      },
     },
     {
       "userSelectedDates": [],
@@ -143,6 +163,16 @@ export const agencyEventData = {
         "saturday": false,
         "sunday": false
       },
+      "distributionExcludedTimes": {
+        "_id": { "$oid": "60b0c930fa2e445f98c9af0d" },
+        "monday": "",
+        "tuesday": "",
+        "wednesday": "",
+        "thursday": "",
+        "friday": "",
+        "saturday": "",
+        "sunday": ""
+      },
       "retailRescueStartTimes": {
         "_id": { "$oid": "6094197bd70a8b178f7b19b4" },
         "monday": "",
@@ -162,6 +192,16 @@ export const agencyEventData = {
         "friday": "",
         "saturday": "",
         "sunday": ""
-      }
+      },
+      "retailRescueExcludedTimes": {
+        "_id": { "$oid": "60b0c930fa2e445f98c9af0d" },
+        "monday": "",
+        "tuesday": "",
+        "wednesday": "",
+        "thursday": "",
+        "friday": "",
+        "saturday": "",
+        "sunday": ""
+      },
     }
 ]}

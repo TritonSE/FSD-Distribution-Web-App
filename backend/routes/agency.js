@@ -144,7 +144,7 @@ router.post("/:id", validationChain, async (req, res, next) => {
   if (invalidFields.length > 0) {
     res.status(400).json({ fields: invalidFields });
   } else {
-    Agency.updateOne({ _id: req.params.id }, req.body)
+    Agency.findByIdAndUpdate(req.params.id , req.body)
       .then(() => {
         res.status(200).json({ agency });
       })

@@ -176,7 +176,7 @@ class CalendarToolbar extends Component {
                     checked={!!distributionChecked[agency.name]}
                     name="distributionCheckbox"
                   />
-                  {agency.name}
+                  <div className="distribution-name">{agency.name}</div>
                 </label>
               </div>
             ))}
@@ -221,7 +221,9 @@ class CalendarToolbar extends Component {
                     checked={!!rescueChecked[agency.name]}
                     name="rescueCheckbox"
                   />
-                  {agency.name}
+                  <div className="rescue-name">
+                    {agency.name}
+                  </div>
                 </label>
               </div>
             ))}

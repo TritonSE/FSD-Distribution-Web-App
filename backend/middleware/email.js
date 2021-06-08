@@ -27,7 +27,7 @@ const transporter =
         },
       });
 
-// If an email account is not proided, disable email service
+// If an email account is not provided, disable email service
 const mail =
   email.user === ""
     ? null

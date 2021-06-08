@@ -3,6 +3,8 @@ import { TextField, Button, Typography, makeStyles, Snackbar } from "@material-u
 import { useHistory, Link } from "react-router-dom";
 import { setJWT, setUser } from "../../auth";
 import "./Login.css";
+import { BACKEND_URL } from "../../config";
+
 
 const useStyles = makeStyles((theme) => ({
   centered: {
@@ -83,7 +85,7 @@ const Login = (props) => {
     };
 
     try {
-      const response = await fetch(`/login`, {
+      const response = await fetch(`${BACKEND_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),

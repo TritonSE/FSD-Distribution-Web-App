@@ -9,7 +9,7 @@ import NotesModal from "../../components/Calendar/NotesModal";
 import { getJWT, isAuthenticated } from "../../auth";
 import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import "./Home.css";
-
+import { BACKEND_URL } from "../../config";
 /**
  * Landing page that contains a calender with corresponding events from the side toolbar.
  *
@@ -51,7 +51,7 @@ export default class Home extends Component {
   componentDidMount() {
     if(!this.props.testData) {
       const authorizationToken = `Bearer ${getJWT()}`;
-      fetch(`${config.backend.uri}/agency`, {
+      fetch(`${BACKEND_URL}/agency`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export default class Home extends Component {
     agencies.forEach((agency, index) => {
       const { name } = agency.tableContent;
       // generating the color of the agency
-      const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
+      const color = `hsl(${index * hsvInterval}, 50%, 70%)`;
 
       // add agency to distribution category
       this.setState((prevState) => ({
@@ -186,18 +186,6 @@ export default class Home extends Component {
           } else {
             // Agency does not yet exist in rescue map
             this.state.rescueMap[name] = [event];
-            // handling agencies without any rescue events
-            if (this.state.rescueMap[name]) {
-              this.setState((prevState) => ({
-                rescue: [
-                  ...prevState.rescue,
-                  {
-                    name,
-                    color: `hsl(${index * hsvInterval}, 75%, 75%)`,
-                  },
-                ],
-              }));
-            }
           }
         }
       }

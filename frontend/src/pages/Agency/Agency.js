@@ -7,6 +7,7 @@ import Selected from "../../components/AgencyTable/Selected";
 import DataTable from "../../components/AgencyTable/DataTable";
 import "./Agency.css";
 import { isAuthenticated, getJWT } from "../../auth";
+import { BACKEND_URL } from "../../config";
 
 /**
  * The AgencyTable component is the main component for the table and contains the filtering
@@ -73,7 +74,7 @@ function AgencyTable() {
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
-    fetch(`/agency/table/all`, {
+    fetch(`${BACKEND_URL}/agency/table/all`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${getJWT()}`,

@@ -12,6 +12,7 @@ import Capacity from "./Capacity";
 import Compliance from "./Compliance";
 import Demographics from "./Demographics";
 import RetailRescue from "./RetailRescue";
+import { BACKEND_URL } from "../../config";
 
 /**
  * Functional component for Agency Profile Page
@@ -80,7 +81,7 @@ function AgencyProfile() {
   };
 
   const handleTaskFormSubmit = (task, index) => {
-    let url = `/task/`;
+    let url = `${BACKEND_URL}/task/`;
     let method = "PUT";
     if (index === undefined) {
       // creating a new task
@@ -135,7 +136,7 @@ function AgencyProfile() {
   };
 
   const handleTaskFormDelete = (task) => {
-    let url = `/task/${task._id}`;
+    let url = `${BACKEND_URL}/task/${task._id}`;
     let method = "DELETE";
 
     // Delete task from database
@@ -163,7 +164,7 @@ function AgencyProfile() {
   let history = useHistory();
 
   useEffect(() => {
-    fetch(`/agency/${id}`, {
+    fetch(`${BACKEND_URL}/agency/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -176,7 +177,7 @@ function AgencyProfile() {
         return data.agency._id;
       })
       .then((agencyID) => {
-        return fetch(`/task/agency/${agencyID}`, {
+        return fetch(`${BACKEND_URL}/task/agency/${agencyID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

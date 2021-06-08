@@ -20,9 +20,10 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * distributes (in weeks)
  * - {Array<Boolean>} distributionDays: List of booleans indicating which days
  * of the week are valid distribution days
- * - {Array<Boolean>} distributionStartTimes: List of strings indicating *
+ * - {Array<String>} distributionStartTimes: List of strings indicating
  * start-times for valid distribution days
- * distributionExcludedTimes
+ * - {Array<String>} distributionExcludedTimes: List of strings indicating the
+ * time frame for excluded distribution days
  * - {Array<String>} userSelectedDates: List of Strings in default date format
  * representing which dates the user selected
  * - {Array<String>} userExcludedDates: List of Strings in default date format
@@ -35,7 +36,7 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
 class Calendar extends Component {
   constructor(props) {
     super(props);
-    
+
     let todayMoment = props.todayDate ? moment(props.todayDate, DEFAULT_DATE_FORMAT) : moment();
 
     this.state = {
@@ -110,13 +111,10 @@ class Calendar extends Component {
               0,
               excludedStartTime.indexOf("T")
             );
-            console.log("Excluded start time date:");
-            console.log(excludedStartTimeDate);
 
             let excludedStartTimeDateMoment = moment(excludedStartTimeDate, DEFAULT_DATE_FORMAT);
 
             if (currDateMoment.isSameOrAfter(excludedStartTimeDateMoment)) {
-              console.log(date);
               return false;
             }
           }
@@ -199,9 +197,7 @@ class Calendar extends Component {
     let excluded = this.props.distributionExcludedTimes[dateDay];
 
     // Obtain start time
-    let startTime = this.props.distributionStartTimes[dateDay];
-
-    //
+    let startTime = this.props.distributionStartTimes[dateDay].slice(11, 16);
 
     // Append start-time to date
     date += `T${startTime}:00`;
@@ -303,7 +299,9 @@ class Calendar extends Component {
     const { userExcludedDates, onChange } = this.props;
 
     // Obtain start time
-    let startTime = this.props.distributionStartTimes[moment(date, DEFAULT_DATE_FORMAT).day()];
+    let startTime = this.props.distributionStartTimes[
+      moment(date, DEFAULT_DATE_FORMAT).day()
+    ].slice(11, 16);
 
     // Append time to date
     date += `T${startTime}:00`;

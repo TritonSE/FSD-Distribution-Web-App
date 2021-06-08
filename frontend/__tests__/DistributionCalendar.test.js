@@ -11,6 +11,16 @@ const DEFAULT_PROPS = {
 
   distributionFrequency: 2,
   // Booleans correspond to the following order [SUN, MON, TUE,...,SAT]
+  distributionStartTimes: [
+    "",
+    "2000-01-01T09:00",
+    "",
+    "2000-01-01T07:00",
+    "2000-01-01T16:00",
+    "",
+    "",
+  ],
+  distributionExcludedTimes: ["", "2010-01-04T09:00", "", "", "", "", ""],
   distributionDays: [false, true, false, true, true, false, false],
   userSelectedDates: [],
   userExcludedDates: [],
@@ -95,12 +105,17 @@ describe("DistributionCalendar.handleDateSelect", () => {
     // Checks that onChange is called with proper arguments
     const mockOnChange = jest.fn();
 
-    const component = TestRenderer.create(<Calendar {...DEFAULT_PROPS} onChange={mockOnChange} />)
+    let component = TestRenderer.create(<Calendar {...DEFAULT_PROPS} onChange={mockOnChange} />)
       .root.instance;
 
     // Attempt to add user selected date
-    component.handleDateSelect("2021-05-24");
-    expect(mockOnChange).toHaveBeenCalledWith("userSelectedDates", ["2021-05-24T:"]);
+    component.handleDateSelect("2021-05-25");
+    expect(mockOnChange).toHaveBeenCalledWith("userSelectedDates", ["2021-05-25T:"]);
+
+    // Attempt to add user selected date in excluded time frame
+    // 1 week forward from start of Monday excluded time frame
+    component.handleDateSelect("2021-05-10");
+    expect(mockOnChange).toHaveBeenCalledWith("userSelectedDates", ["2021-05-10T:"]);
   });
 
   it("focuses pre-existing userSelectedDates", () => {
@@ -113,13 +128,13 @@ describe("DistributionCalendar.handleDateSelect", () => {
         {...DEFAULT_PROPS}
         onChange={mockOnChange}
         validCheck={mockValidCheck}
-        userSelectedDates={["2021-05-24T00:00"]}
+        userSelectedDates={["2021-05-25T00:00"]}
       />
     ).root.instance;
 
     // Attempt to focus pre-existing selected date
-    component.handleDateSelect("2021-05-24");
-    expect(component.state.focusedDate).toBe("2021-05-24");
+    component.handleDateSelect("2021-05-25");
+    expect(component.state.focusedDate).toBe("2021-05-25");
     expect(component.state.focusedStartTime).toBe("00:00");
   });
 
@@ -132,14 +147,14 @@ describe("DistributionCalendar.handleDateSelect", () => {
     const component = TestRenderer.create(
       <Calendar
         {...DEFAULT_PROPS}
-        userSelectedDates={["2021-05-24T:"]}
+        userSelectedDates={["2021-05-25T:"]}
         onChange={mockOnChange}
         validCheck={mockValidCheck}
       />
     ).root.instance;
 
     // Attempt to remove user selected date
-    component.removeSelectedDate("2021-05-24");
+    component.removeSelectedDate("2021-05-25");
     expect(mockOnChange).toHaveBeenCalledWith("userSelectedDates", []);
 
     // Ensure that no date is in focus
@@ -158,8 +173,8 @@ describe("DistributionCalendar.handleDateSelect", () => {
     ).root.instance;
 
     // Exclude distribution date (05/17/2021)
-    component.handleDateSelect("2021-05-17");
-    expect(mockOnChange).toHaveBeenCalledWith("userExcludedDates", ["2021-05-17"]);
+    component.handleDateSelect("2021-05-19");
+    expect(mockOnChange).toHaveBeenCalledWith("userExcludedDates", ["2021-05-19T07:00:00"]);
   });
 
   it("removes from userExcludedDates properly", () => {
@@ -170,14 +185,14 @@ describe("DistributionCalendar.handleDateSelect", () => {
     const component = TestRenderer.create(
       <Calendar
         {...DEFAULT_PROPS}
-        userExcludedDates={["2021-05-17"]}
+        userExcludedDates={["2021-05-19T07:00:00"]}
         onChange={mockOnChange}
         validCheck={mockValidCheck}
       />
     ).root.instance;
 
     // Include distribution date (05/17/2021)
-    component.handleDateSelect("2021-05-17");
+    component.handleDateSelect("2021-05-19");
     expect(mockOnChange).toHaveBeenCalledWith("userExcludedDates", []);
   });
 

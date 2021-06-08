@@ -14,7 +14,7 @@ const distributionAgency1 = {
       "recurringID": "undefined2021-05-01T09:00-07:00moD",
       "retailrescue": "",
       "duration": "02:00",
-      "color": "hsl(0, 50%, 50%)",
+      "color": "hsl(0, 50%, 70%)",
       "exdate": [
         "2021-05-31"
       ],
@@ -35,13 +35,13 @@ const distributionAgency1 = {
       "start": "2021-05-13T17:00-07:00",
       "end": "2021-05-13T17:00-07:00",
       "duration": "02:00",
-      "color": "hsl(0, 50%, 50%)"
+      "color": "hsl(0, 50%, 70%)"
     }
   ],
   title: [
     {
       "name": "Agency With Timezone Offsets",
-      "color": "hsl(0, 50%, 50%)"
+      "color": "hsl(0, 50%, 70%)"
     },
     {
       "color": "hsl(0, 75%, 75%)",
@@ -63,7 +63,7 @@ const distributionAgency2 = {
         "dtstart": "2021-05-01T09:00-07:00"
       },
       "duration": "02:00",
-      "color": "hsl(180, 50%, 50%)",
+      "color": "hsl(180, 50%, 70%)",
       "exdate": [],
       "exrule": {
         "byweekday": "we",
@@ -79,7 +79,7 @@ const distributionAgency2 = {
   title: [
     {
       "name": "Agency B",
-      "color": "hsl(180, 50%, 50%)"
+      "color": "hsl(180, 50%, 70%)"
     },
     {
       "color": "hsl(180, 75%, 75%)",
@@ -103,7 +103,7 @@ const rescueAgency1 = {
       },
       "duration": "01:00",
       "backgroundColor": "#FFFFFF",
-      "color": "hsl(0, 50%, 50%)",
+      "color": "hsl(0, 50%, 70%)",
       "exdate":  [
         "2021-05-31",
       ],
@@ -120,12 +120,12 @@ const rescueAgency1 = {
   ],
   title: [
     {
-      "color": "hsl(0, 75%, 75%)",
+      "color": "hsl(0, 50%, 50%)",
       "name": "Agency With Timezone Offsets",
     },
     {
       "name": "Agency With Timezone Offsets",
-      "color": "hsl(0, 50%, 50%)"
+      "color": "hsl(0, 50%, 70%)"
     }
   ]
 };
@@ -155,7 +155,7 @@ const rescueAgency2 = {
       "retailrescue": "R",
       "duration": "01:00",
       "backgroundColor": "#FFFFFF",
-      "color": "hsl(180, 50%, 50%)"
+      "color": "hsl(180, 50%, 70%)"
     }
   ],
   title: [

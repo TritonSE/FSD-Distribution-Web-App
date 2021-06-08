@@ -38,9 +38,9 @@ describe("Home.populateEvents", () => {
     });
     
     // check rescue
-    expect(component.state("rescue")).toEqual(
-      rescueAgency1.title.concat(rescueAgency2.title)
-    );
+    expect(component.state("rescue")).toEqual([
+      rescueAgency1.title[0], rescueAgency2.title[1]
+    ]);
 
     // check one distribution event
     instance.updateDistribution({target: { checked: true, value: agency1Name }});

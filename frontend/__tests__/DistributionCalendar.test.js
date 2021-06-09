@@ -11,15 +11,7 @@ const DEFAULT_PROPS = {
 
   distributionFrequency: 2,
   // Booleans correspond to the following order [SUN, MON, TUE,...,SAT]
-  distributionStartTimes: [
-    "",
-    "2000-01-01T09:00",
-    "",
-    "2000-01-01T07:00",
-    "2000-01-01T16:00",
-    "",
-    "",
-  ],
+  distributionStartTimes: ["", "09:00", "", "07:00", "16:00", "", ""],
   distributionExcludedTimes: ["", "2010-01-04T09:00", "", "", "", "", ""],
   distributionDays: [false, true, false, true, true, false, false],
   userSelectedDates: [],
@@ -172,7 +164,6 @@ describe("DistributionCalendar.handleDateSelect", () => {
       <Calendar {...DEFAULT_PROPS} onChange={mockOnChange} validCheck={mockValidCheck} />
     ).root.instance;
 
-    // Exclude distribution date (05/17/2021)
     component.handleDateSelect("2021-05-19");
     expect(mockOnChange).toHaveBeenCalledWith("userExcludedDates", ["2021-05-19T07:00:00"]);
   });
@@ -191,7 +182,6 @@ describe("DistributionCalendar.handleDateSelect", () => {
       />
     ).root.instance;
 
-    // Include distribution date (05/17/2021)
     component.handleDateSelect("2021-05-19");
     expect(mockOnChange).toHaveBeenCalledWith("userExcludedDates", []);
   });

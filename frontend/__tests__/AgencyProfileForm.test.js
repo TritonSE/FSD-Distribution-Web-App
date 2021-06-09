@@ -59,7 +59,16 @@ const generateTestData = () => ({
     sunday: false,
   },
   distributionStartTimes: {
-    monday: "1970-01-07T12:34-07:00", // expect reformat
+    monday: "1970-01-07T12:34", // expect reformat
+    tuesday: "",
+    wednesday: "",
+    thursday: "",
+    friday: "",
+    saturday: "",
+    sunday: "",
+  },
+  distributionExcludedTimes: {
+    monday: "",
     tuesday: "",
     wednesday: "",
     thursday: "",
@@ -69,8 +78,8 @@ const generateTestData = () => ({
   },
   distributionStartDate: "01/07/1970",
   distributionFrequency: "23",
-  userSelectedDates: ["2021-01-01T00:00-07:00", "2021-01-02T10:59-07:00"], // expect reformat
-  userExcludedDates: ["2021-01-04", "2021-01-11"],
+  userSelectedDates: ["2021-01-01T00:00", "2021-01-02T10:59"], // expect reformat
+  userExcludedDates: ["2021-01-04T12:34", "2021-01-11T12:34"],
   pantry: true,
   mealProgram: false,
   homeboundDeliveryPartner: true,
@@ -87,7 +96,7 @@ const generateTestData = () => ({
   },
   retailRescueStartTimes: {
     monday: "",
-    tuesday: "1970-01-07T12:00-07:00", // expect reformat
+    tuesday: "1970-01-07T12:00", // expect reformat
     wednesday: "",
     thursday: "",
     friday: "",

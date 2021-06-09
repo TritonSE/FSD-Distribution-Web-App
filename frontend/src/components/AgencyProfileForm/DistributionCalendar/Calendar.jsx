@@ -11,7 +11,8 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * Custom calendar component to aid with user distribution date
  * selection and exclusion.
  *
- * For the following: "default date format" is ISO 8601: YYYY-MM-DD or YYYY-MM-DDThh:mm (literal T)
+ * For the following: "default date format" is ISO 8601: YYYY-MM-DD and "default date-time format"
+ * is YYYY-MM-DDThh:mm (literal T)
  *
  * Expected props:
  * - {String} todayDate: String in default date format from which the calendar
@@ -22,13 +23,13 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * distributes (in weeks)
  * - {Array<Boolean>} distributionDays: List of booleans indicating which days
  * of the week are valid distribution days (Sunday - Saturday)
- * - {Array<String>} distributionStartTimes: List of strings indicating
- * start-times for valid distribution days (Sunday - Saturday)
- * - {Array<String>} distributionExcludedTimes: List of strings indicating the
- * time frame for excluded distribution days (Sunday - Saturday)
- * - {Array<String>} userSelectedDates: List of Strings in default date format
+ * - {Array<String>} distributionStartTimes: List of strings (format: "hh:mm") indicating
+ * start times for valid distribution days (Sunday - Saturday)
+ * - {Array<String>} distributionExcludedTimes: List of strings in default date-time format
+ * indicating the time frame for excluded distribution days (Sunday - Saturday)
+ * - {Array<String>} userSelectedDates: List of Strings in default date-time format
  * representing which dates the user selected
- * - {Array<String>} userExcludedDates: List of Strings in default date format
+ * - {Array<String>} userExcludedDates: List of Strings in default date-time format (plus seconds)
  * representing which default distribution days the user excluded
  * - {Function} onChange: Callback function to agency profile form
  * - {Function} validCheck: callback from the form page to check whether inputs
@@ -83,7 +84,7 @@ class Calendar extends Component {
    * distribution date
    */
   isDistributionDate = (date) => {
-    const { distributionDays, distributionFrequency } = this.props;
+    const { distributionDays, distributionFrequency, distributionExcludedTimes } = this.props;
     const { startDateMoment } = this.state;
 
     const frequency = parseInt(distributionFrequency);
@@ -105,7 +106,7 @@ class Calendar extends Component {
       if (isOnWeek) {
         // Verify day is a valid distribution day
         if (isDistDate) {
-          let excludedStartTime = this.props.distributionExcludedTimes[currDateMoment.day()];
+          let excludedStartTime = distributionExcludedTimes[currDateMoment.day()];
 
           if (excludedStartTime !== "") {
             let excludedStartTimeDate = excludedStartTime.substring(

@@ -176,7 +176,7 @@ function AgencyProfile() {
         return data.agency._id;
       })
       .then((agencyID) => {
-        return fetch(`/task/agency/${agencyID}`, {
+        return fetch(`/task/?agency=${agencyID}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

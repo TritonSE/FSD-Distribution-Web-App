@@ -11,6 +11,8 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * Custom calendar component to aid with user distribution date
  * selection and exclusion.
  *
+ * For the following: "default date format" is ISO 8601: YYYY-MM-DD or YYYY-MM-DDThh:mm (literal T)
+ *
  * Expected props:
  * - {String} todayDate: String in default date format from which the calendar
  * is built
@@ -19,17 +21,16 @@ const USER_FACING_FORMAT = "MM/DD/YYYY";
  * - {String} distributionFrequency: Number representing how often the agency
  * distributes (in weeks)
  * - {Array<Boolean>} distributionDays: List of booleans indicating which days
- * of the week are valid distribution days
+ * of the week are valid distribution days (Sunday - Saturday)
  * - {Array<String>} distributionStartTimes: List of strings indicating
- * start-times for valid distribution days
+ * start-times for valid distribution days (Sunday - Saturday)
  * - {Array<String>} distributionExcludedTimes: List of strings indicating the
- * time frame for excluded distribution days
+ * time frame for excluded distribution days (Sunday - Saturday)
  * - {Array<String>} userSelectedDates: List of Strings in default date format
  * representing which dates the user selected
  * - {Array<String>} userExcludedDates: List of Strings in default date format
  * representing which default distribution days the user excluded
  * - {Function} onChange: Callback function to agency profile form
- * handleInputChange
  * - {Function} validCheck: callback from the form page to check whether inputs
  * passed validation, should take a String
  */
@@ -192,17 +193,13 @@ class Calendar extends Component {
    * @returns Boolean representing if the given date is a user excluded date
    */
   isExcludedDate = (date) => {
-    let dateDay = moment(date, DEFAULT_DATE_FORMAT).day();
+    const { distributionStartTimes, userExcludedDates } = this.props;
 
-    let excluded = this.props.distributionExcludedTimes[dateDay];
-
-    // Obtain start time
-    let startTime = this.props.distributionStartTimes[dateDay].slice(11, 16);
-
-    // Append start-time to date
+    let dayIndex = moment(date, DEFAULT_DATE_FORMAT).day();
+    let startTime = distributionStartTimes[dayIndex];
     date += `T${startTime}:00`;
 
-    return this.props.userExcludedDates.includes(date);
+    return userExcludedDates.includes(date);
   };
 
   /**
@@ -296,14 +293,10 @@ class Calendar extends Component {
    * user excluded dates
    */
   addExcludedDate = (date) => {
-    const { userExcludedDates, onChange } = this.props;
+    const { distributionStartTimes, userExcludedDates, onChange } = this.props;
 
-    // Obtain start time
-    let startTime = this.props.distributionStartTimes[
-      moment(date, DEFAULT_DATE_FORMAT).day()
-    ].slice(11, 16);
-
-    // Append time to date
+    let dayIndex = moment(date, DEFAULT_DATE_FORMAT).day();
+    let startTime = distributionStartTimes[dayIndex];
     date += `T${startTime}:00`;
 
     let newExcludedDates = userExcludedDates.slice();
@@ -314,7 +307,7 @@ class Calendar extends Component {
   };
 
   /**
-   * Remvoes a given date from user excluded dates
+   * Removes a given date from user excluded dates
    *
    * @param {String} date String in default date format to be removed from
    * user excluded dates
@@ -323,8 +316,11 @@ class Calendar extends Component {
     const { userExcludedDates, onChange } = this.props;
 
     let newExcludedDates = userExcludedDates.slice();
-    let indexOfDate = newExcludedDates.indexOf(date);
-    newExcludedDates.splice(indexOfDate, 1);
+    let index = 0;
+    while (index < newExcludedDates.length && !newExcludedDates[index].startsWith(date)) {
+      index++;
+    }
+    newExcludedDates.splice(index, 1);
 
     // Update AgencyProfileFormState --> rerender
     onChange("userExcludedDates", newExcludedDates);

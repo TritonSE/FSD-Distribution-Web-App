@@ -50,7 +50,7 @@ class Home extends Component {
    */
   componentDidMount() {
     const authorizationToken = `Bearer ${getJWT()}`;
-    fetch(`/agency`, {
+    fetch(`/agency/all`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

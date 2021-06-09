@@ -43,6 +43,7 @@
   height: 30px;
   text-align: center;
   border-bottom: 1px solid #e8eced;
+  cursor: pointer;
 }
 
 /* Hover effect for table rows */
@@ -55,8 +56,4 @@
   font-size: 15px;
   font-family: Roboto;
   font-weight: 400;
-}
-
-Link {
-  cursor: pointer;
 }

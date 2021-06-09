@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Redirect, useHistory, useParams } from "react-router-dom";
 import AgencyProfileForm from "../../components/AgencyProfileForm/AgencyProfileForm";
 import { isAuthenticated, getJWT } from "../../auth";
+import { BACKEND_URL } from "../../config";
 
 /**
  * Page that contains the agency profile form for editing
@@ -12,7 +13,7 @@ function AgencyEditPage() {
   const history = useHistory();
 
   useEffect(() => {
-    fetch(`/agency/${id}`, {
+    fetch(`${BACKEND_URL}/agency/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

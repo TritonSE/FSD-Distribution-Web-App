@@ -19,6 +19,7 @@ import "typeface-roboto";
 import "./FormStyle.css";
 import { getJWT } from "../../auth";
 import RetailRescueDays from "./RetailRescueDays";
+import { BACKEND_URL } from "../../config";
 
 const DAYS_OF_WEEK = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
@@ -353,7 +354,7 @@ class AgencyProfileForm extends Component {
     const { history, agencyData, editing } = this.props;
     const formData = this.prepareData();
 
-    let url = `/agency/`;
+    let url = `${BACKEND_URL}/agency/`;
     if (editing) {
       url += agencyData._id;
     }

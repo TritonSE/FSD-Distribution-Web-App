@@ -26,8 +26,8 @@ module.exports = () => {
    * password exists in the database
    */
   passport.use(
-    new LocalStrategy((user, password, next) => {
-      User.findOne({ email: user })
+    new LocalStrategy((email, password, next) => {
+      User.findOne({ email })
         .exec()
         .then((user_) => {
           if (!user_) {
@@ -46,12 +46,12 @@ module.exports = () => {
    */
   passport.use(
     new JwtStrategy(options, (jwt_payload, next) => {
-      User.findOne({ _id: jwt_payload._id }, (err, user) => {
+      User.findById(jwt_payload._id , (err, email) => {
         if (err) {
           return next(err, false);
         }
-        if (user) {
-          return next(null, user);
+        if (email) {
+          return next(null, email);
         }
         return next(null, false);
       });
@@ -61,14 +61,14 @@ module.exports = () => {
   /**
    * Serializing the user to be saved in the session
    */
-  passport.serializeUser((user, next) => {
-    next(null, user);
+  passport.serializeUser((email, next) => {
+    next(null, email);
   });
 
   /**
    * Deserializing the user when user object is being fetched
    */
-  passport.deserializeUser((user, next) => {
-    next(null, user);
+  passport.deserializeUser((email, next) => {
+    next(null, email);
   });
 };

@@ -9,7 +9,7 @@ import NotesModal from "../../components/Calendar/NotesModal";
 import { getJWT, isAuthenticated } from "../../auth";
 import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
 import "./Home.css";
-
+import { BACKEND_URL } from "../../config";
 /**
  * Landing page that contains a calender with corresponding events from the side toolbar.
  *
@@ -25,7 +25,7 @@ import "./Home.css";
  * - {Hashmap} rescueMap: hashmap that maps the rescue agency name to a set of events containing the criteria
  *             and rules for calendar rendering
  */
-class Home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,152 +49,160 @@ class Home extends Component {
    * Fetches all agencies from the database that will be used to populate the state
    */
   componentDidMount() {
-    const authorizationToken = `Bearer ${getJWT()}`;
-    fetch(`/agency/all`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: authorizationToken,
-      },
-    })
-      .then((response) => {
-        response.json().then((data) => {
-          if (response.ok) {
-            const { agencies } = data;
-            const hsvInterval = 360 / agencies.length;
-            agencies.forEach((agency, index) => {
-              const { name } = agency.tableContent;
-              // generating the color of the agency
-              const color = `hsl(${index * hsvInterval}, 50%, 50%)`;
-
-              // add agency to distribution category
-              this.setState((prevState) => ({
-                distribution: [...prevState.distribution, { name, color }],
-              }));
-
-              // generate events to populate the distribution map
-              for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
-                if (day !== "_id" && isMarked) {
-                  const event = {
-                    title: name,
-                    rrule: {
-                      freq: "weekly",
-                      interval: agency.distributionFrequency,
-                      byweekday: day.substring(0, 2),
-                      wkst: day.substring(0, 2),
-                      dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
-                    },
-                    duration: "02:00",
-                    color,
-                    distribution: "D",
-                    retailrescue: "",
-                    agencyID: agency._id,
-                    recurringID: `${agency._id}${agency.distributionStartTimes[day]}${day.substring(
-                      0,
-                      2
-                    )}D`,
-                    exdate: agency.userExcludedDates,
-                    exrule: {
-                      freq: "weekly",
-                      interval: agency.distributionFrequency,
-                      byweekday: day.substring(0, 2),
-                      wkst: day.substring(0, 2),
-                      dtstart: agency.distributionExcludedTimes[day],
-                    },
-                  };
-
-                  if (this.state.distributionMap[name]) {
-                    // Agency already exists in distribution map
-                    this.state.distributionMap[name].push(event);
-                  } else {
-                    // Agency does not yet exist in distribution map
-                    this.state.distributionMap[name] = [event];
-                  }
-                }
-              }
-
-              // adding user selected dates for the agency
-              for (const day of agency.userSelectedDates) {
-                const event = {
-                  title: name,
-                  start: day,
-                  end: day,
-                  duration: "02:00",
-                  color,
-                  distribution: "D",
-                  retailrescue: "",
-                  agencyID: agency._id,
-                  recurringID: "",
-                };
-
-                if (this.state.distributionMap[name]) {
-                  // Agency exists in distribution map
-                  this.state.distributionMap[name].push(event);
-                } else {
-                  // Agency does not yet exist in distribution map
-                  this.state.distributionMap[name] = [event];
-                }
-              }
-
-              // generate events to populate the rescue map
-              for (const [day, isMarked] of Object.entries(agency.retailRescueDays)) {
-                if (day !== "_id" && isMarked) {
-                  const event = {
-                    title: name,
-                    rrule: {
-                      freq: "weekly",
-                      interval: 1,
-                      byweekday: day.substring(0, 2),
-                      wkst: day.substring(0, 2),
-                      dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
-                    },
-                    duration: "01:00",
-                    backgroundColor: "#FFFFFF",
-                    color,
-                    distribution: "",
-                    retailrescue: "R",
-                    agencyID: agency._id,
-                    recurringID: `${agency._id}${agency.retailRescueStartTimes[day]}${day.substring(
-                      0,
-                      2
-                    )}R`,
-                    exdate: agency.userExcludedDates,
-                    exrule: {
-                      freq: "weekly",
-                      interval: 1,
-                      byweekday: day.substring(0, 2),
-                      wkst: day.substring(0, 2),
-                      dtstart: agency.retailRescueExcludedTimes[day],
-                    },
-                  };
-
-                  if (this.state.rescueMap[name]) {
-                    // Agency already exists in rescue map
-                    this.state.rescueMap[name].push(event);
-                  } else {
-                    // Agency does not yet exist in rescue map
-                    this.state.rescueMap[name] = [event];
-                  }
-                }
-              }
-
-              // handling agencies without any rescue events
-              if (this.state.rescueMap[name]) {
-                this.setState((prevState) => ({
-                  rescue: [
-                    ...prevState.rescue,
-                    {
-                      name,
-                      color: `hsl(${index * hsvInterval}, 75%, 75%)`,
-                    },
-                  ],
-                }));
-              }
-            });
-          }
-        });
+    if (!this.props.testData) {
+      const authorizationToken = `Bearer ${getJWT()}`;
+      fetch(`${BACKEND_URL}/agency/all`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: authorizationToken,
+        },
       })
-      .catch((error) => console.error(error));
+        .then((response) => {
+          response.json().then((data) => {
+            if (response.ok) {
+              this.populateEvents(data);
+            }
+          });
+        })
+        .catch((error) => console.error(error));
+    } else {
+      this.populateEvents(this.props.testData);
+    }
+  }
+
+  populateEvents(data) {
+    const { agencies } = data;
+    const hsvInterval = 360 / agencies.length;
+    agencies.forEach((agency, index) => {
+      const { name } = agency.tableContent;
+      // generating the color of the agency
+      const color = `hsl(${index * hsvInterval}, 50%, 70%)`;
+
+      // add agency to distribution category
+      this.setState((prevState) => ({
+        distribution: [...prevState.distribution, { name, color }],
+      }));
+
+      // generate events to populate the distribution map
+      for (const [day, isMarked] of Object.entries(agency.distributionDays)) {
+        if (day !== "_id" && isMarked) {
+          const event = {
+            title: name,
+            rrule: {
+              freq: "weekly",
+              interval: agency.distributionFrequency,
+              byweekday: day.substring(0, 2),
+              wkst: day.substring(0, 2),
+              dtstart: agency.distributionStartTimes[day], // the day this was created at the start time
+            },
+            duration: "02:00",
+            color,
+            distribution: "D",
+            retailrescue: "",
+            agencyID: agency._id,
+            recurringID: `${agency._id}${agency.distributionStartTimes[day]}${day.substring(
+              0,
+              2
+            )}D`,
+            exdate: agency.userExcludedDates,
+            exrule: {
+              freq: "weekly",
+              interval: agency.distributionFrequency,
+              byweekday: day.substring(0, 2),
+              wkst: day.substring(0, 2),
+              dtstart: agency.distributionExcludedTimes[day],
+            },
+          };
+
+          if (this.state.distributionMap[name]) {
+            // Agency already exists in distribution map
+            this.state.distributionMap[name].push(event);
+          } else {
+            // Agency does not yet exist in distribution map
+            this.state.distributionMap[name] = [event];
+          }
+        }
+      }
+
+      // adding user selected dates for the agency
+      for (const day of agency.userSelectedDates) {
+        const event = {
+          title: name,
+          start: day,
+          end: day,
+          duration: "02:00",
+          color,
+          distribution: "D",
+          retailrescue: "",
+          agencyID: agency._id,
+          recurringID: "",
+        };
+
+        if (this.state.distributionMap[name]) {
+          // Agency exists in distribution map
+          this.state.distributionMap[name].push(event);
+        } else {
+          // Agency does not yet exist in distribution map
+          this.state.distributionMap[name] = [event];
+        }
+      }
+
+      // generate events to populate the rescue map
+      for (const [day, isMarked] of Object.entries(agency.retailRescueDays)) {
+        if (day !== "_id" && isMarked) {
+          const event = {
+            title: name,
+            rrule: {
+              freq: "weekly",
+              interval: 1,
+              byweekday: day.substring(0, 2),
+              wkst: day.substring(0, 2),
+              dtstart: agency.retailRescueStartTimes[day], // the day this was created at the start time
+            },
+            duration: "01:00",
+            backgroundColor: "#FFFFFF",
+            color,
+            distribution: "",
+            retailrescue: "R",
+            agencyID: agency._id,
+            recurringID: `${agency._id}${agency.retailRescueStartTimes[day]}${day.substring(
+              0,
+              2
+            )}R`,
+            exdate: agency.userExcludedDates,
+            exrule: {
+              freq: "weekly",
+              interval: 1,
+              byweekday: day.substring(0, 2),
+              wkst: day.substring(0, 2),
+              dtstart: agency.retailRescueExcludedTimes[day],
+            },
+          };
+
+          if (this.state.rescueMap[name]) {
+            // Agency already exists in rescue map
+            this.state.rescueMap[name].push(event);
+          } else {
+            // Agency does not yet exist in rescue map
+            this.state.rescueMap[name] = [event];
+          }
+        }
+      }
+
+      // handling agencies without any rescue events
+      if (this.state.rescueMap[name]) {
+        this.setState((prevState) => ({
+          rescue: [
+            ...prevState.rescue,
+            {
+              name,
+              color: `hsl(${index * hsvInterval}, 50%, 50%)`,
+            },
+          ],
+        }));
+      }
+    });
   }
 
   /**
@@ -280,7 +288,7 @@ class Home extends Component {
   };
 
   render() {
-    if (!isAuthenticated()) {
+    if (!isAuthenticated() && !this.props.testData) {
       return <Redirect to="/login" />;
     }
 
@@ -325,5 +333,3 @@ class Home extends Component {
     );
   }
 }
-
-export default Home;

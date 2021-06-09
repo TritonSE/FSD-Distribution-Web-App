@@ -3,6 +3,7 @@ import "./DeleteModal.css";
 import FormButton from "../FormComponents/FormButton";
 import { useHistory } from "react-router-dom";
 import { getJWT } from "../../auth";
+import { BACKEND_URL } from "../../config";
 
 /**
  * Functional component for the delete agency modal
@@ -21,7 +22,7 @@ function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyI
    * Function deletes the given agency and returns the user back to the agency page
    */
   function deleteAgency() {
-    fetch(`/agency/${agencyId}`, {
+    fetch(`${BACKEND_URL}/agency/${agencyId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +31,7 @@ function DeleteModal({ showModal, toggleModal, agencyName, agencyNumber, agencyI
     })
       .then((response) => response.json())
       .then(() => {
-        fetch(`/notes/all/${agencyId}`, {
+        fetch(`${BACKEND_URL}/notes/all/${agencyId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

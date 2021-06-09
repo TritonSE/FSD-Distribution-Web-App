@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { TextField, Button, Grid, Typography, makeStyles, Snackbar } from "@material-ui/core";
 import "./Register.css";
+import { BACKEND_URL } from "../../config";
 
 const useStyles = makeStyles((theme) => ({
   centered: {
@@ -109,7 +110,7 @@ const Register = () => {
 
     // Attempt to register with given credentials
     try {
-      const response = await fetch(`/register`, {
+      const response = await fetch(`${BACKEND_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submission),

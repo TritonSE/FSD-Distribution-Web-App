@@ -5,7 +5,6 @@ import { setJWT, setUser } from "../../auth";
 import "./Login.css";
 import { BACKEND_URL } from "../../config";
 
-
 const useStyles = makeStyles((theme) => ({
   centered: {
     textAlign: "center",

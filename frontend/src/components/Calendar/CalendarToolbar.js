@@ -221,9 +221,7 @@ class CalendarToolbar extends Component {
                     checked={!!rescueChecked[agency.name]}
                     name="rescueCheckbox"
                   />
-                  <div className="rescue-name">
-                    {agency.name}
-                  </div>
+                  <div className="rescue-name">{agency.name}</div>
                 </label>
               </div>
             ))}

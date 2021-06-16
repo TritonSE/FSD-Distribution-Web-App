@@ -49,7 +49,7 @@ export default class Home extends Component {
    * Fetches all agencies from the database that will be used to populate the state
    */
   componentDidMount() {
-    if(!this.props.testData) {
+    if (!this.props.testData) {
       const authorizationToken = `Bearer ${getJWT()}`;
       fetch(`${BACKEND_URL}/agency`, {
         method: "GET",
@@ -58,17 +58,17 @@ export default class Home extends Component {
           Authorization: authorizationToken,
         },
       })
-      .then((response) => {
-        response.json().then((data) => {
-          if (response.ok) {
-            this.populateEvents(data);
-          }
-        });
-      })   
-      .catch((error) => console.error(error));
+        .then((response) => {
+          response.json().then((data) => {
+            if (response.ok) {
+              this.populateEvents(data);
+            }
+          });
+        })
+        .catch((error) => console.error(error));
     } else {
       this.populateEvents(this.props.testData);
-    } 
+    }
   }
 
   populateEvents(data) {
@@ -124,7 +124,7 @@ export default class Home extends Component {
           }
         }
       }
-      
+
       // adding user selected dates for the agency
       for (const day of agency.userSelectedDates) {
         const event = {
@@ -147,7 +147,7 @@ export default class Home extends Component {
           this.state.distributionMap[name] = [event];
         }
       }
-      
+
       // generate events to populate the rescue map
       for (const [day, isMarked] of Object.entries(agency.retailRescueDays)) {
         if (day !== "_id" && isMarked) {
@@ -192,7 +192,7 @@ export default class Home extends Component {
 
       // handling agencies without any rescue events
       if (this.state.rescueMap[name]) {
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
           rescue: [
             ...prevState.rescue,
             {

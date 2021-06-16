@@ -80,8 +80,10 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
           .then((res) => res.json())
           .then((data) => data.agency)
           .then((agency) => {
-            const regex = /:[0-9][0-9]-/g; // regex to remove seconds from standard ISO format
-            const deleteDate = selectedEvent.event.startStr.replace(regex, "-");
+            const eventTime = selectedEvent.event.startStr;
+            const endIndex = eventTime.indexOf(":", eventTime.indexOf(":") + 1);
+            const deleteDate = eventTime.substring(0, endIndex);
+            console.log(deleteDate);
             fetch(`${BACKEND_URL}/agency/${agencyID}`, {
               method: "POST",
               headers: {
@@ -234,6 +236,7 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
 
   useEffect(() => {
     if (selectedEvent) {
+      console.log(selectedEvent.event.startStr);
       const eventID =
         selectedEvent.event._def.extendedProps.agencyID +
         selectedEvent.event.startStr +

@@ -165,7 +165,7 @@ describe("DistributionCalendar.handleDateSelect", () => {
     ).root.instance;
 
     component.handleDateSelect("2021-05-19");
-    expect(mockOnChange).toHaveBeenCalledWith("userExcludedDates", ["2021-05-19T07:00:00"]);
+    expect(mockOnChange).toHaveBeenCalledWith("userExcludedDDates", ["2021-05-19T07:00:00"]);
   });
 
   it("removes from userExcludedDates properly", () => {
@@ -183,7 +183,7 @@ describe("DistributionCalendar.handleDateSelect", () => {
     ).root.instance;
 
     component.handleDateSelect("2021-05-19");
-    expect(mockOnChange).toHaveBeenCalledWith("userExcludedDates", []);
+    expect(mockOnChange).toHaveBeenCalledWith("userExcludedDDates", []);
   });
 
   it("does nothing when extraneous date selected", () => {

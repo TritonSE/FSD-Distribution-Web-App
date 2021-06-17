@@ -79,7 +79,7 @@ const generateTestData = () => ({
   distributionStartDate: "01/07/1970",
   distributionFrequency: "23",
   userSelectedDates: ["2021-01-01T00:00", "2021-01-02T10:59"], // expect reformat
-  userExcludedDates: ["2021-01-04T12:34", "2021-01-11T12:34"],
+  userExcludedDDates: ["2021-01-04T12:34", "2021-01-11T12:34"],
   pantry: true,
   mealProgram: false,
   homeboundDeliveryPartner: true,

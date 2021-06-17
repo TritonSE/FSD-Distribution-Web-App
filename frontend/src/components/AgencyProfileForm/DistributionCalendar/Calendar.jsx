@@ -302,9 +302,8 @@ class Calendar extends Component {
 
     let newExcludedDates = userExcludedDates.slice();
     newExcludedDates.push(date);
-
     // Update AgencyProfileFormState --> rerender
-    onChange("userExcludedDates", newExcludedDates);
+    onChange("userExcludedDDates", newExcludedDates);
   };
 
   /**
@@ -324,7 +323,7 @@ class Calendar extends Component {
     newExcludedDates.splice(index, 1);
 
     // Update AgencyProfileFormState --> rerender
-    onChange("userExcludedDates", newExcludedDates);
+    onChange("userExcludedDDates", newExcludedDates);
   };
 
   /**

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./DataTable.css";
 
 /**
@@ -10,6 +10,17 @@ import "./DataTable.css";
  * - {Object} data: A JSON object holding the table content for all agencies
  */
 function DataTable({ data }) {
+  let history = useHistory();
+
+  /**
+   * Redirects the page to the given agency id
+   *
+   * @param {*} agencyId is the ID of the given agency
+   */
+  let agencyClick = (agencyId) => {
+    history.push(`/agency-profile/${agencyId}`);
+  };
+
   return (
     <table cellPadding={0} cellSpacing={0} className="table">
       <thead>
@@ -25,13 +36,14 @@ function DataTable({ data }) {
       </thead>
       <tbody>
         {data.map((dat) => (
-          <tr key={dat.tableContent.agencyNumber}>
+          <tr
+            key={dat.tableContent.agencyNumber}
+            onClick={() => {
+              agencyClick(dat._id);
+            }}
+          >
             <td>{dat.tableContent.agencyNumber}</td>
-            <td>
-              <Link as={Link} to={{ pathname: `/agency-profile/${dat._id}`, data: dat._id }}>
-                {dat.tableContent.name}
-              </Link>
-            </td>
+            <td>{dat.tableContent.name}</td>
             <td>{dat.tableContent.status}</td>
             <td>{dat.tableContent.region}</td>
             <td>{dat.tableContent.city}</td>

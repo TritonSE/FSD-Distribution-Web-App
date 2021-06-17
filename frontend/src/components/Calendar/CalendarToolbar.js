@@ -65,10 +65,14 @@ class CalendarToolbar extends Component {
       this.setState({ distribution: this.props.distribution });
       this.setState({ rescue: this.props.rescue });
     } else {
-      let filtered = this.props.distribution.filter((agency) => agency.name.toLowerCase().startsWith(agencyName));
+      let filtered = this.props.distribution.filter((agency) =>
+        agency.name.toLowerCase().startsWith(agencyName)
+      );
       this.setState({ distribution: filtered });
 
-      filtered = this.props.rescue.filter((agency) => agency.name.toLowerCase().startsWith(agencyName));
+      filtered = this.props.rescue.filter((agency) =>
+        agency.name.toLowerCase().startsWith(agencyName)
+      );
       this.setState({ rescue: filtered });
     }
   }
@@ -221,9 +225,7 @@ class CalendarToolbar extends Component {
                     checked={!!rescueChecked[agency.name]}
                     name="rescueCheckbox"
                   />
-                  <div className="rescue-name">
-                    {agency.name}
-                  </div>
+                  <div className="rescue-name">{agency.name}</div>
                 </label>
               </div>
             ))}

@@ -60,7 +60,8 @@ const validationChain = [
   body("foodSafetyCertification").trim().isDate({ format: "MM/DD/YYYY" }),
   body("distributionStartDate").trim().isDate({ format: "MM/DD/YYYY" }),
   body("userSelectedDates.*").trim().isISO8601(),
-  body("userExcludedDates.*").trim().isISO8601(),
+  body("userExcludedDDates.*").trim().isISO8601(),
+  body("userExcludedRDates.*").trim().isISO8601(),
   ...distributionStartTimeValidators,
   ...retailRescueStartTimeValidators,
   ...retailRescueLocationValidators,
@@ -138,7 +139,7 @@ router.post("/:id", validationChain, checkValidationResults, async (req, res, ne
 router.get("/all", isAuthenticated, async (req, res, next) => {
   Agency.find(
     {},
-    "tableContent userSelectedDates userExcludedDates distributionDays distributionStartTimes distributionExcludedTimes distributionStartDate distributionFrequency retailRescueDays retailRescueStartTimes retailRescueExcludedTimes"
+    "tableContent userSelectedDates userExcludedDDates userExcludedRDates distributionDays distributionStartTimes distributionExcludedTimes distributionStartDate distributionFrequency retailRescueDays retailRescueStartTimes retailRescueExcludedTimes"
   )
     .then((agencies) => {
       res.status(200).json({ agencies });

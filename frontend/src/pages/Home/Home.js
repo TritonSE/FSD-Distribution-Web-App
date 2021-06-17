@@ -105,7 +105,7 @@ export default class Home extends Component {
               0,
               2
             )}D`,
-            exdate: agency.userExcludedDates,
+            exdate: agency.userExcludedDDates,
             exrule: {
               freq: "weekly",
               interval: agency.distributionFrequency,
@@ -170,7 +170,7 @@ export default class Home extends Component {
               0,
               2
             )}R`,
-            exdate: agency.userExcludedDates,
+            exdate: agency.userExcludedRDates,
             exrule: {
               freq: "weekly",
               interval: 1,

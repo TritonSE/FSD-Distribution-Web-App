@@ -324,7 +324,12 @@ const AgencySchema = new Schema({
     type: [String],
   },
   // Dates in pattern that should be excluded
-  userExcludedDates: {
+  userExcludedDDates: {
+    type: [String],
+  },
+
+  // Dates in pattern that should be excluded
+  userExcludedRDates: {
     type: [String],
   },
   // Checkboxes for Distribution Section

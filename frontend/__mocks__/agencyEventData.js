@@ -2,7 +2,8 @@ export const agencyEventData = {
   agencies: [
     {
       userSelectedDates: ["2021-05-13T17:00-07:00"],
-      userExcludedDates: ["2021-05-31"],
+      userExcludedDDates: ["2021-05-31"],
+      userExcludedRDates: ["2021-05-31"],
       tableContent: {
         _id: { $oid: "6094197bd70a8b178f7b19af" },
         agencyNumber: { $numberInt: "5678" },
@@ -104,7 +105,8 @@ export const agencyEventData = {
     },
     {
       userSelectedDates: [],
-      userExcludedDates: [],
+      userExcludedDDates: [],
+      userExcludedRDates: [],
       tableContent: {
         _id: { $oid: "6094197bd70a8b178f7b19af" },
         agencyNumber: { $numberInt: "1234" },

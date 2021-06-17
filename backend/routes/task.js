@@ -83,13 +83,13 @@ router.post("/:id", validationChain, async (req, res, next) => {
 /**
  * Route for a GET request to get all tasks belonging to a certain agency.
  *
- * Ex. GET /task/agency/<some agency id>
+ * Ex. GET /task/?agency=<some agency id>
  *
  * @param id The object ID of the agency whose tasks to retrieve
  * @returns JSON containing a list of task objects, or a list of errors
  */
-router.get("/agency/:id", isAuthenticated, async (req, res, next) => {
-  Task.find({ agencyID: req.params.id })
+router.get("/", isAuthenticated, async (req, res, next) => {
+  Task.find({ agencyID: req.query.agency })
     .then((tasks) => {
       res.status(200).json({ tasks });
     })

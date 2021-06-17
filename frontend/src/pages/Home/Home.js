@@ -51,7 +51,7 @@ export default class Home extends Component {
   componentDidMount() {
     if (!this.props.testData) {
       const authorizationToken = `Bearer ${getJWT()}`;
-      fetch(`${BACKEND_URL}/agency`, {
+      fetch(`${BACKEND_URL}/agency/all`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

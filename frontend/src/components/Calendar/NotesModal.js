@@ -121,16 +121,29 @@ function NotesModal({ showModal, toggleModal, selectedEvent, deleted, changeDele
           .then((res) => res.json())
           .then((data) => data.agency)
           .then((agency) => {
+            let newBody;
+            if (selectedEvent.event._def.extendedProps.distribution === "D") {
+              newBody = JSON.stringify({
+                ...agency,
+                userExcludedDDates: agency.userExcludedDDates.concat([
+                  selectedEvent.event.startStr,
+                ]),
+              });
+            } else if (selectedEvent.event._def.extendedProps.retailrescue === "R") {
+              newBody = JSON.stringify({
+                ...agency,
+                userExcludedRDates: agency.userExcludedRDates.concat([
+                  selectedEvent.event.startStr,
+                ]),
+              });
+            }
             fetch(`${BACKEND_URL}/agency/${agencyID}`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${getJWT()}`,
               },
-              body: JSON.stringify({
-                ...agency,
-                userExcludedDates: agency.userExcludedDates.concat([selectedEvent.event.startStr]),
-              }),
+              body: newBody,
             });
             changeDeleted(++deleted);
           })

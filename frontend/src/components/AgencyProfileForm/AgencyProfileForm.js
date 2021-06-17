@@ -360,6 +360,65 @@ class AgencyProfileForm extends Component {
       url += agencyData._id;
     }
 
+    // delete all notes from changed recurring events - will exec max 6 times
+    for (const day of Object.keys(formData.distributionStartTimes)) {
+      if (
+        formData.distributionStartTimes[day] === "" ||
+        formData.distributionStartTimes[day] !== agencyData.distributionStartTimes[day]
+      ) {
+        const recurringID = `${agencyData._id}${
+          agencyData.distributionStartTimes[day]
+        }${day.substring(0, 2)}D`;
+        const milisecFromEpoch = new Date(agencyData.distributionStartTimes[day]).getTime();
+        fetch(`${BACKEND_URL}/notes/`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getJWT()}`,
+          },
+          body: JSON.stringify({
+            rID: recurringID,
+            tFE: milisecFromEpoch,
+          }),
+        }).catch((error) => console.error(error));
+      }
+
+      // also handle retail rescue notes
+      if (
+        formData.retailRescueStartTimes[day] === "" ||
+        formData.retailRescueStartTimes[day] !== agencyData.retailRescueStartTimes[day]
+      ) {
+        const recurringID = `${agencyData._id}${
+          agencyData.retailRescueStartTimes[day]
+        }${day.substring(0, 2)}R`;
+        const milisecFromEpoch = new Date(agencyData.retailRescueStartTimes[day]).getTime();
+        fetch(`${BACKEND_URL}/notes/`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getJWT()}`,
+          },
+          body: JSON.stringify({
+            rID: recurringID,
+            tFE: milisecFromEpoch,
+          }),
+        }).catch((error) => console.error(error));
+      }
+    }
+    // delete notes of any events that were removed
+    for (const currDate of formData.userExcludedDates) {
+      if (!agencyData.userExcludedDates.includes(currDate)) {
+        const noteID = `${formData._id}${currDate}D`;
+        fetch(`${BACKEND_URL}/notes/${noteID}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${getJWT()}`,
+          },
+        }).catch((error) => console.error(error));
+      }
+    }
+
     fetch(url, {
       method: editing ? "POST" : "PUT",
       headers: {

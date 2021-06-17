@@ -59,16 +59,16 @@ class CalendarToolbar extends Component {
    * @param {Object} event: event object of search bar
    */
   handleSearchChange(event) {
-    const agencyName = event.target.value;
+    const agencyName = event.target.value.toLowerCase();
     this.setState({ searchValue: agencyName });
     if (agencyName.length === 0) {
       this.setState({ distribution: this.props.distribution });
       this.setState({ rescue: this.props.rescue });
     } else {
-      let filtered = this.props.distribution.filter((agency) => agency.name.startsWith(agencyName));
+      let filtered = this.props.distribution.filter((agency) => agency.name.toLowerCase().startsWith(agencyName));
       this.setState({ distribution: filtered });
 
-      filtered = this.props.rescue.filter((agency) => agency.name.startsWith(agencyName));
+      filtered = this.props.rescue.filter((agency) => agency.name.toLowerCase().startsWith(agencyName));
       this.setState({ rescue: filtered });
     }
   }
@@ -109,14 +109,14 @@ class CalendarToolbar extends Component {
     // toggle all distribution events
     if (category === "distribution") {
       this.state.distributionChecked["all"] = isChecked;
-      for (const entry of this.state.distribution) {
+      for (const entry of this.props.distribution) {
         this.state.distributionChecked[entry.name] = isChecked;
       }
       this.props.updateDistributionAll(isChecked);
       // toggle all rescue events
     } else if (category === "rescue") {
       this.state.rescueChecked["all"] = isChecked;
-      for (const entry of this.state.rescue) {
+      for (const entry of this.props.rescue) {
         this.state.rescueChecked[entry.name] = isChecked;
       }
       this.props.updateRescueAll(isChecked);

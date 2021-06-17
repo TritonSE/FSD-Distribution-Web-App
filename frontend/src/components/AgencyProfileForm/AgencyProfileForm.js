@@ -121,7 +121,7 @@ class AgencyProfileForm extends Component {
           sunday: "",
         },
         distributionStartDate: "",
-        distributionFrequency: "1",
+        distributionFrequency: "",
         userSelectedDates: [],
         userExcludedDates: [],
         pantry: false,
@@ -174,7 +174,6 @@ class AgencyProfileForm extends Component {
         disabilitySpecific: false,
         residential: false,
         immigrant: false,
-        tasks: [],
       };
     } else {
       data = { ...data };
@@ -378,7 +377,7 @@ class AgencyProfileForm extends Component {
               alert(message);
             }
           } else if (history) {
-            history.push(`/agency-profile/${data.agency._id}`);
+            history.goBack();
           }
         });
       })
@@ -389,11 +388,9 @@ class AgencyProfileForm extends Component {
    * Handles form cancellation.
    */
   cancelForm = () => {
-    const { history, agencyData, editing } = this.props;
-    if (editing) {
-      history.push(`/agency-profile/${agencyData._id}`);
-    } else if (history) {
-      history.push("/agency");
+    const { history } = this.props;
+    if (history) {
+      history.goBack();
     }
   };
 
